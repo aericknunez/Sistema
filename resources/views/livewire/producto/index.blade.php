@@ -1,0 +1,27 @@
+<div>
+    <x-cuerpo >
+        <x-slot name="contenido">
+            <div class="clearfix mb-2">
+                <h2 class="h2 float-left">Productos</h2> 
+                <h2 class="float-right">
+                    <a href="{{ route('producto.create') }}" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Producto</a>
+                </h2>
+            </div>
+            <x-producto.listado :datos="$productos" />
+            
+            <div class="mt-4">
+                {{ $productos->links() }}
+            </div>
+        </x-slot>
+    
+        <x-slot name="lateral">
+            {{-- @json($OpAgregados) --}}
+        </x-slot>
+
+    </x-cuerpo>
+
+    <x-producto.modal-mod-precio />
+    <x-producto.modal-mod-nombre />
+    <x-producto.modal-mod-option :opciones="$opciones" :agregados="$OpAgregados" />
+
+</div>

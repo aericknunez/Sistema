@@ -1,0 +1,210 @@
+<?php
+namespace App\System\Config;
+
+use App\Models\Opciones;
+use App\Models\OpcionesSub;
+use App\Models\Producto;
+use App\Models\ProductoCategoria;
+
+trait ManejarIconos { // nombre del Trait Igual al del archivo
+
+    public $retorno;
+
+
+    public function CrearIconos(){
+        $retorno = '<div class="container mb-4"> 
+                    <div class="row justify-content-left click">';
+        $counter = 0;
+        $datos = Producto::where('producto_categoria_id', 1)->get();
+        foreach ($datos as $dato) {
+            $retorno .= $this->creaIcono($dato); 
+            $counter ++;
+        }
+
+        $datox = ProductoCategoria::where('principal', null)->get();
+        foreach ($datox as $datoy) {
+            $retorno .= $this->creaCategoriaIco($datoy); 
+            $counter ++;
+        }
+
+        if ($counter == 0) {
+            $retorno .= '<div class="row justify-content-center click">
+            <img src="{{ asset("img/errors/oops.png") }}" alt="Sin Registros">    
+            {{ mensajex("NO HAY PRODUCTOS REGISTRADOS", "info") }}
+        </div>';
+        }
+
+        $retorno .= '
+        </div> 
+    </div>';
+
+        $opciones = Opciones::all();
+        foreach ($opciones as $opcion) {
+            $retorno .= $this->creaModalOpciones($opcion);
+        }
+
+        $categorias = ProductoCategoria::where('principal', null)->get();
+        foreach ($categorias as $cat) {
+            $retorno .= $this->creaModalCategorias($cat);
+        }
+        
+        $this->guardarArchivo($retorno);
+    }
+
+
+
+    public function creaIcono($data){
+        if ($data->tipo_icono == 1) { /// tipo de icono segun clase
+            $icono = 'newmenu';
+            $class = 'rounded-circle';
+            $img = 'img/ico/' . $data->img;
+        } else {
+            $icono = 'newmenux';
+            $class = 'bordeado-x1';
+            $img = 'img/ico/' . $data->img;
+        }
+
+        if ($data->opciones_active == 1) {
+            $target = 'wire:loading.class="disabled" wire:target="addProducto('.$data->cod.')"';
+        } else {
+            $target = NULL;
+        }
+
+        $retorno = '<div class="mx-2 my-2">
+                        <div class="'.$icono.' text-center" '.$target.'>
+                            <a  title="'.$data->nombre.'" wire:click="addProducto('.$data->cod.')">
+                            <img src="{{ asset("'.$img.'") }}" class="img-fluid wow fadeIn '.$class.' border border-dark ">
+                            <div class="menu-title text-truncate">'.$data->nombre.'</div> 
+                            </a>
+                        </div>
+                    </div> ';
+
+        return $retorno; 
+    }
+
+
+
+    public function creaCategoriaIco($data){
+        $retorno = '<div class="mx-2 my-2">
+                            <div class="newmenu text-center" data-target="#categoria-'.$data->id.'" data-toggle="modal">
+                                <a title="'.$data->nombre.'">
+                                <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                                <div class="menu-title2 text-truncate">'.$data->nombre.'</div> 
+                                </a>
+                            </div>
+                    </div>';
+
+        return $retorno;
+    }
+
+    public function creaOpcionesIconos($data){
+    
+        $retorno = '<div class="mx-2 my-2">
+                        <div class="newmenu text-center" wire:click="addOpcion('.$data->id.')">
+                            <a>
+                            <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-titleC">'.$data->nombre.'</div> 
+                            </a>
+                        </div>
+                    </div>';
+
+        return $retorno;
+    }
+
+
+    public function creaModalOpciones($opcion){
+
+        $sub_opciones = OpcionesSub::where('opcion_id', $opcion->id)->get();
+
+        $cantidad = count($sub_opciones);
+        if ($cantidad >= 24) { $modal = 'modal-fluid'; }
+        if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
+        if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
+        if ($cantidad <= 2) { $modal = 'modal-sm'; }
+
+$retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+    <div class="modal-content bordeado-x1">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UNA OPCION</h5>
+
+    </div>
+    <div class="modal-body">
+<div class="row justify-content-center click">';
+
+    foreach ($sub_opciones as $option) {
+        $retorno .= $this->creaOpcionesIconos($option);
+    }
+
+
+$retorno .= '</div> 
+
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+    </div>
+    </div>
+</div>
+</div>';
+
+return $retorno;
+
+    }
+
+
+
+
+
+
+    public function creaModalCategorias($categoria){
+        
+$datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+
+    $cantidad = count($datos);
+    if ($cantidad >= 24) { $modal = 'modal-fluid'; }
+    if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
+    if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
+    if ($cantidad <= 2) { $modal = 'modal-sm'; }
+
+$retorno = '<div class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+    <div class="modal-content bordeado-x1">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UN PRODUCTO</h5>
+
+    </div>
+    <div class="modal-body">
+<div class="row justify-content-center click">';
+
+        foreach ($datos as $dato) {
+            $retorno .= $this->creaIcono($dato); 
+        }
+
+$retorno .= '</div> 
+
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn blue-gradient btn-rounded" data-dismiss="modal">Cerrar</button>
+    </div>
+    </div>
+</div>
+</div>';
+
+return $retorno;
+    }
+
+
+
+    public function guardarArchivo($data){
+        
+        $archivo = fopen("../resources/views/venta/iconos.blade.php",'w+');
+        fwrite($archivo, $data);
+        fclose($archivo);
+
+    }
+
+
+
+
+
+}
