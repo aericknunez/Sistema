@@ -5,7 +5,9 @@
         <!-- Logo -->
         <li>
             <div class="logo-wrapper waves-light">
-                <img src="{{ asset('img/logo/pizto.png') }}" class="img-fluid flex-center">
+                <a href="{{ route('venta.rapida') }}">
+                    <img src="{{ asset('img/logo/pizto.png') }}" class="img-fluid flex-center">
+                </a>
             </div>
         </li>
         <!--/. Logo -->
