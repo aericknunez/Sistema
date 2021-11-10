@@ -41,7 +41,7 @@
                               <a title="Cambiar Precio" data-toggle="modal" data-target="#ModalPrecio" wire:click="selectProduct({{ $producto->id }})"><i class="fa fa-money-bill-alt red-text fa-lg"></i></a>
                               <a title="Cambiar Nombre" data-toggle="modal" data-target="#ModalNombre" wire:click="selectProduct({{ $producto->id }})"><i class="fas fa-file-signature green-text fa-lg"></i></a>
                               <a title="Modificar Opciones" data-toggle="modal" data-target="#ModalOpciones" wire:click="selectProduct({{ $producto->id }})"><i class="fas fa-hamburger blue-text fa-lg"></i></a>
-                              <a title="Cambiar Precio" wire:click="$emit('deleteProducto', {{ $producto->id }})"><i class="fa fa-trash red-text fa-lg"></i></a>
+                              <a title="Eliminar Producto" wire:click="$emit('deleteProducto', {{ $producto->id }})"><i class="fa fa-trash red-text fa-lg"></i></a>
                               {{-- <a wire:click="$emit('deleteProducto', {{ $producto->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar </a> --}}
                             </div>
                         </td>

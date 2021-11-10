@@ -3,10 +3,12 @@
     <div wire:click="deleteOrden({{ $datos->id }})" wire:key="{{ $datos->id }}" class="py-2 px-3 d-flex flex-row {{ getColor($datos->id) }}  link pointer">
       <div>
         <!-- Title -->
-        <div class="h4 font-weight-bold">Orden # {{ $datos->id }}</div>
+        <div class="h4 font-weight-bold">Orden # {{ $datos->id }}  {{ $datos->nombre_mesa }}</div>
         <!-- Subtitle -->
         
         <p class="card-text"><i class="far fa-clock pr-2"></i>{{ $datos->created_at }} Hace: {{ $datos->created_at->diffForHumans(now()) }}</p>
+ 
+        {{ $datos->comentario }}
         
       </div>
     </div>
@@ -46,8 +48,17 @@
   <div class="rounded-bottom mdb-color lighten-3 text-center pt-3">
     <ul class="list-unstyled list-inline font-small">
       <li class="list-inline-item pr-2 white-text"><i class="far fa-user pr-1"></i>{{ $datos->usuario }}</li>
-      <li class="list-inline-item pr-2 white-text"><i class="fas fa-truck pr-1"></i>{{ llevarAqui($datos->llevar_aqui) }}</li>
+
+      <li class="list-inline-item pr-2 white-text">
+        @if ($datos->llevar_aqui == 1)
+        <i class="fas fa-truck pr-1"></i>
+        @else
+        <i class="fas fa-utensils"></i>
+        @endif
+        {{ llevarAqui($datos->llevar_aqui) }}
+      </li>
     </ul>
+
   </div>
 
 

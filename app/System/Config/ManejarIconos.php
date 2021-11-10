@@ -126,7 +126,7 @@ $retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="d
 <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
     <div class="modal-content bordeado-x1">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UNA OPCION</h5>
+        <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
 
     </div>
     <div class="modal-body">
@@ -170,7 +170,7 @@ $retorno = '<div class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" r
 <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
     <div class="modal-content bordeado-x1">
     <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UN PRODUCTO</h5>
+        <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UN PRODUCTO</h5>
 
     </div>
     <div class="modal-body">
