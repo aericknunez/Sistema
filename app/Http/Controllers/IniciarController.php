@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+// use App\Common\Encrypt;
+// use App\Common\Helpers;
 use App\Models\ConfigMoneda;
 use App\Models\NumeroCajas;
 use App\System\Config\Config;
@@ -17,6 +19,8 @@ class IniciarController extends Controller
     use Config, InicializaCorte, Ventas, ManejarIconos, CrearTipoPagoModal;
 
     public function iniciar(){
+
+        // return Helpers::FlashCode(Encrypt::encrypt(101, 101));
 
         $this->sessionApp();
         $this->sessionImpresion();

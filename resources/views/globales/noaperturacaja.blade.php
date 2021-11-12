@@ -4,7 +4,7 @@
     <x-contenido >
 
         <div class="row justify-content-center">
-            <img src="{{ asset('img/imagenes/sorry.png') }}" alt="Error de Apertura"><br>
+            <img src="{{ asset('img/imagenes/sorry.png') }}" alt="Error de Apertura"  class="img-fluid"><br>
         </div>
         {{-- Caja Seleccionada {{ session('caja_select') }} --}}
         <div class="row justify-content-center">
