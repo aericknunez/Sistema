@@ -1,4 +1,4 @@
-<div class="modal" id="ModalPropina" tabindex="-1" role="dialog" data-backdrop="true">
+<div class="modal" wire:ignore.self id="ModalPropina" tabindex="-1" role="dialog" data-backdrop="true">
     <div class="modal-dialog modal-sm z-depth-4 bordeado-x1" role="document">
       <div class="modal-content bordeado-x1">
         <div class="modal-header">

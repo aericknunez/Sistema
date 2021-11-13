@@ -39,6 +39,9 @@ class AddProducto extends Component
 
     public $productSelected; // productos para el detalle en el modal
 
+    public $codSelected; // codigo del producto seleccionado
+    public $cantidadproducto; // cantidad de productos a cambiar
+
     public function mount(){
         if (session('orden')) {
             $this->determinaPropina();
@@ -273,6 +276,27 @@ public function btnEnvio(){ /// agrega el campo de envio a la orden
 } 
 
 
+public function btnCambiarCantidad(){ // cambia la cantidad de productos
+    $cantidad = $this->getCantidadProductosCod($this->codSelected);
+    if ($cantidad < $this->cantidadproducto) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
+        //  aumentar la cantidad
+        $cant = $this->cantidadproducto - $cantidad;
+        $this->aumentarCantidadCod($cant, $this->codSelected);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada']);
+    }
+    if ($cantidad > $this->cantidadproducto) {
+        // reducir la cantidad
+        $cant = $cantidad - $this->cantidadproducto;
+        $this->reducirCantidadCod($cant, $this->codSelected);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida']);
+    }
+
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->productosAdded();
+    $this->obtenerTotal();
+}
+
+
 ///// MESA //// 
 public function selectCliente($cliente){ // selecciona el cliente marcado
     session(['cliente' => $cliente]);
@@ -282,6 +306,12 @@ public function selectCliente($cliente){ // selecciona el cliente marcado
 public function productSelect($producto){ /// Productos para mostrar el detalle en el modal
     $this->productSelected = $this->getProductosModal($producto);
 }
+
+
+public function selectCod($cod){ /// Selecciona el foco en un codigo
+    $this->codSelected = $cod;
+}
+
 
 public function delProductoDetalle($id, $cod){ // eliminar un producto de la venta desde modal detalles
     TicketProducto::destroy($id);

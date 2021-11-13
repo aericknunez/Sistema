@@ -36,6 +36,7 @@
        <x-venta.lateral-modal-propina />
        <x-venta.lateral-modal-tpago />
        <x-venta.lateral-modal-comentario />
+       <x-venta.lateral-modal-cantidad-producto />
        <x-venta.modal-detalle-productos :productSelected="$productSelected"/>
 
        {{-- Modales de opcion de mesa  --}}

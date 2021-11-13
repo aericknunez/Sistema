@@ -38,7 +38,7 @@
           $count = $producto->cod;
           @endphp
           <tr class="tventas">
-            <td class="text-center font-weight-bold">{{ $cant }}</td>
+            <td class="text-center font-weight-bold pointer" data-toggle="modal" data-target="#ModalCantidadProducto" wire:click="selectCod({{ $producto->cod }})">{{ $cant }}</td>
             <td class="font-weight-bold pointer" data-toggle="modal" data-target="#ModalDetalleProductos" wire:click="productSelect({{ $producto->cod }})">{{ $producto->producto }}</td>
             <td class="font-weight-bold">{{ $producto->pv }}</td>
             <td class="font-weight-bold">{{ $total }}</td>

@@ -1,4 +1,4 @@
-<div class="modal" id="ModalCambioVenta" tabindex="-1" role="dialog" data-backdrop="false">
+<div class="modal" wire:ignore.self id="ModalCambioVenta" tabindex="-1" role="dialog" data-backdrop="false">
     <div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
       <div class="modal-content bordeado-x1">
         <div class="modal-header">

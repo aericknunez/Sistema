@@ -84,6 +84,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/error/autorizacion', func
     abort(401);
 })->name('error.autorizacion');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/error/nodisponible', function () {
+    abort(503);
+})->name('error.nodisponible');
+
 
 /// corte de caja
 Route::middleware(['auth:sanctum', 'verified'])->get('/corte', function () {

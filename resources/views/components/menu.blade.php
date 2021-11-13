@@ -151,6 +151,22 @@
 @endif
 
 
+@if (isAdmin())
+<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> INVENTARIO<i class="fa fa-angle-down rotate-icon"></i></a>
+    <div class="collapsible-body">
+    <ul class="list-unstyled">
+    
+    
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Inventario Actual</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Producto</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Descontar Averias</a></li>
+        
+    </ul>
+    </div>
+</li>
+@endif
+
+
 
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-cog"></i> CONFIGURACIONES<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">

@@ -356,4 +356,35 @@ public function delDeliveryData(){
 
 
 
+    /// retorna la cantidad de productos en la orden 
+    public function getCantidadProductosCod($cod){
+        return TicketProducto::where('orden', session('orden'))
+                                ->where('cod', $cod)
+                                ->where('num_fact', NULL)
+                                ->whereIn('imprimir', [1, 2, 3])
+                                ->count();
+    }
+
+    public function reducirCantidadCod($cant, $cod){
+    
+            TicketProducto::where('orden', session('orden'))
+                            ->where('cod', $cod)
+                            ->where('num_fact', NULL)
+                            ->whereIn('imprimir', [1, 2, 3])
+                            ->limit($cant)
+                            ->update(['edo' => 2, 'imprimir' => 4]);
+
+    }
+
+    public function aumentarCantidadCod($cant, $cod){
+
+        for ($i=0; $i < $cant; $i++) { 
+            $this->agregarProducto($cod);
+        }
+    }
+
+
+
+
+
 }
