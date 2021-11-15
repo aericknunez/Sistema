@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->get('/', function () {
-    return view('login');
+    if (config('sistema.login')) {
+        return view('login');
+    } else {
+        return view('auth.login');
+    }
 });
 
 Route::get('/iniciar', [IniciarController::class, 'iniciar'])
