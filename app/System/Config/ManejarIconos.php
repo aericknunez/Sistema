@@ -3,6 +3,7 @@ namespace App\System\Config;
 
 use App\Models\Opciones;
 use App\Models\OpcionesSub;
+use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 
@@ -15,17 +16,36 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         $retorno = '<div class="container mb-4"> 
                     <div class="row justify-content-left click">';
         $counter = 0;
-        $datos = Producto::where('producto_categoria_id', 1)->get();
+
+        // aqui se comienzan a crear los iconos
+
+        $datos = OrderImg::all();
+
         foreach ($datos as $dato) {
-            $retorno .= $this->creaIcono($dato); 
-            $counter ++;
+            if ($dato->tipo_img == 1) {
+                $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->first();
+                if ($datox) {
+                    $retorno .= $this->creaIcono($datox); 
+                    $counter ++;
+                }
+            } else {
+                $datoy = ProductoCategoria::where('principal', null)->where('id', $dato->imagen)->first();
+                $retorno .= $this->creaCategoriaIco($datoy); 
+                $counter ++;
+            }
         }
 
-        $datox = ProductoCategoria::where('principal', null)->get();
-        foreach ($datox as $datoy) {
-            $retorno .= $this->creaCategoriaIco($datoy); 
-            $counter ++;
-        }
+        // $datos = Producto::where('producto_categoria_id', 1)->get();
+        // foreach ($datos as $dato) {
+        //     $retorno .= $this->creaIcono($dato); 
+        //     $counter ++;
+        // }
+
+        // $datox = ProductoCategoria::where('principal', null)->get();
+        // foreach ($datox as $datoy) {
+        //     $retorno .= $this->creaCategoriaIco($datoy); 
+        //     $counter ++;
+        // }
 
         if ($counter == 0) {
             $retorno .= '<div class="row justify-content-center click">

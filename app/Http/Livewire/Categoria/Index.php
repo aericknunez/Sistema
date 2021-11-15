@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Categoria;
 
 use App\Common\Helpers;
+use App\Models\OrderImg;
 use App\Models\ProductoCategoria;
 use App\System\Config\ImagenesProductos;
 use App\System\Config\ManejarIconos;
@@ -45,7 +46,7 @@ class Index extends Component
     {
         $this->validate();
         
-        ProductoCategoria::updateOrCreate(
+        $categoria = ProductoCategoria::updateOrCreate(
             ['id' => $this->category_id],[
             'nombre' => $this->nombre,
             'img' => $this->imgSelected,
@@ -53,6 +54,17 @@ class Index extends Component
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')
         ]);
+
+        // orden de la imagen
+        OrderImg::updateOrCreate(
+            ['imagen' => $categoria->id],[
+            'tipo_img' => 2,
+            'imagen' => $categoria->id,
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+
         $this->CrearIconos(); // crea los iconos despues de guardar
 
         $this->reset(['nombre', 'category_id']);
@@ -73,8 +85,9 @@ class Index extends Component
 
     public function destroy($id)
     {
-        $cat = ProductoCategoria::find($id);
-        $cat->delete();
+        ProductoCategoria::find($id)->delete();
+        OrderImg::where('tipo_img', 2)->where('imagen', $id)->delete();
+
         $this->getCategorias();
         $this->CrearIconos(); // crea los iconos despues de guardar
         
@@ -107,6 +120,11 @@ class Index extends Component
             $this->openForm = true;
         }
         $this->reset(['nombre', 'category_id']);
+    }
+
+
+    public function cerrarModalImg(){ // vacio de momento
+
     }
 
 

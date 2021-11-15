@@ -6,6 +6,7 @@ use App\Common\Helpers;
 use App\Models\ConfigPaneles;
 use App\Models\Opciones;
 use App\Models\OpcionesProducto;
+use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\System\Config\ImagenesProductos;
@@ -85,9 +86,16 @@ class Crear extends Component
             'td' => config('sistema.td')
         ]);
 
+        // orden de la imagen
+        OrderImg::create([
+            'tipo_img' => 1,
+            'imagen' => $producto->id,
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+
         // $producto->opciones()->attach($this->opcionesSelect);
-
-
         if ($this->opcionesSelect) {
             foreach ($this->opcionesSelect as $opcion) {
                 if ($opcion) {
@@ -147,6 +155,10 @@ class Crear extends Component
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
         'texto' => 'Imagen seleccionada']);
+    }
+
+    public function cerrarModalImg(){ // vacio de momento
+
     }
 
 

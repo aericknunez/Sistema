@@ -1,4 +1,4 @@
-<div class="modal" id="ModalIconos" tabindex="-1" role="dialog" data-backdrop="true" wire:ignore.self>
+<div class="modal" id="ModalIconos" tabindex="-1" role="dialog" data-backdrop="false" wire:ignore.self>
     <div class="modal-dialog modal-fluid z-depth-4 bordeado-x1" role="document">
       <div class="modal-content bordeado-x1">
         <div class="modal-header">
@@ -35,7 +35,7 @@
    
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal" wire:click="cerrarModalImg()">Cerrar</button>
         </div>
       </div>
     </div>

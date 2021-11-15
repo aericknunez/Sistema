@@ -175,6 +175,10 @@ class Index extends Component
         $this->reset(['nombre', 'option_id']);
     }
 
+    public function cerrarModalImg(){ // vacio de momento
+
+    }
+
 
 
 

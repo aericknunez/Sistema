@@ -31,7 +31,7 @@ class ConfigMonedaSeeder extends Seeder
         ConfigMoneda::create([
             'moneda' => 'Tarjeta de Credito',
             'activo' => 0,
-            'edo' => 0,
+            'edo' => 1,
             'extra' => NULL, 
             'tipo' => NULL,
             'icono' => 'fas fa-credit-card',

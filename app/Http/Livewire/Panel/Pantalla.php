@@ -14,6 +14,7 @@ class Pantalla extends Component
     use Ventas;
 
     public $datos = [];
+    public $retirados = [];
     public $sound;
 
     public function mount(){
@@ -38,6 +39,17 @@ class Pantalla extends Component
     }
 
 
+    public function getRetirados(){
+    
+        $this->retirados = TicketOrden::addSelect(['usuario' => User::select('name')
+                                    ->whereColumn('empleado', 'users.id')])
+                                    ->where('imprimir', 3)
+                                    ->with('productos')
+                                    ->with('productos.subOpcion')->get();
+        
+    }
+
+    
     public function deleteProduct($producto){
         TicketProducto::where('id', $producto)
                         ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);

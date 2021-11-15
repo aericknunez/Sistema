@@ -409,6 +409,16 @@ public function pagar(){
         'efectivo' => dinero($xca),
         'cambio' => dinero($xca - $xto)
     ]);
+
+    /// probar el codigo este
+    if (session('principal_ticket_pantalla') == 1) {
+        $this->guardarProductosImprimir();  
+    }
+    if (session('principal_ticket_pantalla') == 2) {
+        $this->guardarProductosImprimir();  
+        $this->ImprimirComanda();
+    }
+    //// fin del codigo
     
     session()->forget('orden');
     session()->forget('cliente');

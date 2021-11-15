@@ -10,7 +10,9 @@
             <x-producto.listado :datos="$productos" />
             
             <div class="mt-4">
+                @if (count($productos))
                 {{ $productos->links() }}
+                @endif
             </div>
         </x-slot>
     
@@ -23,5 +25,8 @@
     <x-producto.modal-mod-precio />
     <x-producto.modal-mod-nombre />
     <x-producto.modal-mod-option :opciones="$opciones" :agregados="$OpAgregados" />
+
+    <x-globales.modal-iconos :datos="$iconos" />
+
 
 </div>
