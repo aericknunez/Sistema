@@ -23,7 +23,7 @@ class Login extends Component
 
 
     public function usuarios(){
-       $this->users = User::all();
+       $this->users = User::where('tipo_usuario','!=', 1)->get();
     }
 
     public function modal($iden){

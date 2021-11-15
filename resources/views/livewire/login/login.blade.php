@@ -16,7 +16,7 @@
             </a>
         </div>
               <h5 class="font-weight-bold mt-2 mb-0">{{ $user->name }}</h5>
-              <small>{{ $user->email }}</small>
+              {{-- <small>{{ $user->email }}</small> --}}
     </div>
     @endforeach
 
