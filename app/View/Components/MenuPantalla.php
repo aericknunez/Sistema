@@ -1,19 +1,17 @@
 <?php
 
-namespace App\View\Components\Panel;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CardPantalla extends Component
+class MenuPantalla extends Component
 {
     public $datos;
-    public $panel;
 
     
-    public function __construct($datos, $panel)
+    public function __construct($datos)
     {
         $this->datos = $datos;
-        $this->panel = $panel;
     }
 
     /**
@@ -23,6 +21,6 @@ class CardPantalla extends Component
      */
     public function render()
     {
-        return view('components.panel.card-pantalla');
+        return view('components.menu-pantalla');
     }
 }

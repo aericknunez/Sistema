@@ -19,6 +19,8 @@
 
         @foreach ($datos->productos as $producto)      
 
+        @if ($producto->panel == $panel)
+          
             @if ($producto->imprimir == 1)
                 <tr><td wire:click="deleteProduct({{ $producto->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="far fa-clock ml-2 pr-2 blue-text"></i> {{ $producto->producto }}</td></tr>
 
@@ -39,6 +41,8 @@
               </tr>
           @endif
 
+      @endif
+      
       @endforeach
 
     </tbody>

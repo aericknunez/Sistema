@@ -17,7 +17,7 @@
         </x-slot>
     
         <x-slot name="lateral">
-            {{-- @json($OpAgregados) --}}
+            {{-- @json($productos) --}}
         </x-slot>
 
     </x-cuerpo>
@@ -25,6 +25,8 @@
     <x-producto.modal-mod-precio />
     <x-producto.modal-mod-nombre />
     <x-producto.modal-mod-option :opciones="$opciones" :agregados="$OpAgregados" />
+    <x-producto.modal-mod-categoria :datos="$categorias" />
+    <x-producto.modal-mod-panel :datos="$paneles" />
 
     <x-globales.modal-iconos :datos="$iconos" />
 

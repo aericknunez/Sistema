@@ -17,4 +17,7 @@ class TicketOrden extends Model
     }
 
 
+    
+
+
 }

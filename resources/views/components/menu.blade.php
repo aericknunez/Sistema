@@ -46,6 +46,27 @@
 <li><a href="{{ route('corte.index') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> CORTE DE CAJA </a></li>
 @endif
 
+
+@if (isLowAdmin())
+<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-dollar-sign"></i> EFECTIVO<i class="fa fa-angle-down rotate-icon"></i></a>
+    <div class="collapsible-body">
+    <ul class="list-unstyled">
+    
+    
+    <li><a href="{{ route('efectivo.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Gastos</a></li>
+    <li><a href="{{ route('efectivo.remesas') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Remesa</a></li>
+    
+    <li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
+    <li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
+    
+    </ul>
+    </div>
+    </li>    
+@endif
+
+
+
+
 @if (isGrandAdmin())
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-calendar-alt"></i></i> HISTORIAL<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
@@ -82,24 +103,6 @@
 
 
 
-@if (isLowAdmin())
-<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-dollar-sign"></i> EFECTIVO<i class="fa fa-angle-down rotate-icon"></i></a>
-    <div class="collapsible-body">
-    <ul class="list-unstyled">
-    
-    
-    <li><a href="{{ route('efectivo.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Gastos</a></li>
-    <li><a href="{{ route('efectivo.remesas') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Remesa</a></li>
-    
-    <li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
-    <li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
-    
-    </ul>
-    </div>
-    </li>    
-@endif
-
-
 
 @if (isLowAdmin())
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> DIRECTORIO<i class="fa fa-angle-down rotate-icon"></i></a>
@@ -124,8 +127,8 @@
     <ul class="list-unstyled">
     
     
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Cuenta</a></li>
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Pagadas</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Cuenta</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Pagadas</a></li>
         
     </ul>
     </div>
@@ -139,11 +142,11 @@
     <ul class="list-unstyled">
     
     
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Facturas Emitidas</a></li>
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Eliminar Facturas</a></li>
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Ingresar Registros</a></li>
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Ventas</a></li>
-    <li><a href="{{ route('error.autorizacion') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Gastos</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Facturas Emitidas</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Eliminar Facturas</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Ingresar Registros</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Ventas</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Gastos</a></li>
         
     </ul>
     </div>
@@ -165,6 +168,23 @@
     </div>
 </li>
 @endif
+
+
+@if (isAdmin())
+<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> PLANILLA<i class="fa fa-angle-down rotate-icon"></i></a>
+    <div class="collapsible-body">
+    <ul class="list-unstyled">
+    
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Ver Planilla</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Generar Planilla</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Gestionar Empleados</a></li>
+    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Descuentos y Comisiones</a></li>
+        
+    </ul>
+    </div>
+</li>
+@endif
+
 
 
 

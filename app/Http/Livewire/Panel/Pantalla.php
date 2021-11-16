@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Panel;
 
 use App\Common\Helpers;
+use App\Models\ConfigPaneles;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
 use App\Models\User;
@@ -15,10 +16,17 @@ class Pantalla extends Component
 
     public $datos = [];
     public $retirados = [];
+
+    public $panelImprimir;
+    public $listadoPaneles =[];
+
+
     public $sound;
 
     public function mount(){
+        $this->panelImprimir = 1;
         $this->getOrdenes();
+        $this->getPanels();
         $this->sound = TRUE;
     }
 
@@ -73,6 +81,21 @@ class Pantalla extends Component
         
         $this->getOrdenes();
     }
+
+
+
+    public function getPanels(){
+    
+        $this->listadoPaneles = ConfigPaneles::where('edo', 1)->orderBy('id', 'desc')->get();
+        
+    }
+
+
+    public function cambiarPanel($iden){
+        $this->panelImprimir = $iden;
+        $this->getOrdenes();
+    }
+
 
 
 

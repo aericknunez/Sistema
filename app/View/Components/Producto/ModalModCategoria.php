@@ -1,19 +1,18 @@
 <?php
 
-namespace App\View\Components\Panel;
+namespace App\View\Components\Producto;
 
 use Illuminate\View\Component;
 
-class CardPantalla extends Component
+class ModalModCategoria extends Component
 {
+
     public $datos;
-    public $panel;
 
     
-    public function __construct($datos, $panel)
+    public function __construct($datos)
     {
         $this->datos = $datos;
-        $this->panel = $panel;
     }
 
     /**
@@ -23,6 +22,6 @@ class CardPantalla extends Component
      */
     public function render()
     {
-        return view('components.panel.card-pantalla');
+        return view('components.producto.modal-mod-categoria');
     }
 }

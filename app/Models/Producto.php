@@ -25,11 +25,17 @@ public function categoria(){
     return $this->hasOne(ProductoCategoria::class, 'id', 'producto_categoria_id');
 }
 
+public function paneles(){
+    return $this->hasOne(ConfigPaneles::class, 'id', 'panel');
+}
+
+
 
 // rwlacion muchos a muchos (opciones)
 public function opciones(){
     return $this->belongsToMany(Opciones::class, 'opciones_productos', 'producto_id', 'opcion_id');
 }
+
 
 
 

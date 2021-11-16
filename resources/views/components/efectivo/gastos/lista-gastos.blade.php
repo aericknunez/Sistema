@@ -1,6 +1,7 @@
 <div>
 
-    @if ($datos)
+  @if (count($datos))
+
         
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">
@@ -51,7 +52,11 @@
             </table>
           </div>
     
-        @endif
+          @else
+
+          <x-globales.no-registros />    
+    
+          @endif
     
     </div>
     

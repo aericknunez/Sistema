@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Producto;
 
 use App\Common\Helpers;
+use App\Models\ConfigPaneles;
 use App\Models\Opciones;
 use App\Models\OpcionesProducto;
 use App\Models\OrderImg;
 use App\Models\Producto;
+use App\Models\ProductoCategoria;
 use App\System\Config\ImagenesProductos;
 use App\System\Config\ManejarIconos;
 use Livewire\Component;
@@ -25,18 +27,29 @@ class Index extends Component
     public $precio, $nombre;
     public $opciones = [];
     public $OpAgregados = [];
+    public $categorias = [];
+    public $paneles = [];
 
 
     public $imgSelected;
     public $toImg;
 
 
+    public function hydrate() {
+        $this->getOpciones();
+        $this->getCategorias();
+        $this->getPaneles();
+    }
+
     public function mount(){
         $this->getOpciones();
+        $this->getCategorias();
+        $this->getPaneles();
     }
 
     public function render()
     {
+
         if (!$this->toImg) {
             $productos = $this->getProductos();
         } else {
@@ -63,6 +76,7 @@ class Index extends Component
         return  Producto::latest('id')
                         ->with('opciones')
                         ->with('categoria')
+                        ->with('paneles')
                         ->paginate(6);
     }
 
@@ -122,12 +136,29 @@ class Index extends Component
         $this->opciones = Opciones::all();
     }
 
+
     public function getOpcionesProducto(){
         $this->OpAgregados = OpcionesProducto::addSelect(['nombre_opcion' => Opciones::select('nombre')
                                                 ->whereColumn('opcion_id', 'opciones.id')])
                                                 ->where('producto_id', $this->productId)
                                                 ->get();
     }
+
+
+    public function getPaneles(){
+        $this->paneles = ConfigPaneles::where('edo', 1)->get();
+    }
+
+
+
+    public function addPanel($iden = NULL){
+        Producto::where('id', $this->productId)->update(['panel' => $iden]);
+        
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalPanel']);
+        $this->mensajeModificado();
+    }
+
+
 
     
     public function updateOpcionesActive(){
@@ -137,6 +168,21 @@ class Index extends Component
         } else { 
             Producto::where('id',$this->productId)->update(['opciones_active' => 0]);
         }
+    }
+
+
+    public function getCategorias(){
+        $this->categorias = ProductoCategoria::all();
+    }
+
+
+
+    public function addCategoria($iden){
+        Producto::where('id', $this->productId)->update(['producto_categoria_id' => $iden]);
+        
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalCategoria']);
+        $this->mensajeModificado();
+        $this->CrearIconos(); // crea los iconos despues de guardar
     }
 
 
