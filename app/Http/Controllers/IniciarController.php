@@ -31,6 +31,10 @@ class IniciarController extends Controller
             abort(401);
         }
 
+        if (session('config_tipo_usuario') == 7) {
+            return redirect()->route('pantalla');
+        }
+
         $this->CrearIconos();
         $this->crearModalMoneda();
         

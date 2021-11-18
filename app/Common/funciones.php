@@ -142,6 +142,7 @@ function formatJustFecha($value){
     if($nombre == 3) return 'Administrador';
     if($nombre == 4) return 'Cajero';
     if($nombre == 5) return 'Mesero';
+    if($nombre == 7) return 'Pantalla';
 }
 
  function getTotalOrden($orden){
@@ -241,20 +242,22 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
 
 
      /// Permisos de administracion
-     function isAdmin(){
-        if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2  or session('config_tipo_usuario') == 3) {
-           return TRUE;
-        } else {
-           return FALSE;
-        }
-     }
-     
+
      function isGrandAdmin(){
         if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2) {
             return TRUE;
          } else {
             return FALSE;
          }
+     }
+
+
+     function isAdmin(){
+        if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2  or session('config_tipo_usuario') == 3) {
+           return TRUE;
+        } else {
+           return FALSE;
+        }
      }
 
      function isLowAdmin(){

@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'noaperturacaja' => \App\Http\Middleware\NoAperturaCaja::class, // para dejar pasar si se aperturo la caja
         'siapertura' => \App\Http\Middleware\Siapertura::class, // si esta aperturada la caja
         'sipantalla' => \App\Http\Middleware\IsPantallaSelect::class, // si la pantalla esta activada y no ticket
-        // 'validar' => \App\Http\Middleware\ComprobarSistema::class, // compruba si la clave del sistema y el td son iguales
+        'pantallaauth' => \App\Http\Middleware\PantallaAuth::class, // si esta login desde la pantalla
+        'pantallaverified' => \App\Http\Middleware\PantallaVerified::class, // si esta logueado desde la pantalla
     ];
 }

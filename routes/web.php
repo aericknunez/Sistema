@@ -155,9 +155,16 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/panel/ordenes', function 
 })->name('panel.ordenes');
 
 /// mostrar la pantalla
-Route::middleware(['sipantalla'])->get('/pantalla', function () {
+Route::middleware(['sipantalla', 'pantallaauth'])->get('/pantalla', function () {
     return view('panel.pantalla');
 })->name('pantalla');
+/// login pantalla
+Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', function () {
+    // return view('panel.pantalla-login');
+    return view('auth.login');
+})->name('pantalla.login');
+
+
 
 
 /// Directorio
@@ -183,3 +190,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/config/usuarios', functio
 Route::middleware(['auth:sanctum', 'verified'])->get('/config/configuracion', function () {
     return view('config.configuracion');
 })->name('config.configuracion');
+
+
+
+
+/// MOBILE
+Route::middleware(['auth:sanctum', 'verified'])->get('/comandero', function () {
+    return view('comandero.inicio');
+})->name('comandero');
+Route::middleware(['auth:sanctum', 'verified'])->get('/comandero/mesas', function () {
+    return view('comandero.mesas');
+})->name('comandero.mesas');

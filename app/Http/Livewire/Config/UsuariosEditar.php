@@ -23,8 +23,11 @@ class UsuariosEditar extends Component
 
 
     public function getUsuarios(){
-        return  User::whereNotIn('id',[1, 2])->latest('id')
-                    ->paginate(6);
+        if (session('config_tipo_usuario') == 1) {
+            return  User::whereNotIn('id',[1, 2])->latest('id')->paginate(6);
+        } else {
+            return  User::whereNotIn('id',[1, 2])->where('tipo_usuario', '!=', '7')->latest('id')->paginate(6);
+        }
     }
 
     public function selectUser($user){

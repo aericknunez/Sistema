@@ -149,6 +149,7 @@ class Helpers{
         if($nombre == 3) return 'Administrador';
         if($nombre == 4) return 'Cajero';
         if($nombre == 5) return 'Mesero';
+        if($nombre == 7) return 'Pantalla';
     }
 
 
