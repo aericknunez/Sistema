@@ -507,3 +507,18 @@ body.index_bg {
 .slide_slider {
     height: 91vh;
 }
+
+
+
+
+.click a:active { /* Movimiento al dar clic a un enlace o boton*/
+    position: relative;
+    opacity: 0.5;
+    top: 5px;
+  }
+  
+  
+  .pointer { /* Poner corsor como vinculo */
+    cursor: pointer;
+  }
+  

@@ -6,9 +6,12 @@ use App\Models\OpcionesSub;
 use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
+use App\System\Config\ManejarIconosComandero;
 
 trait ManejarIconos { // nombre del Trait Igual al del archivo
 
+    use ManejarIconosComandero;
+    
     public $retorno;
 
 
@@ -69,6 +72,9 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         }
         
         $this->guardarArchivo($retorno);
+
+
+        $this->GenerarIco(); // para comandero
     }
 
 

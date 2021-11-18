@@ -5,6 +5,6 @@
     <x-comandero.botones-mesas />
 
 
-    <x-venta.modal-add-mesa :clientes="$clientes" />
+    <x-comandero.modal-add-mesa :clientes="$clientes" />
 
 </div>

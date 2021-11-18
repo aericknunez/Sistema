@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Comandero;
 
 use App\Common\Helpers;
 use App\Models\ConfigMoneda;
+use App\Models\Producto;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
 use Livewire\Component;
@@ -32,8 +33,6 @@ class Venta extends Component
     public $llevarComerAqui; // establece el valor de la variable de session LLevar_aqi,mesa,delivery
     public $comentario, $nombre; // comentario y nombre de la mesa
     
-    /// establecer la propina segun la opcion donde vaya a afaturar
-    public $envio; // sin valor aun
 
 
     public $cantidadSinGuardar; // Es la cantidad de priductos que hay por guardar
@@ -42,6 +41,8 @@ class Venta extends Component
 
     public $codSelected; // codigo del producto seleccionado
     public $cantidadproducto; // cantidad de productos a cambiar
+
+    public $catSelect;
 
     public function mount(){
         if (session('orden')) {
@@ -52,14 +53,13 @@ class Venta extends Component
             // $this->comentario; cargarlo desde la db
         }
         session(['cliente' => 1]);
+        $this->btnCatSelect(1);
+
 
         if (session('config_tipo_servicio') != 2) { // si no viene de mesa el cliente es 1
             session(['clientes' => 1]);
         }
 
-        if (session('config_tipo_servicio') == 3) { // si es delivery
-            $this->envio = session('config_envio'); // precio del envio del delivery
-        }
     }
 
 
@@ -265,17 +265,6 @@ public function btnPropina(){ /// establece un procentaje de propina
 } 
 
 
-public function btnAddEnvio($cantidad){ /// agraga la cantidad establecia de delivery
-    session(['config_envio' => $cantidad]);
-    $this->envio = $cantidad;    
-} 
-
-public function btnEnvio(){ /// agrega el campo de envio a la orden
-    $this->cuotaEnvio();  
-    $this->productosAdded();
-    $this->obtenerTotal(); 
-} 
-
 
 public function btnCambiarCantidad(){ // cambia la cantidad de productos
     $cantidad = $this->getCantidadProductosCod($this->codSelected);
@@ -351,12 +340,8 @@ public function verificaCantidad($evitar = NULL){
         session()->forget('orden');
         $this->reset();
 
-        if (session('config_tipo_servicio') == 2) { // lo mantengo en mesas
-            return redirect()->route('venta.mesas');
-        }
-        if (session('config_tipo_servicio') == 3) { // redirecciono a delivery
-            return redirect()->route('venta.delivery');
-        }
+        return redirect()->route('comandero.mesas');
+
     }
 }
 
@@ -364,67 +349,6 @@ public function verificaCantidad($evitar = NULL){
 
 
 
-public function pagar(){
-
-    $factura = $this->getUltimaFacturaNumber();
-   
-    ($factura) ? $num_fact = $factura->factura + 1 :  $num_fact = 1;
-    
-    if ($this->cantidad == NULL) {
-        $this->cantidad = $this->total;
-    }
-
-    TicketNum::create([
-        'factura' => $num_fact, 
-        'orden' => session('orden'),
-        'tipo_pago' => session('tipo_pago'),
-        'efectivo' => $this->cantidad,
-        'subtotal' => $this->subtotal,
-        'total' => $this->total,
-        'propina_cant' => $this->propinaCantidad,
-        'propina_porcent' => $this->propinaPorcentaje,
-        'cajero' => session('config_usuario_id'),
-        'tipo_venta' => session('impresion_seleccionado'),
-        'edo' => 1,
-        'clave' => Helpers::hashId(),
-        'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
-    ]);
-    
-    $this->actualizarDatosVenta($num_fact); // actualiza los campos de los productos
-
-    TicketOrden::where('id', session('orden'))
-                ->update(['edo' => 2]);
-
-    $this->ImprimirFactura($num_fact); // imprime la factura
-
-    $xst = Helpers::Format($this->subtotal);
-    $xpr = Helpers::Format($this->propinaCantidad);
-    $xto = Helpers::Format($this->total);
-    $xca = Helpers::Format($this->cantidad);
-
-    $this->dispatchBrowserEvent('modal-cambio-venta', [
-        'subtotal' => dinero($xst),
-        'propina' => dinero($xpr),
-        'total' => dinero($xto),
-        'efectivo' => dinero($xca),
-        'cambio' => dinero($xca - $xto)
-    ]);
-
-    /// probar el codigo este
-    if (session('principal_ticket_pantalla') == 1) {
-        $this->guardarProductosImprimir();  
-    }
-    if (session('principal_ticket_pantalla') == 2) {
-        $this->guardarProductosImprimir();  
-        $this->ImprimirComanda();
-    }
-    //// fin del codigo
-    
-    session()->forget('orden');
-    session()->forget('cliente');
-    $this->reset();
-} 
 
 
 public function btnCerrarModal(){ /// Cierra el modal de fin de venta
@@ -438,6 +362,9 @@ public function btnCerrarModal(){ /// Cierra el modal de fin de venta
     }
 } 
 
+public function btnCatSelect($iden){
+    $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+}
 
 
 

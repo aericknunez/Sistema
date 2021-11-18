@@ -6,22 +6,23 @@ use Illuminate\View\Component;
 
 class Productos extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    public $datos;
+    public $subtotal, $propina, $total, $porcentaje;
+
+
+    
+    public function __construct($datos, $subtotal, $propina, $total, $porcentaje)
     {
-        //
+        $this->datos = $datos;
+        $this->subtotal = $subtotal;
+        $this->propina = $propina;
+        $this->total = $total;
+        $this->porcentaje = $porcentaje;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
-     */
-    public function render()
+    
+   public function render()
     {
         return view('components.comandero.productos');
     }

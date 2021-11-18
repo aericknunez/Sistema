@@ -195,9 +195,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/config/configuracion', fu
 
 
 /// MOBILE
-Route::middleware(['auth:sanctum', 'verified'])->get('/comandero', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/inicio', function () {
     return view('comandero.inicio');
 })->name('comandero');
-Route::middleware(['auth:sanctum', 'verified'])->get('/comandero/mesas', function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobil', function () {
     return view('comandero.mesas');
 })->name('comandero.mesas');
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/cambios', function () {
+    return view('comandero.cambios');
+})->name('comandero.cambios');

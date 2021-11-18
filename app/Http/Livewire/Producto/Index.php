@@ -217,5 +217,14 @@ class Index extends Component
     }
 
 
+    public function btnCrearIconos(){
+        $this->CrearIconos(); // crea los iconos despues de guardar
+        $this->dispatchBrowserEvent('mensaje', 
+        ['clase' => 'success', 
+        'titulo' => 'Realizado', 
+        'texto' => 'Iconos Creados Correctamente']);
+    }
+
+
 
 }
