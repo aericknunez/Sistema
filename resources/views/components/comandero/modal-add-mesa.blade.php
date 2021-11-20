@@ -29,7 +29,7 @@
 
         <div class="d-flex justify-content-center mt-2">
           <div class="col-md-8">
-            <select class="form-control border-0 pl-0 mt-4 box_rounded" wire:model="mesaNombre">
+            <select class="browser-default custom-select custom-select-lg mb-3" wire:model="mesaNombre">
               <option selected>SELECCIONE UNA MESA</option>
                 @for ($i = 1; $i < session('principal_no_mesas'); $i++)
                     <option value="MESA NUMERO {{ $i }}">MESA NUMERO {{ $i }}</option>

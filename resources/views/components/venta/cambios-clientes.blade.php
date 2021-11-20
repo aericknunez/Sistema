@@ -22,5 +22,10 @@
         @endfor
     
     </div>
+    @if (Request::url() == route('venta.cambios')) 
     <a href="{{ route('venta.rapida') }}" class="btn btn-link">Volver</a>
+    @else
+    <a href="{{ route('comandero') }}" class="btn btn-link">Volver</a>
+    @endif
+    
 </div>

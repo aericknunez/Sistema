@@ -3,6 +3,11 @@
     {{-- Inicializa las vistas para agregar la venta --}}
    @livewire('venta.add-producto')
 
+   <audio id="audio" autoplay="false">
+    <source src="{{ asset('sound/Beep4.mp3') }}" type="audio/mpeg">
+    <source src="{{ asset('sound/Beep4.ogg') }}" type="audio/ogg">
+</audio>
+
    @push('modals')
    @endpush
 
@@ -11,13 +16,16 @@
             window.addEventListener('modal-opcion-add', event => {
                 // alert('Opcion Id: ' + event.detail.opcion_id);
                 $('#opcion-' + event.detail.opcion_id).modal('show');
+                playSound()
             });
             window.addEventListener('modal-opcion-hide', event => {
                 $('#'+ event.detail.modal).modal('hide');
                 $("#cantidad").focus();
+                playSound()
             });
             window.addEventListener('focus', event => {
                 $("#cantidad").focus();
+                playSound()
             });
 
             window.addEventListener('modal-cambio-venta', event => {
@@ -70,6 +78,10 @@
                 }) 
             });
 
+            function playSound() {
+                var sound = document.getElementById("audio");
+                sound.play();
+            }
 
         </script>
 

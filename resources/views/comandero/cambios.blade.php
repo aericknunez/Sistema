@@ -4,7 +4,7 @@
     @if (session('clientes'))
         @livewire('venta.cambios')
     @else
-        {{ mensaje('danger', 'No exissten clientes agregados') }}
+        {{ mensaje('danger', 'No existen clientes agregados') }}
     @endif
 
    
