@@ -19,8 +19,10 @@
                         </div>
                     </a>
                     <div class="d-flex justify-content-between">
-                        <a wire:click="ordenSelect({{ $mesa->id }})" class="btn btn-primary btn-block mr-1 box_rounded w-50 btn-sm py-2">Ir a detalles</a>
-                        {{-- <a href="#" class="btn btn-outline-primary btn-block ml-1 box_rounded w-50 btn-sm py-2">Get Help</a> --}}
+                        <a href="{{ route('comandero.cambios') }}" class="btn btn-outline-primary btn-block mr-1 box_rounded w-50 btn-sm py-2">Dividir Cuenta</a>
+
+                        <a wire:click="ordenSelect({{ $mesa->id }})" class="btn btn-primary btn-block ml-1 box_rounded w-50 btn-sm py-2">Ir a detalles</a>
+                        
                     </div>
                 </div>
                 

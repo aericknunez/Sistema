@@ -1,4 +1,4 @@
-<div wire:ignore.self >
+<div wire:ignore >
     <header>
         <!-- Sidebar navigation -->
         <div id="slide-out" class="side-nav sn-bg-4 custom-scrollbar">

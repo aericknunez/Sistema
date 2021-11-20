@@ -8,7 +8,7 @@
                     <span class="mdi mdi-circle-medium text-warning"></span></a>
                 </a>
             </div>
-        
+
         </div>
         </footer>
 </div>
