@@ -36,6 +36,8 @@ trait Imprimir{
         $datos['config_imp'] = session('config_impuesto');
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = config('sistema.td');
+        $datos['numero_documento'] = $factura; // numero de factura
+        $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
@@ -65,6 +67,10 @@ trait Imprimir{
         $datos['config_imp'] = session('config_impuesto');
         $datos['tipo_impresion'] = 1;
         $datos['identidad'] = config('sistema.td');
+        $datos['numero_documento'] = session('orden'); // numero de orden
+        $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+
+        
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
     }
@@ -120,6 +126,9 @@ trait Imprimir{
         $datos['fecha'] = date('d-m-Y');
         $datos['hora'] = date('H:i:s');
         $datos['identidad'] = config('sistema.td');
+        $datos['numero_documento'] = session('orden'); // numero de orden
+        $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
