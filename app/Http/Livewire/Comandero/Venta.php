@@ -94,6 +94,7 @@ class Venta extends Component
             $this->productosAdded();
             $this->obtenerTotal();
         }
+        $this->dispatchBrowserEvent('focus');
         
     }
 
@@ -105,6 +106,7 @@ class Venta extends Component
         }
 
         $this->verificaCantidad(1);
+        $this->dispatchBrowserEvent('focus');
     }
 
     public function productosAdded(){ /// productos agregados a la orden
@@ -364,6 +366,7 @@ public function btnCerrarModal(){ /// Cierra el modal de fin de venta
 
 public function btnCatSelect($iden){
     $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+    $this->dispatchBrowserEvent('focus');
 }
 
 

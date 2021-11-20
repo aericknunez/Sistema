@@ -19,11 +19,9 @@
             });
             window.addEventListener('modal-opcion-hide', event => {
                 $('#'+ event.detail.modal).modal('hide');
-                $("#cantidad").focus();
                 playSound()
             });
             window.addEventListener('focus', event => {
-                $("#cantidad").focus();
                 playSound()
             });
 

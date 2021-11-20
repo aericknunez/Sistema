@@ -74,6 +74,12 @@ class IniciarController extends Controller
             session(['apertura_caja' => 1]); // si se aperturo la caja 1 cajero, 2 solo ordenes
         }
 
+        if (session('comandero')) { // si existe la session de comandero se ira siempre a la ruta del comandero solo para hacer ordenes
+            session(['apertura_caja' => 2]);
+            session(['config_tipo_servicio' => 2]);
+            return redirect()->route('comandero.mesas');
+        }
+
 
         if (session('apertura_caja')) {
             session(['caja_select' => 1]);

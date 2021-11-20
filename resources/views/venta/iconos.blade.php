@@ -416,7 +416,7 @@
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Espagueti primavera con pollo" wire:click="addProducto(1030)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/7145f66574.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Espagueti primavera con pollo</div> 
                             </a>
                         </div>
@@ -453,28 +453,28 @@
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Sandwich de jamon con queso con papas" wire:click="addProducto(1033)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/3439337c20.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Sandwich de jamon con queso con papas</div> 
                             </a>
                         </div>
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Sandwich mixto con papas" wire:click="addProducto(1034)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/3439337c20.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Sandwich mixto con papas</div> 
                             </a>
                         </div>
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Queso burguesa de res con papas" wire:click="addProducto(1035)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/9b876f8366.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Queso burguesa de res con papas</div> 
                             </a>
                         </div>
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Queso burguesa de pollo con papas" wire:click="addProducto(1036)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/a76cd9ece7.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Queso burguesa de pollo con papas</div> 
                             </a>
                         </div>
@@ -497,7 +497,7 @@
 <div class="row justify-content-center click"><div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Coctel de camaron en salsa rosada" wire:click="addProducto(1038)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/20a4d81339.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Coctel de camaron en salsa rosada</div> 
                             </a>
                         </div>

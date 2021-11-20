@@ -204,3 +204,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/mobil', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/cambios', function () {
     return view('comandero.cambios');
 })->name('comandero.cambios');
+Route::get('/mobil/login', function () {
+    session(['comandero' => true]);
+    return view('auth.login');
+})->name('comandero.login');

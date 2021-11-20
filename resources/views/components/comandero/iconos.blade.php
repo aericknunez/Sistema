@@ -14,7 +14,7 @@
                         </div>
                         <div class="ml-2">
                         <p class="mb-1 fw-bold text-dark">{{ $data->nombre }}</p>
-                        <p class="small mb-2"><span class="text-muted"> <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-silverware-fork-knife mr-1"></i> Burger <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-currency-usd"></i> {{ $data->precio }}</span></p>
+                        <p class="small mb-2"><span class="text-muted"> <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-silverware-fork-knife mr-1"></i>  <span class="mdi mdi-circle-medium"></span> {{ dinero($data->precio) }}</span></p>
                         
 
                         @if ($data->opciones_active == 1) 
