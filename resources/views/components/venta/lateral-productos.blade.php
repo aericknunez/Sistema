@@ -58,7 +58,7 @@
       </table>
 
     @else
-    <div class="text-center"><img src="{{ asset("img/logo/1604553637.jpg") }}" alt="" class="img-fluid hoverable"></div>
+    <div class="text-center"><img src="{{ asset("img/logo/" . session("config_logo")) }}" alt="" class="img-fluid hoverable"></div>
     @endif
 
 

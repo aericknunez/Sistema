@@ -25,6 +25,7 @@ trait Config{
             'config_multiple_pago' => $conf->multiple_pago,
             'config_pais' => $conf->pais,
             'config_skin' => $conf->skin,
+            'config_logo' => $conf->logo,
             'config_tipo_servicio' => $conf->tipo_servicio, // 1 rapido, 2 mesa, 3 delivery en el que iniciara
             'config_usuario_id' => Auth::user()->id,
             'config_tipo_usuario' => Auth::user()->tipo_usuario,
