@@ -31,7 +31,7 @@
                         <td class="text-uppercase"> {{ llevarAqui($orden->llevar_aqui) }}</td>
                         <td class="text-uppercase"> {{ $orden->nombre_mesa }}</td>
                         <td class="text-uppercase"> @if ($orden->edo == 1)
-                                                    <span class="badge badge-pill badge-danger">Pendiente</span>
+                                                    <a wire:click="selectOrden({{ $orden->id }}, {{ $orden->tipo_servicio }})" ><span class="badge badge-pill badge-danger">Pendiente</span></a>
                                                     @elseif ($orden->edo == 2)
                                                     <span class="badge badge-pill badge-success">Pagado</span>
                                                     @else
