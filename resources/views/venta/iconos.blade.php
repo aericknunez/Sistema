@@ -70,6 +70,13 @@
                                 </a>
                             </div>
                     </div><div class="mx-2 my-2">
+                        <div class="newmenu text-center" wire:loading.class="disabled" wire:target="addProducto(1014)">
+                            <a  title="Pollo al cordon bleu" wire:click="addProducto(1014)">
+                            <img src="{{ asset("img/ico/761b24a424.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-title text-truncate">Pollo al cordon bleu</div> 
+                            </a>
+                        </div>
+                    </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Arroz" wire:click="addProducto(1024)">
                             <img src="{{ asset("img/ico/02d4c4c790.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
@@ -106,7 +113,44 @@
                         </div>
                     </div> 
         </div> 
-    </div><div class="modal" id="categoria-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+    </div><div class="modal" id="opcion-1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+<div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
+    <div class="modal-content bordeado-x1">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
+
+    </div>
+    <div class="modal-body">
+<div class="row justify-content-center click"><div class="mx-2 my-2">
+                        <div class="newmenu text-center" wire:click="addOpcion(1)">
+                            <a>
+                            <img src="{{ asset("img/ico/5f4615dbc5.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-titleC">Termino Medio</div> 
+                            </a>
+                        </div>
+                    </div><div class="mx-2 my-2">
+                        <div class="newmenu text-center" wire:click="addOpcion(2)">
+                            <a>
+                            <img src="{{ asset("img/ico/5f4615dbc5.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-titleC">Tres Cuartos</div> 
+                            </a>
+                        </div>
+                    </div><div class="mx-2 my-2">
+                        <div class="newmenu text-center" wire:click="addOpcion(3)">
+                            <a>
+                            <img src="{{ asset("img/ico/5f4615dbc5.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-titleC">Bien Cocida</div> 
+                            </a>
+                        </div>
+                    </div></div> 
+
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+    </div>
+    </div>
+</div>
+</div><div class="modal" id="categoria-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
 <div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
     <div class="modal-content bordeado-x1">
     <div class="modal-header">
@@ -260,13 +304,6 @@
                             <div class="menu-title text-truncate">Milanesa de pollo</div> 
                             </a>
                         </div>
-                    </div> <div class="mx-2 my-2">
-                        <div class="newmenu text-center" >
-                            <a  title="Pollo al cordon bleu" wire:click="addProducto(1014)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
-                            <div class="menu-title text-truncate">Pollo al cordon bleu</div> 
-                            </a>
-                        </div>
                     </div> </div> 
 
 </div>
@@ -286,7 +323,7 @@
 <div class="row justify-content-center click"><div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Lonja empanizada" wire:click="addProducto(1015)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/4fffafd722.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Lonja empanizada</div> 
                             </a>
                         </div>
@@ -386,7 +423,7 @@
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
                             <a  title="Pan con ajo" wire:click="addProducto(1028)">
-                            <img src="{{ asset("img/ico/default.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <img src="{{ asset("img/ico/9c09a8ef2f.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Pan con ajo</div> 
                             </a>
                         </div>

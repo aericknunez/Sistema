@@ -1,17 +1,25 @@
 <?php
 namespace App\System\Config;
 
-use App\Models\Producto;
+use App\Models\Opciones;
+use App\Models\OpcionesSub;
 use App\Models\ProductoCategoria;
 
 trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
 
-    public $retorno;
 
     public function GenerarIco(){
-
+        $retorno = NULL;
         // $this->productosDesdeCategoria();
-        $this->crearCategoriasComandero();
+        $retorno .= $this->crearCategoriasComandero();
+
+        $opciones = Opciones::all();
+        foreach ($opciones as $opcion) {
+            $retorno .= $this->crearModalOpcionesComandero($opcion);
+        }
+
+        $this->saveData($retorno, '../resources/views/components/comandero/iconos/categorias.blade.php');
+
 
     }
 
@@ -39,8 +47,8 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
 
 </div>';
 
-        
-        $this->saveData($retorno, '../resources/views/components/comandero/iconos/categorias.blade.php');
+            return $retorno;
+
     }
 
 
@@ -48,68 +56,68 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
 
 
 
-
-    public function productosDesdeCategoria(){
-        $datos = ProductoCategoria::all();
-        
-        foreach ($datos as $dato) {
-                $this->crearIconosCategoriasComandero($dato->id);             
-        }
-        
-    }
-
-
-
-
-    public function crearIconosCategoriasComandero($iden){
-        $retorno = '<div class="px-2">
-    <section class="bg-light body_rounded mt-n5 p-3">
-
-        <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">';
-
-        $datos = Producto::where('producto_categoria_id', $iden)->get();
-
-        foreach ($datos as $dato) {
-
-                $retorno .= $this->creaIconoComandero($dato); 
-                
-            }
-
-        $retorno .= '</div>
-        </div>
-    </section>
-
-</div>';
+    public function crearIconosOpcionesComanderos($data){
 
         
-        $this->saveData($retorno, '../resources/views/components/comandero/iconos/iconos-'.$iden.'.blade.php');
-    }
-
-
-
-
-
-    public function creaIconoComandero($data){
-
-        $img = 'img/ico/' . $data->img;
-        
-        $retorno = '<a wire:click="addProducto('.$data->cod.')" wire:loading.class="disabled" wire:target="addProducto('.$data->cod.')" title="'.$data->nombre.'" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list">
+        $retorno = '<a wire:click="addOpcion('.$data->id.')" title="'.$data->nombre.'" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list pointer">
                     <div class="bg-light overflow-hidden box_rounded">
-                    <img src="{{ asset("'.$img.'") }}" class="img-fluid">
+                    <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid">
                     </div>
                     <div class="ml-2">
                     <p class="mb-1 fw-bold text-dark">'.$data->nombre.'</p>
-                    <p class="small mb-2"><span class="text-muted"> <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-silverware-fork-knife mr-1"></i> Burger <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-currency-usd"></i> '.$data->precio.'</span></p>';
+                    <p class="small mb-2"><span class="text-muted"> <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-silverware-fork-knife mr-1"></i> Burger <span class="mdi mdi-circle-medium"></span> <i class="mdi mdi-currency-usd"></i> '.$data->precio.'</span></p>
                     
-                    if ($data->opciones_active == 1) {  
-                       $retorno .= '<p class="small mb-0 text-muted text-left"><span class="bg-info font-weight-bold text-white rounded-3 py-1 px-2 small">Con Opciones</span></p>';
-                    }
-
-                    $retorno .= '</div>
+                    </div>
         </a>';
 
         return $retorno; 
+    }
+
+
+
+
+
+    public function crearModalOpcionesComandero($opcion){
+
+        $sub_opciones = OpcionesSub::where('opcion_id', $opcion->id)->get();
+
+$retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+<div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
+    <div class="modal-content bordeado-x1">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">OPCIONES DISPONIBLES</h5>
+
+    </div>
+    <div class="modal-body">
+
+<div class="px-2 mt-4">   
+<section class="bg-light body_rounded mt-n5 p-3">
+        
+<div class="tab-content" id="pills-tabContent">
+<div class="tab-pane fade show active click" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">';
+
+    foreach ($sub_opciones as $option) {
+        $retorno .= $this->crearIconosOpcionesComanderos($option);
+    }
+
+
+$retorno .= '</div>
+</div>
+</section>
+</div>
+
+
+
+</div>
+    <div class="modal-footer">
+        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+    </div>
+    </div>
+</div>
+</div>';
+
+return $retorno;
+
     }
 
 
