@@ -192,7 +192,7 @@ trait Imprimir{
                 $data[$conteo]['producto'] = $producto->producto;  
                 $x = 0;  
                 foreach ($producto->subOpcion as $opcion) {
-                    $data[$conteo]['subOpcion'][$x] = $opcion->nombre;
+                    $data[$conteo]['subOpcion'][$x]['nombre'] = $opcion->nombre;
                 $x ++;
                 }    
             $conteo ++;  
@@ -221,6 +221,7 @@ trait Imprimir{
 
     public function getProductosFactura($factura){
         $datos =  TicketProducto::where('num_fact', $factura)
+        ->where('tipo_venta', session('impresion_seleccionado'))
         ->with('subOpcion')->get();
 
         return $this->formatData($datos);
@@ -266,15 +267,19 @@ trait Imprimir{
     public function getTotalFactura($factura){
         $datos = array();
         $datos['subtotal'] = TicketProducto::where('num_fact', $factura)
+                            ->where('tipo_venta', session('impresion_seleccionado'))
                             ->sum('stotal');
         $datos['impuestos'] = TicketProducto::where('num_fact', $factura)
+                            ->where('tipo_venta', session('impresion_seleccionado'))
                             ->sum('imp');
         $datos['total'] = TicketProducto::where('num_fact', $factura)
+                            ->where('tipo_venta', session('impresion_seleccionado'))
                             ->sum('total');
 
                             
         $pago = TicketNum::select('efectivo')
                             ->where('tipo_pago', session('tipo_pago'))
+                            ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', $factura)
                             ->first();
         // dd($pago);         
