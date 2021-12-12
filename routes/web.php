@@ -3,6 +3,7 @@
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\OpcionController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -191,6 +192,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/config/configuracion', fu
     return view('config.configuracion');
 })->name('config.configuracion');
 
+
+
+/// search 
+Route::post('/search', [SearchController::class, 'index'])
+->middleware(['auth:sanctum', 'verified'])
+->name('search');
 
 
 

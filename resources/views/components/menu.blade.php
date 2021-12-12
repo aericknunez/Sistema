@@ -14,7 +14,8 @@
     
         <!--Search Form-->
         <li>
-            <form class="search-form" role="search" method="post" action="?search">
+            <form class="search-form" role="search" method="post" action="{{ route('search') }}">
+                @csrf
                 <div class="form-group md-form mt-0 pt-1 waves-light">
                     <input type="text" class="form-control" placeholder="Buscar Factura" id="search" name="search">
                 </div>
