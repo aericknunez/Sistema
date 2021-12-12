@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/resources/views/components/comandero/iconos/categorias.blade.php
+/resources/views/components/venta/lateral-modal-tpago.blade.php
+/resources/views/venta/iconos.blade.php
