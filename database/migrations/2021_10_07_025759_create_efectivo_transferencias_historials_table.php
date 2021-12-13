@@ -33,7 +33,6 @@ class CreateEfectivoTransferenciasHistorialsTable extends Migration
             $table->double('saldo_destino', 8, 4);
             $table->string('transferencia', 200)->nullable(true);
             $table->string('fechaT', 25)->nullable(true);
-            $table->timestamp('fecha', $precision = 0);
 
             $table->string('cajero', 25)->nullable(true);
             $table->integer('edo')->nullable(true);

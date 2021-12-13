@@ -200,6 +200,11 @@ Route::post('/search', [SearchController::class, 'index'])
 ->name('search');
 
 
+/// cuentas por pagar
+Route::middleware(['auth:sanctum', 'verified'])->get('/cuentas/pendientes', function () {
+    return view('cuentas.pendientes');
+})->name('cuentas.pendientes');
+
 
 /// MOBILE
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/inicio', function () {

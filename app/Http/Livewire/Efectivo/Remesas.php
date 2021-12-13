@@ -59,7 +59,6 @@ class Remesas extends Component
             'descripcion' => $this->descripcion,
             'cantidad' => $this->cantidad,
             'fechaT' => Helpers::timeId(),
-            'fecha' => now(),
             'cajero' => session('config_usuario_id'),
             'edo' => 1,
             'no_comprobante' => $this->comprobante,

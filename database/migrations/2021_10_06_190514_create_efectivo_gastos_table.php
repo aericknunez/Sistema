@@ -20,7 +20,6 @@ class CreateEfectivoGastosTable extends Migration
             $table->string('descripcion', 200)->nullable(true);
             $table->double('cantidad', 8, 4);
             $table->string('fechaT', 25)->nullable(true);
-            $table->timestamp('fecha', $precision = 0);
             $table->string('cajero', 25)->nullable(true);
             $table->integer('edo')->nullable(true);
             $table->integer('tipo_comprobante')->nullable(true);

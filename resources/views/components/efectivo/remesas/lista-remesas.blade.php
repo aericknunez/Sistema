@@ -28,7 +28,7 @@
                         <td class="font-weight-bold text-uppercase">{{ $remesa->nombre }}</td>
                         <td class="font-weight-bold text-uppercase">{{ $remesa->descripcion }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ dinero($remesa->cantidad) }}</td>
-                        <td class="font-weight-bold text-uppercase"> {{ $remesa->fecha }}</td>
+                        <td class="font-weight-bold text-uppercase"> {{ $remesa->created_at }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ $remesa->no_comprobante }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ $remesa->banco->banco }}</td>
                         <td>
