@@ -25,7 +25,7 @@ class CreateCuentasPagarsTable extends Migration
             $table->string('detalles', 250)->nullable(true);
 
             $table->string('factura', 100)->nullable(true);
-            $table->string('comprobante', 25);
+            $table->string('comprobante', 25)->nullable(true);;
 
             $table->double('cantidad', 8, 4);
             $table->double('abonos', 8, 4);

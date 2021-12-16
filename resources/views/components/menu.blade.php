@@ -128,8 +128,7 @@
     <ul class="list-unstyled">
     
     
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Pendientes</a></li>
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Pagadas</a></li>
+    <li><a href="{{ route('cuentas.pendientes') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas por Pagar</a></li>
         
     </ul>
     </div>

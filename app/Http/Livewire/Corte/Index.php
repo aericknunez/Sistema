@@ -71,7 +71,7 @@ class Index extends Component
     }
 
 
-    public function deteteCorte(){
+    public function deleteCorte(){
         
         $this->validate(['random' => 'required|min:4|max:4']);
 

@@ -24,6 +24,13 @@ class CreateCuentasPagarAbonosTable extends Migration
 
             $table->double('cantidad', 8, 4);
 
+            $table->integer('tipo_pago')->nullable(true);
+
+            $table->unsignedBigInteger('efectivo_cuenta_bancos_id')->nullable(true); // cuenta banco
+            $table->foreign('efectivo_cuenta_bancos_id')
+                    ->references('id')
+                    ->on('efectivo_cuenta_bancos');
+
             $table->timestamp('fecha_del', $precision = 0)->nullable(true);
 
             $table->integer('user');

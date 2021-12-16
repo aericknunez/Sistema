@@ -6,7 +6,6 @@ use App\Common\Helpers;
 use App\Models\EfectivoCuentaBancos;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoGastosCategorias;
-use App\Models\EfectivoRemesas;
 use App\System\Corte\Corte;
 use App\System\Efectivo\EfectivoCuentas;
 use Livewire\Component;

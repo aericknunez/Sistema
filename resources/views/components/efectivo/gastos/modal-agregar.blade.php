@@ -38,16 +38,16 @@
                     @enderror
       
 
-                    <small>Tipo Pago</small>
-                    <select class="browser-default custom-select mb-3" wire:model="tipo_pago"  id="tipo_pago">
-                        <option value="1">Efectivo</option>
-                        <option value="2">Tarjeta</option>
-                        <option value="3">Transferencia</option>
-                        <option value="4">Cheque</option>
-                    </select>
-                    @error('tipo_pago')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror   
+                <small>Tipo Pago</small>
+                <select class="browser-default custom-select mb-3" wire:model="tipo_pago"  id="tipo_pago">
+                    <option value="1">Efectivo</option>
+                    <option value="2">Tarjeta</option>
+                    <option value="3">Transferencia</option>
+                    <option value="4">Cheque</option>
+                </select>
+                @error('tipo_pago')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror   
 
                     <input type="number" step="any" wire:model.defer="cantidad" class="form-control mb-3" placeholder="Cantidad" id="cantidad">
                     @error('cantidad')

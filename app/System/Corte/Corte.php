@@ -3,6 +3,7 @@ namespace App\System\Corte;
 
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
+use App\Models\CuentasPagarAbono;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
 use App\Models\NumeroCajas;
@@ -174,7 +175,13 @@ trait Corte{
     }  
     /* abonos */
     public function abonos($inicio, $fin, $cajero){
-        return 0;
+        $totalAbonos = CuentasPagarAbono::where('user', $cajero)
+                        ->whereBetween('tiempo', [$inicio, $fin])
+                        ->where('edo', 1)
+                        ->orderBy('tiempo', 'desc')
+                        ->sum('cantidad');
+
+        return $totalAbonos;
     }
     /* diferencia */
     public function diferencia($efectivo_inicial, $efectivo_ingresado, $inicio, $fin, $cajero){
@@ -183,6 +190,7 @@ trait Corte{
                 + $this->propinaEfectivo($inicio, $fin, $cajero)
                 - $this->gastosEfectivo($inicio, $fin, $cajero)
                 - $this->remesas($inicio, $fin, $cajero);
+                - $this->abonos($inicio, $fin, $cajero);
         $diferencia = $efectivo_ingresado - $total;
         return $diferencia;
     }

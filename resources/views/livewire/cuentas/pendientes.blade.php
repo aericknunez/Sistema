@@ -37,6 +37,23 @@
                 </div>
                 {{-- form  --}}
             </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <small>Cuentas</small>
+
+                    <div class="row justify-content-center click">
+                            <a class="btn btn-secondary btn-sm btn-rounded waves-effect" wire:click="btnMostrarCuentas(0)"><i class="fas fa-check-circle mr-1"></i> Todas</a>
+                            <a class="btn btn-success btn-sm btn-rounded waves-effect" wire:click="btnMostrarCuentas(1)"><i class="fas fa-check-double mr-1"></i> Pendientes</a>
+                            <a class="btn btn-danger btn-sm btn-rounded waves-effect" wire:click="btnMostrarCuentas(2)"><i class="fas fa-ban mr-1"></i> Pagadas</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -47,6 +64,8 @@
 
 
         <x-cuentas.modal-add-cuenta :datos="$proveedores"  />
-        <x-cuentas.modal-add-abono :datos="$selectCuenta"  /> 
+        <x-cuentas.modal-add-abonos :datos="$selectCuenta"   
+                                   :bancos="$bancos" 
+                                   :tipo="$tipo_pago" /> 
 
 </div>
