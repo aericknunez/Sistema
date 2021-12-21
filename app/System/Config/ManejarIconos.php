@@ -143,6 +143,7 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         $sub_opciones = OpcionesSub::where('opcion_id', $opcion->id)->get();
 
         $cantidad = count($sub_opciones);
+        $modal = 'modal-md';
         if ($cantidad >= 24) { $modal = 'modal-fluid'; }
         if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
@@ -187,6 +188,7 @@ return $retorno;
 $datos = Producto::where('producto_categoria_id', $categoria->id)->get();
 
     $cantidad = count($datos);
+    $modal = 'modal-md';
     if ($cantidad >= 24) { $modal = 'modal-fluid'; }
     if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
     if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
