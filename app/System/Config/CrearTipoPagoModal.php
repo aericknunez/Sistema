@@ -12,7 +12,6 @@ trait CrearTipoPagoModal { // nombre del Trait Igual al del archivo
     public function crearModalMoneda(){
         $data = $this->creaDataModal();
         $this->guardarArchivoModal($data);
-
     }
 
     public function creaDataModal(){
@@ -29,10 +28,7 @@ trait CrearTipoPagoModal { // nombre del Trait Igual al del archivo
             </div>
             <div class="modal-body">
     
-              <div class="text-center">
-
-
-              ';
+              <div class="text-center">';
 
 
             foreach ($tipos as $moneda) {
@@ -44,16 +40,15 @@ trait CrearTipoPagoModal { // nombre del Trait Igual al del archivo
 
         $retorno .= '
         
-        </div>
-                    
-        
-        </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+                </div>          
+                
+                </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>';
+        </div>';
 
         return $retorno;
 
