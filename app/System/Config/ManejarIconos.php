@@ -38,6 +38,10 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
             }
         }
 
+        if (session('principal_otras_ventas')) {
+            $retorno .= $this->creaIconoOtrasVentas();
+        }
+
         // $datos = Producto::where('producto_categoria_id', 1)->get();
         // foreach ($datos as $dato) {
         //     $retorno .= $this->creaIcono($dato); 
@@ -219,6 +223,23 @@ $retorno .= '</div>
 </div>';
 
 return $retorno;
+    }
+
+
+
+
+    public function creaIconoOtrasVentas(){
+
+        $retorno = '<div class="mx-2 my-2">
+                        <div class="newmenu text-center" >
+                            <a data-toggle="modal" data-target="#ModalOtrasVentas" title="Otras Ventas">
+                            <img src="{{ asset("img/ico/4d87a6a1c0.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-title text-truncate">Otras Ventas</div> 
+                            </a>
+                        </div>
+                    </div> ';
+
+        return $retorno; 
     }
 
 

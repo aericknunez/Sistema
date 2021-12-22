@@ -82,7 +82,7 @@
                         <span class="text-danger">{{$message}}</span>
                     @enderror      
 
-                @endif
+            @endif
   
             @if ($tipo['tcomprobante'] != 1)
                 <input type="text" wire:model.defer="comprobante" id="comprobante" class="form-control mb-3" placeholder="Comprobante">

@@ -42,6 +42,9 @@ class AddProducto extends Component
     public $codSelected; // codigo del producto seleccionado
     public $cantidadproducto; // cantidad de productos a cambiar
 
+    // Otras ventas
+    public $otras_producto, $otras_cantidad; 
+
     public function mount(){
         if (session('orden')) {
             $this->determinaPropina();
@@ -292,6 +295,17 @@ public function btnCambiarCantidad(){ // cambia la cantidad de productos
     }
 
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->productosAdded();
+    $this->obtenerTotal();
+}
+
+
+public function btnOtrasVentas(){
+    $this->validate(['otras_producto' => 'required', 'otras_cantidad' => 'required']);
+
+    $this->asignarOrden();
+    $this->addOtrasVentas($this->otras_producto, $this->otras_cantidad);
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalOtrasVentas']);
     $this->productosAdded();
     $this->obtenerTotal();
 }

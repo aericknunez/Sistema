@@ -386,5 +386,48 @@ public function delDeliveryData(){
 
 
 
+    
+    public function addOtrasVentas($producto, $cantidad){
+
+    
+        $stotal = Helpers::STotal($cantidad, session('config_impuesto'));
+        $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+        
+        TicketProducto::create([
+            'cod' => 99999, 
+            'cantidad' => 1, 
+            'producto' => $producto,
+            'pv' => $cantidad, 
+            'stotal' => $stotal,
+            'imp' => $impuesto,
+            'total' => $cantidad,
+            'descuento' => null,
+            'num_fact' => null,
+            'orden' => session('orden'),
+            'cliente' => session('cliente'),
+            'cancela' => null,
+            'tipo_pago' => 1,
+            'usuario' => session('config_usuario_id'),
+            'cajero' => null,
+            'tipo_venta' => 1,
+            'gravado' => 1,
+            'edo' => 1,
+            'panel' => NULL,
+            'imprimir' => 1, // 1 = agregado 2 = listo a imprimir, 0 impreso
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]); 
+    
+        if (session('principal_ticket_pantalla') == 1) { // pasa a 1 el estado de impresion para la pantalla
+            $this->estadoImprimirOrden(session('orden'), 1);
+        }
+    
+            return FALSE;
+        
+    }
+
+
+
 
 }

@@ -52,5 +52,6 @@
 
 
        <x-venta.lateral-modal-cambio-venta />
+       <x-venta.modal-otras-ventas />
 
 </div>
