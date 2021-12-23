@@ -93,7 +93,24 @@ function edoOrden($tipo){
 function dinero($numero){  
     return session('config_moneda_simbolo') ." " . number_format($numero,2,'.',',');
 
+}
+
+function dinero4($numero){  
+    return session('config_moneda_simbolo') ." " . number_format($numero,4,'.',',');
+
+} 
+
+function STotal($numero, $impuestos){  
+    $imp = ($impuestos / 100)+1;
+    return $numero / $imp;
  } 
+
+
+function Impuesto($numero, $impuestos){  
+    $imp = $impuestos / 100;
+    return $numero * $imp;
+} 
+
 
 
 function nFormat($numero){ 

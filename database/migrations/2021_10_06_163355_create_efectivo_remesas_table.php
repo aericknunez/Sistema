@@ -18,7 +18,7 @@ class CreateEfectivoRemesasTable extends Migration
 
             $table->string('nombre', 25)->nullable(true);
             $table->string('descripcion', 200)->nullable(true);
-            $table->double('cantidad', 8, 4);
+            $table->double('cantidad', 10, 4);
             $table->string('fechaT', 25)->nullable(true);
             $table->string('cajero', 25)->nullable(true);
             $table->integer('edo')->nullable(true);

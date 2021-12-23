@@ -17,7 +17,7 @@ class CreateOpcionesSubsTable extends Migration
             $table->id();
             $table->string('nombre', 100);
             $table->string('img', 100)->nullable(true);
-            $table->double('precio', 8, 2)->nullable(true);
+            $table->double('precio', 10, 2)->nullable(true);
 
             $table->unsignedBigInteger('opcion_id');
             $table->foreign('opcion_id')

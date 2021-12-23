@@ -57,6 +57,7 @@
                 @if ($tipo['tipo_pago'] != 1)
                     <small>Cuenta Transferencia</small>
                     <select class="browser-default custom-select mb-3" wire:model.defer="idbanco" id="idbanco">
+                        <option selected>Seleccione ...</option>  
                         @foreach ($datos['bancos'] as $dato)
                             <option value="{{ $dato->id }}">{{ $dato->banco }}</option>  
                         @endforeach

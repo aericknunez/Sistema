@@ -77,7 +77,7 @@ class Gastos extends Component
         $gasto = EfectivoGastos::select(['tipo_pago','cantidad','efectivo_cuenta_bancos_id'])
                                         ->where('id', $id)
                                         ->first();
-        if ($gasto->tipo_pago != 1) {
+        if ($gasto->tipo_pago != 1 and $gasto->efectivo_cuenta_bancos_id != NULL) {
         // obtiene total para sumarlo a la cuenta y crear historial
         $efectivo = $this->updateDataOrigenDestino($gasto->efectivo_cuenta_bancos_id);
         $totalx = $efectivo[0]['saldo'] + $gasto->cantidad;
@@ -128,7 +128,7 @@ class Gastos extends Component
         ]);
 
 
-        if ($this->tipo_pago != 1) {
+        if ($this->tipo_pago != 1 and $this->idbanco != NULL) {
         // obtiene total para sumarlo a la cuenta y crear historial
         $efectivo = $this->updateDataOrigenDestino($this->idbanco);
         $totalx = $efectivo[0]['saldo'] - $this->cantidad;

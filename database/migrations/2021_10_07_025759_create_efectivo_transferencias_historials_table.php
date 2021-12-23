@@ -26,11 +26,11 @@ class CreateEfectivoTransferenciasHistorialsTable extends Migration
                     ->references('id')
                     ->on('efectivo_cuenta_bancos');
 
-            $table->double('cantidad', 8, 4);
-            $table->double('saldo_origen_anterior', 8, 4)->nullable(true);
-            $table->double('saldo_destino_anterior', 8, 4);
-            $table->double('saldo_origen', 8, 4)->nullable(true);
-            $table->double('saldo_destino', 8, 4);
+            $table->double('cantidad', 10, 4);
+            $table->double('saldo_origen_anterior', 10, 4)->nullable(true);
+            $table->double('saldo_destino_anterior', 10, 4);
+            $table->double('saldo_origen', 10, 4)->nullable(true);
+            $table->double('saldo_destino', 10, 4);
             $table->string('transferencia', 200)->nullable(true);
             $table->string('fechaT', 25)->nullable(true);
 

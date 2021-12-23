@@ -167,7 +167,7 @@ class Pendientes extends Component
 
             $this->cuentaSelect($this->cuentaId);
 
-            if ($this->tipo_pago != 1) {
+            if ($this->tipo_pago != 1 and $this->idbanco != NULL) {
                 // obtiene total para sumarlo a la cuenta y crear historial
                 $efectivo = $this->updateDataOrigenDestino($this->idbanco);
                 $totalx = $efectivo[0]['saldo'] - $this->cAbono;
@@ -221,7 +221,7 @@ class Pendientes extends Component
             $abonos = $cuenta->abonos - $abono->cantidad;
             $cuenta->update(['saldo' => $saldo, 'abonos' => $abonos, 'edo' => 1]);
 
-            if ($abono->tipo_pago != 1) {
+            if ($abono->tipo_pago != 1 and $abono->efectivo_cuenta_bancos_id != NULL) {
             // obtiene total para sumarlo a la cuenta y crear historial
             $efectivo = $this->updateDataOrigenDestino($abono->efectivo_cuenta_bancos_id);
             $totalx = $efectivo[0]['saldo'] + $abono->cantidad;

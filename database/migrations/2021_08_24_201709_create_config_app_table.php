@@ -24,9 +24,9 @@ class CreateConfigAppTable extends Migration
             $table->string('propietario')->nullable(true);
             $table->string('giro', 100)->nullable(true);
             $table->string('nit', 50)->nullable(true);
-            $table->double('imp', 8, 2)->nullable(true);
-            $table->double('propina', 8, 2)->nullable(true);
-            $table->double('envio', 8, 2)->nullable(true)->default(0); // precio del envio
+            $table->double('imp', 10, 2)->nullable(true);
+            $table->double('propina', 10, 2)->nullable(true);
+            $table->double('envio', 10, 2)->nullable(true)->default(0); // precio del envio
             $table->integer('multiple_pago')->nullable(true)->default(0);     
             $table->integer('pais')->nullable(true)->default(1);     
             $table->string('skin', 25)->nullable(true);

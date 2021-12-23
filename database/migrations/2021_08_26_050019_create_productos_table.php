@@ -20,8 +20,8 @@ class CreateProductosTable extends Migration
             $table->string('img', 100)->nullable(true);
             $table->string('tipo_icono', 100)->nullable(true);
             // $table->double('cant', 8, 2)->nullable(true);
-            $table->double('precio_costo', 8, 2)->nullable(true);
-            $table->double('precio', 8, 2)->nullable(true);
+            $table->double('precio_costo', 10, 2)->nullable(true);
+            $table->double('precio', 10, 2)->nullable(true);
             $table->integer('gravado')->default(1)->nullable(true);
             $table->integer('especial')->nullable(true);
             $table->integer('panel')->nullable(true);

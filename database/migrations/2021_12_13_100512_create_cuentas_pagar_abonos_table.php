@@ -22,7 +22,7 @@ class CreateCuentasPagarAbonosTable extends Migration
                     ->references('id')
                     ->on('cuentas_pagars');
 
-            $table->double('cantidad', 8, 4);
+            $table->double('cantidad', 10, 4);
 
             $table->integer('tipo_pago')->nullable(true);
 

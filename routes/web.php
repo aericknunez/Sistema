@@ -206,6 +206,18 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/cuentas/pendientes', func
 })->name('cuentas.pendientes');
 
 
+
+/// faturar
+Route::middleware(['auth:sanctum', 'verified'])->get('/facturacion/emitidas', function () {
+    return view('facturacion.facturas-emitidas');
+})->name('facturacion.emitidas');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/facturacion/ultimas', function () {
+    return view('facturacion.facturas-ultimas');
+})->name('facturacion.ultimas');
+
+
+
 /// MOBILE
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/inicio', function () {
     return view('comandero.inicio');
