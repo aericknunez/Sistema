@@ -7,12 +7,13 @@ use App\Models\CorteDeCaja;
 use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
+use App\System\Corte\ImprimirCortes;
 use App\System\Corte\InicializaCorte;
 
 class Index extends Component
 {
 
-    use Corte, InicializaCorte;
+    use Corte, InicializaCorte, ImprimirCortes;
 
     public $cantidad;
     public $cajero;
@@ -104,6 +105,16 @@ class Index extends Component
         } else {
             $this->emit('error1'); // manda el mensaje de error de eliminado
         }
+
+    }
+
+
+
+
+    public function imprimirCorte(){
+
+        $this->ImprimirCortePrimario($this->datos);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
 
     }
 

@@ -84,7 +84,7 @@
                 </ul>
 
             <div class="text-center click">
-                <a class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Corte"><i class="fas fa-print"></i></a>
+                <a wire:click="imprimirCorte()" class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Corte"><i class="fas fa-print"></i></a>
                 <a data-toggle="modal" data-target="#modalConfirmDelete"  class="btn-floating btn-danger btn-md mb-3 waves-effect waves-light" title="Eliminar Corte"><i class="fas fa-trash"></i></a>
                 {{-- <a class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Buscar Credito"><i class="fas fa-print"></i></a> --}}
             </div>

@@ -28,6 +28,7 @@ class UsuariosEditar extends Component
         } else {
             return  User::whereNotIn('id',[1, 2])
                         ->where('tipo_usuario', '!=', '7')
+                        ->OrWhere('tipo_usuario', NULL)
                         ->latest('id')->paginate(6);
         }
     }

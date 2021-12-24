@@ -35,6 +35,15 @@
             )
         });
 
+
+        Livewire.on('imprimiendo', ()=>{
+            Swal.fire(
+                'IMPRIMIENDO CORTE',
+                'El corte se mando a impresión correctamente',
+                'success'
+            )
+        });
+
     </script>
     @endpush
 
