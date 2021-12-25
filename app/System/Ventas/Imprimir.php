@@ -46,13 +46,13 @@ trait Imprimir{
 
 
 
-    public function ImprimirPrecuenta($cliente = NULL){ // si trae cliente o no 
+    public function ImprimirPrecuenta($cliente = NULL, $propina, $porcentaje){ // si trae cliente o no 
         
         if ($cliente) {
-            $datos = $this->getTotalOrdenCliente(session('orden'), $cliente);
+            $datos = $this->getTotalOrdenCliente(session('orden'), $cliente, $propina, $porcentaje);
             $datos['productos'] = $this->getProductosOrdenCliente(session('orden'), $cliente);
         } else {
-            $datos = $this->getTotalOrden(session('orden'));
+            $datos = $this->getTotalOrden(session('orden'), $propina, $porcentaje);
             $datos['productos'] = $this->getProductosOrden(session('orden'));
         }
 
@@ -228,7 +228,7 @@ trait Imprimir{
     }
 
 
-    public function getTotalOrden($orden){
+    public function getTotalOrden($orden, $propina, $porcentaje){
 
         $datos = array();
         $datos['subtotal'] = TicketProducto::where('orden', $orden)
@@ -240,12 +240,16 @@ trait Imprimir{
         $datos['total'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
                             ->sum('total');
+
+        $datos['propina_cant'] = $propina;
+        $datos['propina_porcent'] = $porcentaje;
+
         return $datos;
     }    
 
 
 
-    public function getTotalOrdenCliente($orden, $cliente){
+    public function getTotalOrdenCliente($orden, $cliente, $propina, $porcentaje){
 
         $datos = array();
         $datos['subtotal'] = TicketProducto::where('orden', $orden)
@@ -260,6 +264,10 @@ trait Imprimir{
                             ->where('num_fact', NULL)
                             ->where('cliente', $cliente)
                             ->sum('total');
+        
+        $datos['propina_cant'] = $propina;
+        $datos['propina_porcent'] = $porcentaje;
+
         return $datos;  
     }    
 
