@@ -31,6 +31,10 @@ class IniciarController extends Controller
             abort(401);
         }
 
+        if (config('sistema.justdata')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
+            return redirect()->route('panel.control');
+        }
+
         if (session('config_tipo_usuario') == 7) {
             return redirect()->route('pantalla');
         }

@@ -49,8 +49,11 @@
             <div class="indeterminate"></div>
           </div>
 
-
-        <x-menu />
+        @if (config('sistema.justdata'))
+            <x-menu-online />
+        @else
+            <x-menu />
+        @endif
 
 
         <!-- Page Content -->
