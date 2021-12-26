@@ -20,10 +20,12 @@ class CreateImagesTable extends Migration
             $table->string('imagen', 50);
             $table->string('descripcion', 100)->nullable(true);
             
-            $table->unsignedBigInteger('imagen_categoria_id');
+
+            $table->unsignedBigInteger('imagen_categoria_id')->nullable(true);
             $table->foreign('imagen_categoria_id')
                     ->references('id')
-                    ->on('image_categories');
+                    ->on('image_categories')
+                    ->nullOnDelete();
 
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);

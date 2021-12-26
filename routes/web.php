@@ -192,6 +192,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/config/configuracion', fu
     return view('config.configuracion');
 })->name('config.configuracion');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/config/opciones', function () {
+    return view('config.opciones');
+})->name('config.opciones');
+
 
 
 /// search 
