@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SyncTableSeeder extends Seeder
 {
@@ -13,6 +14,7 @@ class SyncTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $sql = database_path('sync_tables.sql');
+        DB::unprepared(file_get_contents($sql));
     }
 }

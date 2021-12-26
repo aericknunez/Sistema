@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Config;
 
 use App\Models\Image;
+use App\Models\SyncTable;
 use App\System\Config\ManejarIconos;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -45,6 +46,28 @@ class Opciones extends Component
             ['clase' => 'success', 
             'titulo' => 'Realizado', 
             'texto' => 'Iconos Actualizados correctamente']);
+    }
+
+
+
+    public function recargarTablas(){
+
+        SyncTable::query()->delete();
+
+
+        $sql = database_path('sync_tables.sql');
+        if (DB::unprepared(file_get_contents($sql))) {
+            $this->dispatchBrowserEvent('mensaje', 
+            ['clase' => 'success', 
+            'titulo' => 'Realizado', 
+            'texto' => 'Las tablas se actualizaron correctamente']);
+        } else {
+            $this->dispatchBrowserEvent('error', 
+            ['clase' => 'error', 
+            'titulo' => 'Error', 
+            'texto' => 'Error al actualiar Tablas de actualiación']);
+        }
+
     }
 
 

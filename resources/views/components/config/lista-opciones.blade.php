@@ -27,6 +27,14 @@
                             <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="crearMenu()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
                         </td>
                     </tr>
+
+                    <tr>
+                      <td class="font-weight-bold text-uppercase">SINCRONIZADO</td>
+                      <td>Mantiene al dia los archivos que se deben sincronizar para crear los respaldos del sistema</td>
+                      <td>
+                          <a class="btn btn-cyan btn-sm btn-rounded waves-effect" wire:click="recargarTablas()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
+                      </td>
+                  </tr>
     
               </tbody>
           
