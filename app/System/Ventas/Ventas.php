@@ -11,7 +11,6 @@ use App\Models\OpcionesProducto;
 use App\Models\TicketDelivery;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
-use App\Models\User;
 
 trait Ventas{
 

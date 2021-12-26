@@ -141,13 +141,6 @@
                         </div>
                     </div> <div class="mx-2 my-2">
                         <div class="newmenu text-center" >
-                            <a  title="Buchannas Litro" wire:click="addProducto(1046)">
-                            <img src="{{ asset("img/ico/109f83b7f0.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
-                            <div class="menu-title text-truncate">Buchannas Litro</div> 
-                            </a>
-                        </div>
-                    </div> <div class="mx-2 my-2">
-                        <div class="newmenu text-center" >
                             <a data-toggle="modal" data-target="#ModalOtrasVentas" title="Otras Ventas">
                             <img src="{{ asset("img/ico/4d87a6a1c0.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
                             <div class="menu-title text-truncate">Otras Ventas</div> 

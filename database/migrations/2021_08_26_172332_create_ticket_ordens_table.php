@@ -21,7 +21,7 @@ class CreateTicketOrdensTable extends Migration
             $table->integer('llevar_aqui')->default(0)->comment('0 Ninguno, 1 LLevar, 2 Comer Aqui');
             $table->string('nombre_mesa', 50)->nullable(true);
             $table->string('comentario', 200)->nullable(true);
-            $table->integer('edo')->default(1)->comment('1 Activa, 2 Cobrada');;
+            $table->integer('edo')->default(1)->comment('1 Activa, 2 Cobrada');
 
             $table->integer('usuario_borrado')->nullable(true);
             $table->integer('motivo_borrado')->nullable(true);
