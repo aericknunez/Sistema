@@ -73,6 +73,7 @@ class Configuracion extends Component
                 $edo_sistema,
                 $tipo_sistema,
                 $plataforma,
+                $url_to_upload,
                 $ftp_server,
                 $ftp_user,
                 $ftp_password;
@@ -338,6 +339,7 @@ class Configuracion extends Component
             'edo_sistema' => Encrypt::encrypt($this->edo_sistema,config('sistema.td')),
             'tipo_sistema' => Encrypt::encrypt($this->tipo_sistema,config('sistema.td')),
             'plataforma' => Encrypt::encrypt($this->plataforma,config('sistema.td')),
+            'url_to_upload' => Encrypt::encrypt($this->url_to_upload,config('sistema.td')),
             'ftp_server' => Encrypt::encrypt($this->ftp_server,config('sistema.td')),
             'ftp_user' => Encrypt::encrypt($this->ftp_user,config('sistema.td')),
             'ftp_password' => Encrypt::encrypt($this->ftp_password,config('sistema.td')),

@@ -227,7 +227,7 @@
 </ul>
 </li>
 
-<small>Version: </small>
+<small>Version: 3.1</small>
 
 
 

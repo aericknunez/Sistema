@@ -7,5 +7,5 @@ return [
     'hash' => env('SYS_HASH', NULL),
     'synctime' => env('SYS_SYNC_TIME', 5),
     'login' => env('SYS_LOGIN', true), // true es iconos false es form
-
+    'justdata' => env('SYS_JUST_DATA', false), // si se encuentra true es por que solo mostrara datos
 ];

@@ -50,6 +50,11 @@
                       </select>
                 </div>
 
+                
+                <div class="md-form my-0">
+                    <input type="text" id="ftp_server" class="form-control" wire:model.defer="url_to_upload" placeholder="Url de subida">
+                </div>
+                
                 <div class="md-form my-0">
                     <input type="text" id="ftp_server" class="form-control" wire:model.defer="ftp_server" placeholder="Server FTP">
                 </div>

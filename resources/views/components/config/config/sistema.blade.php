@@ -26,6 +26,10 @@
             <span>{{ plataforma($datos->plataforma) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            URL de Subida:
+            <span>{{ $datos->url_to_upload }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Servidor FTP:
             <span>{{ $datos->server_ftp }}</span>
         </li>
