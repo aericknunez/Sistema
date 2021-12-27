@@ -285,7 +285,7 @@ trait Imprimir{
                             ->sum('total');
 
                             
-        $pago = TicketNum::select('efectivo', 'propina_cant', 'propina_porcent')
+        $pago = TicketNum::select('efectivo', 'propina_cant', 'propina_porcent', 'total')
                             ->where('tipo_pago', session('tipo_pago'))
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', $factura)
@@ -295,7 +295,7 @@ trait Imprimir{
         $datos['propina_cant'] = $pago->propina_cant;
         $datos['propina_porcent'] = $pago->propina_porcent;
 
-        $datos['cambio'] = $datos['efectivo'] - $datos['total'];
+        $datos['cambio'] = $pago->efectivo - $pago->total;
         return $datos;
     }    
 
