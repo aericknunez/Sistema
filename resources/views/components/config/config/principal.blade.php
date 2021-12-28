@@ -57,6 +57,10 @@
             <span>{{ isActivo($datos->llevar_delivery) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Establecer predeterminado si al cambiar para llevar se debe eliminar la propina:
+            <span>{{ isActivo($datos->llevar_aqui_propina_cambia) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar sonido al marcar Ordenes
             <span>{{ isActivo($datos->sonido) }}</span>
         </li>

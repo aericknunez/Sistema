@@ -143,6 +143,18 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Establecer si al cambiar para llevar se debe eliminar la propina:
+                  <span>
+                    <div class="switch">
+                        <label>
+                          Off
+                          <input type="checkbox" wire:model.defer="llevar_aqui_propina_cambia">
+                          <span class="lever"></span> On
+                        </label>
+                      </div>
+                </span>
+              </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     Activar sonido al marcar Ordenes
                     <span>
                         <div class="switch">

@@ -67,6 +67,7 @@ trait Config{
             'principal_propina_rapida' => $principal->propina_rapida,
             'principal_propina_mesa' => $principal->propina_mesa,
             'principal_propina_delivery' => $principal->propina_delivery,
+            'principal_llevar_aqui_propina_cambia' => $principal->llevar_aqui_propina_cambia,
 
 
             'principal_sonido' => $principal->sonido,
