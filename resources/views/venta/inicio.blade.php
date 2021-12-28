@@ -4,9 +4,9 @@
    @livewire('venta.add-producto')
 
    <audio id="audio" autoplay="false">
-    <source src="{{ asset('sound/Beep4.mp3') }}" type="audio/mpeg">
-    <source src="{{ asset('sound/Beep4.ogg') }}" type="audio/ogg">
-</audio>
+        <source src="{{ asset('sound/Beep4.mp3') }}" type="audio/mpeg">
+        <source src="{{ asset('sound/Beep4.ogg') }}" type="audio/ogg">
+    </audio>
 
    @push('modals')
    @endpush

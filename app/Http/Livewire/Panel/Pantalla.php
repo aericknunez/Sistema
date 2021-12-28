@@ -20,14 +20,15 @@ class Pantalla extends Component
     public $panelImprimir;
     public $listadoPaneles =[];
 
-
     public $sound;
+
+
 
     public function mount(){
         $this->panelImprimir = 1;
+        session(['hash_sound' => 1]);
         $this->getOrdenes();
         $this->getPanels();
-        $this->sound = TRUE;
     }
 
 
@@ -43,7 +44,18 @@ class Pantalla extends Component
                                         ->where('imprimir', 1)
                                         ->with('productos')
                                         ->with('productos.subOpcion')->get();
-            
+
+            $this->sound = md5($this->datos);
+            $this->emitSound($this->sound);
+    }
+
+
+
+    public function emitSound($datos){ // compara si son los mismos datos, sino emite el sonido
+        if($datos != session('hash_sound')){
+            session(['hash_sound' => $datos]);
+            $this->emit('sound'); // sonido 
+        }
     }
 
 

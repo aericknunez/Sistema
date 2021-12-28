@@ -11,7 +11,7 @@
                     </div>
             @endforeach
         </div>
-        
+    
     </x-contenido >
 
 </div>
