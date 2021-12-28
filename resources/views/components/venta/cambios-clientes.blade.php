@@ -2,17 +2,16 @@
     <div class="row justify-content-center click bordeado-x1 border border-info ml-1">
 
         @for ($i = 1; $i <= session('clientes'); $i++)
-        @php
-            if(session('cliente') == $i){
-                $img = "cliente_select";
-            } else {
-                $img = "cliente";
-            }
-        @endphp
             <div class="mx-2 mt-3">
-                <a wire:click="selectCliente({{$i}})" wire:loading.attr="disabled">
+                <a wire:click="selectCliente({{$i}})" wire:loading.attr="disabled" wire:key="{{ $i }}">
                     <figure class="figure">
-                        <img src="{{ asset('img/imagenes/'.$img.'.png') }}" class="figure-img img-fluid z-depth-2 rounded-circle"  alt="hoverable" >
+                        <img src="
+                        @if (session('cliente') == $i)
+                        {{ asset('img/imagenes/cliente_select.png') }}
+                        @else
+                        {{ asset('img/imagenes/cliente.png') }}
+                        @endif
+                        " class="figure-img img-fluid z-depth-2 rounded-circle"  alt="hoverable" >
                         <figcaption class="figure-caption text-center">
                             Cliente {{ $i }}
                             </figcaption>
@@ -22,12 +21,10 @@
         @endfor
     
     </div>
-    {{-- @if (Request::url() == route('venta.cambios')) 
-    <a href="{{ route('venta.rapida') }}" class="btn btn-link">Volver</a>
-    @else
+    @if (session('comandero')) 
     <a href="{{ route('comandero') }}" class="btn btn-link">Volver</a>
-    @endif --}}
-
+    @else
     <a href="{{ route('venta.rapida') }}" class="btn btn-link">Volver</a>
+    @endif
     
 </div>

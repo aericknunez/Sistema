@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore.self>
   
     @if ($datos)
 
@@ -23,9 +23,7 @@
                 <td class="font-weight-bold">{{ $producto->total }}</td>
                 <td  class="click">
                     @if ($producto->cliente == session('cliente'))
-                    <a>
                         <span><i class="fas fa-ban red-text fa-2x" aria-hidden="true"></i></span>
-                    </a>
                     @else
                     <a wire:key="{{ $loop->index }}" wire:click="asignarProducto({{ $producto->id }})" wire:loading.attr="disabled">
                         <span><i class="fas fa-check-square green-text fa-2x" aria-hidden="true"></i></span>

@@ -42,6 +42,7 @@ class Cambios extends Component
     }
 
 
+    
     public function render()
     {
         return view('livewire.venta.cambios');
@@ -53,6 +54,8 @@ class Cambios extends Component
         $this->clientSelected = $cliente;
         $this->determinaPropina();
 
+        $this->reset(['productAgregado']);
+        $this->productosAdded();
         $this->productFactura();
         $this->obtenerTotal();
     }
@@ -75,10 +78,9 @@ class Cambios extends Component
 
 
     public function productosAdded(){ /// productos agregados a la orden
-        $product = TicketProducto::where('orden', session('orden'))
+        $this->productAgregado = TicketProducto::where('orden', session('orden'))
                                     ->where('num_fact', NULL)
                                     ->with('subOpcion')->get();
-        $this->productAgregado = $product;
     }
 
 
@@ -133,6 +135,17 @@ class Cambios extends Component
         } else {
             session(['llevar_aqui' => 1]);
         }
+
+            // se agrega o quita lo de la propina si es para llevar
+            if (session('principal_llevar_aqui_propina_cambia')) {
+                if (session('llevar_aqui') == 1) { // se establece para comer aqui
+                    $this->propinaPorcentaje = 0;
+                } else { // se establece para llevar
+                    $this->propinaPorcentaje = session('config_propina');
+                }
+                $this->obtenerTotal();
+            }
+
         $this->llevarComerAqui = session('llevar_aqui');
     } 
     
