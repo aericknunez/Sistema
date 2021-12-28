@@ -116,6 +116,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/efectivo/gastos', functio
     return view('efectivo.gastos');
 })->name('efectivo.gastos');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/efectivo/ingreso', function () {
+    return view('efectivo.ingreso');
+})->name('efectivo.ingreso');
 
 
 //// HISTORIALES

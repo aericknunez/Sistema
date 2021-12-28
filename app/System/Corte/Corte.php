@@ -6,6 +6,7 @@ use App\Models\CorteDeCaja;
 use App\Models\CuentasPagarAbono;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
+use App\Models\EntradasSalidas;
 use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
@@ -41,6 +42,8 @@ trait Corte{
                                         'gastos' => $this->gastosEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'remesas' => $this->remesas($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'abonos' => $this->abonos($corte->aperturaT, Helpers::timeId(), $cajero),
+                                        'efectivo_ingresado' => $this->entradasEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
+                                        'efectivo_retirado' => $this->salidasEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'diferencia' => $this->diferencia($corte->efectivo_inicial, $efectivo, $corte->aperturaT, Helpers::timeId(), $cajero),
                                         'usuario_corte' => session('config_usuario_id'),
                                         'edo' => 2,
@@ -183,11 +186,38 @@ trait Corte{
 
         return $totalAbonos;
     }
+
+    // efectivo ingresado a caja
+    public function entradasEfectivo($inicio, $fin, $cajero){
+        $total = EntradasSalidas::where('cajero', $cajero)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->where('edo', 1)
+                                ->where('tipo_movimiento', 1) // entrada
+                                ->where('tipo_pago', 1) // efectivo
+                                ->orderBy('tiempo', 'desc')
+                                ->sum('cantidad');
+        return $total;
+    }
+
+    // efectivo retirado de caja
+    public function salidasEfectivo($inicio, $fin, $cajero){
+        $total = EntradasSalidas::where('cajero', $cajero)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->where('edo', 1)
+                                ->where('tipo_movimiento', 2) // salida
+                                ->where('tipo_pago', 1) // efectivo
+                                ->orderBy('tiempo', 'desc')
+                                ->sum('cantidad');
+        return $total;
+    }
+
     /* diferencia */
     public function diferencia($efectivo_inicial, $efectivo_ingresado, $inicio, $fin, $cajero){
         $total = $efectivo_inicial 
                 + $this->totalEfectivo($inicio, $fin, $cajero) 
                 + $this->propinaEfectivo($inicio, $fin, $cajero)
+                + $this->entradasEfectivo($inicio, $fin, $cajero)
+                - $this->salidasEfectivo($inicio, $fin, $cajero)
                 - $this->gastosEfectivo($inicio, $fin, $cajero)
                 - $this->remesas($inicio, $fin, $cajero);
                 - $this->abonos($inicio, $fin, $cajero);

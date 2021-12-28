@@ -33,7 +33,13 @@
                         <td> {{ dinero($corte->gastos) }}</td>
                         <td> {{ dinero($corte->remesas) }}</td>
                         <td> {{ dinero($corte->diferencia) }}</td>
-                        <td> <a wire:click="obtenerDatosCorte({{ $corte->id }})" data-toggle="modal" data-target="#ModalDetallesCorte">{{ edoCorte($corte->edo) }} </a></td>
+                        <td> 
+                          @if ($corte->edo == 1)
+                             {{ edoCorte($corte->edo) }}
+                          @else
+                            <a wire:click="obtenerDatosCorte({{ $corte->id }})" data-toggle="modal" data-target="#ModalDetallesCorte">{{ edoCorte($corte->edo) }} </a>  
+                          @endif
+                        </td>
                     </tr>
                 @endforeach    
                 
