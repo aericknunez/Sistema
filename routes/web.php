@@ -157,16 +157,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/panel/ordenes', function 
     return view('panel.ordenes');
 })->name('panel.ordenes');
 
-/// mostrar la pantalla
-Route::middleware(['sipantalla', 'pantallaauth'])->get('/pantalla', function () {
-    return view('panel.pantalla');
-})->name('pantalla');
-/// login pantalla
-Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', function () {
-    // return view('panel.pantalla-login');
-    return view('auth.login');
-})->name('pantalla.login');
-
 
 
 
@@ -238,3 +228,15 @@ Route::get('/mobil/login', function () {
     session(['comandero' => true]);
     return view('comandero.login');
 })->name('comandero.login');
+
+
+/// mostrar la pantalla
+Route::middleware(['sipantalla', 'pantallaauth'])->get('/pantalla', function () {
+    return view('panel.pantalla');
+})->name('pantalla');
+/// login pantalla
+Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', function () {
+    // return view('panel.pantalla-login');
+    return view('auth.login');
+})->name('pantalla.login');
+

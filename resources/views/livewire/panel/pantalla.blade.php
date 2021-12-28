@@ -11,14 +11,7 @@
                     </div>
             @endforeach
         </div>
-
-
-        {{-- <audio id="audioplayer" autoplay=true>
-            <source src="{{ asset('sound/Beep4.mp3') }}" type="audio/mpeg">
-            <source src="{{ asset('sound/Beep4.ogg') }}" type="audio/ogg">
-        </audio> --}}
-
         
-    </x-contenido />
+    </x-contenido >
 
 </div>
