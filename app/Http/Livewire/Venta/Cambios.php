@@ -253,7 +253,7 @@ class Cambios extends Component
 
 
     public function btnImprimirPreCuenta(){ /// Imprime la precuenta
-        $this->ImprimirPrecuenta($this->clientSelected);
+        $this->ImprimirPrecuenta($this->clientSelected, $this->propinaCantidad, $this->propinaPorcentaje);
         $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Imprimiendo Pre Cuenta']);
     
     } 
