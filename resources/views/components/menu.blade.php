@@ -59,6 +59,7 @@
     
     <li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
     <li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
+    <li><a href="{{ route('efectivo.ingreso') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar o Retirar Efectivo</a></li>
     
     </ul>
     </div>
@@ -78,7 +79,7 @@
         <li><a href="{{ route('historial.cortes') }}" class="waves-effect"><i class="fas fa-cog"></i> Cortes de Caja</a></li>
         <li><a href="{{ route('historial.meseros') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Meseros</a></li>
         {{-- <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Repartidores</a></li> --}}
-        <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes</a></li>
+        <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Ordenes</a></li>
     </ul>
     </div>
 </li>   

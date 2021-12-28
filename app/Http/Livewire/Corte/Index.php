@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Corte;
 
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
+use App\Models\EntradasSalidas;
 use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
@@ -21,6 +22,8 @@ class Index extends Component
     public $datos = [];
 
     public $random; // numero para eliminar corte
+
+    public $existenMovimientos; // Comprueba si tiene movimientos de efectivo entradas o salidas
 
 
     protected $rules = [
@@ -45,13 +48,14 @@ class Index extends Component
         $this->obtenerDatosCorte();
         $this->verCorte();
         $this->emit('creado'); // manda el mensaje de creado
-
+        $this->reset(['existenMovimientos']);
     }
 
     public function verCorte(){ // verifica si se realizo corte
         
         if ($this->getAperturaCaja()) { // hay apertura sin cerrar
             $this->sicorte = TRUE;
+            $this->movimientosEfectivo();
         } else { //sin apertura por cerrrar
             $this->sicorte = FALSE;
             $this->obtenerDatosCorte();
@@ -118,6 +122,13 @@ class Index extends Component
 
     }
 
+    public function movimientosEfectivo(){
+        $this->existenMovimientos = EntradasSalidas::where('cajero', session('config_usuario_id'))
+                                    ->whereBetween('tiempo', [$this->inicioCorte(session('config_usuario_id')), Helpers::timeId()])
+                                    ->where('edo', 1)
+                                    ->where('tipo_pago', 1)
+                                    ->count();
+    }
 
 
 
