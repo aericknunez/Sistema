@@ -225,12 +225,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/facturacion/ultimas', fun
 
 
 /// MOBILE
-Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/inicio', function () {
-    return view('comandero.inicio');
-})->name('comandero');
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobil', function () {
     return view('comandero.mesas');
 })->name('comandero.mesas');
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/inicio', function () {
+    return view('comandero.inicio');
+})->name('comandero');
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobil/cambios', function () {
     return view('comandero.cambios');
 })->name('comandero.cambios');

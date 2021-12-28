@@ -22,7 +22,7 @@
     
     </div>
     @if (session('comandero')) 
-    <a href="{{ route('comandero') }}" class="btn btn-link">Volver</a>
+    <a href="{{ route('comandero.mesas') }}" class="btn btn-link">Volver</a>
     @else
     <a href="{{ route('venta.rapida') }}" class="btn btn-link">Volver</a>
     @endif
