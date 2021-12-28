@@ -3,14 +3,19 @@
 namespace App\Http\Livewire\Historial;
 
 use App\Models\CorteDeCaja;
+use App\Models\User;
+use App\System\Corte\ImprimirCortes;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class Cortes extends Component
 {
+    use ImprimirCortes;
 
     public $fecha1, $fecha2;
     public $datos = [];
+    public $detalles = [];
+
 
 
 
@@ -55,5 +60,20 @@ class Cortes extends Component
 
 
 
+    public function obtenerDatosCorte($iden){
+        $this->detalles = CorteDeCaja::where('id', $iden)->first();
+                
+        $usr = User::select('name')->where('id', $this->detalles->usuario_corte)
+                                   ->first();
+        $this->detalles->cajero = $usr->name;
+        
+    }
+
+    public function imprimirCorte(){
+
+        $this->ImprimirCortePrimario($this->detalles);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+
+    }
 
 }

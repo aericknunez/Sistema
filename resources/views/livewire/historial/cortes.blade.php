@@ -69,4 +69,7 @@
 
     </x-cuerpo>
 
+
+    <x-historial.modal-detalles-corte :datos="$detalles" />
+
 </div>
