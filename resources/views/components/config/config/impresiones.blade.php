@@ -43,7 +43,11 @@
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Documento por defecto del sistema
-            <span>{{ tipoMenu($datos->seleccionado) }}</span>
+            <span>{{ tipoVenta($datos->seleccionado) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Agrupar los productos de la comanda al mandar a imprimir:
+            <span>{{ isActivo($datos->comanda_agrupada) }}</span>
         </li>
     </ul>
 </div>

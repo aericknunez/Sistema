@@ -48,7 +48,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Propina:
-                    <span>{{ dinero($datos->propina) }}</span>
+                    <span>{{ $datos->propina }} %</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Envio:

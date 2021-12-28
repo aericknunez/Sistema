@@ -45,7 +45,8 @@ trait Config{
             'impresion_imprimir_antes' => $impresion->imprimir_antes,
             'impresion_comanda' => $impresion->comanda,
             'impresion_opcional' => $impresion->opcional,
-            'impresion_seleccionado' => $impresion->seleccionado
+            'impresion_seleccionado' => $impresion->seleccionado,
+            'impresion_comanda_agrupada' => $impresion->comanda_agrupada
         ]);
     }
 
@@ -87,6 +88,7 @@ trait Config{
             'root_edo_sistema' => $root->edo_sistema, 
             'root_tipo_sistema' => $root->tipo_sistema, 
             'root_plataforma' => $root->plataforma,
+            'root_url_to_upload' => $root->url_to_upload,
             'root_ftp_server' => $root->ftp_server,
             'root_ftp_user' => $root->ftp_user,
             'root_ftp_password' => $root->ftp_password

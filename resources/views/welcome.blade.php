@@ -113,7 +113,7 @@
             </div>
         </div>
 
-    </x-contenido>
+    </x-contenido />
 
 @push('scripts')
 

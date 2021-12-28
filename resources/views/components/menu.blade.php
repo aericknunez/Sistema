@@ -197,7 +197,7 @@
 
     <li><a href="{{ route('config.usuarios') }}" class="waves-effect"><i class="fas fa-cog"></i> Cambiar Usuarios</a></li>
     <li><a href="{{ route('config.configuracion') }}" class="waves-effect"><i class="fas fa-cog"></i> Configuraciones</a></li>
-    <li><a href="{{ route('config.opciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Opciones de Actualiación</a></li>
+    <li><a href="{{ route('config.opciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Opciones de Actualización</a></li>
     
     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
     <li><a href="{{ route('api-tokens.index') }}" class="waves-effect"><i class="fas fa-cog"></i> {{ __('API Tokens') }}</a></li>

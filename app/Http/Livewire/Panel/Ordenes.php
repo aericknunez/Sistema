@@ -18,8 +18,11 @@ class Ordenes extends Component
     protected $paginationTheme = 'bootstrap';
 
 
+    // Otros datos
     public $totalOrdenes, $totalLlevar, $totalAqui;
     public $totalPendientes, $pendientesLlevar, $pendientesAqui;
+
+    public $detalles = [];
 
 
     public function mount(){
@@ -68,6 +71,11 @@ class Ordenes extends Component
         return redirect()->route('venta.rapida');
     }
 
+
+
+    public function getDetalles($iden){ // se obtienen los detalles de cada orden para mostrarla en el modal
+
+    }
 
 
 

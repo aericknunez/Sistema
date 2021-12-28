@@ -22,7 +22,7 @@
 
                     <tr>
                         <td class="font-weight-bold text-uppercase">CREAR MENU</td>
-                        <td>Carga nuevamente los prodcutos agregados al sistema para que esten dispobles a la venta</td>
+                        <td>Carga nuevamente los productos agregados al sistema para que esten disponibles a la venta</td>
                         <td>
                             <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="crearMenu()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
                         </td>

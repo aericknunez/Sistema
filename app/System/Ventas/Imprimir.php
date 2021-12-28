@@ -307,7 +307,11 @@ trait Imprimir{
         ->where('panel', $panel)
         ->with('subOpcion')->get();
 
-        return $this->formatDataComanda($datos);
+        if (session('impresion_comanda_agrupada')) {
+            return $this->formatData($datos);
+        } else {
+            return $this->formatDataComanda($datos);
+        }
     }
 
     public function productosActualizar($orden, $anterior, $nuevo){

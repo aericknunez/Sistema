@@ -19,6 +19,6 @@
         </audio> --}}
 
         
-    </x-contenido>
+    </x-contenido />
 
 </div>

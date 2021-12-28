@@ -66,7 +66,8 @@ class Configuracion extends Component
             $imprimir_antes,
             $comanda,
             $opcional,
-            $seleccionado;
+            $seleccionado,
+            $comanda_agrupada;
 
         /// config Root o Sistema model
         public $expira,
@@ -180,6 +181,7 @@ class Configuracion extends Component
         $this->config['edo_sistema'] = Encrypt::decrypt($data['edo_sistema'], config('sistema.td'));
         $this->config['tipo_sistema'] = Encrypt::decrypt($data['tipo_sistema'], config('sistema.td'));
         $this->config['plataforma'] = Encrypt::decrypt($data['plataforma'], config('sistema.td'));
+        $this->config['url_to_upload'] = Encrypt::decrypt($data['url_to_upload'], config('sistema.td'));
         $this->config['ftp_server'] = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
         $this->config['ftp_user'] = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
         $this->config['ftp_password'] = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
@@ -271,7 +273,7 @@ class Configuracion extends Component
 
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
-        $this->asignPrincipal();
+        $this->getDatosPrincipal();
         $this->sessionPrincipal(); /// llama desde config a crear las variables de session
     }
 
@@ -288,6 +290,7 @@ class Configuracion extends Component
         $this->comanda = $data['comanda'];
         $this->opcional = $data['opcional'];
         $this->seleccionado = $data['seleccionado'];
+        $this->comanda_agrupada = $data['comanda_agrupada'];
     }
 
 
@@ -305,13 +308,14 @@ class Configuracion extends Component
             'comanda' => $this->comanda,
             'opcional' => $this->opcional,
             'seleccionado' => $this->seleccionado,
+            'comanda_agrupada' => $this->comanda_agrupada,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')]);
 
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
-        $this->asignImpresiones();
+        $this->getDatosImpresiones();
         $this->sessionImpresion(); /// llama desde config a crear las variables de session
     }
 
@@ -327,6 +331,7 @@ class Configuracion extends Component
         $this->edo_sistema = Encrypt::decrypt($data['edo_sistema'], config('sistema.td'));
         $this->tipo_sistema = Encrypt::decrypt($data['tipo_sistema'], config('sistema.td'));
         $this->plataforma = Encrypt::decrypt($data['plataforma'], config('sistema.td'));
+        $this->url_to_upload = Encrypt::decrypt($data['url_to_upload'], config('sistema.td'));
         $this->ftp_server = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
         $this->ftp_user = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
         $this->ftp_password = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
@@ -353,7 +358,6 @@ class Configuracion extends Component
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
         $this->getDatosRoot();
-        $this->asignSistema();
         $this->sessionRoot(); /// llama desde config a crear las variables de session
     }
 
