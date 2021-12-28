@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\IniciarController;
-use App\Http\Controllers\OpcionController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
