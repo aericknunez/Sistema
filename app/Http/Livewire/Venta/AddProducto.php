@@ -11,12 +11,13 @@ use Livewire\Component;
 
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
+use App\System\Config\Validaciones;
 use App\System\Ventas\Imprimir;
 use App\System\Ventas\Ventas;
 
 class AddProducto extends Component
 {
-    use Ventas, Imprimir;
+    use Ventas, Imprimir, Validaciones;
 
 
     public $productAgregado;
@@ -41,6 +42,9 @@ class AddProducto extends Component
 
     public $codSelected; // codigo del producto seleccionado
     public $cantidadproducto; // cantidad de productos a cambiar
+
+    // registro de borrado
+    public $codigo_borrado, $motivo_borrado, $validado, $tipo_borrado, $idenProducto;
 
     // Otras ventas
     public $otras_producto, $otras_cantidad; 
@@ -88,7 +92,25 @@ class AddProducto extends Component
     }
 
     public function delProducto($id){ // eliminar un producto de la venta
-        $this->eliminarProducto($id);
+        $imp = $this->verificaProducto($id);
+        if (($this->siCodigo() or $this->siRegristro()) and $imp->imprimir != 1) {
+            $this->tipo_borrado = 1;
+            $this->idenProducto = $id;
+            if ($this->siCodigo() and !$this->codigo_borrado) { // sia un no hay codigo de borado ingresado
+                if (!$this->validado) {
+                    $this->dispatchBrowserEvent('modal-codigo-borrado');
+                }
+            }
+            else if ($this->siRegristro() and !$this->motivo_borrado) { // sia un no hay codigo de borado ingresado
+                $this->dispatchBrowserEvent('modal-motivo-borrado');
+            } else {
+                $this->eliminarProductoRegister($id, $this->motivo_borrado);
+                // $this->reset(['motivo_borrado', 'tipo_borrado', 'codigo_borrado']);
+            }
+        } else {
+            $this->eliminarProducto($id);  // eliminacion normal
+        }
+
         $this->verificaCantidad();
         $this->updateImprimirOrden();
 
@@ -100,7 +122,22 @@ class AddProducto extends Component
     }
 
     public function delOrden(){ // Eliminar la orden de la venta
-        $this->eliminarOrden();
+        if (($this->siCodigo() or $this->siRegristro()) and $this->cantidaProductosImpresos() > 0) {
+            $this->tipo_borrado = 2;
+            if ($this->siCodigo() and !$this->codigo_borrado) { // sia un no hay codigo de borado ingresado
+                if (!$this->validado) {
+                    $this->dispatchBrowserEvent('modal-codigo-borrado');
+                }
+            }
+            else if ($this->siRegristro() and !$this->motivo_borrado) { // sia un no hay codigo de borado ingresado
+                $this->dispatchBrowserEvent('modal-motivo-borrado');
+            } else {
+                $this->eliminarOrdenRegister($this->motivo_borrado);
+                // $this->reset(['motivo_borrado', 'tipo_borrado', 'codigo_borrado']);
+            }
+        } else {
+            $this->eliminarOrden(); // eliminacion normal
+        }
         
         if (session('principal_ticket_pantalla') == 2) {
             $this->ImprimirComanda();
@@ -461,6 +498,31 @@ public function btnCerrarModal(){ /// Cierra el modal de fin de venta
     }
 } 
 
+
+public function validarCodigoOrden(){
+    if ($this->validarCodigoAcceso($this->codigo_borrado)) {
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCodigoBorrado']);
+        $this->validado = true;
+        if ($this->tipo_borrado == 1) {
+            $this->delProducto($this->idenProducto);
+        } else {
+            $this->delOrden();
+        }
+    } else {
+        $this->dispatchBrowserEvent('modal-codigo-borrado');
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El codigo introducido no es valido']);
+    }
+}
+
+public function validarMotivo(){
+    $this->validate(['motivo_borrado' => 'required|min:10']);
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalMotivoBorrado']);
+    if ($this->tipo_borrado == 1) {
+        $this->delProducto($this->idenProducto);
+    } else {
+        $this->delOrden();
+    }
+}
 
 
 

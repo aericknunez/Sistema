@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\System\Config\Config;
+use App\System\Config\Validaciones;
 use Closure;
 use Illuminate\Http\Request;
 
 class ComprobarSistema
 {
-    use Config;
+    use Validaciones;
     /**
      * Handle an incoming request.
      *

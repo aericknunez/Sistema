@@ -21,8 +21,12 @@
           <span>{{ tipoComanda($datos->ticket_pantalla) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar el registro al borrar una orden:
+            Activar el registro de justificación al borrar una orden:
             <span>{{ isActivo($datos->registro_borrar) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Activar solicitar clave al borrar una orden:
+            <span>{{ isActivo($datos->solicitar_clave) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar comentarios en comanda para cocina:

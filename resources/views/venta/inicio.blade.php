@@ -28,6 +28,16 @@
                 playSound()
             });
 
+            window.addEventListener('modal-codigo-borrado', event => {
+                $('#ModalCodigoBorrado').modal('show');
+            });
+            window.addEventListener('modal-motivo-borrado', event => {
+                $('#ModalMotivoBorrado').modal('show');
+            });
+            window.addEventListener('modal-motivo-borrado-producto', event => {
+                $('#ModalMotivoBorradoProducto').modal('show');
+            });
+
             window.addEventListener('modal-cambio-venta', event => {
                 $('#ModalCambioVenta').modal('show');
                 $('#fact_subtotal').text(event.detail.subtotal);

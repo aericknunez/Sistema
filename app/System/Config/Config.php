@@ -58,6 +58,7 @@ trait Config{
             'principal_no_cajas' => $principal->no_cajas, 
             'principal_ticket_pantalla' => $principal->ticket_pantalla, 
             'principal_registro_borrar' => $principal->registro_borrar,
+            'principal_solicitar_clave' => $principal->solicitar_clave,
             'principal_comentarios_comanda' => $principal->comentarios_comanda,
             'principal_llevar_aqui' => $principal->llevar_aqui, //1 Llevar, 2 Comer Aqui
 
@@ -94,18 +95,6 @@ trait Config{
             'root_ftp_password' => $root->ftp_password
         ]);
     }
-
-
-    public function validarSistema(){
-        $code =  Helpers::FlashCode(Encrypt::encrypt(config('sistema.td'), config('sistema.td')));
-
-        if ($code == config('sistema.hash')) {
-           return true;
-        } else {
-            return false;
-        }
-    }
-
 
 
 

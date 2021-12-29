@@ -54,4 +54,12 @@
        <x-venta.lateral-modal-cambio-venta />
        <x-venta.modal-otras-ventas />
 
+       {{-- modales de borrado  --}}
+        @if (session('principal_registro_borrar'))
+            <x-venta.modal-motivo-borrado />
+        @endif
+        @if (session('principal_solicitar_clave'))
+            <x-venta.modal-codigo_borrado />
+        @endif
+
 </div>

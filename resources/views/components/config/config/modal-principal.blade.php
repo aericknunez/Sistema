@@ -44,7 +44,7 @@
                 </li>
               @endif
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar el registro al borrar una orden:
+                  Activar el registro de justificación al borrar una orden:
                     <span>
                         <div class="switch">
                             <label>
@@ -55,6 +55,20 @@
                           </div>
                     </span>
                 </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Activar solicitar clave al borrar una orden:
+                    <span>
+                        <div class="switch">
+                            <label>
+                              Off
+                              <input type="checkbox" wire:model.defer="solicitar_clave">
+                              <span class="lever"></span> On
+                            </label>
+                          </div>
+                    </span>
+                </li>
+
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Activar comentarios en comanda para cocina:
                     <span>

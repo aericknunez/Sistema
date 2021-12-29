@@ -31,7 +31,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de Ticket:
+                    Activar registro de Ticket:
                     <span>
                         <div class="switch">
                             <label>
@@ -43,7 +43,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de Factura:
+                    Activar registro de Factura:
                     <span>
                         <div class="switch">
                             <label>
@@ -55,7 +55,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de Credito Fiscal:
+                    Activar registro de Credito Fiscal:
                     <span>
                         <div class="switch">
                             <label>
@@ -67,7 +67,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de No Sujeto:
+                    Activar registro de No Sujeto:
                     <span>
                         <div class="switch">
                             <label>
@@ -79,7 +79,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de imprimir Pre Cuenta:
+                    Activar imprimir Pre Cuenta:
                     <span>
                         <div class="switch">
                             <label>
@@ -91,7 +91,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar opciones de impresiones de Comandas:
+                    Activar impresiones de Comandas:
                     <span>
                         <div class="switch">
                             <label>
@@ -103,7 +103,7 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Seleccionar documento opcional:
+                  Activar registro documento Opcional:
                     <span>
                         <div class="switch">
                             <label>

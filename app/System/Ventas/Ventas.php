@@ -149,6 +149,15 @@ public function cantidaProductosSinGuardar(){
 }
 
 
+public function cantidaProductosImpresos(){
+            return TicketProducto::where('orden', session('orden'))
+                                    ->where('num_fact', NULL)
+                                    ->whereIn('imprimir', [2, 3])
+                                    ->count();
+}
+
+
+
 public function getProductosModal($producto){ // obtiene los detalles de los productos par ael modal
     return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
@@ -214,10 +223,22 @@ public function eliminarOrden(){
     }
 }
 
+// registrar la eliminacion de orden o producto
+public function eliminarOrdenRegister($motivo){
+    TicketProducto::where('orden', session('orden'))
+                    ->whereIn('imprimir', [2, 3])
+                    ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+    TicketProducto::where('orden', session('orden'))->where('imprimir','!=', 4)->delete();
+    TicketOrden::where('id', session('orden'))
+                    ->update(['edo' => 0, 'imprimir' => 0, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+}
 
 
-
-
+public function eliminarProductoRegister($iden, $motivo){
+        TicketProducto::where('id', $iden)
+                            ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+}
+//
 
 
 public function levantarModalOpcion($idProducto){ // busca y levanta el modal de la opcion que falta
@@ -424,6 +445,14 @@ public function delDeliveryData(){
     
             return FALSE;
         
+    }
+
+
+
+
+    public function verificaProducto($iden){ // obtiene el imprimir del producto
+        return TicketProducto::select('imprimir')
+                                    ->where('id', $iden)->first();
     }
 
 

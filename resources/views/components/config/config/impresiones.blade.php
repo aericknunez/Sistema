@@ -10,7 +10,7 @@
     <ul class="list-group font-weight-bold">
 
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar opciones ningun documento:
+            Activar ningun documento:
             <span>{{ isActivo($datos->ninguno) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -30,15 +30,15 @@
             <span>{{ isActivo($datos->no_sujeto) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar registro de Imprimir Pre Cuenta:
+            Activar Imprimir Pre Cuenta:
             <span>{{ isActivo($datos->imprimir_antes) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar registro de impresión de comandas:
+            Activar  impresión de comandas:
             <span>{{ isActivo($datos->comanda) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar registro Opcional:
+            Activar registro documento Opcional:
             <span>{{ isActivo($datos->opcional) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
