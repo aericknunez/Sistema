@@ -31,15 +31,15 @@
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Servidor FTP:
-            <span>{{ $datos->server_ftp }}</span>
+            <span>{{ $datos->ftp_server }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Usuario FTP:
-            <span>{{ $datos->user_ftp }}</span>
+            <span>{{ $datos->ftp_user }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Password FTP:
-            <span>{{ $datos->password_ftp }}</span>
+            <span>********</span>
         </li>
     </ul>
 </div>

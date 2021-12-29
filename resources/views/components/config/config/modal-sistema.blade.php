@@ -61,13 +61,13 @@
     
     
                 <div class="md-form my-0">
-                    <input type="email" id="user_ftp" class="form-control" wire:model.defer="user_ftp" placeholder="Usuario FTP">
+                    <input type="text" id="user_ftp" class="form-control" wire:model.defer="ftp_user" placeholder="Usuario FTP">
                 </div>
 
 
     
                 <div class="md-form my-0">
-                    <input type="text" id="password" class="form-control" wire:model.defer="password" placeholder="Password FTP">
+                    <input type="text" id="password" class="form-control" wire:model.defer="ftp_password" placeholder="Password FTP">
                 </div>
 
     
