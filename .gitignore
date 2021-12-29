@@ -17,3 +17,4 @@ yarn-error.log
 /resources/views/venta/iconos.blade.php
 /resources/views/components/venta/lateral-modal-tpago.blade.php
 /resources/views/components/comandero/iconos/categorias.blade.php
+/public/img/logo/logo.png
