@@ -42,6 +42,17 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
                 
             }
 
+            if (session('principal_otras_ventas')) {
+            //Otras ventas
+            $retorno .= '<a  data-toggle="modal" data-target="#ModalOtrasVentas">
+                            <div class="near_item bg-white box_rounded mr-2 p-3 text-center my-1 shadow-sm pointer">
+                            <img src="{{ asset("img/ico/4d87a6a1c0.png") }}" width="80" height="80" class="img-fluid mx-auto mb-1 rounded-pill">
+                            <p class="mb-1 text-dark">Otras Ventas</p>
+                            </div>
+                        </a>'; 
+            }
+            
+
         $retorno .= '</div>
         </section>
 
