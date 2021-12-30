@@ -99,10 +99,10 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         } else {
             $target = NULL;
         }
-
+        
         $retorno = '<div class="mx-2 my-2">
-                        <div class="'.$icono.' text-center" '.$target.'>
-                            <a  title="'.$data->nombre.'" wire:click="addProducto('.$data->cod.')">
+                        <div class="'.$icono.' text-center" '.$target.' wire:click="addProducto('.$data->cod.')" wire:key="p'.$data->id.'">
+                            <a  title="'.$data->nombre.'">
                             <img src="{{ asset("'.$img.'") }}" class="img-fluid wow fadeIn '.$class.' border border-dark ">
                             <div class="menu-title text-truncate">'.$data->nombre.'</div> 
                             </a>
@@ -170,12 +170,12 @@ $retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="d
 
 $retorno .= '</div> 
 
-</div>
-    <div class="modal-footer">
-        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
     </div>
+        <div class="modal-footer">
+            <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+        </div>
+        </div>
     </div>
-</div>
 </div>';
 
 return $retorno;
@@ -198,7 +198,8 @@ $datos = Producto::where('producto_categoria_id', $categoria->id)->get();
     if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
     if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-$retorno = '<div class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+
+$retorno = '<div wire:ignore.self class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
 <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
     <div class="modal-content bordeado-x1">
     <div class="modal-header">
@@ -214,10 +215,10 @@ $retorno = '<div class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" r
 
 $retorno .= '</div> 
 
-</div>
-    <div class="modal-footer">
-        <button type="button" class="btn blue-gradient btn-rounded" data-dismiss="modal">Cerrar</button>
     </div>
+        <div class="modal-footer">
+            <button type="button" class="btn blue-gradient btn-rounded" data-dismiss="modal">Cerrar</button>
+        </div>
     </div>
 </div>
 </div>';

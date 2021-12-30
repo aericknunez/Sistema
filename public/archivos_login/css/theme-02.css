@@ -54,9 +54,9 @@
     }
 
     .forny-container {
-        background: url('../img/bg-02.svg') center center no-repeat
+        background: url('../img/bg-02.png') center center no-repeat
             hsla(201, 78%, 46%, 1);
-        background: url('../img/bg-02.svg') center center no-repeat
+        background: url('../img/bg-02.png') center center no-repeat
             var(--forny-color-accent-500);
     }
     .forny-form {

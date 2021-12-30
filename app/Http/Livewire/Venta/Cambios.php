@@ -54,8 +54,8 @@ class Cambios extends Component
         $this->clientSelected = $cliente;
         $this->determinaPropina();
 
-        $this->reset(['productAgregado']);
-        $this->productosAdded();
+        // $this->reset(['productAgregado']);
+        // $this->productosAdded();
         $this->productFactura();
         $this->obtenerTotal();
     }
@@ -64,9 +64,9 @@ class Cambios extends Component
     public function asignarProducto($producto){ // selecciona el producto
         
         TicketProducto::where('orden', session('orden'))
-        ->where('edo', 1)
-        ->where('id', $producto)
-        ->update(['cliente' => $this->clientSelected]);
+                        ->where('edo', 1)
+                        ->where('id', $producto)
+                        ->update(['cliente' => $this->clientSelected]);
 
         $this->determinaPropina();
 

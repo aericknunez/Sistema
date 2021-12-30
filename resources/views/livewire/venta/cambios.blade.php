@@ -7,7 +7,7 @@
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
-        <x-venta.cambios-productos :datos="$productAgregado"  />
+        <x-venta.cambios-productos :datos="$productAgregado" :cliente="$clientSelected"  />
 
     </div>
 

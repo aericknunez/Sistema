@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Venta;
 
 use App\Common\Helpers;
 use App\Models\ConfigMoneda;
+use App\Models\Producto;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
 use Livewire\Component;
@@ -85,9 +86,17 @@ class AddProducto extends Component
         if($modal){
             $this->modalProducto = $modal['producto_id'];
             $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
         } else {
-            $this->dispatchBrowserEvent('focus');
+            $producto = Producto::where('cod', $cod)->first();
+            if ($producto->producto_categoria_id != 1) {
+                $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'categoria-' . $producto->producto_categoria_id]);
+                if (session('principal_levantar_modal')) { // si tengo activada la opcion de levantar modal
+                    $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'categoria-' . $producto->producto_categoria_id]);
+                }
+            } else {
+                $this->dispatchBrowserEvent('focus');
+            }
         }
     }
 

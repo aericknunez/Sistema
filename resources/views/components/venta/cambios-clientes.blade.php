@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore.self>
     <div class="row justify-content-center click bordeado-x1 border border-info ml-1">
 
         @for ($i = 1; $i <= session('clientes'); $i++)

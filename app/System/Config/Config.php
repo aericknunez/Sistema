@@ -73,6 +73,7 @@ trait Config{
 
 
             'principal_sonido' => $principal->sonido,
+            'principal_levantar_modal' => $principal->levantar_modal,
             'principal_tipo_menu' => $principal->tipo_menu,
             'principal_otras_ventas' => $principal->otras_ventas,
             'principal_venta_especial' => $principal->venta_especial

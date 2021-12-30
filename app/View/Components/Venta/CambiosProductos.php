@@ -8,11 +8,13 @@ class CambiosProductos extends Component
 {
 
     public $datos;
+    public $cliente;
 
     
-    public function __construct($datos)
+    public function __construct($datos, $cliente)
     {
         $this->datos = $datos;
+        $this->cliente = $cliente;
     }
 
     

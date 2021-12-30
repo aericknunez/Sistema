@@ -14,8 +14,7 @@
     @push('scripts')
         <script>
             window.addEventListener('modal-opcion-add', event => {
-                // alert('Opcion Id: ' + event.detail.opcion_id);
-                $('#opcion-' + event.detail.opcion_id).modal('show');
+                $('#' + event.detail.opcion_id).modal('show');
                 playSound()
             });
             window.addEventListener('modal-opcion-hide', event => {

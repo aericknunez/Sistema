@@ -69,6 +69,10 @@
             <span>{{ isActivo($datos->sonido) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Levantar modal de categorias al marcar producto
+            <span>{{ isActivo($datos->levantar_modal) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Tipo de Menu
             <span>{{ tipoMenu($datos->tipo_menu) }}</span>
         </li>

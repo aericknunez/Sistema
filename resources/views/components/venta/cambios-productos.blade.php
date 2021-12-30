@@ -1,4 +1,4 @@
-<div wire:ignore.self>
+<div wire:ignore.self >
   
     @if ($datos)
 
@@ -22,12 +22,13 @@
                 <td class="font-weight-bold">{{ $producto->producto }}</td>
                 <td class="font-weight-bold">{{ $producto->total }}</td>
                 <td  class="click">
-                    @if ($producto->cliente == session('cliente'))
+                {{-- Al darle seguimiento con wire:key falla y no se muestra correctamente --}}
+                    @if ($cliente == $producto->cliente)
                         <span><i class="fas fa-ban red-text fa-2x" aria-hidden="true"></i></span>
-                    @else
-                    <a wire:key="{{ $loop->index }}" wire:click="asignarProducto({{ $producto->id }})" wire:loading.attr="disabled">
-                        <span><i class="fas fa-check-square green-text fa-2x" aria-hidden="true"></i></span>
-                    </a>
+                    @endif
+                    @if ($cliente != $producto->cliente)
+                        <a wire:click="asignarProducto({{ $producto->id }})" wire:loading.attr="disabled">
+                            <span><i class="fas fa-check-square green-text fa-2x" aria-hidden="true"></i></span>
                     @endif
                 </td>
               </tr>
@@ -50,7 +51,7 @@
       </table>
 
     @else
-    <div class="text-center"><img src="{{ asset("img/logo/1604553637.jpg") }}" alt="" class="img-fluid hoverable"></div>
+    <div class="text-center"><img src="{{ asset("img/logo/logo.png") }}" alt="" class="img-fluid hoverable"></div>
     @endif
 
 

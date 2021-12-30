@@ -181,6 +181,18 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Levantar modal de categorias al marcar producto
+                  <span>
+                      <div class="switch">
+                          <label>
+                            Off
+                            <input type="checkbox" wire:model.defer="levantar_modal">
+                            <span class="lever"></span> On
+                          </label>
+                        </div>
+                  </span>
+              </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     Tipo de Menu
                     <span>
                         <select class="browser-default custom-select" wire:model.defer="tipo_menu">

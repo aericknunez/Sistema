@@ -54,6 +54,7 @@ class Configuracion extends Component
             $llevar_delivery,
             $llevar_aqui_propina_cambia,
             $sonido,
+            $levantar_modal,
             $tipo_menu,
             $otras_ventas,
             $venta_especial;
@@ -228,6 +229,7 @@ class Configuracion extends Component
         $this->llevar_delivery = $data['llevar_delivery'];
         $this->llevar_aqui_propina_cambia = $data['llevar_aqui_propina_cambia'];
         $this->sonido = $data['sonido'];
+        $this->levantar_modal = $data['levantar_modal'];
         $this->tipo_menu = $data['tipo_menu'];
         $this->otras_ventas = $data['otras_ventas'];
         $this->venta_especial = $data['venta_especial'];
@@ -254,6 +256,7 @@ class Configuracion extends Component
             'llevar_delivery' => $this->llevar_delivery,
             'llevar_aqui_propina_cambia' => $this->llevar_aqui_propina_cambia,
             'sonido' => $this->sonido,
+            'levantar_modal' => $this->levantar_modal,
             'tipo_menu' => $this->tipo_menu,
             'otras_ventas' => $this->otras_ventas,
             'venta_especial' => $this->venta_especial,
