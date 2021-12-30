@@ -8,7 +8,9 @@
         
         <p class="card-text"><i class="far fa-clock pr-2"></i>{{ $datos->created_at }} Hace: {{ $datos->created_at->diffForHumans(now()) }}</p>
  
-        {{ $datos->comentario }}
+        @if ($datos->comentario)
+        <i class="far fa-comment-dots"></i> {{ $datos->comentario }}
+        @endif
         
       </div>
     </div>

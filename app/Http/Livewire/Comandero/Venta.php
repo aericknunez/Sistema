@@ -5,20 +5,20 @@ namespace App\Http\Livewire\Comandero;
 use App\Common\Helpers;
 use App\Models\ConfigMoneda;
 use App\Models\Producto;
-use App\Models\TicketNum;
 use App\Models\TicketOpcion;
 use Livewire\Component;
 
 
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
+use App\System\Config\Validaciones;
 use App\System\Ventas\Imprimir;
 use App\System\Ventas\Ventas;
 
 
 class Venta extends Component
 {
-    use Ventas, Imprimir;
+    use Ventas, Imprimir, Validaciones;
 
 
     public $productAgregado;
@@ -43,6 +43,15 @@ class Venta extends Component
     public $cantidadproducto; // cantidad de productos a cambiar
 
     public $catSelect;
+
+
+    // registro de borrado
+    public $codigo_borrado, $motivo_borrado, $validado, $tipo_borrado, $idenProducto;
+
+    // Otras ventas
+    public $otras_producto, $otras_cantidad; 
+
+
 
     public function mount(){
         if (session('orden')) {
@@ -79,14 +88,40 @@ class Venta extends Component
         if($modal){
             $this->modalProducto = $modal['producto_id'];
             $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
         } else {
-            $this->dispatchBrowserEvent('focus');
+            $producto = Producto::where('cod', $cod)->first();
+            if ($producto->producto_categoria_id != 1) {
+                $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'categoria-' . $producto->producto_categoria_id]);
+                if (session('principal_levantar_modal')) { // si tengo activada la opcion de levantar modal
+                    $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'categoria-' . $producto->producto_categoria_id]);
+                }
+            } else {
+                $this->dispatchBrowserEvent('focus');
+            }
         }
     }
 
     public function delProducto($id){ // eliminar un producto de la venta
-        $this->eliminarProducto($id);
+        $imp = $this->verificaProducto($id);
+        if (($this->siCodigo() or $this->siRegristro()) and $imp->imprimir != 1) {
+            $this->tipo_borrado = 1;
+            $this->idenProducto = $id;
+            if ($this->siCodigo() and !$this->codigo_borrado) { // sia un no hay codigo de borado ingresado
+                if (!$this->validado) {
+                    $this->dispatchBrowserEvent('modal-codigo-borrado');
+                }
+            }
+            else if ($this->siRegristro() and !$this->motivo_borrado) { // sia un no hay codigo de borado ingresado
+                $this->dispatchBrowserEvent('modal-motivo-borrado');
+            } else {
+                $this->eliminarProductoRegister($id, $this->motivo_borrado);
+                // $this->reset(['motivo_borrado', 'tipo_borrado', 'codigo_borrado']);
+            }
+        } else {
+            $this->eliminarProducto($id);  // eliminacion normal
+        }
+
         $this->verificaCantidad();
         $this->updateImprimirOrden();
 
@@ -94,19 +129,32 @@ class Venta extends Component
             $this->productosAdded();
             $this->obtenerTotal();
         }
-        $this->dispatchBrowserEvent('focus');
         
     }
 
     public function delOrden(){ // Eliminar la orden de la venta
-        $this->eliminarOrden();
+        if (($this->siCodigo() or $this->siRegristro()) and $this->cantidaProductosImpresos() > 0) {
+            $this->tipo_borrado = 2;
+            if ($this->siCodigo() and !$this->codigo_borrado) { // sia un no hay codigo de borado ingresado
+                if (!$this->validado) {
+                    $this->dispatchBrowserEvent('modal-codigo-borrado');
+                }
+            }
+            else if ($this->siRegristro() and !$this->motivo_borrado) { // sia un no hay codigo de borado ingresado
+                $this->dispatchBrowserEvent('modal-motivo-borrado');
+            } else {
+                $this->eliminarOrdenRegister($this->motivo_borrado);
+                // $this->reset(['motivo_borrado', 'tipo_borrado', 'codigo_borrado']);
+            }
+        } else {
+            $this->eliminarOrden(); // eliminacion normal
+        }
         
         if (session('principal_ticket_pantalla') == 2) {
             $this->ImprimirComanda();
         }
 
         $this->verificaCantidad(1);
-        $this->dispatchBrowserEvent('focus');
     }
 
     public function productosAdded(){ /// productos agregados a la orden
@@ -217,11 +265,21 @@ public function btnImprimirPreCuenta(){ /// Imprime la precuenta
 
 
 
-public function BtnAquiLlevar(){
-    if (session('llevar_aqui') == 1) {
+public function BtnAquiLlevar(){ // 1 llevar, 2 comer aqui
+    if (session('llevar_aqui') == 1) { // se establece para comer aqui
         session(['llevar_aqui' => 2]);
-    } else {
+    } else { // se establece para llevar
         session(['llevar_aqui' => 1]);
+    }
+
+    // se agrega o quita lo de la propina si es para llevar
+    if (session('principal_llevar_aqui_propina_cambia')) {
+        if (session('llevar_aqui') == 1) { // se establece para comer aqui
+            $this->propinaPorcentaje = 0;
+        } else { // se establece para llevar
+            $this->propinaPorcentaje = session('config_propina');
+        }
+        $this->obtenerTotal();
     }
     // Actualizar
     $this->updateLLevarAquiOrden();
@@ -284,6 +342,17 @@ public function btnCambiarCantidad(){ // cambia la cantidad de productos
     }
 
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->productosAdded();
+    $this->obtenerTotal();
+}
+
+
+public function btnOtrasVentas(){
+    $this->validate(['otras_producto' => 'required', 'otras_cantidad' => 'required']);
+
+    $this->asignarOrden();
+    $this->addOtrasVentas($this->otras_producto, $this->otras_cantidad);
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalOtrasVentas']);
     $this->productosAdded();
     $this->obtenerTotal();
 }
@@ -369,6 +438,32 @@ public function btnCatSelect($iden){
     $this->dispatchBrowserEvent('focus');
 }
 
+
+
+public function validarCodigoOrden(){
+    if ($this->validarCodigoAcceso($this->codigo_borrado)) {
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCodigoBorrado']);
+        $this->validado = true;
+        if ($this->tipo_borrado == 1) {
+            $this->delProducto($this->idenProducto);
+        } else {
+            $this->delOrden();
+        }
+    } else {
+        $this->dispatchBrowserEvent('modal-codigo-borrado');
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El codigo introducido no es valido']);
+    }
+}
+
+public function validarMotivo(){
+    $this->validate(['motivo_borrado' => 'required|min:10']);
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalMotivoBorrado']);
+    if ($this->tipo_borrado == 1) {
+        $this->delProducto($this->idenProducto);
+    } else {
+        $this->delOrden();
+    }
+}
 
 
 

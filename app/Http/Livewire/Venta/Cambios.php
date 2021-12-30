@@ -129,23 +129,24 @@ class Cambios extends Component
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalPropina']);
     } 
 
-    public function BtnAquiLlevar(){
-        if (session('llevar_aqui') == 1) {
+    public function BtnAquiLlevar(){ // 1 llevar, 2 comer aqui
+        if (session('llevar_aqui') == 1) { // se establece para comer aqui
             session(['llevar_aqui' => 2]);
-        } else {
+        } else { // se establece para llevar
             session(['llevar_aqui' => 1]);
         }
-
-            // se agrega o quita lo de la propina si es para llevar
-            if (session('principal_llevar_aqui_propina_cambia')) {
-                if (session('llevar_aqui') == 1) { // se establece para comer aqui
-                    $this->propinaPorcentaje = 0;
-                } else { // se establece para llevar
-                    $this->propinaPorcentaje = session('config_propina');
-                }
-                $this->obtenerTotal();
+    
+        // se agrega o quita lo de la propina si es para llevar
+        if (session('principal_llevar_aqui_propina_cambia')) {
+            if (session('llevar_aqui') == 1) { // se establece para comer aqui
+                $this->propinaPorcentaje = 0;
+            } else { // se establece para llevar
+                $this->propinaPorcentaje = session('config_propina');
             }
-
+            $this->obtenerTotal();
+        }
+        // Actualizar
+        $this->updateLLevarAquiOrden();
         $this->llevarComerAqui = session('llevar_aqui');
     } 
     
