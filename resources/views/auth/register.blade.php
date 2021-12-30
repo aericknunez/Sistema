@@ -41,8 +41,8 @@
                                 </span>
                             </div>
                             <input required class="form-control" type="username"
-                                placeholder="Nombre " name="name"
-                                :value="old('name')" required autofocus autocomplete="name" />
+                                placeholder="Nombre " name="name" id="name"
+                                value="{{ old('name') }}" required autofocus autocomplete="name" />
                     <x-jet-input-error for="name"></x-jet-input-error>
 
                         </div>
@@ -60,8 +60,8 @@
                                     </svg>
                                 </span>
                             </div>
-                            <input class="form-control" name="email" type="email" placeholder="Email Address"
-                                name="email" :value="old('email')" required />
+                            <input class="form-control" name="email" id="email" type="email" placeholder="Email Address"
+                                value="{{ old('email') }}" required />
                     <x-jet-input-error for="email"></x-jet-input-error>
 
                         </div>
@@ -168,9 +168,9 @@
                                 <x-jet-checkbox id="terms" name="terms" />
                                 <label class="custom-control-label" for="terms">
                                     {!! __('I agree to the :terms_of_service and :privacy_policy', [
-    'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '">' . __('Terms of Service') . '</a>',
-    'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '">' . __('Privacy Policy') . '</a>',
-]) !!}
+                                        'terms_of_service' => '<a target="_blank" href="' . route('terms.show') . '">' . __('Terms of Service') . '</a>',
+                                        'privacy_policy' => '<a target="_blank" href="' . route('policy.show') . '">' . __('Privacy Policy') . '</a>',
+                                    ]) !!}
                                 </label>
                             </div>
                         </div>

@@ -37,8 +37,8 @@
                                 </svg>
                             </span>
                         </div>
-                        <input required class="form-control" name="email" type="email" placeholder="Email"
-                            :value="old('email')" required>
+                        <input class="form-control" name="email" type="email" id="email" placeholder="Email"
+                            value="{{ old('email') }}" required>
                         <x-jet-input-error for="email"></x-jet-input-error>
                     </div>
                 </div>
