@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\EfectivoGastos;
+use App\System\Historial\Historial;
 use Carbon\Carbon;
 use Livewire\Component;
 
 
 class Gastos extends Component
 {
+    use Historial;
 
     public $tipo_fecha;
     public $fecha1, $fecha2;
@@ -35,16 +36,10 @@ class Gastos extends Component
 
         if ($this->tipo_fecha == 1) {
 
-            $this->datos = EfectivoGastos::whereDay('created_at', $this->fecha1)
-                                            ->with('banco')
-                                            ->orderBy('tiempo', 'desc')
-                                            ->get();
+            $this->datos = $this->gastosUnica($this->fecha1);
             
         } else {
-            $this->datos = EfectivoGastos::whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                                            ->with('banco')
-                                            ->orderBy('tiempo', 'desc')
-                                            ->get();
+            $this->datos = $this->gastosMultiple($this->fecha1, $this->fecha2);
         }
 
     }

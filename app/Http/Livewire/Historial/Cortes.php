@@ -5,12 +5,13 @@ namespace App\Http\Livewire\Historial;
 use App\Models\CorteDeCaja;
 use App\Models\User;
 use App\System\Corte\ImprimirCortes;
+use App\System\Historial\Historial;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class Cortes extends Component
 {
-    use ImprimirCortes;
+    use Historial, ImprimirCortes;
 
     public $fecha1, $fecha2;
     public $datos = [];
@@ -37,11 +38,8 @@ class Cortes extends Component
     public function aplicarFechas(){
         $this->formatFechas();
 
-        $this->datos = CorteDeCaja::whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                                            ->orderBy('tiempo', 'desc')
-                                            ->get();
+        $this->datos = $this->cortesRango($this->fecha1, $this->fecha2);
         
-
     }
 
 
@@ -59,7 +57,7 @@ class Cortes extends Component
 
 
 
-
+/* Obtener los datos de un corte especifico */
     public function obtenerDatosCorte($iden){
         $this->detalles = CorteDeCaja::where('id', $iden)->first();
                 

@@ -10,9 +10,28 @@
                 </h2>
             </div>
 
+            {{-- {{ $datos }} --}}
 
             <div wire:loading.remove wire:target="aplicarFechas">
+                <div class="h2-responsive">Productos Vendidos</div>
                 <x-historial.reporte-informacion :datos="$productos" />
+                @if (count($cortes))
+                <div class="h2-responsive mt-3">Cortes de Caja</div>
+                <x-historial.cortes-listado :datos="$cortes" />
+                @endif
+                @if (count($gastos))
+                <div class="h2-responsive mt-3">Gastos Registrados</div>
+                <x-historial.gastos-listado :datos="$gastos" />
+                @endif
+                @if (count($ordenes))
+                <div class="h2-responsive mt-3">Ordenes Realizadas</div>
+                <x-historial.ordenes :datos="$ordenes" />
+                @endif
+                <div class="mb-5"></div>
+
+
+
+
             </div>
 
             <div class="row justify-content-center">

@@ -2,16 +2,18 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\TicketProducto;
-use Illuminate\Support\Facades\DB;
+use App\System\Historial\Historial;
 use Livewire\Component;
 
 class Reporte extends Component
 {
+    use Historial;
 
     public $fecha1;
     public $productos = [];
-    public $datos = [];
+    public $cortes = [];
+    public $gastos = [];
+    public $ordenes = [];
 
 
 
@@ -29,13 +31,12 @@ class Reporte extends Component
 
 
     public function aplicarFechas(){
-        $this->formatFechas();
+            $this->formatFechas();
 
-            $this->productos = TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', DB::raw('sum(total) as totales, cod'), DB::raw('sum(descuento) as descuentos, cod'), DB::raw('count(*) as cantidad, cod'))
-                                              ->where('edo', 1)
-                                              ->whereDay('created_at', $this->fecha1)
-                                              ->groupBy('cod')
-                                              ->get();
+            $this->productos = $this->ventasUnica($this->fecha1);
+            $this->cortes = $this->cortesRango($this->fecha1, $this->fecha1);
+            $this->gastos = $this->gastosUnica($this->fecha1);
+            $this->ordenes = $this->ordenesUnica($this->fecha1);
     }
 
 

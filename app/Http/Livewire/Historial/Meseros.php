@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Historial;
 
 use Livewire\Component;
 use Carbon\Carbon;
-use App\Models\TicketOrden;
 use App\Models\User;
+use App\System\Historial\Historial;
 
 class Meseros extends Component
 {
+
+    use Historial;
 
     public $tipo_fecha;
     public $fecha1, $fecha2;
@@ -39,18 +41,10 @@ class Meseros extends Component
 
         if ($this->tipo_fecha == 1) {
 
-            $this->datos = TicketOrden::addSelect(['usuario' => User::select('name')
-                        ->whereColumn('empleado', 'users.id')])->whereDay('created_at', $this->fecha1)
-                        ->orderBy('empleado', 'desc')
-                        ->where('empleado', $this->usuario)
-                        ->get();
+            $this->datos = $this->meserosUnica($this->fecha1, $this->usuario);
         } else {
 
-            $this->datos = TicketOrden::addSelect(['usuario' => User::select('name')
-                        ->whereColumn('empleado', 'users.id')])->whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                        ->orderBy('empleado', 'desc')
-                        ->where('empleado', $this->usuario)
-                        ->get();
+            $this->datos = $this->meserosMultiple($this->fecha1, $this->fecha2, $this->usuario);
         }
 
     }

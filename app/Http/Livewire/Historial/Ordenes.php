@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\TicketOrden;
+use App\System\Historial\Historial;
 use Livewire\Component;
 use Carbon\Carbon;
 
 class Ordenes extends Component
 {
+    use Historial;
 
     public $tipo_fecha;
     public $fecha1, $fecha2;
@@ -31,13 +32,9 @@ class Ordenes extends Component
 
         if ($this->tipo_fecha == 1) {
 
-            $this->datos = TicketOrden::whereDay('created_at', $this->fecha1)
-                                            ->orderBy('tiempo', 'desc')
-                                            ->get();
+            $this->datos = $this->ordenesUnica($this->fecha1);
         } else {
-            $this->datos = TicketOrden::whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                                            ->orderBy('tiempo', 'desc')
-                                            ->get();
+            $this->datos = $this->ordenesMultiple($this->fecha1, $this->fecha2);
         }
     }
 
