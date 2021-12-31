@@ -71,4 +71,22 @@ class Opciones extends Component
     }
 
 
+    public function canbiarTd(){
+        $tablas = SyncTable::all();
+        $counter = 0;
+        foreach ($tablas as $table) {
+            if (DB::table($table)
+            ->where('td', 0)
+            ->update(['td' => session('sistema.td')])) {
+               $counter ++;
+            };
+        }
+
+        $this->dispatchBrowserEvent('mensaje', 
+        ['clase' => 'success', 
+        'titulo' => 'Realizado', 
+        'texto' => $counter . ' datos Actualizados correctamente']);
+    }
+
+
 }
