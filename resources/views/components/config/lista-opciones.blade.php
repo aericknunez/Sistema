@@ -43,7 +43,7 @@
                 <td class="font-weight-bold text-uppercase">BASE DE DATOS</td>
                 <td>Actualiza algunos campos de la base de datos que son indispensables para el funcionamiento del sistema</td>
                 <td>
-                    <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="canbiarTd()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
+                    <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="cambioDatabase()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
                 </td>
             </tr>
 
