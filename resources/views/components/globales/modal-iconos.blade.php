@@ -27,7 +27,10 @@
                 </a>
             </div>
         @endforeach
-        {{ $datos->links() }}
+        
+        <div class="mt-4">
+              {{ $datos->links() }}
+        </div>
               
 
         </div>

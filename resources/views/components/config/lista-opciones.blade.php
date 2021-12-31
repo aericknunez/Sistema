@@ -37,7 +37,7 @@
                   </tr>
 
 
-              @if (session('config_tipo_usuario') == 1)  
+              {{-- @if (session('config_tipo_usuario') == 1)  
 
               <tr>
                 <td class="font-weight-bold text-uppercase">BASE DE DATOS</td>
@@ -47,7 +47,7 @@
                 </td>
             </tr>
 
-              @endif
+              @endif --}}
     
               </tbody>
           

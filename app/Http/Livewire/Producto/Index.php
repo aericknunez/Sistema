@@ -49,11 +49,6 @@ class Index extends Component
 
 
 
-    public function updatingIconos() // actualiza el numero de paginas al escribir
-    {
-        $this->resetPage();
-    }
-
     public function render(){
         if (!$this->toImg) {
             $productos = $this->getProductos();

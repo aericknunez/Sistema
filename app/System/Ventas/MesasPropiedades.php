@@ -7,7 +7,11 @@ trait MesasPropiedades {
 
     public function ordenesInicio(){
         if (session('config_tipo_usuario') == 5) { // si es mesero
-            return $this->isMeseroOrdenes();
+            if (session('principal_ordenes_todo')) { // si tiene activas todas las ordenes
+                return $this->notIsMeseroOrdenes();
+            } else {
+                return $this->isMeseroOrdenes();
+            }
         } else {
             return $this->notIsMeseroOrdenes();
         }

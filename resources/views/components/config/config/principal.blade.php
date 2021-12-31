@@ -29,6 +29,10 @@
             <span>{{ isActivo($datos->solicitar_clave) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Mostrar todas las ordenes al mesero:
+            <span>{{ isActivo($datos->ordenes_todo) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar comentarios en comanda para cocina:
             <span>{{ isActivo($datos->comentarios_comanda) }}</span>
         </li>

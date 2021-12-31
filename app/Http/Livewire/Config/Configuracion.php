@@ -44,6 +44,7 @@ class Configuracion extends Component
             $ticket_pantalla,
             $registro_borrar,
             $solicitar_clave,
+            $ordenes_todo,
             $comentarios_comanda,
             $llevar_aqui,
             $propina_rapida,
@@ -219,6 +220,7 @@ class Configuracion extends Component
         $this->ticket_pantalla = $data['ticket_pantalla'];
         $this->registro_borrar = $data['registro_borrar'];
         $this->solicitar_clave = $data['solicitar_clave'];
+        $this->ordenes_todo = $data['ordenes_todo'];
         $this->comentarios_comanda = $data['comentarios_comanda'];
         $this->llevar_aqui = $data['llevar_aqui'];
         $this->propina_rapida = $data['propina_rapida'];
@@ -246,6 +248,7 @@ class Configuracion extends Component
             'ticket_pantalla' => $this->ticket_pantalla,
             'registro_borrar' => $this->registro_borrar,
             'solicitar_clave' => $this->solicitar_clave,
+            'ordenes_todo' => $this->ordenes_todo,
             'comentarios_comanda' => $this->comentarios_comanda,
             'llevar_aqui' => $this->llevar_aqui,
             'propina_rapida' => $this->propina_rapida,

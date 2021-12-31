@@ -70,6 +70,19 @@
                 </li>
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Mostrar todas las ordenes al mesero
+                    <span>
+                        <div class="switch">
+                            <label>
+                              Off
+                              <input type="checkbox" wire:model.defer="ordenes_todo">
+                              <span class="lever"></span> On
+                            </label>
+                          </div>
+                    </span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     Activar comentarios en comanda para cocina:
                     <span>
                         <div class="switch">
