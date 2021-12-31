@@ -36,11 +36,11 @@
                       </td>
                   </tr>
 
-                  
+
               @if (session('config_tipo_usuario') == 1)  
 
               <tr>
-                <td class="font-weight-bold text-uppercase">ACTUALIZAR BASE DE DATOS</td>
+                <td class="font-weight-bold text-uppercase">BASE DE DATOS</td>
                 <td>Actualiza algunos campos de la base de datos que son indispensables para el funcionamiento del sistema</td>
                 <td>
                     <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="canbiarTd()"><i class="fas fa-sync mr-1"></i> Actualizar</a>
