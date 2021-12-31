@@ -89,9 +89,9 @@ class Opciones extends Component
 
         // }
 
-        OrderImg::where('td', 0)->update(['td' => session('sistema.td')]);
-        Producto::where('td', 0)->update(['td' => session('sistema.td')]);
-        ProductoCategoria::where('td', 0)->update(['td' => session('sistema.td')]);
+        OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+        Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+        ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
 
 
         $this->dispatchBrowserEvent('mensaje', 
