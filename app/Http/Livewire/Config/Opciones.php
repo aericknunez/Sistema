@@ -79,11 +79,14 @@ class Opciones extends Component
         $counter = 0;
 
         foreach ($tablas as $table) {
-            if (DB::table($table)
-            ->where('td', 0)
-            ->update(['td' => session('sistema.td')])) {
-               $counter ++;
+            if ($table) {
+                if (DB::table($table)
+                ->where('td', 0)
+                ->update(['td' => session('sistema.td')])) {
+                   $counter ++;
+                }
             }
+
         }
 
         // OrderImg::where('td', 0)->update(['td' => session('sistema.td')]);
