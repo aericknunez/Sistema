@@ -42,6 +42,10 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
             $retorno .= $this->creaIconoOtrasVentas();
         }
 
+        if (session('principal_venta_especial')) {
+            $retorno .= $this->creaIconoVentaEspecial();
+        }
+
         // $datos = Producto::where('producto_categoria_id', 1)->get();
         // foreach ($datos as $dato) {
         //     $retorno .= $this->creaIcono($dato); 
@@ -107,7 +111,8 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
                             <div class="menu-title text-truncate">'.$data->nombre.'</div> 
                             </a>
                         </div>
-                    </div> ';
+                    </div> 
+                    ';
 
         return $retorno; 
     }
@@ -122,7 +127,8 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
                                 <div class="menu-title2 text-truncate">'.$data->nombre.'</div> 
                                 </a>
                             </div>
-                    </div>';
+                    </div>
+                    ';
 
         return $retorno;
     }
@@ -136,7 +142,8 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
                             <div class="menu-titleC">'.$data->nombre.'</div> 
                             </a>
                         </div>
-                    </div>';
+                    </div>
+                    ';
 
         return $retorno;
     }
@@ -153,22 +160,23 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
         if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-$retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
-<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-    <div class="modal-content bordeado-x1">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
+$retorno = '
+<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+    <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+        <div class="modal-content bordeado-x1">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
 
     </div>
     <div class="modal-body">
-<div class="row justify-content-center click">';
+        <div class="row justify-content-center click">';
 
-    foreach ($sub_opciones as $option) {
-        $retorno .= $this->creaOpcionesIconos($option);
-    }
+            foreach ($sub_opciones as $option) {
+                $retorno .= $this->creaOpcionesIconos($option);
+            }
 
 
-$retorno .= '</div> 
+        $retorno .= '</div> 
 
     </div>
         <div class="modal-footer">
@@ -176,7 +184,8 @@ $retorno .= '</div>
         </div>
         </div>
     </div>
-</div>';
+</div>
+';
 
 return $retorno;
 
@@ -199,21 +208,22 @@ $datos = Producto::where('producto_categoria_id', $categoria->id)->get();
     if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
 
-$retorno = '<div wire:ignore.self class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
-<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-    <div class="modal-content bordeado-x1">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UN PRODUCTO</h5>
+$retorno = '
+<div wire:ignore.self class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+    <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+        <div class="modal-content bordeado-x1">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UN PRODUCTO</h5>
 
     </div>
     <div class="modal-body">
-<div class="row justify-content-center click">';
+        <div class="row justify-content-center click">';
 
-        foreach ($datos as $dato) {
-            $retorno .= $this->creaIcono($dato); 
-        }
+                foreach ($datos as $dato) {
+                    $retorno .= $this->creaIcono($dato); 
+                }
 
-$retorno .= '</div> 
+        $retorno .= '</div> 
 
     </div>
         <div class="modal-footer">
@@ -221,7 +231,8 @@ $retorno .= '</div>
         </div>
     </div>
 </div>
-</div>';
+</div>
+';
 
 return $retorno;
     }
@@ -238,11 +249,27 @@ return $retorno;
                             <div class="menu-title text-truncate">Otras Ventas</div> 
                             </a>
                         </div>
-                    </div> ';
+                    </div> 
+                    ';
 
         return $retorno; 
     }
 
+
+    public function creaIconoVentaEspecial(){
+
+        $retorno = '<div class="mx-2 my-2">
+                        <div class="newmenu text-center" >
+                            <a wire:click="BtnVentaEspecial()" title="Venta especial">
+                            <img src="{{ asset("img/ico/2c2044f4e9.png") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
+                            <div class="menu-title text-truncate">Venta Especial</div> 
+                            </a>
+                        </div>
+                    </div> 
+                    ';
+
+        return $retorno; 
+    }
 
 
     public function guardarArchivo($data){

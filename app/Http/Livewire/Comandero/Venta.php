@@ -358,6 +358,17 @@ public function btnOtrasVentas(){
 }
 
 
+public function BtnVentaEspecial(){ // activa o desactiva la funcion de venta especial
+    if (session('venta_especial_active')) { // se elimina si esta activo
+        session()->forget('venta_especial_active');
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Desactivo la opción de venta especial']);
+    } else { // se activa si no existe
+        session(['venta_especial_active' => true]);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Activo la opción de venta especial']);
+    }
+} 
+
+
 ///// MESA //// 
 public function selectCliente($cliente){ // selecciona el cliente marcado
     session(['cliente' => $cliente]);

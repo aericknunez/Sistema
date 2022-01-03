@@ -155,10 +155,14 @@ class AddProducto extends Component
         $this->verificaCantidad(1);
     }
 
+
+
     public function productosAdded(){ /// productos agregados a la orden
         $product = $this->getProductosAgregados();
         $this->productAgregado = $product;
     }
+
+
 
     public function obtenerTotal(){ // Obtiene el total de toda la venta   
         $this->subtotal = $this->totalDeVenta();
@@ -284,6 +288,8 @@ public function BtnAquiLlevar(){ // 1 llevar, 2 comer aqui
     $this->llevarComerAqui = session('llevar_aqui');
 } 
 
+
+
 public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
     session(['impresion_seleccionado' => $tipo]);
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoVenta']);
@@ -365,6 +371,18 @@ public function btnOtrasVentas(){
     $this->productosAdded();
     $this->obtenerTotal();
 }
+
+
+public function BtnVentaEspecial(){ // activa o desactiva la funcion de venta especial
+    if (session('venta_especial_active')) { // se elimina si esta activo
+        session()->forget('venta_especial_active');
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Desactivo la opción de venta especial']);
+    } else { // se activa si no existe
+        session(['venta_especial_active' => true]);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Activo la opción de venta especial']);
+    }
+} 
+
 
 
 ///// MESA //// 

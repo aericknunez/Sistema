@@ -20,6 +20,10 @@
 
     <x-comandero.iconos.categorias />
 
+    @if (session('venta_especial_active'))
+    {{ mensajex('Atención: la función de venta especial esta activa, todos los productos marcados, se agregaran sin precio de venta','danger') }}      
+    @endif
+
     <x-comandero.iconos :datos="$catSelect" />
 
 

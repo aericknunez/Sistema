@@ -50,17 +50,25 @@ trait Ventas{
 
     $producto = Producto::where('cod', $cod)->first();
 
-    $stotal = Helpers::STotal($producto->precio, session('config_impuesto'));
-    $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+    if (session('venta_especial_active')) {
+        $stotal = 0;
+        $impuesto = 0;
+        $precio = 0;
+    } else {
+        $stotal = Helpers::STotal($producto->precio, session('config_impuesto'));
+        $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+        $precio = $producto->precio;
+    }
+
     
     $creado = TicketProducto::create([
         'cod' => $cod, 
         'cantidad' => 1, 
         'producto' => $producto->nombre,
-        'pv' => $producto->precio, 
+        'pv' => $precio, 
         'stotal' => $stotal,
         'imp' => $impuesto,
-        'total' => $producto->precio,
+        'total' => $precio,
         'descuento' => null,
         'num_fact' => null,
         'orden' => session('orden'),

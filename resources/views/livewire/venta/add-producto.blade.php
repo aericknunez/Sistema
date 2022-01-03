@@ -1,6 +1,9 @@
 <div>
     <x-cuerpo >
         <x-slot name="contenido">
+            @if (session('venta_especial_active'))
+                {{ mensajex('Atención: la función de venta especial esta activa, todos los productos marcados, se agregaran sin precio de venta','danger') }}      
+            @endif
             {{-- clientes si estamos en mesa  --}}
             @if (session('config_tipo_servicio') == 2)
             <x-venta.clientes />

@@ -51,6 +51,19 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
                             </div>
                         </a>'; 
             }
+
+
+            if (session('principal_venta_especial')) {
+                //Otras ventas
+                $retorno .= '<a wire:click="BtnVentaEspecial()">
+                                <div class="near_item bg-white box_rounded mr-2 p-3 text-center my-1 shadow-sm pointer">
+                                <img src="{{ asset("img/ico/2c2044f4e9.png") }}" width="80" height="80" class="img-fluid mx-auto mb-1 rounded-pill">
+                                <p class="mb-1 text-dark">Venta Especial</p>
+                                </div>
+                            </a>'; 
+            }
+
+
             
 
         $retorno .= '</div>
