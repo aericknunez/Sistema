@@ -12,7 +12,7 @@
             
             <div class="mt-4">
                 @if (count($productos))
-                {{ $productos->links() }}
+                {{ $productos->links('pagination::bootstrap-4') }}
                 @endif
             </div>
         </x-slot>
