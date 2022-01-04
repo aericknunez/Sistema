@@ -23,7 +23,7 @@
                         <td class="text-uppercase"> {{ formatFecha($factura->created_at) }}</td>
                         <th>{{ tipoVenta($factura->tipo_venta) }}</th>
                         <td class="text-uppercase">{{ tipoPago($factura->tipo_pago) }}</td>
-                        <th>{{ $factura->id }}</th>
+                        <th>{{ $factura->factura }}</th>
                         <td>{{ dinero4(STotal($factura->total, session('config_impuesto'))) }}</td>
                         <td> {{ dinero4(Impuesto(STotal($factura->total, session('config_impuesto')), session('config_impuesto'))) }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ dinero($factura->total) }}</td>
