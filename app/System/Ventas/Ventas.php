@@ -125,6 +125,7 @@ public function agregarOpciones($idProducto, $productoAgregado){ // agraga las o
 public function totalDeVenta(){
     return TicketProducto::where('orden', session('orden'))
                                         ->where('num_fact', NULL)
+                                        ->where('edo', 1)
                                         ->sum('total');
 }
 
