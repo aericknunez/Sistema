@@ -483,7 +483,7 @@ public function pagar(){
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2]);
 
-    if (config('sistema.print')) {
+    if (config('sistema.print')) { /// imprime a menos que el env diga que no
         $this->ImprimirFactura($num_fact); // imprime la factura
     }
 
