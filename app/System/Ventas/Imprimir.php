@@ -4,6 +4,7 @@ namespace App\System\Ventas;
 use App\Common\Helpers;
 use App\Models\ConfigApp;
 use App\Models\TicketNum;
+use App\Models\TicketOrden;
 use App\Models\TicketProducto;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -70,7 +71,10 @@ trait Imprimir{
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
-        
+        $datos['cliente_nombre'] = session('delivery_nombre'); 
+        $datos['cliente_direccion'] = session('delivery_direccion'); 
+        $datos['cliente_telefono'] = session('delivery_telefono'); 
+        $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
     }
@@ -129,6 +133,10 @@ trait Imprimir{
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
+        $datos['cliente_nombre'] = session('delivery_nombre'); 
+        $datos['cliente_direccion'] = session('delivery_direccion'); 
+        $datos['cliente_telefono'] = session('delivery_telefono'); 
+        $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
@@ -336,6 +344,17 @@ trait Imprimir{
                             ->count();
     }
 
+
+
+
+    public function detallesMesa($orden){
+        $datos = array();
+        $data = TicketOrden::select('nombre_mesa', 'comentario')->where('id', $orden)->first();
+        $datos['nombre_mesa'] = $data->nombre_mesa;
+        $datos['comentario'] = $data->comentario;
+
+        return $datos;  
+    }    
     
 
 }
