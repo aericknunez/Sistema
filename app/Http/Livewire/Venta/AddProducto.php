@@ -483,7 +483,9 @@ public function pagar(){
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2]);
 
-    $this->ImprimirFactura($num_fact); // imprime la factura
+    if (config('sistema.print')) {
+        $this->ImprimirFactura($num_fact); // imprime la factura
+    }
 
     $xst = Helpers::Format($this->subtotal);
     $xpr = Helpers::Format($this->propinaCantidad);
