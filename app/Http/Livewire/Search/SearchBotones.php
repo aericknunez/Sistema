@@ -37,7 +37,7 @@ class SearchBotones extends Component
 
         $this->factura = TicketNum::where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', session('idSearch'))
-                            // ->where('edo', 1)
+                            ->where('edo', 1)
                             ->first();
     }
 

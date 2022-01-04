@@ -28,7 +28,11 @@
         <div class="col-xs-4 col-sm-12 col-md-4">
         
                 <x-venta.cambios-productos-cliente :datos="$detalles" />
-                <x-venta.lateral-total :subtotal="$factura->subtotal" :propina="$factura->propina_cant" :porcentaje="$factura->propina_porcent" :total="$factura->total" />    
+                <x-venta.lateral-total 
+                :subtotal="$factura->subtotal" 
+                :propina="$factura->propina_cant" 
+                :porcentaje="$factura->propina_porcent" 
+                :total="$factura->total" />    
 
 {{-- {{ $datos->total }} --}}
         </div>
