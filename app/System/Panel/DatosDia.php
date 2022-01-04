@@ -129,11 +129,12 @@ trait DatosDia{
         return TicketOrden::addSelect(['usuario' => User::select('name')
                         ->whereColumn('ticket_ordens.empleado', 'users.id')])
 
-                        ->addSelect(['total_propina' => TicketNum::select('propina_cant')
-                        ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
+                        // Se quitan por que no puedo sumar mas de dos facturas
+                        // ->addSelect(['total_propina' => TicketNum::select('propina_cant')
+                        // ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
 
-                        ->addSelect(['total_factura' => TicketNum::select('total')
-                        ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
+                        // ->addSelect(['total_factura' => TicketNum::select('total')
+                        // ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
                         
                         ->whereDay('created_at', $fecha)
                         ->orderBy('tiempo', 'desc')

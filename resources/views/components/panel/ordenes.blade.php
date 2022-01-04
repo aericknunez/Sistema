@@ -13,8 +13,8 @@
                   <th scope="col">LLevar</th>
                   <th scope="col">Mesa</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Propina</th>
-                  <th scope="col">Total</th>
+                  {{-- <th scope="col">Propina</th>
+                  <th scope="col">Total</th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -37,8 +37,8 @@
                                                     @else
                                                     <span class="badge badge-pill badge-danger">Eliminado</span>
                                                     @endif   </td>
-                        <td class="text-uppercase">{{ dinero($orden->total_propina) }}</td>
-                        <td class="font-weight-bold text-uppercase">{{ dinero($orden->total_factura) }}</td>
+                        {{-- <td class="text-uppercase">{{ dinero($orden->total_propina) }}</td>
+                        <td class="font-weight-bold text-uppercase">{{ dinero($orden->total_factura) }}</td> --}}
                     </tr>
                 @endforeach    
     
