@@ -204,7 +204,9 @@ class Cambios extends Component
                                 'tipo_venta' => session('impresion_seleccionado')
         ]);
     
-        $this->ImprimirFactura($num_fact); // imprime la factura
+        if (config('sistema.print')) { /// imprime a menos que el env diga que no
+            $this->ImprimirFactura($num_fact); // imprime la factura
+        }
 
         $xst = Helpers::Format($this->subtotal);
         $xpr = Helpers::Format($this->propinaCantidad);
