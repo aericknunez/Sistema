@@ -41,6 +41,14 @@ class Gastos extends Component
     }
 
 
+    public function updated(){ // se ejecuta al cambiar el model 
+        if ($this->tipo_pago != 1) {
+            $this->idbanco =1;
+        } else {
+            $this->idbanco = NULL;
+        }
+    }
+
 
     public function render()
     {

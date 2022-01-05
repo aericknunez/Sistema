@@ -67,8 +67,6 @@
                     @enderror                   
                 @endif
 
-
-
             @if ($tipo['tipo'] == 2)
                         
                     <small>Tipo Comprobante</small>

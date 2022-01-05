@@ -4,6 +4,7 @@ namespace App\System\Corte;
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
 use App\Models\NumeroCajas;
+use App\Models\User;
 
 trait InicializaCorte{
 

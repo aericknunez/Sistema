@@ -29,6 +29,7 @@ class Remesas extends Component
 
 
     public function mount(){
+        $this->idbanco = 1;
         $this->getRemesas();
         $this->getCuentas();
         $this->remesasTotal();

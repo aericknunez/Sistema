@@ -2,18 +2,22 @@
 
 namespace App\Http\Livewire\Historial;
 
+use App\System\Corte\Corte;
+use App\System\Corte\ImprimirCortes;
 use App\System\Historial\Historial;
 use Livewire\Component;
 
 class Reporte extends Component
 {
-    use Historial;
+    use Historial, ImprimirCortes, Corte;
 
     public $fecha1;
     public $productos = [];
     public $cortes = [];
     public $gastos = [];
     public $ordenes = [];
+    public $detalles = [];
+
 
 
 
@@ -34,7 +38,7 @@ class Reporte extends Component
             $this->formatFechas();
 
             $this->productos = $this->ventasUnica($this->fecha1);
-            $this->cortes = $this->cortesRango($this->fecha1, $this->fecha1);
+            $this->cortes = $this->cortesUnica($this->fecha1);
             $this->gastos = $this->gastosUnica($this->fecha1);
             $this->ordenes = $this->ordenesUnica($this->fecha1);
     }
@@ -48,6 +52,25 @@ class Reporte extends Component
             }
         
     }
+
+
+
+
+
+    /* Obtener los datos de un corte especifico */
+    public function obtenerDatosCorte($iden){
+        $this->detalles = $this->getDatosCorte($iden);
+    }
+
+    public function imprimirCorte(){
+
+        $this->ImprimirCortePrimario($this->detalles);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+
+    }
+
+
+
 
 
 

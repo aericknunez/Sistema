@@ -61,7 +61,14 @@ trait Historial {
     }
 
     public function cortesRango($fecha1, $fecha2){
-        return CorteDeCaja::whereBetween('created_at', [$fecha1, $fecha2])
+        return CorteDeCaja::whereBetween('updated_at', [$fecha1, $fecha2])
+                                            ->orderBy('tiempo', 'desc')
+                                            ->get();
+    }
+
+
+    public function cortesUnica($fecha1){
+        return CorteDeCaja::whereDay('updated_at', $fecha1)
                                             ->orderBy('tiempo', 'desc')
                                             ->get();
     }

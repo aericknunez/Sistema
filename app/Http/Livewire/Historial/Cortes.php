@@ -2,8 +2,7 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\CorteDeCaja;
-use App\Models\User;
+use App\System\Corte\Corte;
 use App\System\Corte\ImprimirCortes;
 use App\System\Historial\Historial;
 use Carbon\Carbon;
@@ -11,7 +10,7 @@ use Livewire\Component;
 
 class Cortes extends Component
 {
-    use Historial, ImprimirCortes;
+    use Historial, ImprimirCortes, Corte;
 
     public $fecha1, $fecha2;
     public $datos = [];
@@ -59,12 +58,7 @@ class Cortes extends Component
 
 /* Obtener los datos de un corte especifico */
     public function obtenerDatosCorte($iden){
-        $this->detalles = CorteDeCaja::where('id', $iden)->first();
-                
-        $usr = User::select('name')->where('id', $this->detalles->usuario_corte)
-                                   ->first();
-        $this->detalles->cajero = $usr->name;
-        
+        $this->detalles = $this->getDatosCorte($iden);
     }
 
     public function imprimirCorte(){

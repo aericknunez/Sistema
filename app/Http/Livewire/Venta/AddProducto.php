@@ -483,10 +483,6 @@ public function pagar(){
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2]);
 
-    if (config('sistema.print')) { /// imprime a menos que el env diga que no
-        $this->ImprimirFactura($num_fact); // imprime la factura
-    }
-
     $xst = Helpers::Format($this->subtotal);
     $xpr = Helpers::Format($this->propinaCantidad);
     $xto = Helpers::Format($this->total);
@@ -500,6 +496,11 @@ public function pagar(){
         'cambio' => dinero($xca - $xto)
     ]);
 
+    if (config('sistema.print')) { /// imprime a menos que el env diga que no
+        $this->ImprimirFactura($num_fact); // imprime la factura
+    }
+
+    
     /// probar el codigo este
     if (session('principal_ticket_pantalla') == 1) {
         $this->guardarProductosImprimir();  

@@ -11,6 +11,7 @@ use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
+use App\Models\User;
 
 trait Corte{
 
@@ -226,6 +227,17 @@ trait Corte{
     }
 
 
+
+    public function getDatosCorte($iden){
+        $detalles = [];
+        $detalles = CorteDeCaja::where('id', $iden)->first();
+                
+        $usr = User::select('name')->where('id', $detalles->usuario_corte)
+                                   ->first();
+        $detalles->cajero = $usr->name;
+
+        return $detalles;
+    }
 
 
 

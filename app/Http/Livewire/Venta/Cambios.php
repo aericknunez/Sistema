@@ -203,10 +203,6 @@ class Cambios extends Component
                                 'tipo_pago' => session('tipo_pago'),
                                 'tipo_venta' => session('impresion_seleccionado')
         ]);
-    
-        if (config('sistema.print')) { /// imprime a menos que el env diga que no
-            $this->ImprimirFactura($num_fact); // imprime la factura
-        }
 
         $xst = Helpers::Format($this->subtotal);
         $xpr = Helpers::Format($this->propinaCantidad);
@@ -220,6 +216,10 @@ class Cambios extends Component
             'efectivo' => dinero($xca),
             'cambio' => dinero($xca - $xto)
         ]);
+
+        if (config('sistema.print')) { /// imprime a menos que el env diga que no
+            $this->ImprimirFactura($num_fact); // imprime la factura
+        }
         
     } 
     
