@@ -76,7 +76,8 @@ trait Historial {
 
     public function meserosUnica($fecha, $usuario){
         return TicketOrden::addSelect(['usuario' => User::select('name')
-                            ->whereColumn('empleado', 'users.id')])->whereDay('created_at', $fecha)
+                            ->whereColumn('empleado', 'users.id')])
+                            ->whereDay('created_at', $fecha)
                             ->orderBy('empleado', 'desc')
                             ->where('empleado', $usuario)
                             ->get();

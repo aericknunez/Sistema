@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Panel;
 
 use App\Models\TicketDelivery;
+use App\Models\TicketNum;
 use App\Models\TicketOrden;
+use App\Models\TicketProducto;
+use App\Models\User;
 use App\System\Panel\DatosDia;
 use App\System\Ventas\Ventas;
 use Livewire\Component;
@@ -22,11 +25,10 @@ class Ordenes extends Component
     public $totalOrdenes, $totalLlevar, $totalAqui;
     public $totalPendientes, $pendientesLlevar, $pendientesAqui;
 
-    public $detalles = [];
+    public $detalles; // detalles de la orden
 
 
     public function mount(){
-        // $this->obtenerDatos();
         $this->otrosDatos();
     }
 
@@ -74,7 +76,16 @@ class Ordenes extends Component
 
 
     public function getDetalles($iden){ // se obtienen los detalles de cada orden para mostrarla en el modal
-
+        $this->detalles = [];
+        $this->detalles['orden'] = TicketOrden::addSelect(['usuario' => User::select('name')
+                                                ->whereColumn('ticket_ordens.empleado', 'users.id')])
+                                                ->find($iden);
+        $this->detalles['productos'] = TicketProducto::where('orden', $this->detalles['orden']['id'])
+                                        ->where('edo', 1)
+                                        ->orderBy('num_fact')
+                                        ->with('subOpcion')->get();
+                                        
+        $this->detalles['facturas'] = TicketNum::where('orden', $iden)->get();
     }
 
 
