@@ -467,4 +467,26 @@ public function delDeliveryData(){
 
 
 
+
+
+    static public function Porcentaje(){ // porcentaje de facturado o no facturado
+    
+        $totalFacturado = TicketNum::whereDay('created_at', date('d-m-Y'))
+                                    ->where('edo', 1)
+                                    ->where('tipo_venta', 2)
+                                    ->sum('total');
+
+        $totalNoFacturado = TicketNum::whereDay('created_at', date('d-m-Y'))
+                                    ->where('edo', 1)
+                                    ->where('tipo_venta','!=', 2)
+                                    ->sum('total');
+                                
+        $totalVenta = $totalFacturado + $totalNoFacturado;
+        @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
+        @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
+        return $pFacturado . "/" . $pNoFacturado;
+    
+    }
+
+
 }

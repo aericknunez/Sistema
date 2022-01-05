@@ -28,9 +28,18 @@
             <x-venta.lateral-datos />
 
         @endif
+
         @if ($cantidadSinGuardar)
         <small>Cantidad sin guardar {{ $cantidadSinGuardar }}</small>
         @endif
+
+        @if ((config('sistema.td') == 10 or config('sistema.td') == 0) and session('impresion_seleccionado') == 1)
+        <div class="font-weight-bold red-text bordeado-x1 border text-center">
+            <div class="h4-responsive">{{ App\System\Ventas\Ventas::Porcentaje() }}</div>
+        </div>
+        @endif
+
+
         </x-slot>
        </x-cuerpo>
 
