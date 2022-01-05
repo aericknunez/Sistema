@@ -141,7 +141,6 @@ trait DatosDia{
                         ->paginate($cantidad);
 
     }
-
     
 
 

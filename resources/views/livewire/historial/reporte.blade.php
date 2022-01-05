@@ -79,4 +79,6 @@
 
     <x-historial.modal-detalles-corte :datos="$detalles" />
 
+    <x-panel.modal-detalles-orden :datos="$detallesOrden" />
+
 </div>
