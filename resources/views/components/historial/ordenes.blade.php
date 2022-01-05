@@ -25,12 +25,15 @@
                     @endif >
                         <th scope="row">{{ $orden->id }}</th>
                         <td class="text-uppercase"> {{ formatFecha($orden->created_at) }}</td>
-                        <td class="font-weight-bold text-uppercase">{{ $orden->clientes }}</td>
+                        <td class="text-uppercase">{{ $orden->clientes }}</td>
                         <td class="text-uppercase">{{ tipoServicio($orden->tipo_servicio) }}</td>
                         <td class="text-uppercase"> {{ llevarAqui($orden->llevar_aqui) }}</td>
                         <td class="text-uppercase"> {{ $orden->nombre_mesa }}</td>
                         <td class="text-uppercase">{{ edoOrden($orden->edo) }}</td>
-                        <td class="text-uppercase">{{ dinero(getTotalOrden($orden->id)) }}</td>
+                        <td class="font-weight-bold  text-uppercase">
+                          <i class="fas fa-info-circle blue-text fa-sm"></i>
+                          <a data-toggle="modal" data-target="#ModalDetallesOrden" wire:click="getDetalles({{ $orden->id }})" title="Ver detalles">{{ dinero(getTotalOrden($orden->id)) }}
+                          </a></td>
                     </tr>
                 @endforeach    
     

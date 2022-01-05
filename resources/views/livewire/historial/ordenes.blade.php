@@ -84,4 +84,7 @@
 
     </x-cuerpo>
 
+    <x-panel.modal-detalles-orden :datos="$detalles" />
+
+
 </div>
