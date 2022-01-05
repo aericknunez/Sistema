@@ -53,14 +53,16 @@
     <div class="collapsible-body">
     <ul class="list-unstyled">
     
-    
+@if (session('apertura_caja'))
     <li><a href="{{ route('efectivo.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Gastos</a></li>
     <li><a href="{{ route('efectivo.remesas') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Remesa</a></li>
-    
+@endif   
     <li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
     <li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
+@if (session('apertura_caja')) 
     <li><a href="{{ route('efectivo.ingreso') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar o Retirar Efectivo</a></li>
-    
+@endif   
+
     </ul>
     </div>
     </li>    
