@@ -26,6 +26,10 @@ class Reporte extends Component
     }
 
 
+    public function hydrate(){
+        $this->aplicarFechas();
+    }
+
 
     public function render()
     {
