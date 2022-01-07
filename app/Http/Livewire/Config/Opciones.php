@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Config;
 
 use App\Models\Image;
+use App\Models\ImageCategory;
+use App\Models\ImageTag;
 use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
@@ -33,6 +35,11 @@ class Opciones extends Component
             ['clase' => 'success', 
             'titulo' => 'Realizado', 
             'texto' => 'Iconos Actualizados correctamente']);
+
+            Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+            ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+            ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+            
         } else {
             $this->dispatchBrowserEvent('error', 
             ['clase' => 'error', 
@@ -90,6 +97,8 @@ class Opciones extends Component
         // }
 
         Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+        ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+        ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
