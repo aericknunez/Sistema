@@ -89,6 +89,7 @@ class Opciones extends Component
 
         // }
 
+        Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
         ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
@@ -97,7 +98,7 @@ class Opciones extends Component
         $this->dispatchBrowserEvent('mensaje', 
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
-        'texto' => $counter . ' datos Actualizados correctamente']);
+        'texto' => 'Datos Actualizados correctamente']);
     }
 
 
