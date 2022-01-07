@@ -54,6 +54,7 @@
        {{-- Modales de opcion de mesa  --}}
        @if (session('config_tipo_servicio') == 2)
         <x-venta.lateral-modal-nombre />
+        <x-venta.lateral-modal-add-cliente />
        @endif
 
        {{-- Modales de opcion de delivery  --}}

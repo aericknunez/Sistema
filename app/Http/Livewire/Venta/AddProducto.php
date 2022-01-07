@@ -24,7 +24,8 @@ class AddProducto extends Component
     public $productAgregado;
     public $total, $subtotal;
     public $propinaPorcentaje, $propinaCantidad, $propinaTipo, $propinaInput; // cantidad propina 
-
+    
+    public  $descuentoCat, $descuentoTipo, $descuentoInput; // todo o producto, cantidad o  porcentaje, lo que llega del user
 
     public $modalProducto, $modalOpcion;
 
@@ -99,6 +100,47 @@ class AddProducto extends Component
             }
         }
     }
+
+
+    public function addOpcion($opcion){ // Actualizar Opcion
+        TicketOpcion::where('opcion_primaria', $this->modalOpcion)
+                    ->where('ticket_producto_id', $this->modalProducto)
+                    ->where('opcion_producto_id', NULL)->limit(1)
+                    ->update(['opcion_producto_id' => $opcion]);
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
+
+        $modal = $this->levantarModalOpcion($this->modalProducto);
+        if($modal){
+            $this->modalProducto = $modal['producto_id'];
+            $this->modalOpcion = $modal['opcion_id'];
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
+        } else {
+            $this->modalProducto = NULL;
+            $this->modalOpcion = NULL;
+        }
+        $this->productosAdded();
+        $this->obtenerTotal();
+    }
+
+    public function omitirOpcion(){ // Omite la opcion y la borra Opcion
+        TicketOpcion::where('opcion_primaria', $this->modalOpcion)
+                    ->where('ticket_producto_id', $this->modalProducto)
+                    ->limit(1)
+                    ->delete();
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
+
+
+        $modal = $this->levantarModalOpcion($this->modalProducto);
+        if($modal){
+            $this->modalProducto = $modal['producto_id'];
+            $this->modalOpcion = $modal['opcion_id'];
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
+        } else {
+            $this->modalProducto = NULL;
+            $this->modalOpcion = NULL;
+        }
+    }
+
 
     public function delProducto($id){ // eliminar un producto de la venta
         $imp = $this->verificaProducto($id);
@@ -183,43 +225,7 @@ class AddProducto extends Component
     }
 
 
-    public function addOpcion($opcion){ // Actualizar Opcion
-        TicketOpcion::where('opcion_primaria', $this->modalOpcion)
-                    ->where('ticket_producto_id', $this->modalProducto)
-                    ->where('opcion_producto_id', NULL)->limit(1)
-                    ->update(['opcion_producto_id' => $opcion]);
-        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
 
-        $modal = $this->levantarModalOpcion($this->modalProducto);
-        if($modal){
-            $this->modalProducto = $modal['producto_id'];
-            $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
-        } else {
-            $this->modalProducto = NULL;
-            $this->modalOpcion = NULL;
-        }
-        $this->productosAdded();
-        $this->obtenerTotal();
-    }
-
-    public function omitirOpcion(){ // Omite la opcion y la borra Opcion
-        TicketOpcion::where('opcion_primaria', $this->modalOpcion)
-                    ->where('ticket_producto_id', $this->modalProducto)
-                    ->delete();
-        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
-
-
-        $modal = $this->levantarModalOpcion($this->modalProducto);
-        if($modal){
-            $this->modalProducto = $modal['producto_id'];
-            $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
-        } else {
-            $this->modalProducto = NULL;
-            $this->modalOpcion = NULL;
-        }
-    }
 
     public function determinaPropina(){ // determina la proina segun en el tipo de cervicio
         if (session('config_tipo_servicio') == 1) { // rapido
@@ -383,11 +389,22 @@ public function BtnVentaEspecial(){ // activa o desactiva la funcion de venta es
     }
 } 
 
+public function BtnDescuento(){
+        $this->getDescuento($this->descuentoCat, $this->descuentoTipo, $this->descuentoInput);
+}
+
+
 
 
 ///// MESA //// 
 public function selectCliente($cliente){ // selecciona el cliente marcado
     session(['cliente' => $cliente]);
+}
+
+public function btnAddClient(){
+    $clientes = session('clientes') + 1;
+    session()->forget('clientes');
+    session(['clientes' => $clientes]);
 }
 
 

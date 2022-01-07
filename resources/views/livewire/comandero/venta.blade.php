@@ -43,6 +43,8 @@
 
 
     <x-venta.modal-otras-ventas />
+    <x-venta.lateral-modal-add-cliente />
+
 
     {{-- modales de borrado  --}}
      @if (session('principal_registro_borrar'))

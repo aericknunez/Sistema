@@ -232,7 +232,7 @@ public function eliminarOrden(){
     }
 }
 
-// registrar la eliminacion de orden o producto
+// registrar la eliminacion de orden o producto con registro de motvio
 public function eliminarOrdenRegister($motivo){
     TicketProducto::where('orden', session('orden'))
                     ->whereIn('imprimir', [2, 3])
@@ -248,6 +248,8 @@ public function eliminarProductoRegister($iden, $motivo){
                             ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
 }
 //
+
+
 
 
 public function levantarModalOpcion($idProducto){ // busca y levanta el modal de la opcion que falta
@@ -307,6 +309,7 @@ public function getDeliveryData(){ // crea la variables del delivery
             session(['delivery_direccion' => $cliente->direccion]);
             session(['delivery_telefono' => $cliente->telefono]);
     }
+
 
 public function delDeliveryData(){ 
     
@@ -385,7 +388,7 @@ public function delDeliveryData(){
 
 
 
-    /// retorna la cantidad de productos en la orden 
+    /// retorna la cantidad de productos en la orden segun producto 
     public function getCantidadProductosCod($cod){
         return TicketProducto::where('orden', session('orden'))
                                 ->where('cod', $cod)
@@ -393,6 +396,16 @@ public function delDeliveryData(){
                                 ->whereIn('imprimir', [1, 2, 3])
                                 ->count();
     }
+
+
+    /// retorna la cantidad de productos en la orden 
+    public function getCantidadProductos(){
+        return TicketProducto::where('orden', session('orden'))
+                                ->where('num_fact', NULL)
+                                ->count();
+    }
+
+
 
     public function reducirCantidadCod($cant, $cod){
     
@@ -468,7 +481,10 @@ public function delDeliveryData(){
 
 
 
-
+/*
+    Este metodo se obtiene direcatamente de la vista
+    y nada mas esta contando las Facturas y no Facturas
+*/
     static public function Porcentaje(){ // porcentaje de facturado o no facturado
     
         $totalFacturado = TicketNum::whereDay('created_at', date('d-m-Y'))
@@ -487,6 +503,60 @@ public function delDeliveryData(){
         return $pFacturado . "/" . $pNoFacturado;
     
     }
+
+
+    /* @getDescuento() 
+        $categoria -= si es para todos o un producto 1 = orden, 0 = producto
+        $tipo = si es cantidad o porcentaje 1 = cantidad 0 = porcentaje
+        $inputCant = Cantidad de llega del usuario $ o %
+        $producto = el cod del producto a aplicar descuento si es un prodcuto   
+    */
+
+    public function getDescuento($categoria, $tipo, $inputCant, $producto = null){ 
+            if ($categoria == 1) { // 1 es descuento a orden 0 a producto     
+                if ($tipo == 1) { /// si es por cantidad o por porcentaje
+                    $total = $this->totalDeVenta();
+                    // $cantProductos = $this->getCantidadProductos();
+                    $porcentaje = $this->calculaDescuentoCantidad($inputCant, $total);
+                    $productos = $this->getProductosAgregados();
+                    foreach ($productos as $producto) {
+                       $descuento = $this->calculaDescuentoPorcentaje($producto->total, $porcentaje);
+                       
+                    }
+
+                } else { // porcentaje
+
+                }
+
+
+
+
+            }
+    }
+
+
+    // por cantidad
+     private function calculaDescuentoPorcentaje($cantidad, $porcentaje){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        $num = $porcentaje / 100;
+        return $cantidad * $num; // retorna cantidad
+    }
+
+    private function calculaDescuentoCantidad($cantidad, $descuento){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        $num = $descuento * 100;
+        return $num / $cantidad; // retorna porcentaje
+    }
+
+
+
+ 
+    
+
+
+
+
+
+
+
 
 
 }

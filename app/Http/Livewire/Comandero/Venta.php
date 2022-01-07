@@ -374,6 +374,12 @@ public function selectCliente($cliente){ // selecciona el cliente marcado
     session(['cliente' => $cliente]);
 }
 
+public function btnAddClient(){
+    $clientes = session('clientes') + 1;
+    session()->forget('clientes');
+    session(['clientes' => $clientes]);
+}
+
 
 public function productSelect($producto){ /// Productos para mostrar el detalle en el modal
     $this->productSelected = $this->getProductosModal($producto);

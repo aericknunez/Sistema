@@ -48,6 +48,7 @@
             @if (session('config_tipo_servicio') == 2)
             <a class="dropdown-item" data-toggle="modal" data-target="#ModalNombre"><i class="fas fa-user mr-1"></i>Agregar Nombre</a>
             <a href="{{ route('venta.cambios') }}" class="dropdown-item"><i class="fas fa-divide mr-1"></i>Dividir Cuenta</a>
+            <a data-toggle="modal" data-target="#ModalAddCliente" class="dropdown-item"><i class="fas fa-user mr-1"></i>Agregar Cliente</a>
             @endif
 
             @if (session('config_tipo_servicio') == 3)
