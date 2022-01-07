@@ -78,11 +78,13 @@
         <div>
             <ul class="nav navbar-nav nav-flex-icons ml-auto">
                     
-            @foreach ($datos as $panel)
+
                 <li class="nav-item">
-                    <a wire:click="cambiarPanel({{ $panel->id }})" class="nav-link"><i class="fab fa-first-order-alt"></i> <span class="clearfix d-none d-sm-inline-block">{{ $panel->nombre }}</span></a>
+                    <a data-toggle="modal" data-target="#ModalOrdenesTerminadas" wire:click="getTerminadas()" class="nav-link">
+                        <i class="fab fa-first-order-alt"></i> <span class="clearfix d-none d-sm-inline-block">Ver Ordenes</span>
+                    </a>
                 </li>
-            @endforeach
+
             </ul>
         </div>
                     

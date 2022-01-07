@@ -20,6 +20,9 @@ class Pantalla extends Component
     public $panelImprimir;
     public $listadoPaneles =[];
 
+    public $terminadas;
+    public $limitTerminadas;
+
     public $sound;
 
 
@@ -29,6 +32,7 @@ class Pantalla extends Component
         session(['hash_sound' => 1]);
         $this->getOrdenes();
         $this->getPanels();
+        $this->limitTerminadas = 10;
     }
 
 
@@ -106,6 +110,29 @@ class Pantalla extends Component
     public function cambiarPanel($iden){
         $this->panelImprimir = $iden;
         $this->getOrdenes();
+    }
+
+
+
+
+    public function getTerminadas(){
+    
+        $this->terminadas = TicketProducto::whereIn('imprimir', [3, 4])
+                                    ->where('edo', 1)
+                                    ->with('subOpcion')
+                                    ->orderBy('tiempo', 'desc')
+                                    ->limit($this->limitTerminadas)
+                                    ->get();
+    }
+
+    public function verMasTerminadas(){
+        $this->limitTerminadas = $this->limitTerminadas + 10;
+        $this->getTerminadas();
+    }
+
+    public function cerrarModalTerminadas(){
+        $this->limitTerminadas = 10;
+        $this->reset(['terminadas']);
     }
 
 

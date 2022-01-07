@@ -14,4 +14,7 @@
     
     </x-contenido >
 
+
+    <x-panel.pantalla-ordenes-terminadas :datos="$terminadas" />
+
 </div>
