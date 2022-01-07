@@ -1,4 +1,4 @@
-<div class="modal" wire:ignore.self id="ModalDetallesOrden" tabindex="-1" role="dialog" data-backdrop="true">
+<div class="modal" wire:ignore.self id="ModalDetallesOrden" tabindex="-1" role="dialog" data-backdrop="false">
     <div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
       <div class="modal-content bordeado-x1">
         <div class="modal-header">
@@ -19,7 +19,9 @@
 
                     <div class="bordeado-x1 border mb-2">
                         <span class="mx-2">Inicio {{ formatFecha($datos['orden']['created_at']) }}</span>
+                        @if ($datos['orden']['created_at'])
                         <span class="mx-2 red-text">Hace: {{ $datos['orden']['created_at']->diffForHumans(now()) }}</span>
+                        @endif
                     </div>
 
                     <x-venta.cambios-productos-cliente :datos="$datos['productos']" />
@@ -91,7 +93,7 @@
    
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+          <button wire:click="cerrarModal()" type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

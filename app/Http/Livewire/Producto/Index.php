@@ -32,31 +32,29 @@ class Index extends Component
 
 
     public $imgSelected;
-    public $toImg;
+    public $productos;
 
 
     public function hydrate() {
         $this->getOpciones();
         $this->getCategorias();
         $this->getPaneles();
+        
     }
 
     public function mount(){
         $this->getOpciones();
         $this->getCategorias();
         $this->getPaneles();
+        $this->getProductos();
     }
 
 
 
     public function render(){
-        if (!$this->toImg) {
-            $productos = $this->getProductos();
-        } else {
-            $productos = [];
-        }
+        $this->getProductos();
         $iconos = $this->getAllIconos();
-        return view('livewire.producto.index', compact('productos', 'iconos'));
+        return view('livewire.producto.index', compact('iconos'));
     }
 
     public function destroy($id)
@@ -73,11 +71,12 @@ class Index extends Component
 
 
     public function getProductos(){
-        return  Producto::latest('id')
-                        ->with('opciones')
-                        ->with('categoria')
-                        ->with('paneles')
-                        ->paginate(6);
+            $this->productos =  Producto::latest('id')
+                            ->with('opciones')
+                            ->with('categoria')
+                            ->with('paneles')
+                            ->get();
+
     }
 
     public function selectProduct($iden){
@@ -190,9 +189,8 @@ class Index extends Component
 
 
 
-    public function seleccionarProducto($iden){
+    public function seleccionarProducto($iden){ // levanta el modal de los iconos
         $this->productId = $iden;
-        $this->toImg = TRUE; // si voy a seleccionar una imagen para no mostrar los productos
     }
 
     public function selectImageTmp($imagen){
@@ -203,7 +201,6 @@ class Index extends Component
         $this->CrearIconos(); // crea los iconos despues de guardar
 
         $this->resetPage();
-        $this->reset('toImg'); // quito la opcion de seleccionar imagen
         
         $this->dispatchBrowserEvent('mensaje', 
         ['clase' => 'success', 
@@ -213,7 +210,7 @@ class Index extends Component
 
     public function cerrarModalImg(){
         $this->resetPage();
-        $this->reset('toImg'); // quito la opcion de seleccionar imagen     
+        $this->reset(); // quito la opcion de seleccionar imagen     
     }
 
 

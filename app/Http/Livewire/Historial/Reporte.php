@@ -80,6 +80,10 @@ class Reporte extends Component
         $this->detallesOrden = $this->getDatosOrden($iden);
     }
 
+    public function cerrarModal(){
+        $this->reset(['detallesOrden']);
+    }
+
 
 
 

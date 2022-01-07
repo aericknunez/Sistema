@@ -10,11 +10,11 @@
             </div>
             <x-producto.listado :datos="$productos" />
             
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 @if (count($productos))
                 {{ $productos->links('pagination::bootstrap-4') }}
                 @endif
-            </div>
+            </div> --}}
         </x-slot>
     
         <x-slot name="lateral">

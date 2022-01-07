@@ -21,7 +21,8 @@
                 @foreach ($datos as $producto)
 
                     <tr>
-                        <th scope="row" data-toggle="modal" data-target="#ModalIconos" wire:click="seleccionarProducto({{ $producto->id }})" class="pointer"><img src="{{ asset('img/ico/'. $producto->img) }}" class="imgSize img-fluid z-depth-1 rounded-circle" alt="Responsive image"></th>
+                        <td scope="row" data-toggle="modal" data-target="#ModalIconos" wire:click="seleccionarProducto({{ $producto->id }})" class="pointer"><img src="{{ asset('img/ico/'. $producto->img) }}" class="imgSize img-fluid z-depth-1 rounded-circle" alt="Responsive image"></td>
+
                         <td><div class="font-weight-bold text-uppercase"><a title="Cambiar Nombre" data-toggle="modal" data-target="#ModalNombre" wire:click="selectProduct({{ $producto->id }})">{{ $producto->nombre }}</a> </div></td>
 
                         <td><div class="font-weight-bold text-uppercase">

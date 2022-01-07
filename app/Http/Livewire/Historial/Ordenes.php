@@ -71,6 +71,9 @@ class Ordenes extends Component
         $this->detalles = $this->getDatosOrden($iden);
     }
 
+    public function cerrarModal(){
+        $this->reset(['detalles']);
+    }
 
 
 }
