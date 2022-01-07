@@ -38,7 +38,7 @@ class UsuariosEditar extends Component
     }
 
     public function changeUser($tipo){
-        User::where('id', $this->userId)->update(['tipo_usuario' => $tipo]);
+        User::where('id', $this->userId)->update(['tipo_usuario' => $tipo, 'tiempo' => Helpers::timeId()]);
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado

@@ -379,9 +379,9 @@ class Configuracion extends Component
         } else {
             $estado = ConfigMoneda::select('edo')->where('id', $moneda)->first();
             if ($estado->edo == 1) {
-                ConfigMoneda::where('id', $moneda)->update(['edo' => 0]);
+                ConfigMoneda::where('id', $moneda)->update(['edo' => 0, 'tiempo' => Helpers::timeId()]);
             } else {
-                ConfigMoneda::where('id', $moneda)->update(['edo' => 1]);
+                ConfigMoneda::where('id', $moneda)->update(['edo' => 1, 'tiempo' => Helpers::timeId()]);
             }
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
@@ -393,9 +393,9 @@ class Configuracion extends Component
 
             $cantidad = ConfigMoneda::where('edo', 1)->count();
             if ($cantidad == 1) {
-                ConfigApp::where('id', 1)->update(['multiple_pago' => 0]);
+                ConfigApp::where('id', 1)->update(['multiple_pago' => 0, 'tiempo' => Helpers::timeId()]);
             } else {
-                ConfigApp::where('id', 1)->update(['multiple_pago' => 1]);
+                ConfigApp::where('id', 1)->update(['multiple_pago' => 1, 'tiempo' => Helpers::timeId()]);
             }
             $this->sessionApp();
             $this->crearModalMoneda(); /// creo el modal de las monedas seleccionadas
@@ -408,9 +408,9 @@ class Configuracion extends Component
 
             $estado = ConfigPaneles::select('edo')->where('id', $panel)->first();
             if ($estado->edo == 1) {
-                ConfigPaneles::where('id', $panel)->update(['edo' => 0]);
+                ConfigPaneles::where('id', $panel)->update(['edo' => 0, 'tiempo' => Helpers::timeId()]);
             } else {
-                ConfigPaneles::where('id', $panel)->update(['edo' => 1]);
+                ConfigPaneles::where('id', $panel)->update(['edo' => 1, 'tiempo' => Helpers::timeId()]);
             }
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 

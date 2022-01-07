@@ -325,7 +325,7 @@ trait Imprimir{
     public function productosActualizar($orden, $anterior, $nuevo){
         TicketProducto::where('orden', $orden)
                         ->where('imprimir', $anterior)
-                        ->update(['imprimir' => $nuevo]);
+                        ->update(['imprimir' => $nuevo, 'tiempo' => Helpers::timeId()]);
     }
 
     public function contarProductos($imprimir){

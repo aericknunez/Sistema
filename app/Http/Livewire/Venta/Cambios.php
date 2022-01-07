@@ -66,7 +66,7 @@ class Cambios extends Component
         TicketProducto::where('orden', session('orden'))
                         ->where('edo', 1)
                         ->where('id', $producto)
-                        ->update(['cliente' => $this->clientSelected]);
+                        ->update(['cliente' => $this->clientSelected, 'tiempo' => Helpers::timeId()]);
 
         $this->determinaPropina();
 
@@ -201,7 +201,8 @@ class Cambios extends Component
                                 'cancela' => session('cliente'), 
                                 'cajero' => session('config_usuario_id'),
                                 'tipo_pago' => session('tipo_pago'),
-                                'tipo_venta' => session('impresion_seleccionado')
+                                'tipo_venta' => session('impresion_seleccionado'), 
+                                'tiempo' => Helpers::timeId()
         ]);
 
         $xst = Helpers::Format($this->subtotal);
@@ -245,7 +246,7 @@ class Cambios extends Component
     
         if ($cantidad == 0) {
             TicketOrden::where('id', session('orden'))
-                        ->update(['edo' => 2]);
+                        ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
 
             session()->forget('orden');
             $this->reset();

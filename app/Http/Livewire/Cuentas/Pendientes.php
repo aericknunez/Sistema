@@ -157,12 +157,12 @@ class Pendientes extends Component
 
 
             CuentasPagar::where('id', $this->cuentaId)->first()
-                        ->update(['saldo' => $saldo, 'abonos' => $abonos]);
+                        ->update(['saldo' => $saldo, 'abonos' => $abonos, 'tiempo' => Helpers::timeId()]);
 
             // si el saldo llega a 0 lo doy por pagado
             if ($saldo == 0) {
                 CuentasPagar::where('id', $this->cuentaId)->first()
-                            ->update(['edo' => 2]);
+                            ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
             }
 
             $this->cuentaSelect($this->cuentaId);
@@ -213,13 +213,13 @@ class Pendientes extends Component
     public function delAbono($iden){
         
         $abono = CuentasPagarAbono::where('id', $iden)->first();
-        if ($abono->update(['edo' => 2])) {
+        if ($abono->update(['edo' => 2, 'tiempo' => Helpers::timeId()])) {
             
 
             $cuenta = CuentasPagar::where('id', $abono->cuenta_id)->first();
             $saldo = $cuenta->saldo + $abono->cantidad;
             $abonos = $cuenta->abonos - $abono->cantidad;
-            $cuenta->update(['saldo' => $saldo, 'abonos' => $abonos, 'edo' => 1]);
+            $cuenta->update(['saldo' => $saldo, 'abonos' => $abonos, 'edo' => 1, 'tiempo' => Helpers::timeId()]);
 
             if ($abono->tipo_pago != 1 and $abono->efectivo_cuenta_bancos_id != NULL) {
             // obtiene total para sumarlo a la cuenta y crear historial

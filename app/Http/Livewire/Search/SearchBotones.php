@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Search;
 
+use App\Common\Helpers;
 use App\Models\TicketNum;
 use App\Models\TicketProducto;
 use Livewire\Component;
@@ -51,7 +52,7 @@ class SearchBotones extends Component
         TicketNum::where('tipo_venta', session('impresion_seleccionado'))
                         ->where('factura', session('idSearch'))
                         ->where('edo', 1)
-                        ->update(['edo' => 2]);
+                        ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
        $this->getData(); 
        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Factura eliminada correctamente']);    
     }

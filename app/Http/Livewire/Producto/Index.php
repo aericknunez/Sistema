@@ -85,7 +85,7 @@ class Index extends Component
     }
 
     public function updatePrecio(){
-        Producto::where('id', $this->productId)->update(['precio' => $this->precio]);
+        Producto::where('id', $this->productId)->update(['precio' => $this->precio, 'tiempo' => Helpers::timeId()]);
 
         $this->reset();
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalPrecio']);
@@ -93,7 +93,7 @@ class Index extends Component
     }
 
     public function updateNombre(){
-        Producto::where('id', $this->productId)->update(['nombre' => $this->nombre]);
+        Producto::where('id', $this->productId)->update(['nombre' => $this->nombre, 'tiempo' => Helpers::timeId()]);
 
         $this->reset();
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalNombre']);
@@ -151,7 +151,7 @@ class Index extends Component
 
 
     public function addPanel($iden = NULL){
-        Producto::where('id', $this->productId)->update(['panel' => $iden]);
+        Producto::where('id', $this->productId)->update(['panel' => $iden, 'tiempo' => Helpers::timeId()]);
         
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalPanel']);
         $this->mensajeModificado();
@@ -163,9 +163,9 @@ class Index extends Component
     public function updateOpcionesActive(){
         $cantidad = OpcionesProducto::where('producto_id', $this->productId)->count();
         if($cantidad > 0){
-            Producto::where('id',$this->productId)->update(['opciones_active' => 1]);
+            Producto::where('id',$this->productId)->update(['opciones_active' => 1, 'tiempo' => Helpers::timeId()]);
         } else { 
-            Producto::where('id',$this->productId)->update(['opciones_active' => 0]);
+            Producto::where('id',$this->productId)->update(['opciones_active' => 0, 'tiempo' => Helpers::timeId()]);
         }
     }
 
@@ -177,7 +177,7 @@ class Index extends Component
 
 
     public function addCategoria($iden){
-        Producto::where('id', $this->productId)->update(['producto_categoria_id' => $iden]);
+        Producto::where('id', $this->productId)->update(['producto_categoria_id' => $iden, 'tiempo' => Helpers::timeId()]);
         
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalCategoria']);
         $this->mensajeModificado();
@@ -196,7 +196,7 @@ class Index extends Component
     public function selectImageTmp($imagen){
         $this->imgSelected = $imagen;
 
-        Producto::where('id',$this->productId)->update(['img' => $this->imgSelected]);
+        Producto::where('id',$this->productId)->update(['img' => $this->imgSelected, 'tiempo' => Helpers::timeId()]);
 
         $this->CrearIconos(); // crea los iconos despues de guardar
 

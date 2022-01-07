@@ -140,7 +140,7 @@ public function guardarProductosImprimir(){
     TicketProducto::where('orden', session('orden'))
                     ->where('edo', 1)
                     ->where('imprimir', 1)
-                    ->update(['imprimir' => 2]);
+                    ->update(['imprimir' => 2, 'tiempo' => Helpers::timeId()]);
 }
 
 public function cantidaProductosSinGuardar(){
@@ -190,7 +190,8 @@ public function actualizarDatosVenta($num_fact){ // actualiza los campos de los 
                             'cancela' => session('cliente'), 
                             'cajero' => session('config_usuario_id'),
                             'tipo_pago' => session('tipo_pago'),
-                            'tipo_venta' => session('impresion_seleccionado')
+                            'tipo_venta' => session('impresion_seleccionado'), 
+                            'tiempo' => Helpers::timeId()
     ]);
 }
 
@@ -204,7 +205,7 @@ public function eliminarProducto($iden){
             TicketProducto::destroy($iden);
         } else {
             TicketProducto::where('id', $iden)
-                            ->update(['edo' => 2, 'imprimir' => 4]);
+                            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
         }
     } else {
         TicketProducto::destroy($iden);
@@ -218,10 +219,10 @@ public function eliminarOrden(){
         if ($cantidad > 0) {
             TicketProducto::where('orden', session('orden'))
             ->where('imprimir', 3)
-            ->update(['edo' => 2, 'imprimir' => 4]);
+            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
             TicketProducto::where('orden', session('orden'))->where('imprimir','!=', 4)->delete();
             TicketOrden::where('id', session('orden'))
-            ->update(['edo' => 0, 'imprimir' => 0]);
+            ->update(['edo' => 0, 'imprimir' => 0, 'tiempo' => Helpers::timeId()]);
         } else {
             TicketOrden::destroy(session('orden'));
             TicketProducto::where('orden', session('orden'))->delete();
@@ -236,16 +237,16 @@ public function eliminarOrden(){
 public function eliminarOrdenRegister($motivo){
     TicketProducto::where('orden', session('orden'))
                     ->whereIn('imprimir', [2, 3])
-                    ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+                    ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
     TicketProducto::where('orden', session('orden'))->where('imprimir','!=', 4)->delete();
     TicketOrden::where('id', session('orden'))
-                    ->update(['edo' => 0, 'imprimir' => 0, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+                    ->update(['edo' => 0, 'imprimir' => 0, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
 }
 
 
 public function eliminarProductoRegister($iden, $motivo){
         TicketProducto::where('id', $iden)
-                            ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id')]);
+                            ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
 }
 //
 
@@ -383,7 +384,7 @@ public function delDeliveryData(){
 
     public function updateLLevarAquiOrden(){
         TicketOrden::where('id', session('orden'))
-                    ->update(['llevar_aqui' => session('llevar_aqui')]);
+                    ->update(['llevar_aqui' => session('llevar_aqui'), 'tiempo' => Helpers::timeId()]);
     }
 
 
@@ -414,7 +415,7 @@ public function delDeliveryData(){
                             ->where('num_fact', NULL)
                             ->whereIn('imprimir', [1, 2, 3])
                             ->limit($cant)
-                            ->update(['edo' => 2, 'imprimir' => 4]);
+                            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
 
     }
 

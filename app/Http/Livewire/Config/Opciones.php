@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Config;
 
+use App\Common\Helpers;
 use App\Models\Image;
 use App\Models\ImageCategory;
 use App\Models\ImageTag;
@@ -36,9 +37,9 @@ class Opciones extends Component
             'titulo' => 'Realizado', 
             'texto' => 'Iconos Actualizados correctamente']);
 
-            Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-            ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-            ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+            Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
             
         } else {
             $this->dispatchBrowserEvent('error', 
@@ -96,12 +97,12 @@ class Opciones extends Component
 
         // }
 
-        Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-        ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-        ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-        OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-        Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
-        ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td')]);
+        Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
 
         $this->dispatchBrowserEvent('mensaje', 

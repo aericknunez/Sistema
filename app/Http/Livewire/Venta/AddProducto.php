@@ -106,7 +106,7 @@ class AddProducto extends Component
         TicketOpcion::where('opcion_primaria', $this->modalOpcion)
                     ->where('ticket_producto_id', $this->modalProducto)
                     ->where('opcion_producto_id', NULL)->limit(1)
-                    ->update(['opcion_producto_id' => $opcion]);
+                    ->update(['opcion_producto_id' => $opcion, 'tiempo' => Helpers::timeId()]);
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
 
         $modal = $this->levantarModalOpcion($this->modalProducto);
@@ -313,13 +313,13 @@ public function btnTipoPago($tipo){ /// Cambia el tipo pago (Efectivo, tarjeta, 
 
 public function btnComentario(){ /// agrega un comentario a la comanda
     TicketOrden::where('id', session('orden'))
-                    ->update(['comentario' => $this->comentario]);
+                    ->update(['comentario' => $this->comentario, 'tiempo' => Helpers::timeId()]);
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalComentario']);
 } 
 
 public function btnNombre(){ /// agrega nombre a la comanda
     TicketOrden::where('id', session('orden'))
-                    ->update(['nombre_mesa' => $this->nombre]);
+                    ->update(['nombre_mesa' => $this->nombre, 'tiempo' => Helpers::timeId()]);
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalNombre']);
 } 
 
@@ -498,7 +498,7 @@ public function pagar(){
     $this->actualizarDatosVenta($num_fact); // actualiza los campos de los productos
 
     TicketOrden::where('id', session('orden'))
-                ->update(['edo' => 2]);
+                ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
 
     $xst = Helpers::Format($this->subtotal);
     $xpr = Helpers::Format($this->propinaCantidad);
