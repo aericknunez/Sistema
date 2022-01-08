@@ -3,6 +3,7 @@
     <x-cuerpo >
         <x-slot name="contenido">
             <x-venta.delivery-all :ordenes="$ordenesAll" />
+
         </x-slot>
     
 
@@ -19,12 +20,16 @@
                     <a data-toggle="modal" data-target="#addDelivery"> <i class="fas fa-plus-circle fa-7x mx-2 green-text"></i> </a>
                 </div>
            </div>
+           
         </x-slot>
 
     </x-cuerpo>
 
+    {{-- search y busqueda coresponden al formulario y a los datos de busqueda, son diferentes  --}}
     <x-venta.modal-add-delivery :search="$search" :busqueda="$busqueda" />
     <x-venta.modal-add-cliente />
+    <x-venta.modal-cambiar-cliente-delivery :search="$search" :busqueda="$busqueda" :delivery="$deliverySelected" />
+    <x-venta.modal-detalles-orden-delivery :datos="$ordenDetalles" />
 
 
 </div>

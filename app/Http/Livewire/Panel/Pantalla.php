@@ -32,7 +32,7 @@ class Pantalla extends Component
         session(['hash_sound' => 1]);
         $this->getOrdenes();
         $this->getPanels();
-        $this->limitTerminadas = 10;
+        $this->limitTerminadas = 20;
     }
 
 
@@ -127,12 +127,12 @@ class Pantalla extends Component
     }
 
     public function verMasTerminadas(){
-        $this->limitTerminadas = $this->limitTerminadas + 10;
+        $this->limitTerminadas = $this->limitTerminadas + 20;
         $this->getTerminadas();
     }
 
     public function cerrarModalTerminadas(){
-        $this->limitTerminadas = 10;
+        $this->limitTerminadas = 20;
         $this->reset(['terminadas']);
     }
 
