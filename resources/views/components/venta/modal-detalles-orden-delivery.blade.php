@@ -52,9 +52,9 @@
               
 
               <div class="font-weight-bold text-uppercase bordeado-x1 border my-2 px-2"> DATOS DEL CLIENTE </div>
-              <div class="row"><div class="col-4 text-uppercase font-weight-bold">Nombre: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->nombre }}</div></div>
-              <div class="row"><div class="col-4 text-uppercase font-weight-bold">Dirección: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->direccion }}</div></div>
-              <div class="row"><div class="col-4 text-uppercase font-weight-bold">Telefono: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->telefono }}</div></div>
+              <div class="row"><div class="text-uppercase font-weight-bold">Nombre: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->nombre }}</div></div>
+              <div class="row"><div class="text-uppercase font-weight-bold">Dirección: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->direccion }}</div></div>
+              <div class="row"><div class="text-uppercase font-weight-bold">Telefono: </div> <div class="ml-2"> {{ $datos->deliverys->cliente->telefono }}</div></div>
 
 
                 @endif

@@ -166,9 +166,10 @@ class Delivery extends Component
     //// botones de accion
     public function btnChangeClient($delivery, $cliente){
         TicketDelivery::find($delivery)->update(['cliente_id' => $cliente, 'tiempo' => Helpers::timeId()]);
-
-        session(['client_select' => $cliente]);
-        $this->btnAddDelivery();
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCambiarCliente']);
+        $this->emit('cambiado');
+        $this->obtenerOrdenes();
+        $this->cancelar();
     }
 
     public function deliverySelect($delivery){
@@ -188,6 +189,10 @@ class Delivery extends Component
 
      public function cerrarModal(){
         $this->reset(['ordenDetalles']);
+     }
+
+     public function btnAddRepartidor(){
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Esta función aun no se encuenta disponible']);
      }
 
 

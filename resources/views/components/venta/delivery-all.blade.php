@@ -13,7 +13,7 @@
                 <a class="close" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i></a>
                 <div class="dropdown-menu dropdown-primary">
                     <a wire:click="deliverySelect({{ $orden->deliverys->id }})" class="dropdown-item" data-toggle="modal" data-target="#ModalCambiarCliente">Cambiar Cliente</a>
-                    <a class="dropdown-item" href="#">Agregar Repartidor</a>
+                    <a wire:click="btnAddRepartidor()" class="dropdown-item">Agregar Repartidor</a>
                     <a wire:click="detallesOrden({{ $orden->id }})" class="dropdown-item" data-toggle="modal" data-target="#DetallesOrdenDelivery">Detalles de la Orden</a>
                 </div>
             </div>
