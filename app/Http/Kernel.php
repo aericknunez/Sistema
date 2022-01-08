@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'sipantalla' => \App\Http\Middleware\IsPantallaSelect::class, // si la pantalla esta activada y no ticket
         'pantallaauth' => \App\Http\Middleware\PantallaAuth::class, // si esta login desde la pantalla
         'pantallaverified' => \App\Http\Middleware\PantallaVerified::class, // si esta logueado desde la pantalla
+        'sessiones' => \App\Http\Middleware\VerificaSesion::class, // Verifica que tenga todas las variables de sesion necesarias
     ];
 }

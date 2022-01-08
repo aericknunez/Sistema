@@ -120,6 +120,7 @@ class Pantalla extends Component
         $this->terminadas = TicketProducto::whereIn('imprimir', [3, 4])
                                     ->where('edo', 1)
                                     ->with('subOpcion')
+                                    ->with('user')
                                     ->orderBy('tiempo', 'desc')
                                     ->limit($this->limitTerminadas)
                                     ->get();

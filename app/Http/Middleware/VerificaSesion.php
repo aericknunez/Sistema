@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\System\Config\Validaciones;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ComprobarSistema
+class VerificaSesion
 {
-    use Validaciones;
     /**
      * Handle an incoming request.
      *
@@ -18,11 +17,10 @@ class ComprobarSistema
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if ($this->validarSistema()) {
-            return $next($request);
-        } else {
-            abort(401, 'NO SE PUEDE ACTIVAR EL SISTEMA');
+        if (Auth::user()->id and !session('config_usuario_id')) {
+            return redirect('iniciar');
         }
+
+        return $next($request);
     }
 }

@@ -17,9 +17,10 @@
                         <table class="table table-sm table-hover table-striped table-round">
                           <thead>
                             <tr>
-                              <th scope="col">Orden</th>
+                              <th scope="col"># Orden</th>
                               <th scope="col">Producto</th>
-                              <th scope="col" colspan="2">Hora</th>
+                              <th scope="col">Hora</th>
+                              <th scope="col">Usuario</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -31,10 +32,12 @@
                                     class="red-text"
                                 @endif
                                 >
-                                    <td >{{ $producto->id }}</td>
+                                    <td >{{ $producto->orden }}</td>
                                     <td class="font-weight-bold">{{ $producto->producto }}</td>
-                                    <td >{{ $producto->created_at }}</td>
-                                    <td > {{ $producto->created_at->diffForHumans(now()) }} </td>
+                                    <td >{{ $producto->created_at }}
+                                    <small>{{ $producto->created_at->diffForHumans(now()) }}</small>
+                                    </td>
+                                    <td >{{ $producto->user->name }}  </td>
                                 </tr>
 
                                 @if (count($producto->subOpcion) >= 1)
