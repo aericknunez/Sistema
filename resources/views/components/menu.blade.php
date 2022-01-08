@@ -30,7 +30,7 @@
 
 {{-- MENU  --}}
 
-@if (!session('apertura_caja'))
+@if (!session('apertura_caja') and session('config_tipo_usuario'))
     <li><a href="{{ route('caja.select') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> APERTURAR CAJA </a></li>
 @endif
 
