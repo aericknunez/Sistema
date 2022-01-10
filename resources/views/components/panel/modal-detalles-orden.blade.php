@@ -55,7 +55,7 @@
                                     <td>{{ $factura->factura }}</td>
                                     <td>{{ tipoVenta($factura->tipo_venta) }}</td>
                                     <td>{{ tipoPago($factura->tipo_pago) }}</td>
-                                    <td> {{ dinero($factura->propina) }}</td>
+                                    <td> {{ dinero($factura->propina_cant) }}</td>
                                     <td> {{ dinero($factura->total) }}</td>
                                 </tr>
                             @endforeach    

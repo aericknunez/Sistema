@@ -18,7 +18,7 @@ class CreateConfigAppTable extends Migration
             $table->string('sistema', 50)->nullable(true);
             $table->string('cliente', 100)->nullable(true);
             $table->string('slogan', 30)->nullable(true);
-            $table->string('direccion', 50)->nullable(true);
+            $table->string('direccion', 200)->nullable(true);
             $table->string('telefono', 25)->nullable(true);
             $table->string('email', 50)->nullable(true);
             $table->string('propietario')->nullable(true);

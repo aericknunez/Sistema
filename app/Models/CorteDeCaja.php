@@ -15,11 +15,11 @@ class CorteDeCaja extends Model
 
 
 
-    public function usuario(){
+    public function user(){
         return $this->hasOne(User::class, 'id', 'usuario');
     }
 
-    public function usuario_corte(){
+    public function user_corte(){
         return $this->hasOne(User::class, 'id', 'usuario_corte');
     }
 
