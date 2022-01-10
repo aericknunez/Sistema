@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Common\Encrypt;
 // use App\Common\Helpers;
 use App\Models\ConfigMoneda;
+use App\Models\CorteDeCaja;
 use App\Models\NumeroCajas;
 use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
@@ -64,11 +65,11 @@ class IniciarController extends Controller
         session(['tipo_pagoM' => $tipoPago->moneda]);
 
 
-        $ventas = $this->compruebaVentaRapida();
-        if ($ventas) {
-            session(['orden' => $ventas->id]);
-            session(['config_tipo_servicio' => 1]);
-        }
+        // $ventas = $this->compruebaVentaRapida();
+        // if ($ventas) {
+        //     session(['orden' => $ventas->id]);
+        //     session(['config_tipo_servicio' => 1]);
+        // }
 
         if (session('config_tipo_usuario') == 5) { // si es mesero iniciar en mesas
             session(['config_tipo_servicio' => 2]);
@@ -86,7 +87,12 @@ class IniciarController extends Controller
 
 
         if (session('apertura_caja')) {
-            session(['caja_select' => 1]);
+            $caja = CorteDeCaja::select('numero_caja')
+                                ->where('edo', 1)
+                                ->where('usuario', session('config_usuario_id'))
+                                ->first();
+                                
+            session(['caja_select' => $caja->numero_caja]);
             return redirect()->route('venta.rapida');
         } else {
             return redirect()->route('caja.select');
