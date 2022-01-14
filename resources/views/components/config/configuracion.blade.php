@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             {{-- @json($datos) --}}
-            <div class="h3-responsive">{{ $datos->sistema }}</div>
+            <div class="h3-responsive">{{ $datos->cliente }}</div>
             <div class="right-text">{{ $datos->slogan }}</div>
 
             <ul class="list-group font-weight-bold">
