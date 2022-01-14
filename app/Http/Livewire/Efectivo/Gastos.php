@@ -37,6 +37,7 @@ class Gastos extends Component
         $this->getCategorias();
         $this->totalGastos();
         $this->tipo_pago = 1;
+        $this->cat_gasto = 1;
         $this->tipocomprobante = 1;
     }
 
