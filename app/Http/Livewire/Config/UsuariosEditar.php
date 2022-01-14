@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Config;
 
-use App\Common\Helpers;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,7 +38,7 @@ class UsuariosEditar extends Component
     }
 
     public function changeUser($tipo){
-        User::where('id', $this->userId)->update(['tipo_usuario' => $tipo, 'tiempo' => Helpers::timeId()]);
+        User::where('id', $this->userId)->update(['tipo_usuario' => $tipo]);
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
