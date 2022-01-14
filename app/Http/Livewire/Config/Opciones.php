@@ -104,6 +104,10 @@ class Opciones extends Component
         Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
+        Opciones::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesSub::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesProducto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+
 
         $this->dispatchBrowserEvent('mensaje', 
         ['clase' => 'success', 

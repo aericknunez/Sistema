@@ -16,6 +16,7 @@ class CreateSyncTablesTable extends Migration
         Schema::create('sync_tables', function (Blueprint $table) {
             $table->id();
             $table->string('tabla', 50)->nullable(true);
+            $table->integer('tipo')->nullable(true);
         });
     }
 
