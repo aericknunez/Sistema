@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComanderoController;
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ProductoController;
@@ -236,7 +237,7 @@ Route::get('/mobil/login', function () {
     return view('comandero.login');
 })->name('comandero.login');
 
-Route::get('/mobil/logout', [MobilController::class, 'logout'])
+Route::get('/mobil/logout', [ComanderoController::class, 'logout'])
 ->middleware(['auth:sanctum', 'sessiones'])
 ->name('comandero.logout');
 
