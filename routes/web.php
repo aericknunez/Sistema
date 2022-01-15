@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ComanderoController;
 use App\Http\Controllers\IniciarController;
-use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
