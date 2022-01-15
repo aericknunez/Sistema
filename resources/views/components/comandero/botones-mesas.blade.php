@@ -3,10 +3,10 @@
         <div class="row p-0 align-items-center">
         
             <div class="col text-center pointer">
-                <a href="{{ route('logout') }}" 
+                <a href="{{ route('comandero.logout') }}" 
                 onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();" class="text-muted">
-                <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                <form method="POST" id="logout-form" action="{{ route('comandero.logout') }}">
                     @csrf
                 </form>
                     <h1 class="mb-0"><span class="mdi mdi-power"></span></h1>

@@ -236,9 +236,8 @@ Route::get('/mobil/login', function () {
     return view('comandero.login');
 })->name('comandero.login');
 
-Route::get('/mobil/logout', [ComanderoController::class, 'logout'])
-->middleware(['auth:sanctum', 'sessiones'])
-->name('comandero.logout');
+Route::post('/mobil/logout', [ComanderoController::class, 'logout'])
+->middleware(['auth:sanctum', 'sessiones'])->name('comandero.logout');
 
 
 
