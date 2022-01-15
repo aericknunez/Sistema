@@ -14,7 +14,8 @@
 
             <div wire:loading.remove wire:target="aplicarFechas">
                 <div class="h2-responsive">Productos Vendidos</div>
-                <x-historial.reporte-informacion :datos="$productos" />
+                <x-historial.ventas-listado :datos="$productos" />
+
                 @if (count($cortes))
                 <div class="h2-responsive mt-3">Cortes de Caja</div>
                 <x-historial.cortes-listado :datos="$cortes" />

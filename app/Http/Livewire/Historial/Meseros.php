@@ -69,7 +69,10 @@ class Meseros extends Component
 
 
     public function getUsuarios(){
-            $this->usuarios = User::select(['id', 'name'])->get();
+            $this->usuarios = User::select(['id', 'name'])
+                                    ->whereNotIn('id',[1, 2])
+                                    ->where('tipo_usuario', '!=', '7')
+                                    ->OrWhere('tipo_usuario', NULL)->get();
     }
 
 
