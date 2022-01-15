@@ -102,6 +102,7 @@ class Venta extends Component
         }
     }
 
+
     public function delProducto($id){ // eliminar un producto de la venta
         $imp = $this->verificaProducto($id);
         if (($this->siCodigo() or $this->siRegristro()) and $imp->imprimir != 1) {
@@ -192,7 +193,7 @@ class Venta extends Component
         if($modal){
             $this->modalProducto = $modal['producto_id'];
             $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
         } else {
             $this->modalProducto = NULL;
             $this->modalOpcion = NULL;
@@ -204,6 +205,7 @@ class Venta extends Component
     public function omitirOpcion(){ // Omite la opcion y la borra Opcion
         TicketOpcion::where('opcion_primaria', $this->modalOpcion)
                     ->where('ticket_producto_id', $this->modalProducto)
+                    ->limit(1)
                     ->delete();
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'opcion-' . $this->modalOpcion]);
 
@@ -212,7 +214,7 @@ class Venta extends Component
         if($modal){
             $this->modalProducto = $modal['producto_id'];
             $this->modalOpcion = $modal['opcion_id'];
-            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => $this->modalOpcion]);
+            $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
         } else {
             $this->modalProducto = NULL;
             $this->modalOpcion = NULL;

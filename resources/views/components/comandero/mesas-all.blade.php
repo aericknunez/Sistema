@@ -30,6 +30,9 @@
         </section>
 
     @else
-        {{ mensajex('No exiten ordenes pendientes', 'danger') }}
+        <div class="text-center mt-5">
+            <img src="{{ asset('/img/logo/logo.png') }}" width="200">
+            <div class="bg-danger mt-1 h4 text-white">No existen ordenes pendientes</div>
+        </div>
     @endif
 </div>
