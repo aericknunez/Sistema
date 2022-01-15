@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IniciarController;
+use App\Http\Controllers\MobilController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -234,6 +235,11 @@ Route::get('/mobil/login', function () {
     session(['comandero' => true]);
     return view('comandero.login');
 })->name('comandero.login');
+
+Route::get('/mobil/logout', [MobilController::class, 'logout'])
+->middleware(['auth:sanctum', 'sessiones'])
+->name('comandero.logout');
+
 
 
 /// mostrar la pantalla
