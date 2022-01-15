@@ -183,6 +183,10 @@ public function getUltimaFacturaNumber(){
 }
 
 
+public function getLlevarAqui(){
+    return TicketOrden::select('llevar_aqui')->where('id', session('orden'))->first();
+}
+
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
     TicketProducto::where('orden', session('orden'))
                     ->where('cliente', session('cliente'))

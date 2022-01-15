@@ -37,7 +37,8 @@ class Cambios extends Component
         $this->productFactura();
 
         $this->obtenerTotal();
-        $this->llevarComerAqui = session('llevar_aqui'); // recoredar cargarlo desde la base de datos!!!!!!!!
+        $this->getAqui();
+
 
     }
 
@@ -149,6 +150,14 @@ class Cambios extends Component
         $this->updateLLevarAquiOrden();
         $this->llevarComerAqui = session('llevar_aqui');
     } 
+
+
+    public function getAqui(){
+        $data = $this->getLlevarAqui();
+        $this->llevarComerAqui = $data->llevar_aqui;
+        session(['llevar_aqui', $data->llevar_aqui]);
+    }
+    
     
     public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
         session(['impresion_seleccionado' => $tipo]);

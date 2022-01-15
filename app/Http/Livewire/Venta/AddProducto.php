@@ -56,7 +56,7 @@ class AddProducto extends Component
             $this->determinaPropina();
             $this->productosAdded();
             $this->obtenerTotal();
-            $this->llevarComerAqui = session('llevar_aqui'); // recoredar cargarlo desde la base de datos!!!!!!!!
+            $this->getAqui();
             // $this->comentario; cargarlo desde la db
         }
         session(['cliente' => 1]);
@@ -293,6 +293,14 @@ public function BtnAquiLlevar(){ // 1 llevar, 2 comer aqui
     $this->updateLLevarAquiOrden();
     $this->llevarComerAqui = session('llevar_aqui');
 } 
+
+
+
+public function getAqui(){
+    $data = $this->getLlevarAqui();
+    $this->llevarComerAqui = $data->llevar_aqui;
+    session(['llevar_aqui' => $data->llevar_aqui]);
+}
 
 
 
