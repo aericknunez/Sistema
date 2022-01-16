@@ -89,7 +89,7 @@ class CuentasBanco extends Component
         if($id == 1){
             $this->emit('error4'); // manda el mensaje de error al eliminar
         } elseif ($cuenta->saldo == 0) {
-            $cuenta->delete();  
+            $cuenta->update(['edo' => 0]);  
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
             'titulo' => 'Realizado', 
