@@ -88,7 +88,8 @@ trait Historial {
 
     public function meserosMultiple($fecha1, $fecha2, $usuario){
         return TicketOrden::addSelect(['usuario' => User::select('name')
-                                ->whereColumn('empleado', 'users.id')])->whereBetween('created_at', [$fecha1, $fecha2])
+                                ->whereColumn('empleado', 'users.id')])
+                                ->whereBetween('created_at', [$fecha1, $fecha2])
                                 ->orderBy('empleado', 'desc')
                                 ->where('empleado', $usuario)
                                 ->get();
@@ -109,6 +110,31 @@ trait Historial {
 
 
 
+
+    public function eliminadosUnica($fecha){
+        return TicketProducto::addSelect(['user' => User::select('name')
+                                ->whereColumn('usuario', 'users.id')])
+                                ->addSelect(['user_borrado' => User::select('name')
+                                ->whereColumn('usuario_borrado', 'users.id')])
+                                ->whereDay('created_at', $fecha)
+                                ->where('edo', 2)
+                                ->with('subOpcion')
+                                ->orderBy('orden', 'desc')
+                                ->get();
+    }
+
+
+    public function eliminadosMultiple($fecha1, $fecha2){
+        return TicketProducto::addSelect(['user' => User::select('name')
+                                ->whereColumn('usuario', 'users.id')])
+                                ->addSelect(['user_borrado' => User::select('name')
+                                ->whereColumn('usuario_borrado', 'users.id')])
+                                ->whereBetween('created_at', [$fecha1, $fecha2])
+                                ->where('edo', 2)
+                                ->with('subOpcion')
+                                ->orderBy('orden', 'desc')
+                                ->get();
+    }
 
     
 

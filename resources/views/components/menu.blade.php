@@ -82,6 +82,7 @@
         <li><a href="{{ route('historial.meseros') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Meseros</a></li>
         {{-- <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Repartidores</a></li> --}}
         <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Ordenes</a></li>
+        <li><a href="{{ route('historial.eliminadas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes Eliminadas</a></li>
     </ul>
     </div>
 </li>   

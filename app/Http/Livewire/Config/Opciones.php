@@ -6,6 +6,9 @@ use App\Common\Helpers;
 use App\Models\Image;
 use App\Models\ImageCategory;
 use App\Models\ImageTag;
+use App\Models\Opciones as ModelsOpciones;
+use App\Models\OpcionesProducto;
+use App\Models\OpcionesSub;
 use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
@@ -97,16 +100,16 @@ class Opciones extends Component
 
         // }
 
-        Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OrderImg::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        Producto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ProductoCategoria::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Image::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageCategory::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageTag::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OrderImg::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Producto::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ProductoCategoria::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
-        Opciones::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesSub::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesProducto::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ModelsOpciones::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesSub::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesProducto::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
 
         $this->dispatchBrowserEvent('mensaje', 

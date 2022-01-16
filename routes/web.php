@@ -152,6 +152,9 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/ordenes', func
     return view('historial.ordenes');
 })->name('historial.ordenes');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/eliminadas', function () {
+    return view('historial.eliminadas');
+})->name('historial.eliminadas');
 
 
 
