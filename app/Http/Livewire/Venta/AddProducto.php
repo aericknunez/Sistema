@@ -508,17 +508,17 @@ public function pagar(){
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
 
-    $xst = Helpers::Format($this->subtotal);
-    $xpr = Helpers::Format($this->propinaCantidad);
-    $xto = Helpers::Format($this->total);
-    $xca = Helpers::Format($this->cantidad);
+    // $xst = Helpers::Format($this->subtotal);
+    // $xpr = Helpers::Format($this->propinaCantidad);
+    // $xto = Helpers::Format($this->total);
+    // $xca = Helpers::Format($this->cantidad);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
-        'subtotal' => dinero($xst),
-        'propina' => dinero($xpr),
-        'total' => dinero($xto),
-        'efectivo' => dinero($xca),
-        'cambio' => dinero($xca - $xto)
+                    'subtotal' => Helpers::Dinero($this->subtotal),
+                    'propina' => Helpers::Dinero($this->propinaCantidad),
+                    'total' => Helpers::Dinero($this->total),
+                    'efectivo' => Helpers::Dinero($this->cantidad),
+                    'cambio' => Helpers::Dinero($this->cantidad - $this->total)
     ]);
 
     if (config('sistema.print')) { /// imprime a menos que el env diga que no

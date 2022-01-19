@@ -22,7 +22,7 @@ class Helpers{
 
 
    static  public function Dinero($numero){  
-        $format= $_SESSION['config_moneda_simbolo'] ." " . number_format($numero,2,'.',',');
+        $format= session('config_moneda_simbolo') ." " . number_format($numero,2,'.',',');
         return $format;
      } 
 
