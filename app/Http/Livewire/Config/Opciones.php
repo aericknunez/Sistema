@@ -107,22 +107,22 @@ class Opciones extends Component
 
         // }
 
-        Image::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageCategory::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageTag::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OrderImg::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        Producto::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ProductoCategoria::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageTag::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OrderImg::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Producto::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ProductoCategoria::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
-        ModelsOpciones::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesSub::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesProducto::where('td', '!=', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ModelsOpciones::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesSub::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesProducto::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
 
         $this->dispatchBrowserEvent('mensaje', 
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
-        'texto' => 'Datos Actualizados correctamente']);
+        'texto' => 'Datos Actualizados correctamente...']);
     }
 
 
