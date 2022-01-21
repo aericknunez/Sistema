@@ -29,7 +29,7 @@ class Opciones extends Component
 
 
 
-    
+
     public function render()
     {
         return view('livewire.config.opciones');
@@ -129,8 +129,8 @@ class Opciones extends Component
 
 
     public function actualizarSistema(){
-        if ($this->sysUpdate = exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
-            Artisan::call('migrate');
+        if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
+            $this->sysUpdate = Artisan::call('migrate');
 
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
