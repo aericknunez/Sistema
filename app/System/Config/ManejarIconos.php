@@ -166,8 +166,8 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 $retorno = '
 <div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
     <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-        <div class="modal-content bordeado-x1">
-        <div class="modal-header">
+    <div class="modal-content bordeado-x1 blue lighten-5">
+    <div class="modal-header  bordeado-x1 cyan lighten-2">
             <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
 
     </div>

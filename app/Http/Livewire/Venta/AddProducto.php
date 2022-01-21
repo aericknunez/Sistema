@@ -84,20 +84,20 @@ class AddProducto extends Component
         $this->productosAdded();
         $this->obtenerTotal();
 
+        $producto = Producto::where('cod', $cod)->first();
+        if ($producto->producto_categoria_id != 1) {
+            $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'categoria-' . $producto->producto_categoria_id]);
+            if (session('principal_levantar_modal')) { // si tengo activada la opcion de levantar modal
+                $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'categoria-' . $producto->producto_categoria_id]);
+            }
+        } else {
+            $this->dispatchBrowserEvent('focus');
+        }
+        
         if($modal){
             $this->modalProducto = $modal['producto_id'];
             $this->modalOpcion = $modal['opcion_id'];
             $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'opcion-'.$this->modalOpcion]);
-        } else {
-            $producto = Producto::where('cod', $cod)->first();
-            if ($producto->producto_categoria_id != 1) {
-                $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'categoria-' . $producto->producto_categoria_id]);
-                if (session('principal_levantar_modal')) { // si tengo activada la opcion de levantar modal
-                    $this->dispatchBrowserEvent('modal-opcion-add', ['opcion_id' => 'categoria-' . $producto->producto_categoria_id]);
-                }
-            } else {
-                $this->dispatchBrowserEvent('focus');
-            }
         }
     }
 
