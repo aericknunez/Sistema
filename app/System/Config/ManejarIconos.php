@@ -69,15 +69,18 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         </div> 
     </div>';
 
-        $opciones = Opciones::all();
-        foreach ($opciones as $opcion) {
-            $retorno .= $this->creaModalOpciones($opcion);
-        }
 
         $categorias = ProductoCategoria::where('principal', null)->get();
         foreach ($categorias as $cat) {
             $retorno .= $this->creaModalCategorias($cat);
         }
+
+
+        $opciones = Opciones::all();
+        foreach ($opciones as $opcion) {
+            $retorno .= $this->creaModalOpciones($opcion);
+        }
+
         
         $this->guardarArchivo($retorno);
 
