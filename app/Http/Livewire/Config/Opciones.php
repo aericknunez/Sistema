@@ -14,6 +14,7 @@ use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\SyncTable;
 use App\System\Config\ManejarIconos;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -122,7 +123,9 @@ class Opciones extends Component
 
 
     public function actualizarSistema(){
-        if (exec('start /B C:\laragon\bin\cmder\descargar.bat')) {
+        if ($this->sysUpdate = exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
+            Artisan::call('migrate');
+
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
             'titulo' => 'Realizado', 

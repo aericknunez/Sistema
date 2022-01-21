@@ -15,7 +15,7 @@
         </x-slot>
     
         <x-slot name="lateral">
-            {{-- @json($clientes) --}}
+            {{ $sysUpdate }}
         </x-slot>
 
     </x-cuerpo>
