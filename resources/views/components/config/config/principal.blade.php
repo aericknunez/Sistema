@@ -88,5 +88,9 @@
             Activar Venta Especial
             <span>{{ isActivo($datos->venta_especial) }}</span>
         </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Agrupar productos en Ordenes
+            <span>{{ isActivo($datos->agrupar_orden) }}</span>
+        </li>
     </ul>
 </div>

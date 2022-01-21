@@ -238,6 +238,18 @@
                           </div>
                     </span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Agrupar productos en Ordenes
+                  <span>
+                      <div class="switch">
+                          <label>
+                            Off
+                            <input type="checkbox" wire:model.defer="agrupar_orden">
+                            <span class="lever"></span> On
+                          </label>
+                        </div>
+                  </span>
+              </li>
             </ul>
     
     

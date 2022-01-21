@@ -24,7 +24,11 @@
                         @endif
                     </div>
 
-                    <x-venta.cambios-productos-cliente :datos="$datos['productos']" />
+                    @if (session('principal_agrupar_orden'))
+                    <x-venta.cambios-productos-cliente-agrupado :datos="$datos['productos']" />
+                    @else
+                    <x-venta.cambios-productos-cliente :datos="$datos['productos']" />         
+                    @endif
 
                     <div class="row">
                         <div class="col-6 h4-responsive text-right danger"></div>

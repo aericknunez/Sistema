@@ -58,6 +58,7 @@ class Configuracion extends Component
             $levantar_modal,
             $tipo_menu,
             $otras_ventas,
+            $agrupar_orden,
             $venta_especial;
 
     /// config Impresiones model
@@ -235,6 +236,7 @@ class Configuracion extends Component
         $this->tipo_menu = $data['tipo_menu'];
         $this->otras_ventas = $data['otras_ventas'];
         $this->venta_especial = $data['venta_especial'];
+        $this->agrupar_orden = $data['agrupar_orden'];
     }
 
 
@@ -263,6 +265,7 @@ class Configuracion extends Component
             'tipo_menu' => $this->tipo_menu,
             'otras_ventas' => $this->otras_ventas,
             'venta_especial' => $this->venta_especial,
+            'agrupar_orden' => $this->agrupar_orden,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')]);
