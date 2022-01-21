@@ -122,6 +122,8 @@ class Opciones extends Component
     }
 
 
+
+    
     public function actualizarSistema(){
         if ($this->sysUpdate = exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
             Artisan::call('migrate');
