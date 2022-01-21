@@ -10,10 +10,10 @@
         <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
 
         <script>
-            Livewire.on('espere', ()=>{
+            Livewire.on('creado', ()=>{
                 Swal.fire(
-                    'POR FAVOR ESPERE',
-                    'Se esta realizando el proceso',
+                    'USUARIO MODIFICADO',
+                    'Se ha cambiado correctamente el tipo de usuario',
                     'success'
                 )
             });

@@ -122,8 +122,6 @@ class Opciones extends Component
 
 
     public function actualizarSistema(){
-        $this->emit('espere');
-
         if (exec('start /B C:\laragon\bin\cmder\descargar.bat')) {
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 

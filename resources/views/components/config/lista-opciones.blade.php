@@ -52,7 +52,11 @@
                 <td class="font-weight-bold text-uppercase">ACTUALIZAR SISTEMA</td>
                 <td>Actualiza el sistema segun los ultimos cambios en el servidor principal</td>
                 <td>
-                    <a class="btn btn-primary btn-sm btn-rounded waves-effect" wire:click="actualizarSistema()"><i class="fas fa-sync mr-1"></i> Actualizar Sistema</a>
+                    <a class="btn btn-warning btn-sm btn-rounded waves-effect" wire:click="actualizarSistema()" wire:loading.remove wire:target="actualizarSistema">
+                      <i class="fas fa-sync mr-1"></i> Actualizar</a>
+
+                    <button class="btn btn-danger btn-sm btn-rounded waves-effect" wire:loading wire:target="actualizarSistema">
+                      <i class="fas fa-sync fa-spin"></i>Actualizando</button>
                 </td>
               </tr>
 
