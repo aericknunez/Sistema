@@ -22,6 +22,8 @@ class Opciones extends Component
 
     use ManejarIconos;
 
+    public $sysUpdate;
+
 
     public function render()
     {
@@ -116,6 +118,24 @@ class Opciones extends Component
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
         'texto' => 'Datos Actualizados correctamente']);
+    }
+
+
+    public function actualizarSistema(){
+        $this->emit('espere');
+
+        if (exec('start /B C:\laragon\bin\cmder\descargar.bat')) {
+            $this->dispatchBrowserEvent('mensaje', 
+            ['clase' => 'success', 
+            'titulo' => 'Realizado', 
+            'texto' => 'Sistema Actualizado correctamente']);
+        } else {
+            $this->dispatchBrowserEvent('error', 
+            ['clase' => 'error', 
+            'titulo' => 'Error', 
+            'texto' => 'Ocurrio un error en la actualizacion']);          
+        }
+
     }
 
 
