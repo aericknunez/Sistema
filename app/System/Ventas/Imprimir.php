@@ -140,7 +140,7 @@ trait Imprimir{
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
-        $this->productosActualizar(session('orden'), $imprimir, 3); // (orden,imprimir,tipo de impresion)
+        $this->productosActualizar(session('orden'), $imprimir, 3, $panel); // (orden,imprimir,tipo de impresion)
 
     }
 
@@ -322,10 +322,10 @@ trait Imprimir{
         }
     }
 
-    public function productosActualizar($orden, $anterior, $nuevo){
+    public function productosActualizar($orden, $anterior, $nuevo, $panel){
         TicketProducto::where('orden', $orden)
                         ->where('imprimir', $anterior)
-                        ->update(['imprimir' => $nuevo, 'tiempo' => Helpers::timeId()]);
+                        ->update(['imprimir' => $nuevo, 'panel' => $panel, 'tiempo' => Helpers::timeId()]);
     }
 
     public function contarProductos($imprimir){
