@@ -65,6 +65,10 @@
     <li><a href="{{ route('efectivo.ingreso') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar o Retirar Efectivo</a></li>
 @endif   
 
+@if (isGrandAdmin())
+    <li><a href="{{ route('efectivo.transacciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Transacciones</a></li>
+@endif  
+
     </ul>
     </div>
     </li>    

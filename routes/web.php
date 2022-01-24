@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComanderoController;
+use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\SearchController;
@@ -103,6 +104,8 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/corte', function () {
     return view('corte.index');
 })->name('corte.index');
 
+
+
 // efectivo
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/efectivo/cuentas_banco', function () {
     return view('efectivo.cuentas_banco');
@@ -123,6 +126,10 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/efectivo/gastos', functi
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/efectivo/movimientos', function () {
     return view('efectivo.ingreso');
 })->name('efectivo.ingreso');
+
+Route::get('/efectivo/transacciones', [EfectivoController::class, 'transacciones'])
+->middleware(['auth:sanctum', 'sessiones'])
+->name('efectivo.transacciones');
 
 
 
