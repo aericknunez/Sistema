@@ -1,7 +1,6 @@
 <?php
 namespace App\System\Config;
 
-use App\Common\Encrypt;
 use App\Models\ConfigApp;
 use App\Common\Helpers;
 use App\Models\ConfigImpresion;

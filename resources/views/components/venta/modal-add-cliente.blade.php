@@ -91,7 +91,7 @@ Datos Contribuyente
     <div class="col">
         <div class="md-form">
             <input type="text" id="documento" class="form-control" wire:model.defer="documento">
-            <label for="documento">NIT</label>
+            <label for="documento">{{ paisDocumento(session('config_pais')) }}</label>
         </div>
     </div>
 </div>
