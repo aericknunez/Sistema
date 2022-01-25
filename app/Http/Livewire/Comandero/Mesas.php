@@ -43,14 +43,20 @@ class Mesas extends Component
 
 
     public function ordenSelect($orden){
-        $ordenx = TicketOrden::select('clientes')
+        $ordenx = TicketOrden::select('clientes','edo')
         ->where('id', $orden)
         ->first();
-        session(['clientes' => $ordenx->clientes]);
+        if ($ordenx->edo == 1) {
+            session(['clientes' => $ordenx->clientes]);
 
-        session(['orden' => $orden]);
-        return redirect()->route('comandero');
+            session(['orden' => $orden]);
+            return redirect()->route('comandero');
+        } else {
+            $this->emit('noorden');
+            $this->getOrdenesActive();
+        }
     }
+
 
 
     public function decrementar(){
