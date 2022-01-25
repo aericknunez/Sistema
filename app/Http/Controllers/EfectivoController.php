@@ -18,7 +18,12 @@ class EfectivoController extends Controller
                                                 ->whereColumn('cajero', 'users.id')])
                                                 ->orderBy('id','DESC')
                                                 ->paginate(10);
-        return view('efectivo.transacciones', compact('datos'));
+        
+                                                $saldos = EfectivoCuentaBancos::where('edo', 1)
+                                                ->orderBy('tiempo', 'desc')
+                                                ->get();
+
+        return view('efectivo.transacciones', compact('datos', 'saldos'));
     }
 
 
