@@ -4,7 +4,7 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Ordenes del dia</div> 
+                <div class="h2 float-left">Ordenes del dia</div> 
             </div>
 
 
@@ -18,7 +18,7 @@
     
         <x-slot name="lateral">
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Datos Generales</div>
+                <div class="h2 float-left">Datos Generales</div>
             </div> 
 
             <div class="card">

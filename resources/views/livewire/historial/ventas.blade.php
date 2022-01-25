@@ -4,8 +4,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Historial de Ventas</div> 
-                <div class="h2-responsive float-right"> 
+                <div class="h2 float-left">Historial de Ventas</div> 
+                <div class="h2 float-right"> 
                     {{-- <a data-toggle="modal" data-target="#ModalTransferir" class="btn blue-gradient btn-sm"><i class="fas fa-sync"></i> Transferir</a> --}}
                 </div>
             </div>
@@ -25,7 +25,7 @@
     
         <x-slot name="lateral">
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Seleccionar Fechas</div>
+                <div class="h2 float-left">Seleccionar Fechas</div>
             </div> 
 
             <div class="card">

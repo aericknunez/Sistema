@@ -3,8 +3,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Cuentas por pagar</div> 
-                <div class="h2-responsive float-right">
+                <div class="h2 float-left">Cuentas por pagar</div> 
+                <div class="h2 float-right">
                     <a data-toggle="modal" data-target="#ModalAddCuenta" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Cuenta</a>
                 </div>
             </div>

@@ -4,8 +4,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Historial de Gastos</div> 
-                <div class="h2-responsive float-right font-weight-bold text-uppercase"> 
+                <div class="h2 float-left">Historial de Gastos</div> 
+                <div class="h2 float-right font-weight-bold text-uppercase"> 
                     Total: {{ dinero(collect($datos)->where('edo', 1)->sum('cantidad')) }}                
                 </div>
             </div>
@@ -25,7 +25,7 @@
     
         <x-slot name="lateral">
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Seleccionar Fechas</div>
+                <div class="h2 float-left">Seleccionar Fechas</div>
             </div> 
 
             <div class="card">

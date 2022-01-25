@@ -4,8 +4,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Movimientos del dia</div> 
-                <div class="h2-responsive float-right font-weight-bold">{{ CodigoValidacionHora() }}</div>
+                <div class="h2 float-left">Movimientos del dia</div> 
+                <div class="h2 float-right font-weight-bold">{{ CodigoValidacionHora() }}</div>
             </div>
 
 
@@ -16,7 +16,7 @@
     
         <x-slot name="lateral">
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-right">Tipo de Pago</div>
+                <div class="h2 float-left">Tipo de Pago</div>
             </div> 
 
             <canvas id="pieChart"></canvas>

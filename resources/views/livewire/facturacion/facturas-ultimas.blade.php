@@ -4,8 +4,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Ultimas Facturas Emitidas</div> 
-                <div class="h2-responsive float-right font-weight-bold text-uppercase"> 
+                <div class="h2 float-left">Ultimas Facturas Emitidas</div> 
+                <div class="h2 float-right font-weight-bold text-uppercase"> 
                     {{-- Total: {{ dinero(collect($datos)->where('edo', 1)->sum('cantidad')) }}                 --}}
                 </div>
             </div>
