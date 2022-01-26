@@ -12,7 +12,7 @@
                   <th scope="col">Telefono</th>
                   <th scope="col">Email</th>
                   <th scope="col">{{ paisDocumento(session('config_pais')) }}</th>
-                  <th scope="col">Eliminar</th>
+                  <th scope="col">Opciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -28,7 +28,8 @@
                         <td class="text-uppercase">{{ $cliente->documento }}</td>
                         <td>
                             <div>
-                                <a wire:click="$emit('deleteCliente', {{ $cliente->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar </a>
+                                <a wire:click="selectClient({{ $cliente->id }})" data-toggle="modal" data-target="#ModalAddCliente" class="mr-2"><i class="fas fa-edit fa-2x green-text"></i></a>
+                                <a wire:click="$emit('deleteCliente', {{ $cliente->id }})"><i class="fas fa-trash fa-2x red-text"></i> </a>
                             </div>
                         </td>
                     </tr>

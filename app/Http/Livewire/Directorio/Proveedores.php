@@ -39,7 +39,7 @@ class Proveedores extends Component
             $direccion_doc, 
             $comentarios;
 
-
+    public $proveedor_iden;
 
 
     public function render()
@@ -68,12 +68,36 @@ class Proveedores extends Component
     }
 
 
-    public function btnAddProveedor(){
+    public function selectProveedor($provee){
+        $this->proveedor_iden = $provee;
+        $datos = Proveedor::where('id', $provee)->first();
 
-        $this->validate();
-        
-        Proveedor::create([
-                    'nombre' => $this->nombre,
+            $this->nombre = $datos->nombre;
+            $this->identidad = $datos->identidad; 
+            $this->telefono = $datos->telefono; 
+            $this->direccion = $datos->direccion;
+            $this->email = $datos->email; 
+            $this->contacto = $datos->contacto; 
+            $this->telefono_contacto = $datos->telefono_contacto; 
+            $this->documento = $datos->documento; 
+            $this->registro = $datos->registro; 
+            $this->cliente = $datos->cliente; 
+            $this->giro = $datos->giro; 
+            $this->departamento_doc = $datos->departamento_doc; 
+            $this->direccion_doc = $datos->direccion_doc;
+            $this->comentarios = $datos->comentarios;
+
+    }
+
+
+    public function cerrarModal(){
+        $this->reset();
+    }
+
+    public function btnAddProveedor(){
+        $this->validate();    
+        Proveedor::updateOrCreate(['id' => $this->proveedor_iden],
+                    ['nombre' => $this->nombre,
                     'direccion' => $this->direccion,
                     'telefono' => $this->telefono,
                     'email' => $this->email,

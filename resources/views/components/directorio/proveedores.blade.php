@@ -30,7 +30,9 @@
                         <td class="text-uppercase">{{ $proveedor->documento }}</td>
                         <td>
                             <div>
-                                <a wire:click="$emit('deleteProveedor', {{ $proveedor->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar </a>
+                              <a wire:click="selectProveedor({{ $proveedor->id }})" data-toggle="modal" data-target="#ModalAddProveedor" class="mr-2"><i class="fas fa-edit fa-2x green-text"></i></a>
+
+                                <a wire:click="$emit('deleteProveedor', {{ $proveedor->id }})" ><i class="fas fa-trash fa-2x red-text"></i> </a>
                             </div>
                         </td>
                     </tr>

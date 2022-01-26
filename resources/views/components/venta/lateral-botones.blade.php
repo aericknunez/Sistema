@@ -39,7 +39,8 @@
               <a class="dropdown-item" wire:click="btnImprimirPreCuenta()"><i class="fas fa-print mr-1"></i>Imprimir Pre Cuenta</a>
             @endif
         
-              <a class="dropdown-item" data-toggle="modal" data-target="#ModalPropina"><i class="fas fa-money-bill mr-1"></i>Establecer Propina</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#ModalPropina"><i class="fas fa-money-bill mr-1"></i>Establecer Propina</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#addClientAsign"><i class="fas fa-user-tag mr-1"></i>Cliente Para Facturar</a>
               
             @if (session('principal_comentarios_comanda'))
               <a class="dropdown-item" data-toggle="modal" data-target="#ModalComentario"><i class="fas fa-comment mr-1"></i>Agregar Comentario</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Venta;
 
 use App\Common\Helpers;
+use App\Models\Cliente;
 use App\Models\ConfigMoneda;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
@@ -27,6 +28,10 @@ class Cambios extends Component
 
     public $cantidad; // cantidad de efectivo
 
+    /// busqueda de asignacion del cliente
+    public $search, $busqueda;
+
+
 
     public function mount(){
         $this->clientes = session('clientes');
@@ -39,13 +44,19 @@ class Cambios extends Component
         $this->obtenerTotal();
         $this->getAqui();
 
-
+        $this->search = NULL;
     }
 
 
     
     public function render()
     {
+        if ($this->search) {
+            $this->busqueda = Cliente::where('nombre', '!=', NULL)
+                    ->where('nombre', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('telefono', 'LIKE', '%'.$this->search.'%')
+                    ->get();
+        }
         return view('livewire.venta.cambios');
     }
 
@@ -197,6 +208,7 @@ class Cambios extends Component
             'propina_porcent' => $this->propinaPorcentaje,
             'cajero' => session('config_usuario_id'),
             'tipo_venta' => session('impresion_seleccionado'),
+            'cliente_id' => session('client_id'),
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
@@ -230,6 +242,10 @@ class Cambios extends Component
         if (config('sistema.print')) { /// imprime a menos que el env diga que no
             $this->ImprimirFactura($num_fact); // imprime la factura
         }
+
+        if (session('client_id')) {
+            $this->delSessionFactura();
+        }
         
     } 
     
@@ -253,6 +269,9 @@ class Cambios extends Component
                                     ->where('num_fact', NULL)
                                     ->count();
     
+        if (session('client_id')) {
+            $this->delSessionFactura();
+        }
         if ($cantidad == 0) {
             TicketOrden::where('id', session('orden'))
                         ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
@@ -271,6 +290,30 @@ class Cambios extends Component
     
     } 
 
+
+
+    public function btnClienteIdSelect($clientex){
+        $this->clientSessionFactura($clientex);   
+        $this->reset(['search', 'busqueda']);
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'addClientAsign']);
+        if (session('factura_documento')) {
+            $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Cliente Agregado Correctamente']);
+        } else {
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El cliente no tiene Documento Asignado']);
+        }
+    }
+    
+    public function cancelar(){
+        $this->reset(['search', 'busqueda']);
+    }
+    
+    public function quitarCliente(){
+        $this->delSessionFactura();
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'addClientAsign']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Cliente Desvinculado Correctamente']);
+    }
+    
+    
 
 
 

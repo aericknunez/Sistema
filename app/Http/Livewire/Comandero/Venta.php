@@ -388,6 +388,7 @@ public function selectCliente($cliente){ // selecciona el cliente marcado
 public function btnAddClient(){
     $clientes = session('clientes') + 1;
     session()->forget('clientes');
+    TicketOrden::where('id', session('orden'))->first()->update(['clientes' => $clientes]);
     session(['clientes' => $clientes]);
 }
 

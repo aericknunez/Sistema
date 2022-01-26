@@ -27,10 +27,17 @@
         <x-venta.lateral-modal-tventa />
         <x-venta.lateral-modal-tpago />
  
+        @endif
 
+        @if (session('factura_documento'))
+        <div>Cliente: {{ session('factura_cliente') }}  Doc: {{ session('factura_documento') }}</div>
         @endif
     </div>
 
     <x-venta.lateral-modal-cambio-venta />
+
+    {{-- Busqueda de clientes para asignarle facturas --}}
+    <x-venta.modal-client-asign :search="$search" :busqueda="$busqueda" />
+
 
 </div>

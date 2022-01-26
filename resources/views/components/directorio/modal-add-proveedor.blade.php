@@ -151,7 +151,7 @@ Datos Contribuyente
         </div>
         <div class="modal-footer">
 
-          <button type="button" class="btn btn-primary btn-rounded"  data-dismiss="modal">Cerrar</button>
+          <button wire:click="cerrarModal" type="button" class="btn btn-primary btn-rounded"  data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

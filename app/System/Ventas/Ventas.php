@@ -307,21 +307,52 @@ public function addDeliveryData(){
 
 public function getDeliveryData(){ // crea la variables del delivery
 
-    $cliente = Cliente::where('id', session('client_select'))
-                         ->first();
+    $cliente = Cliente::where('id', session('client_select'))->first();
 
             session(['delivery_nombre' => $cliente->nombre]);
             session(['delivery_direccion' => $cliente->direccion]);
             session(['delivery_telefono' => $cliente->telefono]);
+            session(['client_id' => session('client_select')]);
+
+            session(['factura_documento' => $cliente->documento]);
+            session(['factura_registro' => $cliente->registro]);
+            session(['factura_cliente' => $cliente->cliente]);
+            session(['factura_giro' => $cliente->giro]);
+            session(['factura_departamento' => $cliente->departamento_doc]);
+            session(['factura_direccion' => $cliente->direccion_doc]);
     }
 
 
-public function delDeliveryData(){ 
-    
-    session()->forget('delivery_nombre');
-    session()->forget('delivery_direccion');
-    session()->forget('delivery_telefono');
+    public function delDeliveryData(){ 
+        
+        session()->forget('delivery_nombre');
+        session()->forget('delivery_direccion');
+        session()->forget('delivery_telefono');
+        $this->delSessionFactura();
 
+    }
+
+    public function delSessionFactura(){
+        session()->forget('client_id');
+        session()->forget('factura_documento');
+        session()->forget('factura_registro');
+        session()->forget('factura_cliente');
+        session()->forget('factura_giro');
+        session()->forget('factura_departamento');
+        session()->forget('factura_direccion');
+    }
+
+
+    public function clientSessionFactura($clientex){ // obtiene las variables para la factura
+        $cliente = Cliente::where('id', $clientex)->first();
+
+        session(['client_id' => $clientex]);
+        session(['factura_documento' => $cliente->documento]);
+        session(['factura_registro' => $cliente->registro]);
+        session(['factura_cliente' => $cliente->cliente]);
+        session(['factura_giro' => $cliente->giro]);
+        session(['factura_departamento' => $cliente->departamento_doc]);
+        session(['factura_direccion' => $cliente->direccion_doc]);
     }
     
 

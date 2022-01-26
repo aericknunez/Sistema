@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Venta;
 
 use App\Common\Helpers;
+use App\Models\Cliente;
 use App\Models\ConfigMoneda;
 use App\Models\Producto;
 use App\Models\TicketNum;
@@ -51,6 +52,10 @@ class AddProducto extends Component
     // Otras ventas
     public $otras_producto, $otras_cantidad; 
 
+    /// busqueda de asignacion del cliente
+    public $search, $busqueda;
+
+
     public function mount(){
         if (session('orden')) {
             $this->determinaPropina();
@@ -68,11 +73,18 @@ class AddProducto extends Component
         if (session('config_tipo_servicio') == 3) { // si es delivery
             $this->envio = session('config_envio'); // precio del envio del delivery
         }
+        $this->search = NULL;
     }
 
 
     public function render()
     {
+        if ($this->search) {
+            $this->busqueda = Cliente::where('nombre', '!=', NULL)
+                    ->where('nombre', 'LIKE', '%'.$this->search.'%')
+                    ->orWhere('telefono', 'LIKE', '%'.$this->search.'%')
+                    ->get();
+        }
         return view('livewire.venta.add-producto');
     }
 
@@ -412,6 +424,7 @@ public function selectCliente($cliente){ // selecciona el cliente marcado
 public function btnAddClient(){
     $clientes = session('clientes') + 1;
     session()->forget('clientes');
+    TicketOrden::where('id', session('orden'))->first()->update(['clientes' => $clientes]);
     session(['clientes' => $clientes]);
 }
 
@@ -462,6 +475,9 @@ public function verificaCantidad($evitar = NULL){
         }
         session()->forget('orden');
         $this->reset();
+        if (session('client_id')) {
+            $this->delSessionFactura();
+        }
 
         if (session('config_tipo_servicio') == 2) { // lo mantengo en mesas
             return redirect()->route('venta.mesas');
@@ -497,6 +513,7 @@ public function pagar(){
         'propina_porcent' => $this->propinaPorcentaje,
         'cajero' => session('config_usuario_id'),
         'tipo_venta' => session('impresion_seleccionado'),
+        'cliente_id' => session('client_id'),
         'edo' => 1,
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
@@ -538,6 +555,9 @@ public function pagar(){
     
     session()->forget('orden');
     session()->forget('cliente');
+    if (session('client_id')) {
+        $this->delSessionFactura();
+    }
     $this->reset();
 } 
 
@@ -578,6 +598,36 @@ public function validarMotivo(){
         $this->delOrden();
     }
 }
+
+
+
+public function btnClienteIdSelect($clientex){
+    $this->clientSessionFactura($clientex);   
+    $this->reset(['search', 'busqueda']);
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'addClientAsign']);
+    if (session('factura_documento')) {
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Cliente Agregado Correctamente']);
+    } else {
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El cliente no tiene Documento Asignado']);
+    }
+}
+
+public function cancelar(){
+    $this->reset(['search', 'busqueda']);
+}
+
+public function quitarCliente(){
+    $this->delSessionFactura();
+    $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'addClientAsign']);
+    $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Cliente Desvinculado Correctamente']);
+}
+
+
+
+
+
+
+
 
 
 

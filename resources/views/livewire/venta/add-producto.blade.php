@@ -29,8 +29,12 @@
 
         @endif
 
-        @if ($cantidadSinGuardar)
+        @if ($cantidadSinGuardar and session('principal_ticket_pantalla') != 0)
         <small>Cantidad sin guardar {{ $cantidadSinGuardar }}</small>
+        @endif
+
+        @if (session('factura_documento'))
+             <div>Cliente: {{ session('factura_cliente') }} ||  Documento: {{ session('factura_documento') }}</div>
         @endif
 
         @if ((config('sistema.td') == 10 or config('sistema.td') == 0) and session('impresion_seleccionado') == 1)
@@ -66,6 +70,12 @@
 
        <x-venta.lateral-modal-cambio-venta />
        <x-venta.modal-otras-ventas />
+
+       {{-- Busqueda de clientes para asignarle facturas --}}
+       @if (session('config_tipo_servicio') != 3)
+       <x-venta.modal-client-asign :search="$search" :busqueda="$busqueda" />
+      @endif
+
 
        {{-- modales de borrado  --}}
         @if (session('principal_registro_borrar'))

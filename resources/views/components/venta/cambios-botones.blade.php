@@ -36,6 +36,7 @@
             <div class="dropdown-menu" aria-labelledby="options-g">
                       
               <a class="dropdown-item" data-toggle="modal" data-target="#ModalPropina"><i class="fas fa-money-bill mr-1"></i>Establecer Propina</a>
+              <a class="dropdown-item" data-toggle="modal" data-target="#addClientAsign"><i class="fas fa-user-tag mr-1"></i>Cliente Para Facturar</a>
               
 
             </div>

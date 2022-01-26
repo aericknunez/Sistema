@@ -13,8 +13,6 @@ class Clientes extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $datos = [];
-
     protected $listeners = ['EliminarCliente' => 'destroy'];
 
     protected $rules = [
@@ -37,6 +35,7 @@ class Clientes extends Component
             $direccion_doc, 
             $comentarios;
 
+    public $client_iden;
 
 
     public function render()
@@ -62,17 +61,39 @@ class Clientes extends Component
 
 
     public function getClientes(){
-        return  Cliente::latest('id')
-                    ->paginate(6);
+        return  Cliente::latest('id')->paginate(6);
+    }
+
+
+    public function cerrarModal(){
+        $this->reset();
+    }
+
+
+    public function selectClient($cliente){
+        $this->client_iden = $cliente;
+        $datos = Cliente::where('id', $cliente)->first();
+
+            $this->nombre = $datos->nombre;
+            $this->identidad = $datos->identidad; 
+            $this->telefono = $datos->telefono; 
+            $this->direccion = $datos->direccion;
+            $this->email = $datos->email; 
+            $this->nacimiento = $datos->nacimiento; 
+            $this->documento = $datos->documento; 
+            $this->registro = $datos->registro; 
+            $this->cliente = $datos->cliente; 
+            $this->giro = $datos->giro; 
+            $this->departamento_doc = $datos->departamento_doc; 
+            $this->direccion_doc = $datos->direccion_doc;
+            $this->comentarios = $datos->comentarios;
     }
 
 
     public function btnAddCliente(){
-
         $this->validate();
-
-        Cliente::create([
-                    'nombre' => $this->nombre,
+        Cliente::updateOrCreate(['id' => $this->client_iden],
+                    ['nombre' => $this->nombre,
                     'identidad' => $this->identidad,
                     'direccion' => $this->direccion,
                     'telefono' => $this->telefono,

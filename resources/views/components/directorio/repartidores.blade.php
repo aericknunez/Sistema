@@ -28,7 +28,9 @@
                         <td class="text-uppercase">{{ $repartidor->documento }}</td>
                         <td>
                             <div>
-                                <a wire:click="$emit('deleteRepartidor', {{ $repartidor->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar </a>
+                              <a wire:click="selectRepartidor({{ $repartidor->id }})" data-toggle="modal" data-target="#ModalAddRepartidor" class="mr-2"><i class="fas fa-edit fa-2x green-text"></i></a>
+
+                                <a wire:click="$emit('deleteRepartidor', {{ $repartidor->id }})" ><i class="fas fa-trash fa-2x red-text"></i> </a>
                             </div>
                         </td>
                     </tr>
