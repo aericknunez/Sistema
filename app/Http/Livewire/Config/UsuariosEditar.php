@@ -39,6 +39,8 @@ class UsuariosEditar extends Component
 
     public function changeUser($tipo){
         User::where('id', $this->userId)->update(['tipo_usuario' => $tipo]);
+        $user = User::where('id', $this->userId)->first(); // obtiene los datos del usuario
+        $user->roles()->sync($tipo); // sincroniza con el tipo de usuario
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado

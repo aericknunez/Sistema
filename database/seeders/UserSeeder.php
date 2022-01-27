@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('007125-'), // password
                 'remember_token' => Str::random(10),
                 'tipo_usuario' => 1
-        ]);
+        ])->assignRole('Root');
 
         User::create([
             'name' => 'administracion',
@@ -28,16 +28,16 @@ class UserSeeder extends Seeder
             'password' => bcrypt('Hibrido*1-'), // password
             'remember_token' => Str::random(10),
             'tipo_usuario' => 1
-        ]);
+        ])->assignRole('Root');
 
         User::create([
             'name' => 'Gerencia',
             'email' => 'gerencia@hibridosv.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('Hibrido*1-'), // password
+            'password' => bcrypt('Gerente1'), // password
             'remember_token' => Str::random(10),
             'tipo_usuario' => 2
-        ]);
+        ])->assignRole('Gerente');
         
         // User::factory(9)->create();
     }

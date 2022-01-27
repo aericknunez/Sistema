@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComanderoController;
+use App\Http\Controllers\ConfigRoleController;
 use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\ProductoController;
@@ -260,4 +261,3 @@ Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', fu
     // return view('panel.pantalla-login');
     return view('auth.login');
 })->name('pantalla.login');
-
