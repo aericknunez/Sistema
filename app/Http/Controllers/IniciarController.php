@@ -28,6 +28,9 @@ class IniciarController extends Controller
         $this->sessionPrincipal();
         $this->sessionRoot();
 
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+
         if (!session('config_tipo_usuario')) {
             abort(401);
         }
