@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\ComanderoController;
-use App\Http\Controllers\ConfigRoleController;
 use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -206,6 +206,7 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/config/opciones', functi
     return view('config.opciones');
 })->name('config.opciones');
 
+Route::resource('roles', RoleController::class)->names('roles');
 
 
 /// search 

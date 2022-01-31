@@ -29,45 +29,61 @@
         
 
 {{-- MENU  --}}
+{{-- @can('caja.select')
+<li><a href="{{ route('caja.select') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> PRUEBA </a></li>  
+@endcan --}}
 
 @if (!session('apertura_caja') and session('config_tipo_usuario'))
     <li><a href="{{ route('caja.select') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> APERTURAR CAJA </a></li>
 @endif
 
-@if (isAdmin()) 
-<li><a href="{{ route('panel.control') }}" class="waves-effect arrow-r"><i class="fas fa-tv"></i> PANEL DE CONTROL </a></li>
-@endif
-
-@if (isLowAdmin())
-<li><a href="{{ route('panel.ordenes') }}" class="waves-effect arrow-r"><i class="fas fa-hamburger"></i> ORDENES DEL DIA </a></li>
-@endif
+@can('panel.control')
+<li><a href="{{ route('panel.control') }}" class="waves-effect arrow-r"><i class="fas fa-tv"></i> PANEL DE CONTROL </a></li> 
+@endcan
 
 
-@if (isLowAdmin())
+@can('panel.ordenes')
+<li><a href="{{ route('panel.ordenes') }}" class="waves-effect arrow-r"><i class="fas fa-hamburger"></i> ORDENES DEL DIA </a></li>  
+@endcan
+
+@can('corte.index')
 <li><a href="{{ route('corte.index') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> CORTE DE CAJA </a></li>
-@endif
+@endcan  
 
 
-@if (isLowAdmin())
+
+@if (auth()->user()->canany(['efectivo.gastos', 'efectivo.remesas', 'efectivo.cuentas', 'efectivo.categorias','efectivo.ingreso', 'efectivo.transacciones']))
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-dollar-sign"></i> EFECTIVO<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
     
-@if (session('apertura_caja'))
-    <li><a href="{{ route('efectivo.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Gastos</a></li>
+@if (session('apertura_caja') == 1)
+    @can('efectivo.gastos')
+    <li><a href="{{ route('efectivo.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Gastos</a></li>  
+    @endcan
+    @can('efectivo.remesas')
     <li><a href="{{ route('efectivo.remesas') }}" class="waves-effect"><i class="fas fa-cog"></i> Registrar Remesa</a></li>
-@endif   
-@if (isGrandAdmin())
-    <li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
-    <li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
-@endif   
-@if (session('apertura_caja')) 
-    <li><a href="{{ route('efectivo.ingreso') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar o Retirar Efectivo</a></li>
+    @endcan
 @endif   
 
-@if (isGrandAdmin())
-    <li><a href="{{ route('efectivo.transacciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Transacciones</a></li>
-@endif  
+
+@can('efectivo.cuentas')
+<li><a href="{{ route('efectivo.cuentas') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas Bancarias</a></li>
+@endcan
+@can('efectivo.categorias')
+<li><a href="{{ route('efectivo.categorias') }}" class="waves-effect"><i class="fas fa-cog"></i> Categoria de Gastos</a></li>
+@endcan
+
+@if (session('apertura_caja') == 1) 
+    @can('efectivo.ingreso')
+    <li><a href="{{ route('efectivo.ingreso') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar o Retirar Efectivo</a></li>
+    @endcan
+@endif   
+
+@can('efectivo.transacciones')
+<li><a href="{{ route('efectivo.transacciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Transacciones</a></li>  
+@endcan
+
 
     </ul>
     </div>
@@ -77,18 +93,32 @@
 
 
 
-@if (isGrandAdmin())
+
+@if (auth()->user()->canany(['historial.reporte', 'historial.ventas', 'historial.gastos', 'historial.cortes', 'historial.meseros', 'historial.ordenes', 'historial.eliminadas']))
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-calendar-alt"></i></i> HISTORIAL<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
-        <li><a href="{{ route('historial.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Diario</a></li>
-        <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ventas</a></li>
-        <li><a href="{{ route('historial.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Gastos</a></li>
-        <li><a href="{{ route('historial.cortes') }}" class="waves-effect"><i class="fas fa-cog"></i> Cortes de Caja</a></li>
-        <li><a href="{{ route('historial.meseros') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Meseros</a></li>
-        {{-- <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Repartidores</a></li> --}}
-        <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Ordenes</a></li>
-        <li><a href="{{ route('historial.eliminadas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes Eliminadas</a></li>
+    @can('historial.reporte')
+    <li><a href="{{ route('historial.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Diario</a></li>
+    @endcan
+    @can('historial.ventas')
+    <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ventas</a></li>
+    @endcan
+    @can('historial.gastos')
+    <li><a href="{{ route('historial.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Gastos</a></li>
+    @endcan
+    @can('historial.cortes')
+    <li><a href="{{ route('historial.cortes') }}" class="waves-effect"><i class="fas fa-cog"></i> Cortes de Caja</a></li>
+    @endcan
+    @can('historial.meseros')
+    <li><a href="{{ route('historial.meseros') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Meseros</a></li>
+    @endcan
+    @can('historial.ordenes')
+    <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Ordenes</a></li>
+    @endcan
+    @can('historial.eliminadas')
+    <li><a href="{{ route('historial.eliminadas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes Eliminadas</a></li>
+    @endcan
     </ul>
     </div>
 </li>   
@@ -96,15 +126,22 @@
 
 
 
-@if (isAdmin())
+@if (auth()->user()->canany(['producto.index', 'producto.create', 'categoria.index', 'opcion.index']))
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-barcode"></i></i> PRODUCTOS<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
-        <li><a href="{{ route('producto.index') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Productos</a></li>
-        <li><a href="{{ route('producto.create') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Producto</a></li>
-
+        @can('producto.index')
+        <li><a href="{{ route('producto.index') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Productos</a></li>    
+        @endcan
+        @can('producto.create')
+        <li><a href="{{ route('producto.create') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Producto</a></li>    
+        @endcan
+        @can('categoria.index')
         <li><a href="{{ route('categoria.index') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Categorias</a></li>
+        @endcan
+        @can('opcion.index')
         <li><a href="{{ route('opcion.index') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Modificadores</a></li>
+        @endcan
     
     </ul>
     </div>
@@ -115,7 +152,7 @@
 
 
 
-@if (isLowAdmin())
+@if (auth()->user()->canany(['directorio.clientes', 'directorio.proveedores', 'directorio.repartidores']))
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> DIRECTORIO<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
@@ -131,8 +168,7 @@
 @endif
 
 
-@if (isAdmin())
-
+@can('cuentas.pendientes')
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> CUENTAS POR PAGAR<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
@@ -142,11 +178,11 @@
         
     </ul>
     </div>
-</li>
-@endif
+</li>  
+@endcan
 
 
-@if (isAdmin())
+@if (auth()->user()->canany(['facturacion.emitidas', 'facturacion.ultimas']))
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> FACTURACION<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
@@ -203,17 +239,22 @@
     <ul class="list-unstyled">
     <li><a href="{{ route('profile.show') }}" class="waves-effect"><i class="fas fa-cog"></i> {{ __('Perfil de Usuario') }}</a></li>
 
-@if (isGrandAdmin())
-
-    <li><a href="{{ route('config.usuarios') }}" class="waves-effect"><i class="fas fa-cog"></i> Cambiar Usuarios</a></li>
-    <li><a href="{{ route('config.configuracion') }}" class="waves-effect"><i class="fas fa-cog"></i> Configuraciones</a></li>
-    <li><a href="{{ route('config.opciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Opciones de Actualización</a></li>
+@can('config.usuarios')
+<li><a href="{{ route('config.usuarios') }}" class="waves-effect"><i class="fas fa-cog"></i> Cambiar Usuarios</a></li>
+@endcan
+@can('roles.index')
+<li><a href="{{ route('roles.index') }}" class="waves-effect"><i class="fas fa-cog"></i> Roles Usuarios</a></li>
+@endcan
+@can('config.configuracion')
+<li><a href="{{ route('config.configuracion') }}" class="waves-effect"><i class="fas fa-cog"></i> Configuraciones</a></li> 
+@endcan
+@can('config.opciones')
+<li><a href="{{ route('config.opciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Opciones de Actualización</a></li>
+@endcan
     
     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
     <li><a href="{{ route('api-tokens.index') }}" class="waves-effect"><i class="fas fa-cog"></i> {{ __('API Tokens') }}</a></li>
     @endif
-
-@endif
 
     </ul>
     </div>
