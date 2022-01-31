@@ -25,6 +25,12 @@ class CreatePermissionTables extends Migration
             throw new \Exception('Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
+        Schema::drop($tableNames['role_has_permissions']);
+        Schema::drop($tableNames['model_has_roles']);
+        Schema::drop($tableNames['model_has_permissions']);
+        Schema::drop($tableNames['roles']);
+        Schema::drop($tableNames['permissions']);
+
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
