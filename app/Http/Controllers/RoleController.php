@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -15,8 +16,19 @@ class RoleController extends Controller
      */
     public function index()
     {
+
+        $user = User::where('id', auth()->user()->id)->first();
+        $permissions = $user->getAllPermissions();
+
+        // app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+
+        // $permissions = $user->getDirectPermissions();
+
+        // $permissions = $user->getPermissionsViaRoles();
+        // $permissions = $user->getAllPermissions();
         $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        return view('roles.index', compact('roles', 'permissions'));
     }
 
     /**

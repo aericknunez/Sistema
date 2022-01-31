@@ -73,7 +73,9 @@
         </x-slot>
     
         <x-slot name="lateral">
-            {{-- @json($productos) --}}
+          @foreach ($permissions as $permision)
+            <div>{{ $permision->id }} - {{ $permision->description }}</div>
+          @endforeach
         </x-slot>
 
     </x-cuerpo>

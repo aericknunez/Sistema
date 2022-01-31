@@ -29,9 +29,6 @@
         
 
 {{-- MENU  --}}
-{{-- @can('caja.select')
-<li><a href="{{ route('caja.select') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> PRUEBA </a></li>  
-@endcan --}}
 
 @if (!session('apertura_caja') and session('config_tipo_usuario'))
     <li><a href="{{ route('caja.select') }}" class="waves-effect arrow-r"><i class="fas fa-cash-register"></i> APERTURAR CAJA </a></li>
@@ -157,10 +154,15 @@
     <div class="collapsible-body">
     <ul class="list-unstyled">
     
-    
+    @can('directorio.clientes')
     <li><a href="{{ route('directorio.clientes') }}" class="waves-effect"><i class="fas fa-cog"></i> Clientes</a></li>
+    @endcan
+    @can('directorio.proveedores')
     <li><a href="{{ route('directorio.proveedores') }}" class="waves-effect"><i class="fas fa-cog"></i> Proveedores</a></li>
+    @endcan
+    @can('directorio.repartidores')
     <li><a href="{{ route('directorio.repartidores') }}" class="waves-effect"><i class="fas fa-cog"></i> Repartidores</a></li>
+    @endcan
         
     </ul>
     </div>
@@ -187,9 +189,12 @@
     <div class="collapsible-body">
     <ul class="list-unstyled">
     
-    
+    @can('facturacion.emitidas')
     <li><a href="{{ route('facturacion.emitidas') }}" class="waves-effect"><i class="fas fa-cog"></i> Facturas Emitidas</a></li>
+    @endcan
+    @can('facturacion.ultimas')
     <li><a href="{{ route('facturacion.ultimas') }}" class="waves-effect"><i class="fas fa-cog"></i> Eliminar Facturas</a></li>
+    @endcan
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Ingresar Registros</a></li>
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Ventas</a></li>
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Gastos</a></li>
@@ -278,7 +283,7 @@
 </ul>
 </li>
 
-<small>Version: 3.1</small>
+<small>Version: 3.3</small>
 
 
 

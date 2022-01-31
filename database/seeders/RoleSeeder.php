@@ -74,9 +74,9 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'facturacion.emitidas', 'description' => 'Facturas Emitidas'])->syncRoles([$role1, $role2, $role3]);
         Permission::create(['name' => 'facturacion.ultimas', 'description' => 'Ultimas Facturas'])->syncRoles([$role1, $role2, $role3]);
 
-        Permission::create(['name' => 'comandero.mesas', 'description' => 'App Mesas'])->syncRoles([$role1, $role2, $role3, $role4, $role5]);
-        Permission::create(['name' => 'comandero.inicio', 'description' => 'App Agregar'])->syncRoles([$role1, $role2, $role3, $role4, $role5]);
-        Permission::create(['name' => 'comandero.cambios', 'description' => 'App Cambios'])->syncRoles([$role1, $role2, $role3, $role4, $role5]);
+        Permission::create(['name' => 'comandero.mesas', 'description' => 'App Mesas'])->syncRoles([$role1, $role2, $role3, $role4, $role5, $role6]);
+        Permission::create(['name' => 'comandero.inicio', 'description' => 'App Agregar'])->syncRoles([$role1, $role2, $role3, $role4, $role5, $role6]);
+        Permission::create(['name' => 'comandero.cambios', 'description' => 'App Cambios'])->syncRoles([$role1, $role2, $role3, $role4, $role5, $role6]);
 
         Permission::create(['name' => 'roles.index', 'description' => 'Roles y Permisos'])->syncRoles([$role1]);
 
