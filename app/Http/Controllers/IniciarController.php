@@ -21,14 +21,14 @@ class IniciarController extends Controller
 
     public function iniciar(){
 
-        // return Helpers::FlashCode(Encrypt::encrypt(101, 101));
+        return Helpers::FlashCode(Encrypt::encrypt(101, 101));
 
         $this->sessionApp();
         $this->sessionImpresion();
         $this->sessionPrincipal();
         $this->sessionRoot();
 
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+        // app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
 
         if (!session('config_tipo_usuario')) {
