@@ -147,6 +147,9 @@ class Gastos extends Component
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
+        $this->tipo_pago = 1;
+        $this->cat_gasto = 1;
+        $this->tipocomprobante = 1;
         $this->getGastos();
         $this->getCuentas();
         $this->getCategorias();

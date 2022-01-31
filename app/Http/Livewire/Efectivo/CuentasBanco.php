@@ -69,6 +69,7 @@ class CuentasBanco extends Component
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
+        $this->tipo = 3;
         $this->getCuentas();
 
     }

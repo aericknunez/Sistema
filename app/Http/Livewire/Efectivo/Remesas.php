@@ -77,6 +77,7 @@ class Remesas extends Component
 
         
         $this->reset();
+        $this->idbanco = 1;
         $this->emit('creado'); // manda el mensaje de creado
         $this->getRemesas();
         $this->getCuentas();
