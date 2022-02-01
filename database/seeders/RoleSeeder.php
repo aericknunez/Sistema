@@ -17,5 +17,7 @@ class RoleSeeder extends Seeder
     {
         $sql = database_path('permisos.sql');
         DB::unprepared(file_get_contents($sql));
+        // app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
     }
 }

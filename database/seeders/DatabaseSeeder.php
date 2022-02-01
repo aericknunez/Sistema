@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ConfigPaneles;
-use App\Models\ProductoCategoria;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

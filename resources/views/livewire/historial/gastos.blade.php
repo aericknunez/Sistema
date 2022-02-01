@@ -46,7 +46,7 @@
                     <div class="col mx-2">
 
                            <div class="md-form md-outline input-with-post-icon datepicker">
-                            <input wire:model.defer="fecha1" type="date" id="fecha1" name="fecha1" class="form-control">
+                            <input wire:model.defer="fecha1f" type="date" id="fecha1" name="fecha1" class="form-control">
                             <label for="example">Seleccione una fecha</label>
                           </div>
 
@@ -56,7 +56,7 @@
                         
                     <div class="col mx-2">
                             <div class="md-form md-outline input-with-post-icon datepicker">
-                            <input wire:model.defer="fecha2"  type="date" id="fecha2" name="fecha2" class="form-control">
+                            <input wire:model.defer="fecha2f"  type="date" id="fecha2" name="fecha2" class="form-control">
                             <label for="example">Seleccione una fecha</label>
                           </div>
                     </div>
@@ -72,10 +72,16 @@
 
             </div>
 
-            @if ($tipo_fecha == 1)
+            {{-- @if ($tipo_fecha == 1)
             <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
             @else
             <small class="my-2"> Fecha desde : {{ $fecha1 }} hasta: {{ formatJustFecha($fecha2) }}</small>
+            @endif --}}
+
+            @if ($tipo_fecha == 1)
+            <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
+            @else
+            <small class="my-2"> Fecha desde : {{ $fecha1 }} hasta: {{ $fecha2 }}</small>
             @endif
 
           {{-- Fecha1:  {{ $fecha1 }}

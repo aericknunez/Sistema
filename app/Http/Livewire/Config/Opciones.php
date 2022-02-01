@@ -13,6 +13,7 @@ use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\Models\SyncTable;
+use App\Models\User;
 use App\System\Config\ManejarIconos;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -47,9 +48,10 @@ class Opciones extends Component
             'titulo' => 'Realizado', 
             'texto' => 'Iconos Actualizados correctamente']);
 
-            Image::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-            ImageCategory::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-            ImageTag::where('td', 0)->orWhere('td', NULL)->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageTag::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            OrderImg::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
             
         } else {
             $this->dispatchBrowserEvent('error', 
@@ -93,20 +95,28 @@ class Opciones extends Component
 
 
     public function cambioDatabase(){
-        // $tablas = SyncTable::all();
-        $counter = 0;
 
-        // foreach ($tablas as $table) {
-        //     if ($table) {
-        //         if (DB::table($table)
-        //         ->where('td', 0)
-        //         ->update(['td' => session('sistema.td')])) {
-        //            $counter ++;
-        //         }
-        //     }
+        $sql = database_path('permisos.sql');
+        if (DB::unprepared(file_get_contents($sql))) {
 
-        // }
+        $usuarios = User::select('id', 'tipo_usuario')->where('tipo_usuario', '!=', NULL)->get();
+        if (count($usuarios)) {
+            DB::select('SET FOREIGN_KEY_CHECKS=0');
+            DB::select('DELETE FROM model_has_roles');
+            foreach ($usuarios as $usuario) {
+                $usuario->assignRole($usuario->tipo_usuario);
+            }
+        }
 
+        
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+            $this->dispatchBrowserEvent('mensaje', 
+            ['clase' => 'success', 
+            'titulo' => 'Realizado', 
+            'texto' => 'Permisos de Usuario Actualizados']);
+        }
+        
         Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         ImageTag::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
@@ -129,7 +139,35 @@ class Opciones extends Component
 
 
     public function actualizarSistema(){
+
+        $sql = database_path('permisos.sql');
+        if (DB::unprepared(file_get_contents($sql))) {
+
+        $usuarios = User::select('id', 'tipo_usuario')->where('tipo_usuario', '!=', NULL)->get();
+        if (count($usuarios)) {
+            DB::select('SET FOREIGN_KEY_CHECKS=0');
+            DB::select('DELETE FROM model_has_roles');
+            foreach ($usuarios as $usuario) {
+                $usuario->assignRole($usuario->tipo_usuario);
+            }
+        }
+
+        
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
+            $this->dispatchBrowserEvent('mensaje', 
+            ['clase' => 'success', 
+            'titulo' => 'Realizado', 
+            'texto' => 'Permisos de Usuario Actualizados']);
+        }
+
         if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
+            if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\composer.bat')) {
+                $this->dispatchBrowserEvent('mensaje', 
+                ['clase' => 'success', 
+                'titulo' => 'Realizado', 
+                'texto' => 'Artizan Ejecutado']);
+            }
             $this->sysUpdate = Artisan::call('migrate');
 
             $this->dispatchBrowserEvent('mensaje', 
