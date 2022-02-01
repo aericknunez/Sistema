@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS=0;
 CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,

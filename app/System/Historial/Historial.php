@@ -3,6 +3,7 @@ namespace App\System\Historial;
 
 use App\Models\CorteDeCaja;
 use App\Models\EfectivoGastos;
+use App\Models\EfectivoRemesas;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
 use App\Models\User;
@@ -59,6 +60,23 @@ trait Historial {
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
     }
+
+
+    public function remesasUnica($fecha){
+        return EfectivoRemesas::whereDay('created_at', $fecha)
+                                ->with('banco')
+                                ->orderBy('tiempo', 'desc')
+                                ->get();
+    }
+
+    public function remesasMultiple($fecha1, $fecha2){
+        return EfectivoRemesas::whereBetween('created_at', [$fecha1, $fecha2])
+                                ->with('banco')
+                                ->orderBy('tiempo', 'desc')
+                                ->get();
+    }
+
+
 
     public function cortesRango($fecha1, $fecha2){
         return CorteDeCaja::whereBetween('updated_at', [$fecha1, $fecha2])
