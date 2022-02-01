@@ -212,6 +212,7 @@ trait Imprimir{
     public function getProductosOrden($orden){
         $datos =  TicketProducto::where('orden', $orden)
         ->where('num_fact', NULL)
+        ->where('edo', 1)
         ->with('subOpcion')->get();
 
         return $this->formatData($datos);
@@ -221,6 +222,7 @@ trait Imprimir{
     public function getProductosOrdenCliente($orden, $cliente){
         $datos =  TicketProducto::where('orden', $orden)
         ->where('cliente', $cliente)
+        ->where('edo', 1)
         ->with('subOpcion')->get();
 
         return $this->formatData($datos);
@@ -241,12 +243,15 @@ trait Imprimir{
         $datos = array();
         $datos['subtotal'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
+                            ->where('edo', 1)
                             ->sum('stotal');
         $datos['impuestos'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
+                            ->where('edo', 1)
                             ->sum('imp');
         $datos['total'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
+                            ->where('edo', 1)
                             ->sum('total');
 
         $datos['propina_cant'] = $propina;
@@ -263,14 +268,17 @@ trait Imprimir{
         $datos['subtotal'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
                             ->where('cliente', $cliente)
+                            ->where('edo', 1)
                             ->sum('stotal');
         $datos['impuestos'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
                             ->where('cliente', $cliente)
+                            ->where('edo', 1)
                             ->sum('imp');
         $datos['total'] = TicketProducto::where('orden', $orden)
                             ->where('num_fact', NULL)
                             ->where('cliente', $cliente)
+                            ->where('edo', 1)
                             ->sum('total');
         
         $datos['propina_cant'] = $propina;
