@@ -162,7 +162,7 @@ class Opciones extends Component
         }
 
         if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\descargar.bat')) {
-            if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\composer.bat')) {
+            if (exec('c:\windows\system32\cmd.exe /c C:\laragon\bin\cmder\execute\4456447897.bat')) {
                 $this->dispatchBrowserEvent('mensaje', 
                 ['clase' => 'success', 
                 'titulo' => 'Realizado', 
