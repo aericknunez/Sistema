@@ -26,7 +26,7 @@
                 @endif
                 @if (count($remesas))
                 <div class="h2-responsive mt-3">Remesas</div>
-                <x-historial.gastos-listado :datos="$remesas" />
+                <x-historial.remesas :datos="$remesas" />
                 @endif
                 @if (count($ordenes))
                 <div class="h2-responsive mt-3">Ordenes Realizadas</div>
