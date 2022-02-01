@@ -169,6 +169,7 @@ class Opciones extends Component
                 'texto' => 'Artizan Ejecutado']);
             }
             $this->sysUpdate = Artisan::call('migrate');
+            $this->sysUpdate = Artisan::call('optimize');
 
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
