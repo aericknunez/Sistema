@@ -24,6 +24,10 @@
                 <div class="h2-responsive mt-3">Gastos Registrados</div>
                 <x-historial.gastos-listado :datos="$gastos" />
                 @endif
+                @if (count($remesas))
+                <div class="h2-responsive mt-3">Remesas</div>
+                <x-historial.gastos-listado :datos="$remesas" />
+                @endif
                 @if (count($ordenes))
                 <div class="h2-responsive mt-3">Ordenes Realizadas</div>
                 <x-historial.ordenes :datos="$ordenes" />

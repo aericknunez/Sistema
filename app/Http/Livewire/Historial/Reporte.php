@@ -16,6 +16,7 @@ class Reporte extends Component
     public $productos = [];
     public $cortes = [];
     public $gastos = [];
+    public $remesas = [];
     public $ordenes = [];
     public $detalles = []; // detalles del corde
     public $detallesOrden = []; /// detalles de la orden
@@ -46,6 +47,7 @@ class Reporte extends Component
             $this->productos = $this->ventasUnica($this->fecha1);
             $this->cortes = $this->cortesUnica($this->fecha1);
             $this->gastos = $this->gastosUnica($this->fecha1);
+            $this->remesas = $this->remesasUnica($this->fecha1);
             $this->ordenes = $this->ordenesUnica($this->fecha1);
     }
 

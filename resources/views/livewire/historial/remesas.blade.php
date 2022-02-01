@@ -12,7 +12,7 @@
 
 
             <div wire:loading.remove wire:target="aplicarFechas">
-                <x-historial.gastos-listado :datos="$datos" />
+                <x-efectivo.remesas.lista-remesas :datos="$datos" />
             </div>
 
             <div class="row justify-content-center">
