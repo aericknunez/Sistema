@@ -85,7 +85,8 @@ INSERT INTO `permissions` (`id`, `name`, `description`, `guard_name`, `created_a
 	(39, 'comandero.mesas', 'App Mesas', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
 	(40, 'comandero.inicio', 'App Agregar', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
 	(41, 'comandero.cambios', 'App Cambios', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
-	(42, 'roles.index', 'Roles y Permisos', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43');
+	(42, 'roles.index', 'Roles y Permisos', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
+	(43, 'historial.remesas', 'Historial de Remesas', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43');
 
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -165,6 +166,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(40, 1),
 	(41, 1),
 	(42, 1),
+	(43, 1),
 	(1, 2),
 	(2, 2),
 	(3, 2),
@@ -206,6 +208,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(39, 2),
 	(40, 2),
 	(41, 2),
+	(43, 2),
 	(1, 3),
 	(2, 3),
 	(3, 3),

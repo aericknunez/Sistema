@@ -166,10 +166,11 @@ class Opciones extends Component
                 $this->dispatchBrowserEvent('mensaje', 
                 ['clase' => 'success', 
                 'titulo' => 'Realizado', 
-                'texto' => 'Artizan Ejecutado']);
+                'texto' => 'Artisan Ejecutado']);
             }
-            $this->sysUpdate = Artisan::call('migrate');
-            $this->sysUpdate = Artisan::call('optimize');
+            Artisan::call('migrate');
+            Artisan::call('route:clear');
+            
 
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
