@@ -259,7 +259,9 @@
 @can('config.configuracion')
 <li><a href="{{ route('config.configuracion') }}" class="waves-effect"><i class="fas fa-cog"></i> Configuraciones</a></li> 
 @endcan
+@if (isGrandAdmin())
 <li><a href="{{ route('config.opciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Opciones de Actualización</a></li>
+@endif
     
     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
     <li><a href="{{ route('api-tokens.index') }}" class="waves-effect"><i class="fas fa-cog"></i> {{ __('API Tokens') }}</a></li>

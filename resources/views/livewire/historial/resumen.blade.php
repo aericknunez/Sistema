@@ -44,7 +44,7 @@
 </div>
 
 @foreach ($cuentas as $cuenta)
-    <div class="card col-5 mx-2 my-3">
+    <div class="card col-4 mx-2 my-3">
         <div class="card-header h4 bg-info">
             {{ $cuenta->cuenta }}
         </div>
