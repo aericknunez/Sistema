@@ -14,7 +14,7 @@
                 {{-- <x-historial.gastos-listado :datos="$datos" /> --}}
 
 <div class="row px-2">
-    <div class="card col-5 mx-2">
+    <div class="card col-3 mx-2">
         <div class="card-header h4 bg-success">
             Ventas
         </div>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="card col-5 mx-2">
+    <div class="card col-3 mx-2">
         <div class="card-header h4 bg-danger">
             Gastos
         </div>
@@ -31,6 +31,16 @@
             <h1 class="text-center">{{ dinero($gastos) }}</h1>
         </div>
     </div>
+
+    <div class="card col-3 mx-2">
+        <div class="card-header h4 bg-warning">
+            Utilidad
+        </div>
+        <div class="card-body">
+            <h1 class="text-center">{{ dinero($ventas - $gastos) }}</h1>
+        </div>
+    </div>
+
 </div>
 
 @foreach ($cuentas as $cuenta)
