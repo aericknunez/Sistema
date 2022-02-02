@@ -32,6 +32,7 @@
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-calendar-alt"></i></i> HISTORIAL<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
+        <li><a href="{{ route('historial.resumen') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Efectivo</a></li>
         <li><a href="{{ route('historial.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Diario</a></li>
         <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ventas</a></li>
         <li><a href="{{ route('historial.gastos') }}" class="waves-effect"><i class="fas fa-cog"></i> Gastos</a></li>
