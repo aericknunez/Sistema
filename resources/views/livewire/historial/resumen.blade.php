@@ -4,15 +4,47 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2 float-left">Historial de Gastos</div> 
+                <div class="h2 float-left">Resumen de Datos</div> 
                 <div class="h2 float-right font-weight-bold text-uppercase"> 
-                    Total: {{ dinero(collect($datos)->where('edo', 1)->sum('cantidad')) }}                
                 </div>
             </div>
 
 
             <div wire:loading.remove wire:target="aplicarFechas">
-                <x-historial.gastos-listado :datos="$datos" />
+                {{-- <x-historial.gastos-listado :datos="$datos" /> --}}
+
+<div class="row px-2">
+    <div class="card col-5 mx-2">
+        <div class="card-header h4 bg-success">
+            Ventas
+        </div>
+        <div class="card-body">
+            <h1 class="text-center">{{ dinero($ventas) }}</h1>
+        </div>
+    </div>
+
+    <div class="card col-5 mx-2">
+        <div class="card-header h4 bg-danger">
+            Gastos
+        </div>
+        <div class="card-body">
+            <h1 class="text-center">{{ dinero($gastos) }}</h1>
+        </div>
+    </div>
+</div>
+
+@foreach ($cuentas as $cuenta)
+    <div class="card col-5 mx-2 my-3">
+        <div class="card-header h4 bg-info">
+            {{ $cuenta->cuenta }}
+        </div>
+        <div class="card-body">
+            <h1 class="text-center">{{ dinero($cuenta->saldo) }}</h1>
+        </div>
+    </div>
+@endforeach
+
+
             </div>
 
             <div class="row justify-content-center">
@@ -72,15 +104,12 @@
 
             </div>
 
-
             @if ($tipo_fecha == 1)
             <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
             @else
             <small class="my-2"> Fecha desde : {{ $fecha1 }} hasta: {{ formatJustFecha($fecha2) }}</small>
             @endif
 
-          {{-- Fecha1:  {{ $fecha1 }}
-          Fecha2:   {{ $fecha2 }} --}}
         </x-slot>
 
     </x-cuerpo>

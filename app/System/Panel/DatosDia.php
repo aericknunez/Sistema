@@ -1,11 +1,8 @@
 <?php
 namespace App\System\Panel;
 
-use App\Common\Helpers;
-use App\Models\CorteDeCaja;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
-use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;

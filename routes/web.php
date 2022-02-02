@@ -169,6 +169,9 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/eliminadas', f
     return view('historial.eliminadas');
 })->name('historial.eliminadas');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/resumen', function () {
+    return view('historial.resumen');
+})->name('historial.resumen');
 
 
 /// panel de control
