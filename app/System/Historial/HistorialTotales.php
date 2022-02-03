@@ -34,7 +34,7 @@ trait HistorialTotales {
 
     public function historialGastosUnica($fecha){
         return EfectivoGastos::where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                // ->where('tipo_pago', 1)
                                 ->whereDay('created_at', $fecha)
                                 ->sum('cantidad');
     }
@@ -42,7 +42,7 @@ trait HistorialTotales {
 
     public function historialGastosMultiple($fecha1, $fecha2){
         return EfectivoGastos::where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                // ->where('tipo_pago', 1)
                                 ->whereBetween('created_at', [$fecha1, $fecha2])
                                 ->sum('cantidad');
     }
