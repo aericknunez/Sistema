@@ -13,35 +13,47 @@
             <div wire:loading.remove wire:target="aplicarFechas">
                 {{-- <x-historial.gastos-listado :datos="$datos" /> --}}
 
-<div class="row px-2">
-    <div class="card col-12 col-md-3 mx-2 mt-2">
-        <div class="card-header h4 bg-success">
-            Ventas
-        </div>
-        <div class="card-body">
-            <h1 class="text-center">{{ dinero($ventas) }}</h1>
-        </div>
+
+<div class="row">
+
+    <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
+      <div class="card-counter light z-depth-2">
+        <i class="fas fa-money-check-alt"></i>
+        <span class="count-numbers"><h5 class="font-weight-bold">{{ dinero($ventas) }}</h5></span>
+        <span class="count-name">Total de Ventas</span>
+      </div>
     </div>
 
-    <div class="card col-12 col-md-3 mx-2 mt-2">
-        <div class="card-header h4 bg-danger">
-            Gastos
-        </div>
-        <div class="card-body">
-            <h1 class="text-center">{{ dinero($gastos) }}</h1>
-        </div>
+    <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
+      <div class="card-counter light z-depth-2">
+        <i class="fas fa-money-bill-alt"></i>
+        <span class="count-numbers"><h5 class="font-weight-bold">{{ dinero($gastos) }}</h5></span>
+        <span class="count-name">Total de Gastos</span>
+      </div>
     </div>
 
-    <div class="card col-12 col-md-3 mx-2 mt-2">
-        <div class="card-header h4 bg-warning">
-            Utilidad
-        </div>
-        <div class="card-body">
-            <h1 class="text-center">{{ dinero($ventas - $gastos) }}</h1>
-        </div>
+    <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
+      <div class="card-counter light z-depth-2">
+        <i class="fas fa-money-bill-wave"></i>
+        <span class="count-numbers"><h5 class="font-weight-bold">{ dinero($ventas - $gastos) }}</h5></span>
+        <span class="count-name">Utilidades</span>
+      </div>
     </div>
 
-</div>
+    <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
+      <div class="card-counter light z-depth-2">
+        <i class="fas fa-dollar-sign"></i>
+        <span class="count-numbers"><h5 class="font-weight-bold">{{ dinero(collect($cuentas)->sum('saldo')) }}</h5></span>
+        <span class="count-name">Total en Cuentas</span>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+
 
 @foreach ($cuentas as $cuenta)
     <div class="card col-12 col-md-4 mx-2 my-3">
