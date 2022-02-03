@@ -35,7 +35,7 @@
     <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
       <div class="card-counter light z-depth-2">
         <i class="fas fa-money-bill-wave"></i>
-        <span class="count-numbers"><h5 class="font-weight-bold">{ dinero($ventas - $gastos) }}</h5></span>
+        <span class="count-numbers"><h5 class="font-weight-bold">{{ dinero($ventas - $gastos) }}</h5></span>
         <span class="count-name">Utilidades</span>
       </div>
     </div>
