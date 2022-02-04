@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Config;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,6 +14,8 @@ class UsuariosEditar extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $userId;
+
+    public $nombre, $email, $password, $password_confirmation, $tipo_user = 6;
 
 
     public function render()
@@ -46,6 +49,29 @@ class UsuariosEditar extends Component
         $this->emit('creado'); // manda el mensaje de creado
     }
 
+
+
+    // agregar Usuario
+    public function addUser(){
+        $this->validate([   'nombre' => 'min:10|required',
+                            'email' => 'min:10|required|unique:users,email|email',
+                            'password' => 'min:6|required|required_with:password_confirmation|same:password_confirmation',
+                            'password_confirmation' => 'min:6|required',
+                            'tipo_user' => 'required'
+    ]);
+
+    $user = User::create([
+        'name' => $this->nombre,
+        'email' => $this->email,
+        'password' => Hash::make($this->password),
+        'email_verified_at' =>  now(),
+        'tipo_usuario' => $this->tipo_user,
+    ]);
+    $user->roles()->sync($this->tipo_user); // sincroniza con el tipo de usuario
+    $this->emit('creado'); // manda el mensaje de creado
+    $this->reset();
+
+}
 
 
 }

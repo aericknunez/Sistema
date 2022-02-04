@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
                 'name' => 'Erick Nunez',
                 'email' => 'erick@hibridosv.com',
                 'email_verified_at' => now(),
-                'password' => bcrypt('007125-'), // password
+                'password' => bcrypt('007125-'),
                 'remember_token' => Str::random(10),
                 'tipo_usuario' => 1
         ])->assignRole('Root');
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'name' => 'administracion',
             'email' => 'admin@hibridosv.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('Hibrido*1-'), // password
+            'password' => bcrypt('Hibrido*1-'),
             'remember_token' => Str::random(10),
             'tipo_usuario' => 1
         ])->assignRole('Root');
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'name' => 'Gerencia',
             'email' => 'gerencia@hibridosv.com',
             'email_verified_at' => now(),
-            'password' => bcrypt('Gerente1'), // password
+            'password' => bcrypt('Gerente1'),
             'remember_token' => Str::random(10),
             'tipo_usuario' => 2
         ])->assignRole('Gerente');

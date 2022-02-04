@@ -3,7 +3,9 @@
     
     <x-cuerpo >
         <x-slot name="contenido">
-            <x-venta.mesas-all :mesas="$mesasAll" />
+            <div wire:poll.{{ config('sistema.synctime') }}s.visible="carga">
+                <x-venta.mesas-all :mesas="$mesasAll" />
+            </div>
         </x-slot>
     
         <x-slot name="lateral">

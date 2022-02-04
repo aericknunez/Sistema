@@ -22,8 +22,7 @@ class Mesas extends Component
 
 
     public function mount(){
-        $this->getOrdenesActive();
-        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes
+        $this->carga();
         $this->clientes = 1;
     }
 
@@ -31,6 +30,11 @@ class Mesas extends Component
     public function render()
     {
         return view('livewire.venta.mesas');
+    }
+
+    public function carga(){
+        $this->getOrdenesActive();
+        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes       
     }
 
 
