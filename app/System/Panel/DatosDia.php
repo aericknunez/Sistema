@@ -125,7 +125,7 @@ trait DatosDia{
 
         return TicketOrden::addSelect(['usuario' => User::select('name')
                         ->whereColumn('ticket_ordens.empleado', 'users.id')])
-                        ->whereDay('created_at', $fecha)
+                        ->whereDate('created_at', $fecha)
                         ->orderBy('tiempo', 'desc')
                         ->paginate($cantidad);
 

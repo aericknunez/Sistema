@@ -43,11 +43,11 @@ class FacturasEmitidas extends Component
         if ($this->tipo_fecha == 1) {
 
             if ($this->busqueda == 10) {
-                $this->datos = TicketNum::whereDay('created_at', $this->fecha1)
+                $this->datos = TicketNum::whereDate('created_at', $this->fecha1)
                                         ->orderBy('tiempo', 'desc')
                                         ->get();    
             } else {
-                $this->datos = TicketNum::whereDay('created_at', $this->fecha1)
+                $this->datos = TicketNum::whereDate('created_at', $this->fecha1)
                                         ->where('tipo_venta', $this->busqueda)
                                         ->orderBy('tiempo', 'desc')
                                         ->get();     

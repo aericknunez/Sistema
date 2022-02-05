@@ -27,7 +27,7 @@ trait Historial {
                                                 DB::raw('sum(descuento) as descuentos, cod'), 
                                                 DB::raw('count(*) as cantidad, cod'))
                                               ->where('edo', 1)
-                                              ->whereDay('created_at', $fecha)
+                                              ->whereDate('created_at', $fecha)
                                               ->groupBy('cod')
                                               ->orderBy('cantidad', 'desc')
                                               ->get();
@@ -48,7 +48,7 @@ trait Historial {
 
 
     public function gastosUnica($fecha){
-        return EfectivoGastos::whereDay('created_at', $fecha)
+        return EfectivoGastos::whereDate('created_at', $fecha)
                                 ->with('banco')
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
@@ -63,7 +63,7 @@ trait Historial {
 
 
     public function remesasUnica($fecha){
-        return EfectivoRemesas::whereDay('created_at', $fecha)
+        return EfectivoRemesas::whereDate('created_at', $fecha)
                                 ->with('banco')
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
@@ -87,7 +87,7 @@ trait Historial {
 
 
     public function cortesUnica($fecha1){
-        return CorteDeCaja::whereDay('updated_at', $fecha1)
+        return CorteDeCaja::whereDate('updated_at', $fecha1)
                                             ->orderBy('tiempo', 'desc')
                                             ->with('user')
                                             ->get();
@@ -97,7 +97,7 @@ trait Historial {
     public function meserosUnica($fecha, $usuario){
         return TicketOrden::addSelect(['usuario' => User::select('name')
                             ->whereColumn('empleado', 'users.id')])
-                            ->whereDay('created_at', $fecha)
+                            ->whereDate('created_at', $fecha)
                             ->orderBy('empleado', 'desc')
                             ->where('empleado', $usuario)
                             ->get();
@@ -134,7 +134,7 @@ trait Historial {
                                 ->whereColumn('usuario', 'users.id')])
                                 ->addSelect(['user_borrado' => User::select('name')
                                 ->whereColumn('usuario_borrado', 'users.id')])
-                                ->whereDay('created_at', $fecha)
+                                ->whereDate('created_at', $fecha)
                                 ->where('edo', 2)
                                 ->with('subOpcion')
                                 ->orderBy('orden', 'desc')

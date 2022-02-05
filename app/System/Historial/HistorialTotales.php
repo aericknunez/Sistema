@@ -20,7 +20,7 @@ trait HistorialTotales {
 
     public function historialTotalUnica($fecha){
         return TicketProducto::where('edo', 1)
-                                ->whereDay('created_at', $fecha)
+                                ->whereDate('created_at', $fecha)
                                 ->sum('cantidad');
     }
 
@@ -35,7 +35,7 @@ trait HistorialTotales {
     public function historialGastosUnica($fecha){
         return EfectivoGastos::where('edo', 1)
                                 // ->where('tipo_pago', 1)
-                                ->whereDay('created_at', $fecha)
+                                ->whereDate('created_at', $fecha)
                                 ->sum('cantidad');
     }
 

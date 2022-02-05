@@ -44,13 +44,13 @@ class Ordenes extends Component
 
     public function otrosDatos(){
 
-        $this->totalOrdenes = TicketOrden::whereDay('created_at', date('Y-m-d'))->count();
-        $this->totalLlevar = TicketOrden::where('llevar_aqui', 1)->whereDay('created_at', date('Y-m-d'))->count();
-        $this->totalAqui = TicketOrden::where('llevar_aqui', 2)->whereDay('created_at', date('Y-m-d'))->count();
+        $this->totalOrdenes = TicketOrden::whereDate('created_at', date('Y-m-d'))->count();
+        $this->totalLlevar = TicketOrden::where('llevar_aqui', 1)->whereDate('created_at', date('Y-m-d'))->count();
+        $this->totalAqui = TicketOrden::where('llevar_aqui', 2)->whereDate('created_at', date('Y-m-d'))->count();
 
-        $this->totalPendientes = TicketOrden::where('edo', 1)->whereDay('created_at', date('Y-m-d'))->count();
-        $this->pendientesLlevar = TicketOrden::where('edo', 1)->where('llevar_aqui', 1)->whereDay('created_at', date('Y-m-d'))->count();
-        $this->pendientesAqui = TicketOrden::where('edo', 1)->where('llevar_aqui', 2)->whereDay('created_at', date('Y-m-d'))->count();
+        $this->totalPendientes = TicketOrden::where('edo', 1)->whereDate('created_at', date('Y-m-d'))->count();
+        $this->pendientesLlevar = TicketOrden::where('edo', 1)->where('llevar_aqui', 1)->whereDate('created_at', date('Y-m-d'))->count();
+        $this->pendientesAqui = TicketOrden::where('edo', 1)->where('llevar_aqui', 2)->whereDate('created_at', date('Y-m-d'))->count();
 
     }
 
