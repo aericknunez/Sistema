@@ -115,7 +115,7 @@ trait Historial {
 
 
     public function ordenesUnica($fecha){
-        return TicketOrden::whereDay('created_at', '04')
+        return TicketOrden::whereDay('created_at','=', '2022-02-04')
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
     }
