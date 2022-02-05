@@ -54,9 +54,9 @@ class Reporte extends Component
 
     public function formatFechas(){
 
-            if(!$this->fecha1){ $this->fecha1 = date('d-m-Y'); 
+            if(!$this->fecha1){ $this->fecha1 = date('Y-m-d'); 
             } else {
-                $this->fecha1 = formatJustFecha($this->fecha1);
+                $this->fecha1 =  $this->fecha1f;
             }
         
     }

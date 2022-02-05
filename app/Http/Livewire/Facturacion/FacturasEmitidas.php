@@ -16,6 +16,7 @@ class FacturasEmitidas extends Component
     public $busqueda;
     public $tipo_fecha;
     public $fecha1, $fecha2;
+    public $fecha1f, $fecha2f;
     public $datos = [];
     public $documentos = [];
 
@@ -71,19 +72,20 @@ class FacturasEmitidas extends Component
 
     public function formatFechas(){
         if ($this->tipo_fecha == 1) {
-            if(!$this->fecha1){ $this->fecha1 = date('d-m-Y'); 
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
             } else {
-                $this->fecha1 = formatJustFecha($this->fecha1);
+                $this->fecha1 =  $this->fecha1f;
             }
         } else {
-            if(!$this->fecha1){ $this->fecha1 = date('Y-m-01'); } else {
-                $this->fecha1 = $this->fecha1;
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-01 00:00:00'); } else {
+                $this->fecha1 = $this->fecha1f . ' 00:00:00';
             }
-            if(!$this->fecha2){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
-                $this->fecha2 = $this->fecha2;
+            if(!$this->fecha2f){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
+                $this->fecha2 = $this->fecha2f . ' 23:59:59';
             }         
         }
     }
+
 
 
 

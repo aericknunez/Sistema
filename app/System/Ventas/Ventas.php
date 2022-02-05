@@ -523,12 +523,12 @@ public function getDeliveryData(){ // crea la variables del delivery
 */
     static public function Porcentaje(){ // porcentaje de facturado o no facturado
     
-        $totalFacturado = TicketNum::whereDay('created_at', date('d-m-Y'))
+        $totalFacturado = TicketNum::whereDay('created_at', date('Y-m-d'))
                                     ->where('edo', 1)
                                     ->where('tipo_venta', 2)
                                     ->sum('total');
 
-        $totalNoFacturado = TicketNum::whereDay('created_at', date('d-m-Y'))
+        $totalNoFacturado = TicketNum::whereDay('created_at', date('Y-m-d'))
                                     ->where('edo', 1)
                                     ->where('tipo_venta','!=', 2)
                                     ->sum('total');
