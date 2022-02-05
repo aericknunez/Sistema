@@ -73,7 +73,7 @@
             </div>
 
             @if ($tipo_fecha == 1)
-            <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
+            <small class="my-2"> Fecha seleccionada: {{ formatFecha($fecha1) }}</small>
             @else
             <small class="my-2"> Fecha desde : {{ formatFecha($fecha1) }} hasta: {{ formatFecha($fecha2) }}</small>
             @endif

@@ -76,7 +76,7 @@
 
             </div>
 
-            <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
+            <small class="my-2"> Fecha seleccionada: {{ formatFecha($fecha1) }}</small>
 
         </x-slot>
 

@@ -60,7 +60,7 @@
             </div>
 
 
-            <small class="my-2"> Fecha desde : {{ $fecha1 }} hasta: {{ formatJustFecha($fecha2) }}</small>
+            <small class="my-2"> Fecha desde : {{ formatFecha($fecha1) }} hasta: {{ formatFecha($fecha2) }}</small>
 
 
           {{-- Fecha1:  {{ $fecha1 }}
