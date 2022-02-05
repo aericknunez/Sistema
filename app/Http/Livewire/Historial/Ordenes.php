@@ -53,9 +53,9 @@ class Ordenes extends Component
 
     public function formatFechas(){
         if ($this->tipo_fecha == 1) {
-            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d 00:00:00'); 
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
             } else {
-                $this->fecha1 =  $this->fecha1f . ' 00:00:00';
+                $this->fecha1 =  $this->fecha1f;
             }
         } else {
             if(!$this->fecha1f){ $this->fecha1 = date('Y-m-01 00:00:00'); } else {
