@@ -36,7 +36,7 @@ class Ordenes extends Component
     public function render()
     {
         return view('livewire.panel.ordenes', [
-            'datos' => $this->obtenerDatosOrdenesDiarios(date('d-m-Y'), 25)
+            'datos' => $this->obtenerDatosOrdenesDiarios(date('Y-m-d'), 25)
         ]);
     }
 
@@ -44,13 +44,13 @@ class Ordenes extends Component
 
     public function otrosDatos(){
 
-        $this->totalOrdenes = TicketOrden::whereDay('created_at', date('d-m-Y'))->count();
-        $this->totalLlevar = TicketOrden::where('llevar_aqui', 1)->whereDay('created_at', date('d-m-Y'))->count();
-        $this->totalAqui = TicketOrden::where('llevar_aqui', 2)->whereDay('created_at', date('d-m-Y'))->count();
+        $this->totalOrdenes = TicketOrden::whereDay('created_at', date('Y-m-d'))->count();
+        $this->totalLlevar = TicketOrden::where('llevar_aqui', 1)->whereDay('created_at', date('Y-m-d'))->count();
+        $this->totalAqui = TicketOrden::where('llevar_aqui', 2)->whereDay('created_at', date('Y-m-d'))->count();
 
-        $this->totalPendientes = TicketOrden::where('edo', 1)->whereDay('created_at', date('d-m-Y'))->count();
-        $this->pendientesLlevar = TicketOrden::where('edo', 1)->where('llevar_aqui', 1)->whereDay('created_at', date('d-m-Y'))->count();
-        $this->pendientesAqui = TicketOrden::where('edo', 1)->where('llevar_aqui', 2)->whereDay('created_at', date('d-m-Y'))->count();
+        $this->totalPendientes = TicketOrden::where('edo', 1)->whereDay('created_at', date('Y-m-d'))->count();
+        $this->pendientesLlevar = TicketOrden::where('edo', 1)->where('llevar_aqui', 1)->whereDay('created_at', date('Y-m-d'))->count();
+        $this->pendientesAqui = TicketOrden::where('edo', 1)->where('llevar_aqui', 2)->whereDay('created_at', date('Y-m-d'))->count();
 
     }
 
