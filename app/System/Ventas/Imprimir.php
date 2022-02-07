@@ -319,9 +319,9 @@ trait Imprimir{
 
     public function getProductosComanda($orden, $estado, $panel){
         $datos =  TicketProducto::where('orden', $orden)
-        ->where('imprimir', $estado)
-        ->where('panel', $panel)
-        ->with('subOpcion')->get();
+                                ->where('imprimir', $estado)
+                                ->where('panel', $panel)
+                                ->with('subOpcion')->get();
 
         if (session('impresion_comanda_agrupada')) {
             return $this->formatData($datos);
@@ -333,6 +333,7 @@ trait Imprimir{
     public function productosActualizar($orden, $anterior, $nuevo, $panel){
         TicketProducto::where('orden', $orden)
                         ->where('imprimir', $anterior)
+                        ->where('panel', $panel)
                         ->update(['imprimir' => $nuevo, 'panel' => $panel, 'tiempo' => Helpers::timeId()]);
     }
 
