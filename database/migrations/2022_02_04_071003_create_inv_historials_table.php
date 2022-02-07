@@ -15,6 +15,16 @@ class CreateInvHistorialsTable extends Migration
     {
         Schema::create('inv_historials', function (Blueprint $table) {
             $table->id();
+
+            $table->string('producto');
+            $table->bigInteger('cantidad');
+            $table->string('comentario')->nullable(true);
+            $table->integer('tipo')->nullable(true);
+            $table->integer('usuario');
+
+            $table->string('clave', 25)->nullable(true);
+            $table->string('tiempo', 25)->nullable(true);
+            $table->integer('td')->nullable(true);
             $table->timestamps();
         });
     }

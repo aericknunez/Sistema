@@ -15,6 +15,14 @@ class CreateInvDependientesTable extends Migration
     {
         Schema::create('inv_dependientes', function (Blueprint $table) {
             $table->id();
+
+            $table->string('dependiente');
+            $table->string('producto');
+            $table->double('cantidad_descontar', 10, 4);
+
+            $table->string('clave', 25)->nullable(true);
+            $table->string('tiempo', 25)->nullable(true);
+            $table->integer('td')->nullable(true);
             $table->timestamps();
         });
     }

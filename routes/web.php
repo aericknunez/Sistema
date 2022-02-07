@@ -240,6 +240,11 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/ultimas', fu
 })->name('facturacion.ultimas');
 
 
+// INVENTARIO
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario', function () {
+    return view('inventario/index');
+})->name('inventario');
+
 
 /// MOBILE
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/mobil', function () {

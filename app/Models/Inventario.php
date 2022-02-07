@@ -11,4 +11,8 @@ class Inventario extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function medida(){
+        return $this->hasOne(InvUnidades::class, 'id', 'unidad');
+    }
+
 }

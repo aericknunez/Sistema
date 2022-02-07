@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvAsignadosTable extends Migration
+class CreateInvUnidadesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateInvAsignadosTable extends Migration
      */
     public function up()
     {
-        Schema::create('inv_asignados', function (Blueprint $table) {
+        Schema::create('inv_unidades', function (Blueprint $table) {
             $table->id();
-
-            $table->string('dependiente');
-            $table->string('producto');
+            $table->string('unidad');
+            $table->string('abreviacion');
 
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);
@@ -33,6 +32,6 @@ class CreateInvAsignadosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inv_asignados');
+        Schema::dropIfExists('inv_unidades');
     }
 }

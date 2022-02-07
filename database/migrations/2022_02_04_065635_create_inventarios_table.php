@@ -20,6 +20,7 @@ class CreateInventariosTable extends Migration
             $table->double('minimo', 10, 4);
             $table->integer('mostrar')->nullable(true);
             $table->string('unidad', 200)->nullable(true);
+            $table->integer('edo')->nullable(true)->comment('1 activo, 0 Eliminado');
 
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);
