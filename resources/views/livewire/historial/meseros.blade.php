@@ -54,6 +54,7 @@
             </div>
 
             {{ $usuario }}
+            Fecha1:  {{ $fecha1 }}
             <div class="card mt-3">
                 <form  class="md-form" wire:submit.prevent="aplicarFechas">
 
