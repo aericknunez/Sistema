@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-body">
-      @json($datos)
         @if (count($datos))
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">

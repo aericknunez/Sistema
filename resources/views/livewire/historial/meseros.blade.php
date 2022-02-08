@@ -32,7 +32,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="col">
-                        <select class="browser-default custom-select" wire:model="tipo_fecha">
+                        <select class="browser-default custom-select" wire:model.defer="tipo_fecha">
                             <option value="1" selected >Fecha Unica</option>
                             <option value="2">Rango de Fechas</option>
                         </select>
@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <div class="col">
                         <small>Usuario</small>
-                        <select class="browser-default custom-select" wire:model="usuario">
+                        <select class="browser-default custom-select" wire:model.defer="usuario">
                             @foreach ($usuarios as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
