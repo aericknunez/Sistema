@@ -1,7 +1,7 @@
 <x-principal-layout>
 
     {{-- Contenido --}}
-        @livewire('inventario.productos')
+        @livewire('inventario.asignados')
     {{-- contenido  --}}
    
     @push('scripts')

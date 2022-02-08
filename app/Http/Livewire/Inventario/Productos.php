@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Inventario;
 use App\Common\Helpers;
 use App\Models\InvDependiente;
 use App\Models\Inventario;
+use App\Models\User;
 use Livewire\Component;
 
 class Productos extends Component
@@ -13,9 +14,12 @@ class Productos extends Component
     public $proPrincipales = [];
 
     public $productos = [];
+    public $proSelected;
+
+    protected $listeners = ['EliminarProducto' => 'destroy'];
 
 
-    public $relacion, $idProd, $producto, $cantidad;
+    public $id_dependiente, $relacion, $idProd, $producto;
 
 
 
@@ -37,7 +41,10 @@ class Productos extends Component
     }
 
     public function getProductos(){
-        $this->productos = InvDependiente::orderBy('id', 'DESC')->get();
+        $this->productos = InvDependiente::with('product')->with('product.medida')
+                                            // addSelect(['product' => Inventario::select('producto')
+                                            // ->whereColumn('inv_dependientes.producto', 'inventarios.id')])
+                                            ->orderBy('id', 'DESC')->get();
     }
 
 
@@ -45,10 +52,12 @@ class Productos extends Component
 
     public function btnAddProducto(){
 
-        InvDependiente::create([
-            'dependiente' => $this->producto,
-            'producto' => $this->idProd,
-            'cantidad_descontar' => $this->cantidad = 1 / $this->relacion,
+        InvDependiente::updateOrCreate(
+            ['id' => $this->id_dependiente],[
+            'dependiente' => $this->producto, // nombre del dependiente
+            'producto' => $this->idProd, // producto del que depende
+            'relacion' => $this->relacion, // cantidad relacion
+            'cantidad_descontar' => 1 / $this->relacion,
             
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
@@ -57,13 +66,45 @@ class Productos extends Component
 
         $this->emit('creado');
         
-        $this->reset(['producto', 'cantidad', 'relacion', 'idProd']);
+        $this->reset(['id_dependiente','producto', 'relacion', 'idProd']);
         $this->getProductos();
 
     }
 
 
+    public function seleccionarProducto($pro){
+        $product = InvDependiente::find($pro);
 
+        $this->id_dependiente = $product->id;
+        $this->producto = $product->dependiente;
+        $this->idProd = $product->producto;
+        $this->relacion = $product->relacion;
+
+    }
+
+
+    public function destroy($id)
+    {
+        InvDependiente::find($id)->delete();
+        // OrderImg::where('tipo_img', 1)->where('imagen', $id)->delete();
+
+        $this->getProductos();
+
+        $this->dispatchBrowserEvent('mensaje', 
+        ['titulo' => 'Realizado', 
+        'texto' => 'Producto Eliminado correctamente']);
+    }
+
+
+    // public function detallesProducto($pro){
+    //     $this->proSelected = $pro;
+
+    //     $this->historial = InvDependiente::addSelect(['user' => User::select('name')
+    //                                     ->whereColumn('usuario', 'users.id')])
+    //                                     ->where('producto', $pro)
+    //                                     ->orderBy('id', 'desc')
+    //                                     ->get();
+    // }
 
 
 

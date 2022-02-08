@@ -18,6 +18,7 @@ class CreateInvDependientesTable extends Migration
 
             $table->string('dependiente');
             $table->string('producto');
+            $table->double('relacion', 10, 4);
             $table->double('cantidad_descontar', 10, 4);
 
             $table->string('clave', 25)->nullable(true);

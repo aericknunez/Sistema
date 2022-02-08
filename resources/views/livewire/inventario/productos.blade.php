@@ -12,7 +12,7 @@
             </div>
 
 
-            {{-- <x-inventario.lista-productos :datos="$productos" /> --}}
+            <x-inventario.lista-dependientes :datos="$productos" />
 
 
         </x-slot>
@@ -26,6 +26,7 @@
     </x-cuerpo>
 
         @include('components.inventario.modal-producto-nuevo')
+        @include('components.inventario.modal-edit-pro')
         {{-- <x-inventario.modal-agregar  /> --}}
 
 </div>

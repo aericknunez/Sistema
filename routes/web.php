@@ -249,6 +249,10 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario/productos', f
     return view('inventario/productos');
 })->name('inventario.productos');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario/asignados', function () {
+    return view('inventario/asignados');
+})->name('inventario.asignados');
+
 
 
 /// MOBILE
