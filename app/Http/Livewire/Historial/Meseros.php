@@ -24,7 +24,7 @@ class Meseros extends Component
     public function mount(){
         $this->tipo_fecha = 1;
         $this->usuario = 3;
-        $this->formatFechas();
+        $this->aplicarFechas();
         $this->getUsuarios();
     }
 
