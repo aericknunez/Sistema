@@ -32,7 +32,7 @@ class Meseros extends Component
 
     public function render()
     {
-        $this->aplicarFechas();
+        // $this->aplicarFechas();
         return view('livewire.historial.meseros');
     }
 
