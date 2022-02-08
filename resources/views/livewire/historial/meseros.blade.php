@@ -62,7 +62,7 @@
                     <div class="col mx-2">
 
                            <div class="md-form md-outline input-with-post-icon datepicker">
-                            <input wire:model.defer="fecha1f" type="date" id="fecha1" name="fecha1" class="form-control">
+                            <input wire:model.defer="fecha1f" type="date" id="fecha1f" name="fecha1" class="form-control">
                             <label for="example">Seleccione una fecha</label>
                           </div>
 
