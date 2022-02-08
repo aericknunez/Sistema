@@ -98,8 +98,8 @@ trait Historial {
         return TicketOrden::addSelect(['usuario' => User::select('name')
                             ->whereColumn('empleado', 'users.id')])
                             ->whereDate('created_at', $fecha)
-                            ->orderBy('empleado', 'desc')
                             ->where('empleado', $usuario)
+                            ->orderBy('empleado', 'desc')
                             ->get();
     }
 
@@ -108,8 +108,8 @@ trait Historial {
         return TicketOrden::addSelect(['usuario' => User::select('name')
                                 ->whereColumn('empleado', 'users.id')])
                                 ->whereBetween('created_at', [$fecha1, $fecha2])
-                                ->orderBy('empleado', 'desc')
                                 ->where('empleado', $usuario)
+                                ->orderBy('empleado', 'desc')
                                 ->get();
     }
 
