@@ -25,7 +25,7 @@
                           <td class="text-uppercase text-center">{{ $dato->relacion }}</td>
                           <td class="font-weight-bold text-uppercase text-center">{{ $dato->cantidad_descontar }}</td>
                           <td>
-                            <a wire:click="seleccionarProducto({{ $dato->id }})" data-toggle="modal" data-target="#ProductoNuevo" title="Editar Producto"><i class="fas fa-edit fa-2x green-text mx-2"></i></a>
+                            <a wire:click="seleccionarProducto({{ $dato->id }})" title="Editar Producto"><i class="fas fa-edit fa-2x green-text mx-2"></i></a>
                             <a wire:click="$emit('deleteProducto', {{ $dato->id }})" title="Eliminar Producto"><i class="fas fa-trash fa-2x red-text mx-2"></i> </a>
                                                         
                           </td>

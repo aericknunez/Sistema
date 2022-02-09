@@ -24,6 +24,7 @@
 
     </x-cuerpo>
 
-        @include('components.inventario.modal-add-asignado')
+        <x-inventario.modal-add-asign :datos="$proSelect" :dependientes="$dependientes" />
+
 
 </div>

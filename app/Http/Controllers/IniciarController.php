@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 // use App\Common\Helpers;
 use App\Models\ConfigMoneda;
 use App\Models\CorteDeCaja;
+use App\Models\InvAsignado;
 use App\Models\NumeroCajas;
 use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
@@ -28,12 +29,14 @@ class IniciarController extends Controller
         $this->sessionPrincipal();
         $this->sessionRoot();
 
-        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
-
 
         if (!session('config_tipo_usuario')) {
             abort(401);
         }
+
+        // valida los roles y permisos
+        app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
 
         if (config('sistema.justdata')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
             return redirect()->route('panel.control');
@@ -43,8 +46,13 @@ class IniciarController extends Controller
             return redirect()->route('pantalla');
         }
 
-        $this->CrearIconos();
-        $this->crearModalMoneda();
+        // compruebo si tengo productos asignados en inventario para crear session
+        if (InvAsignado::count() > 0) {
+            session(['invDesc' => true]);
+        }
+
+        // $this->CrearIconos();
+        // $this->crearModalMoneda();
         
         if (session('config_tipo_servicio') == 1) {
             session(['llevar_aqui' => session('principal_llevar_rapida')]);

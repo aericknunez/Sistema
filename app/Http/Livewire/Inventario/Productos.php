@@ -42,8 +42,6 @@ class Productos extends Component
 
     public function getProductos(){
         $this->productos = InvDependiente::with('product')->with('product.medida')
-                                            // addSelect(['product' => Inventario::select('producto')
-                                            // ->whereColumn('inv_dependientes.producto', 'inventarios.id')])
                                             ->orderBy('id', 'DESC')->get();
     }
 

@@ -218,7 +218,7 @@
     
     <li><a href="{{ route('inventario') }}" class="waves-effect"><i class="fas fa-cog"></i> Inventario Actual</a></li>
     <li><a href="{{ route('inventario.productos') }}" class="waves-effect"><i class="fas fa-cog"></i> Agregar Producto</a></li>
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Descontar Averias</a></li>
+    <li><a href="{{ route('inventario.asignados') }}" class="waves-effect"><i class="fas fa-cog"></i> Productos Asignados</a></li>
         
     </ul>
     </div>
