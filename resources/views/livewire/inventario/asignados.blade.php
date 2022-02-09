@@ -24,8 +24,6 @@
 
     </x-cuerpo>
 
-        {{-- @include('components.inventario.modal-producto-nuevo') --}}
-        {{-- @include('components.inventario.modal-edit-pro') --}}
-        {{-- <x-inventario.modal-agregar  /> --}}
+        @include('components.inventario.modal-add-asignado')
 
 </div>

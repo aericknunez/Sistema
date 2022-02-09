@@ -10,4 +10,11 @@ class InvAsignado extends Model
     use HasFactory;
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+
+
+    public function dependientes(){
+        return $this->hasOne(InvDependiente::class, 'id', 'dependiente');
+    }
+
+
 }
