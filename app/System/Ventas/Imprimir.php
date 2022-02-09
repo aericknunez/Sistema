@@ -292,12 +292,15 @@ trait Imprimir{
         $datos = array();
         $datos['subtotal'] = TicketProducto::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
+                            ->where('edo', 1)
                             ->sum('stotal');
         $datos['impuestos'] = TicketProducto::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
+                            ->where('edo', 1)
                             ->sum('imp');
         $datos['total'] = TicketProducto::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
+                            ->where('edo', 1)
                             ->sum('total');
 
                             
