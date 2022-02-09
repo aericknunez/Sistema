@@ -10,6 +10,7 @@
     <script>
         Livewire.on('creado', ()=>{
             $('#ProductoNuevo').modal('hide');
+            $('#ProductoEdit').modal('hide');
             $('.mdb-select').materialSelect();
             Swal.fire(
                 'PRODUCTO AGREGADO',
@@ -43,6 +44,8 @@
 
         window.addEventListener('mensaje', event => {
             $('.mdb-select').materialSelect();
+            $('#ProductoEdit').modal('hide');
+
                 toastr.success(event.detail.texto, event.detail.titulo, {
                     "closeButton": true,
                     "debug": false,

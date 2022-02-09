@@ -35,9 +35,9 @@
                           <td class="text-uppercase">{{ $dato->medida->unidad }}</td>
                           <td class="font-weight-bold text-uppercase text-center">
                             @if ($dato->cantidad <= $dato->minimo)
-                                <div class="red-text">{{ $dato->cantidad }}</div>
+                                <div class="red-text">{{ round($dato->cantidad, 2) }}</div>
                             @else
-                                <div>{{ $dato->cantidad }}</div>
+                                <div>{{ round($dato->cantidad, 2) }}</div>
                             @endif
                             </td>
                           <td>

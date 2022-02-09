@@ -84,7 +84,6 @@ class Productos extends Component
     public function destroy($id)
     {
         InvDependiente::find($id)->delete();
-        // OrderImg::where('tipo_img', 1)->where('imagen', $id)->delete();
 
         $this->getProductos();
 

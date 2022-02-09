@@ -23,9 +23,9 @@
                           <td class="font-weight-bold text-uppercase">{{ $dato->dependiente }}</td>
                           <td class="text-uppercase text-center">{{ $dato->product->medida->unidad }} de {{ $dato->product->producto }}</td>
                           <td class="text-uppercase text-center">{{ $dato->relacion }}</td>
-                          <td class="font-weight-bold text-uppercase text-center">{{ $dato->cantidad_descontar }}</td>
+                          <td class="font-weight-bold text-uppercase text-center">{{ round($dato->cantidad_descontar, 4) }}</td>
                           <td>
-                            <a wire:click="seleccionarProducto({{ $dato->id }})" title="Editar Producto"><i class="fas fa-edit fa-2x green-text mx-2"></i></a>
+                            <a wire:click="seleccionarProducto({{ $dato->id }})" data-toggle="modal" data-target="#ProductoEdit" title="Editar Producto"><i class="fas fa-edit fa-2x green-text mx-2"></i></a>
                             <a wire:click="$emit('deleteProducto', {{ $dato->id }})" title="Eliminar Producto"><i class="fas fa-trash fa-2x red-text mx-2"></i> </a>
                                                         
                           </td>
