@@ -6,6 +6,7 @@ use App\Common\Helpers;
 use App\Models\Image;
 use App\Models\ImageCategory;
 use App\Models\ImageTag;
+use App\Models\InvUnidades;
 use App\Models\Opciones as ModelsOpciones;
 use App\Models\OpcionesProducto;
 use App\Models\OpcionesSub;
@@ -116,6 +117,9 @@ class Opciones extends Component
             'titulo' => 'Realizado', 
             'texto' => 'Permisos de Usuario Actualizados']);
         }
+
+        $sql = database_path('inv_unidades.sql');
+        DB::unprepared(file_get_contents($sql));
         
         Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
@@ -127,6 +131,7 @@ class Opciones extends Component
         ModelsOpciones::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         OpcionesSub::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
         OpcionesProducto::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        InvUnidades::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
 
         $this->dispatchBrowserEvent('mensaje', 
@@ -170,7 +175,9 @@ class Opciones extends Component
             }
             Artisan::call('migrate');
             Artisan::call('route:clear');
-            
+
+            $sql = database_path('inv_unidades.sql');
+            DB::unprepared(file_get_contents($sql));            
 
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 

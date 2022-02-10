@@ -44,6 +44,11 @@ class Index extends Component
 
     public function btnAddProducto(){
 
+        $this->validate([
+            'producto' => 'required',
+            'cantidad' => 'required',
+        ]);
+
         $inv = Inventario::create([
             'producto' => $this->producto,
             'cantidad' => $this->cantidad,
@@ -89,6 +94,11 @@ class Index extends Component
 
     public function btnSumas(){
 
+        $this->validate([
+            'producto' => 'required',
+            'cantidad' => 'required',
+        ]);
+
         $pro = Inventario::where('id', $this->proSelected)->first();
         
         if ($pro->update(['cantidad' => $pro->cantidad + $this->cantSumas, 'tiempo' => Helpers::timeId()])) {
@@ -126,6 +136,11 @@ class Index extends Component
 
     public function btnRestas(){
 
+        $this->validate([
+            'producto' => 'required',
+            'cantidad' => 'required',
+        ]);
+        
         $pro = Inventario::where('id', $this->proSelected)->first();
         
         if ($pro->update(['cantidad' => $pro->cantidad - $this->cantRestas, 'tiempo' => Helpers::timeId()])) {

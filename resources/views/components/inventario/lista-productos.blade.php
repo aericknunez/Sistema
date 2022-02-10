@@ -1,9 +1,7 @@
 <div>
 
     @if (count($datos))
-  
-    {{-- @json($datos) --}}
-          
+            
           <div class="table-responsive">
               <table class="table table-sm table-hover table-striped table-round">
                 <thead>

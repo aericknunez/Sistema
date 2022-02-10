@@ -62,5 +62,19 @@ class InvUnidadesSeeder extends Seeder
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')
         ]);
+        InvUnidades::create([
+            'unidad' => "Litro",
+            'abreviacion' => "Lt",
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+        InvUnidades::create([
+            'unidad' => "Carton",
+            'abreviacion' => "Cton",
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
     }
 }

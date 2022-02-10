@@ -51,6 +51,12 @@ class Productos extends Component
 
     public function btnAddProducto(){
 
+        $this->validate([
+            'producto' => 'required',
+            'idProd' => 'required',
+            'relacion' => 'required'
+        ]);
+
         InvDependiente::updateOrCreate(
             ['id' => $this->id_dependiente],[
             'dependiente' => $this->producto, // nombre del dependiente
