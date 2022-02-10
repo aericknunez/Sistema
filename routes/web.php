@@ -240,6 +240,20 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/ultimas', fu
 })->name('facturacion.ultimas');
 
 
+// INVENTARIO
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario', function () {
+    return view('inventario/index');
+})->name('inventario');
+
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario/productos', function () {
+    return view('inventario/productos');
+})->name('inventario.productos');
+
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario/asignados', function () {
+    return view('inventario/asignados');
+})->name('inventario.asignados');
+
+
 
 /// MOBILE
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/mobil', function () {

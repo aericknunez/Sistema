@@ -246,6 +246,11 @@ class Cambios extends Component
         if (session('client_id')) {
             $this->delSessionFactura();
         }
+
+            /// descontar productos del inventario si esta activado
+            if (session('invDesc')) {
+                $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
+            }
         
     } 
     

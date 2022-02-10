@@ -10,16 +10,19 @@ use App\Models\TicketNum;
 use App\Models\TicketOpcion;
 use Livewire\Component;
 
-
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
 use App\System\Config\Validaciones;
 use App\System\Ventas\Imprimir;
 use App\System\Ventas\Ventas;
+Use App\System\Inventario\Administrar;
 
 class AddProducto extends Component
 {
-    use Ventas, Imprimir, Validaciones;
+    use Ventas; 
+    use Imprimir; 
+    use Validaciones;
+    use Administrar;
 
 
     public $productAgregado;
@@ -559,6 +562,12 @@ public function pagar(){
         $this->delSessionFactura();
     }
     $this->reset();
+
+    /// descontar productos del inventario si esta activado
+    if (session('invDesc')) {
+        $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
+    }
+    
 } 
 
 

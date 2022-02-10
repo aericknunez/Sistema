@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SyncTableSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(InvUnidadesSeeder::class);
 
     }
 }

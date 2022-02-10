@@ -16302,7 +16302,7 @@ select:disabled {
 }
 
 .switch label input[type=checkbox]:checked+.lever:after {
-	background-color: #a6c;
+	background-color: #668ECC; /* color de la burbuja del switc */
 	left: 1.5rem
 }
 

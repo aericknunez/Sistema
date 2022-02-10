@@ -38,6 +38,10 @@ public function opciones(){
 
 
 
+public function asignados(){
+    return $this->hasMany(InvAsignado::class, 'producto', 'id');
+}
+
 
 
 }
