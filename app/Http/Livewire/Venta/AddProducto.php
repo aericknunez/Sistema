@@ -563,11 +563,11 @@ public function pagar(){
     }
     $this->reset();
 
-        /// descontar productos del inventario si esta activado
-    // session('impresion_seleccionado')
-    // $num_fact
-    $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
-    //
+    /// descontar productos del inventario si esta activado
+    if (session('invDesc')) {
+        $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
+    }
+    
 } 
 
 

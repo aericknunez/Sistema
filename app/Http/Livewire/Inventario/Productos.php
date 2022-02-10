@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Inventario;
 
 use App\Common\Helpers;
+use App\Models\InvAsignado;
 use App\Models\InvDependiente;
 use App\Models\Inventario;
 use App\Models\User;
@@ -84,6 +85,12 @@ class Productos extends Component
     public function destroy($id)
     {
         InvDependiente::find($id)->delete();
+        InvAsignado::where('dependiente', $id)->delete();
+        if (InvAsignado::count() > 0) {
+            session(['invDesc' => true]);
+        } else {
+            session()->forget('invDesc');
+        }
 
         $this->getProductos();
 
@@ -91,17 +98,6 @@ class Productos extends Component
         ['titulo' => 'Realizado', 
         'texto' => 'Producto Eliminado correctamente']);
     }
-
-
-    // public function detallesProducto($pro){
-    //     $this->proSelected = $pro;
-
-    //     $this->historial = InvDependiente::addSelect(['user' => User::select('name')
-    //                                     ->whereColumn('usuario', 'users.id')])
-    //                                     ->where('producto', $pro)
-    //                                     ->orderBy('id', 'desc')
-    //                                     ->get();
-    // }
 
 
 
