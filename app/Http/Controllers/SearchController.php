@@ -9,6 +9,6 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         session(['idSearch' => $request->search]);
-        return view('search.index');
+        return redirect()->route('searched');
     }
 }

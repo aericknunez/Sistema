@@ -14,6 +14,9 @@ class SearchBotones extends Component
 
     use Imprimir;
 
+    protected $listeners = ['borrarFactura' => 'eliminar'];
+
+
     public $idSearch;
     public $detalles;
     public $factura;
@@ -29,6 +32,9 @@ class SearchBotones extends Component
         return view('livewire.search.search-botones');
     }
 
+
+
+    
     public function getData(){
         $this->detalles = TicketProducto::where('tipo_venta', session('impresion_seleccionado'))
                                     ->where('num_fact', session('idSearch'))
@@ -43,10 +49,15 @@ class SearchBotones extends Component
     }
 
 
+
+
     public function imprimir(){
         $this->ImprimirFactura(session('idSearch')); // imprime la factura
         $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Imprimiendo Factura']);    
     }
+
+
+
 
     public function eliminar(){
         TicketNum::where('tipo_venta', session('impresion_seleccionado'))
@@ -56,6 +67,9 @@ class SearchBotones extends Component
        $this->getData(); 
        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Factura eliminada correctamente']);    
     }
+
+
+
 
 
     public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)

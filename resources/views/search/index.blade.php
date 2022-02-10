@@ -7,7 +7,28 @@
     @endpush
 
     @push('scripts')
+    <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
+
     <script>
+
+        Livewire.on('deleteFactura', () => {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "¡No se puede revertir esta acción!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Si, Eliminar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Livewire.emitTo('search.search-botones', 'borrarFactura');
+
+                }
+            })
+        });
+
         window.addEventListener('modal-opcion-hide', event => {
             $('#'+ event.detail.modal).modal('hide');
         });

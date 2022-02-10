@@ -10,12 +10,12 @@
                 <div class="card-body px-lg-5 pt-0 click text-center" style="color: #757575;">
                     @if ($factura->edo == 1)
                     <a class="btn-floating btn-lg btn-success" wire:click="imprimir()"><i class="fas fa-print"></i></a>
-                    <a class="btn-floating btn-lg btn-danger" wire:click="eliminar()"><i class="fas fa-trash"></i></a>
+                    <a class="btn-floating btn-lg btn-danger" wire:click="$emit('deleteFactura')"><i class="fas fa-trash"></i></a>
                     @endif 
                     <a class="btn-floating btn-lg btn-secondary" data-toggle="modal" data-target="#ModalTipoVenta"><i class="fas fa-sync"></i></a>
                             
                 
-                    {{ mensajex('Documento seleccionado: ' . tipoVenta(session('impresion_seleccionado')), 'info') }}
+                    {{ mensajex(session('idSearch') . ' Documento seleccionado: ' . tipoVenta(session('impresion_seleccionado')), 'info') }}
 
                     @if ($factura->edo == 2)
                     {{ mensajex('ESTA FACTURA HA SIDO ELIMINADA', 'danger') }}

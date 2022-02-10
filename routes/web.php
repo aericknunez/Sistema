@@ -222,6 +222,12 @@ Route::post('/search', [SearchController::class, 'index'])
 ->middleware(['auth:sanctum', 'sessiones'])
 ->name('search');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/search', function () {
+    return view('search.index');
+})->name('searched');
+
+
+
 
 /// cuentas por pagar
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/cuentas/pendientes', function () {

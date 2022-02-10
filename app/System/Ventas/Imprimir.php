@@ -209,6 +209,9 @@ trait Imprimir{
         return $data;
     }
 
+
+    
+
     public function getProductosOrden($orden){
         $datos =  TicketProducto::where('orden', $orden)
         ->where('num_fact', NULL)
@@ -333,12 +336,14 @@ trait Imprimir{
         }
     }
 
+
     public function productosActualizar($orden, $anterior, $nuevo, $panel){
         TicketProducto::where('orden', $orden)
                         ->where('imprimir', $anterior)
                         ->where('panel', $panel)
                         ->update(['imprimir' => $nuevo, 'panel' => $panel, 'tiempo' => Helpers::timeId()]);
     }
+
 
     public function contarProductos($imprimir){
         return TicketProducto::where('orden', session('orden'))
