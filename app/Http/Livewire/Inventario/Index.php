@@ -94,35 +94,34 @@ class Index extends Component
 
     public function btnSumas(){
 
-        $this->validate([
-            'producto' => 'required',
-            'cantidad' => 'required',
-        ]);
-
         $pro = Inventario::where('id', $this->proSelected)->first();
         
-        if ($pro->update(['cantidad' => $pro->cantidad + $this->cantSumas, 'tiempo' => Helpers::timeId()])) {
-            InvHistorial::create([
-                'producto' => $this->proSelected,
-                'cantidad' => $this->cantSumas,
-                'comentario' => $this->comSumas,
-                'tipo' => 1, // 1 sumas , 2 Restas
-                'usuario' => session('config_usuario_id'),
+        if ($this->cantSumas) {
+            
+            if ($pro->update(['cantidad' => $pro->cantidad + $this->cantSumas, 'tiempo' => Helpers::timeId()])) {
+                InvHistorial::create([
+                    'producto' => $this->proSelected,
+                    'cantidad' => $this->cantSumas,
+                    'comentario' => $this->comSumas,
+                    'tipo' => 1, // 1 sumas , 2 Restas
+                    'usuario' => session('config_usuario_id'),
+        
+                    'clave' => Helpers::hashId(),
+                    'tiempo' => Helpers::timeId(),
+                    'td' => config('sistema.td')
+                ]);
+        
+                $this->dispatchBrowserEvent('mensaje', 
+                ['titulo' => 'Realizado', 
+                'texto' => 'Se agregaron ' . $this->comSumas . ' al inventario']);
     
-                'clave' => Helpers::hashId(),
-                'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
-            ]);
+                $this->getProductos();
     
-            $this->dispatchBrowserEvent('mensaje', 
-            ['titulo' => 'Realizado', 
-            'texto' => 'Se agregaron ' . $this->comSumas . ' al inventario']);
-
-            $this->getProductos();
-
+            }
+            
         } else {
-            $this->dispatchBrowserEvent('mensaje', 
-            ['titulo' => 'error', 
+            $this->dispatchBrowserEvent('error', 
+            ['titulo' => 'Error!', 
             'texto' => 'Ha ocurrido un error al ingresar la cantidad']);
         }
 
@@ -135,38 +134,36 @@ class Index extends Component
 
 
     public function btnRestas(){
-
-        $this->validate([
-            'producto' => 'required',
-            'cantidad' => 'required',
-        ]);
         
         $pro = Inventario::where('id', $this->proSelected)->first();
         
-        if ($pro->update(['cantidad' => $pro->cantidad - $this->cantRestas, 'tiempo' => Helpers::timeId()])) {
-            InvHistorial::create([
-                'producto' => $this->proSelected,
-                'cantidad' => $this->cantRestas,
-                'comentario' => $this->comRestas,
-                'tipo' => 2, // 1 sumas , 2 Restas
-                'usuario' => session('config_usuario_id'),
+        if ($this->cantRestas) {
+            if ($pro->update(['cantidad' => $pro->cantidad - $this->cantRestas, 'tiempo' => Helpers::timeId()])) {
+                InvHistorial::create([
+                    'producto' => $this->proSelected,
+                    'cantidad' => $this->cantRestas,
+                    'comentario' => $this->comRestas,
+                    'tipo' => 2, // 1 sumas , 2 Restas
+                    'usuario' => session('config_usuario_id'),
+        
+                    'clave' => Helpers::hashId(),
+                    'tiempo' => Helpers::timeId(),
+                    'td' => config('sistema.td')
+                ]);
+        
+                $this->dispatchBrowserEvent('mensaje', 
+                ['titulo' => 'Realizado', 
+                'texto' => 'Se descontaron ' . $this->comRestas . ' del inventario']);
     
-                'clave' => Helpers::hashId(),
-                'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
-            ]);
+                $this->getProductos();
     
-            $this->dispatchBrowserEvent('mensaje', 
-            ['titulo' => 'Realizado', 
-            'texto' => 'Se descontaron ' . $this->comRestas . ' del inventario']);
-
-            $this->getProductos();
-
+            } 
         } else {
-            $this->dispatchBrowserEvent('mensaje', 
-            ['titulo' => 'error', 
+            $this->dispatchBrowserEvent('error', 
+            ['titulo' => 'Errorr!', 
             'texto' => 'Ha ocurrido un error al ingresar la cantidad']);
         }
+
 
         $this->reset(['proSelected', 'cantRestas', 'comRestas']);
 
