@@ -174,10 +174,7 @@ class Opciones extends Component
                 'texto' => 'Artisan Ejecutado']);
             }
             Artisan::call('migrate');
-            Artisan::call('route:clear');
-
-            $sql = database_path('inv_unidades.sql');
-            DB::unprepared(file_get_contents($sql));            
+            Artisan::call('route:clear');     
 
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 

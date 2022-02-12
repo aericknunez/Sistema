@@ -27,9 +27,16 @@ Route::middleware(['guest'])->get('/', function () {
     }
 });
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/ingreso', function () {
+    return view('login');
+})->name('ingreso');
+
+
+
 Route::get('/iniciar', [IniciarController::class, 'iniciar'])
 ->middleware(['auth:sanctum', 'verified'])
 ->name('iniciar');
+
 
 // aperturar caja
 Route::post('/caja/aperturar', [IniciarController::class, 'aperturar'])
@@ -244,6 +251,10 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/emitidas', f
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/ultimas', function () {
     return view('facturacion.facturas-ultimas');
 })->name('facturacion.ultimas');
+
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/reporte', function () {
+    return view('facturacion.reporte-mensual');
+})->name('facturacion.reporte');
 
 
 // INVENTARIO

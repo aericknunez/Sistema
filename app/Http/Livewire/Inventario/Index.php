@@ -7,6 +7,7 @@ use App\Models\Inventario;
 use App\Models\InvHistorial;
 use App\Models\InvUnidades;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -83,8 +84,17 @@ class Index extends Component
 
 
     public function unidadesMedida(){
+
+        if (!InvUnidades::count()) {
+            $sql = database_path('inv_unidades.sql');
+            DB::unprepared(file_get_contents($sql)); 
+            InvUnidades::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        }
         $this->unidades = InvUnidades::all();
     }
+
+
+
 
     public function seleccionarProducto($pro){
         $this->proSelected = $pro;

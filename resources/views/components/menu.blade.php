@@ -201,6 +201,8 @@
     @can('facturacion.ultimas')
     <li><a href="{{ route('facturacion.ultimas') }}" class="waves-effect"><i class="fas fa-cog"></i> Eliminar Facturas</a></li>
     @endcan
+    <li><a href="{{ route('facturacion.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Ventas</a></li>
+
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Ingresar Registros</a></li>
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Ventas</a></li>
     <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Gastos</a></li>

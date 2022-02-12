@@ -66,6 +66,7 @@ class FacturasEmitidas extends Component
             }
 
         }
+        $this->reset(['fecha1f', 'fecha2f']);
 
     }
 
