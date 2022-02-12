@@ -3,6 +3,7 @@ namespace App\System\Corte;
 
 use App\Models\ConfigApp;
 use App\Models\TicketProducto;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 /*
@@ -22,6 +23,8 @@ trait ImprimirCortes{
         $datos['productos'] = $this->getProductos($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
         $datos['empresa'] = $this->getDatosEmpresa();
         $datos['tipo_impresion'] = 10;
+        $datos['caja'] = session('caja_select');
+        $datos['cajero'] = Auth::user()->name;
         $datos['identidad'] = config('sistema.td');
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
