@@ -27,7 +27,7 @@ Route::middleware(['guest'])->get('/', function () {
     }
 });
 
-Route::middleware(['auth:sanctum', 'sessiones'])->get('/ingreso', function () {
+Route::middleware(['guest'])->get('/ingreso', function () {
     return view('login');
 })->name('ingreso');
 
