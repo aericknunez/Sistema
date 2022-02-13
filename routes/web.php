@@ -256,6 +256,10 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/reporte', fu
     return view('facturacion.reporte-mensual');
 })->name('facturacion.reporte');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/facturacion/rango', function () {
+    return view('facturacion.rango');
+})->name('facturacion.rango');
+
 
 // INVENTARIO
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/inventario', function () {
