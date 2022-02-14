@@ -315,17 +315,6 @@ Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', fu
 })->name('pantalla.login');
 
 
-
-
-Route::get('/arreglo', function () {
-    
-    $num = 476797;
-    $numeros = TicketNum::where('tipo_venta', 2)->where('edo', 1)->orderBy('tiempo', 'ASC')->get();
-    foreach ($numeros as $numero) {
-        TicketNum::where('factura', $numero->factura)->where('tipo_venta', 2)->where('edo', 1)->update(['factura' => $num]);
-        TicketProducto::where('num_fact', $numero->factura)->where('tipo_venta', 2)->where('edo', 1)->update(['num_fact' => $num]);
-        $num++;
-    }
     
 
 });
