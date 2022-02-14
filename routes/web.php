@@ -180,6 +180,12 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/resumen', func
     return view('historial.resumen');
 })->name('historial.resumen');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/entradas', function () {
+    return view('historial.entradas');
+})->name('historial.entradas');
+
+
+
 
 /// panel de control
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/panel/control', function () {

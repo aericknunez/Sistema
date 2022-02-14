@@ -1,7 +1,7 @@
 <x-principal-layout>
 
     {{-- Contenido --}}
-        @livewire('historial.gastos')
+        @livewire('historial.entradas')
     {{-- contenido  --}}
    
     @push('scripts')

@@ -4,6 +4,7 @@ namespace App\System\Historial;
 use App\Models\CorteDeCaja;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
+use App\Models\EntradasSalidas;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
 use App\Models\User;
@@ -48,14 +49,18 @@ trait Historial {
 
 
     public function gastosUnica($fecha){
-        return EfectivoGastos::whereDate('created_at', $fecha)
+        return EfectivoGastos::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('cajero', 'users.id')])
+                                ->whereDate('created_at', $fecha)
                                 ->with('banco')
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
     }
 
     public function gastosMultiple($fecha1, $fecha2){
-        return EfectivoGastos::whereBetween('created_at', [$fecha1, $fecha2])
+        return EfectivoGastos::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('cajero', 'users.id')])
+                                ->whereBetween('created_at', [$fecha1, $fecha2])
                                 ->with('banco')
                                 ->orderBy('tiempo', 'desc')
                                 ->get();
@@ -153,6 +158,28 @@ trait Historial {
                                 ->orderBy('orden', 'desc')
                                 ->get();
     }
+
+
+
+    public function entradasSalidasUnica($fecha){
+        return EntradasSalidas::addSelect(['user' => User::select('name')
+                                ->whereColumn('cajero', 'users.id')])
+                                ->whereDate('created_at', $fecha)
+                                ->with('banco')
+                                ->where('edo', 1)
+                                ->get();
+    }
+
+
+    public function entradasSalidasMultiple($fecha1, $fecha2){
+        return EntradasSalidas::addSelect(['user' => User::select('name')
+                                ->whereColumn('cajero', 'users.id')])
+                                ->whereBetween('created_at', [$fecha1, $fecha2])
+                                ->with('banco')
+                                ->where('edo', 1)
+                                ->get();
+    }
+
 
     
 

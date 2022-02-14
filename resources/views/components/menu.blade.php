@@ -122,6 +122,8 @@
     @can('historial.eliminadas')
     <li><a href="{{ route('historial.eliminadas') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes Eliminadas</a></li>
     @endcan
+    <li><a href="{{ route('historial.entradas') }}" class="waves-effect"><i class="fas fa-cog"></i> Entradas y Salidas</a></li>
+
     </ul>
     </div>
 </li>   

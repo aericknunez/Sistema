@@ -23,7 +23,8 @@
                         class="red-text"
                     @endif >
                         <th scope="row">{{ $gasto->id }}</th>
-                        <td class="font-weight-bold text-uppercase">{{ $gasto->nombre }}</td>
+                        <td class="font-weight-bold text-uppercase" data-toggle="tooltip" data-html="true"
+                        title="Usuario: {{ $gasto->usuario }}">{{ $gasto->nombre }}</td>
                         <td class="text-uppercase">{{ $gasto->descripcion }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ dinero($gasto->cantidad) }}</td>
                         <td class="text-uppercase"> {{ formatFecha($gasto->created_at) }}</td>
