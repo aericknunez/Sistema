@@ -314,7 +314,3 @@ Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', fu
     return view('auth.login');
 })->name('pantalla.login');
 
-
-    
-
-});
