@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Facturacion;
 
+use App\Models\TicketNum;
 use App\System\Ventas\Imprimir;
 use Livewire\Component;
 
@@ -18,9 +19,16 @@ class Rango extends Component
 
 
     public function aplicarRango(){
-        $this->validate(['inicio' => 'required|numeric', 'fin' => 'required|numeric']);
+        $this->validate([
+                            'inicio' => 'required|numeric', 
+                            'fin' => 'required|numeric'
+        ]);
+
         for ($i=$this->inicio; $i <= $this->fin; $i++) { 
-            $this->ImprimirFactura(session($i)); // imprime la factura
+            $num = TicketNum::where('factura', $i)->first();
+            if ($num->factura) {
+                $this->ImprimirFactura(session($i)); // imprime la factura
+            }
         }
     }
 
