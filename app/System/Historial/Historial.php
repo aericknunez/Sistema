@@ -167,6 +167,7 @@ trait Historial {
                                 ->whereDate('created_at', $fecha)
                                 ->with('banco')
                                 ->where('edo', 1)
+                                ->orderBy('id', 'DESC')
                                 ->get();
     }
 
@@ -177,6 +178,7 @@ trait Historial {
                                 ->whereBetween('created_at', [$fecha1, $fecha2])
                                 ->with('banco')
                                 ->where('edo', 1)
+                                ->orderBy('id', 'DESC')
                                 ->get();
     }
 
