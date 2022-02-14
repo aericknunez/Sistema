@@ -6,6 +6,8 @@ use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
+use App\Models\TicketNum;
+use App\Models\TicketProducto;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -311,3 +313,19 @@ Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', fu
     // return view('panel.pantalla-login');
     return view('auth.login');
 })->name('pantalla.login');
+
+
+
+
+Route::get('/arreglo', function () {
+    
+    $num = 476796;
+    $numeros = TicketNum::where('tipo_venta', 2)->where('edo', 1)->orderBy('tiempo', 'ASC')->get();
+    foreach ($numeros as $numero) {
+        TicketNum::where('factura', $numero->factura)->where('tipo_venta', 2)->where('edo', 1)->update(['factura' => $num]);
+        TicketProducto::where('num_fact', $numero->factura)->where('tipo_venta', 2)->where('edo', 1)->update(['num_fact' => $num]);
+        $num++;
+    }
+    
+
+});
