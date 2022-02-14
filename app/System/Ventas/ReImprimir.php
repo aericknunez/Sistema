@@ -5,6 +5,7 @@ use App\Common\Helpers;
 use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketProducto;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -20,8 +21,6 @@ trait ReImprimir{
         $datos['caja'] = session('caja_select');
         $datos['documento_factura'] = $tipo_venta;
         $datos['no_factura'] = $factura;
-        $datos['fecha'] = date('d-m-Y');
-        $datos['hora'] = date('H:i:s');
         $datos['tipo_moneda'] = Helpers::paisSimbolo(session('config_pais'));
         // $datos['cliente'] = $this->getDatosCliente();
         $datos['cajero'] = Auth::user()->name;
@@ -33,7 +32,8 @@ trait ReImprimir{
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
-        // Http::asForm()->post('http://localhost/impresiones/index.php', ['datos' => $datos]);
+        // dd($datos);
+
     }
 
 
@@ -126,8 +126,8 @@ trait ReImprimir{
         $datos['propina_cant'] = $pago->propina_cant;
         $datos['propina_porcent'] = $pago->propina_porcent;
 
-        $datos['fecha'] = $pago->created_at;
-        $datos['hora'] = $pago->created_at;
+        $datos['fecha'] = Carbon::parse($pago->created_at)->format('d-m-Y');
+        $datos['hora'] = Carbon::parse($pago->created_at)->format('H:i:s');
 
 
         $datos['cambio'] = $pago->efectivo - $pago->total;

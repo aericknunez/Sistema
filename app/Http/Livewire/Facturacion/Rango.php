@@ -41,6 +41,7 @@ class Rango extends Component
                 $this->ReImprimirFactura($i, $this->tipo_venta); // imprime la factura
             }
         }
+        $this->emit('imprimiendo');
     }
 
 
