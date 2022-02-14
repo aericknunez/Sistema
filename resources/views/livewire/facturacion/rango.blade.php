@@ -18,7 +18,6 @@
                             <div class="col mb-2">
                                 <small>Tipo de documento</small>
                                 <select class="browser-default custom-select" wire:model="tipo_venta">
-                                    <option value="10" selected >Todos</option>
                                     @if ( $documentos->ninguno)
                                         <option value="0">Ninguno</option>
                                     @endif
