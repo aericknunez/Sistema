@@ -15,6 +15,28 @@
             <div class="card mt-3">
                 <form  class="md-form" wire:submit.prevent="aplicarRango">
 
+                            <div class="col mb-2">
+                                <small>Tipo de documento</small>
+                                <select class="browser-default custom-select" wire:model="tipo_venta">
+                                    <option value="10" selected >Todos</option>
+                                    @if ( $documentos->ninguno)
+                                        <option value="0">Ninguno</option>
+                                    @endif
+                                    @if ( $documentos->ticket)
+                                    <option value="1">Ticket</option>
+                                    @endif
+                                    @if ( $documentos->factura)
+                                    <option value="2">Factura</option>
+                                    @endif
+                                    @if ( $documentos->credito_fiscal)
+                                    <option value="3">Credito Fiscal</option>
+                                    @endif
+                                    @if ( $documentos->no_sujeto)
+                                    <option value="4">No Sujeto</option>
+                                    @endif
+                                </select>
+                            </div>
+
                 <div class="row">
                     <div class="col mx-2">
 
