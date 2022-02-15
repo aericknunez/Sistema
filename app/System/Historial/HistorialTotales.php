@@ -8,9 +8,6 @@ use App\Models\SyncLastUpdate;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 
-
-
-
 trait HistorialTotales {
 
 
@@ -125,7 +122,7 @@ trait HistorialTotales {
         $totalVenta = $totalFacturado + $totalNoFacturado;
         @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
         @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
-        
+
         $data = collect(['facturado' => $pFacturado, 'nofacturado' => $pNoFacturado]);
         return  $data;
     }

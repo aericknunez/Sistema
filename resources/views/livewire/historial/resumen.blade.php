@@ -6,6 +6,7 @@
             <div class="clearfix mb-2">
                 <div class="h2 float-left">Resumen de Datos</div>
                 <div class="h2 float-right font-weight-bold text-uppercase">
+                    {{-- {{ $porcentaje }} --}}
                 </div>
             </div>
 
@@ -79,7 +80,7 @@
                             <span class="count-numbers">
                                 <h5 class="font-weight-bold">{{ $cortesAbiertos }}</h5>
                             </span>
-                            <span class="count-name">Cajas Aperturadas</span>
+                            <span class="count-name">Cajas Abiertas</span>
                         </div>
                     </div>
 
@@ -206,3 +207,26 @@
     </x-cuerpo>
 
 </div>
+
+@push('scripts')
+<script>
+
+
+            var ctxP = document.getElementById("pieChart").getContext('2d');
+            var myPieChart = new Chart(ctxP, {
+                type: 'pie',
+                data: {
+                    labels: ["Facturado", "No Facturado"],
+                    datasets: [{
+                        data: [{{ $porcentaje['facturado'] }}, {{ $porcentaje['nofacturado'] }}],
+                        backgroundColor: ["#46BFBD", "#F7464A"],
+                        hoverBackgroundColor: ["#5AD3D1","#FF5A5E"]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+</script>
+@endpush

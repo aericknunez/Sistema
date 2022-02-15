@@ -19,7 +19,8 @@ class Resumen extends Component
     public $gastos = [];
     public $cuentas = [];
 
-    public $porcentaje = []; //porcentaje de facturado y no facturado
+    public $porcentaje = [];
+
     public $noOrdenes;
     public $promedioPollo = 0;
     public $cortesAbiertos;
@@ -61,11 +62,20 @@ class Resumen extends Component
             $this->porcentaje = $this->PorcentajeMultiple($this->fecha1, $this->fecha2);
             $this->noOrdenes = $this->ordenesMultiple($this->fecha1, $this->fecha2);
         }
-        // $this->emit('graficar');
-
-        $this->dispatchBrowserEvent('graficar', ['facturado' => $this->porcentaje['facturado'], 'nofacturado' => $this->porcentaje['nofacturado']]);
-
+        
+        // $this->emision($this->porcentaje['facturado'], $this->porcentaje['nofacturado']);
         $this->reset(['fecha1f', 'fecha2f']);
+    }
+
+    
+    
+
+    public function emision($facturado, $nofacturado){
+        $this->dispatchBrowserEvent('graficar', 
+        [
+            'facturado' => $facturado, 
+            'nofacturado' => $nofacturado
+        ]);
     }
 
 

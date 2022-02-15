@@ -4,7 +4,7 @@
         @livewire('historial.resumen')
     {{-- contenido  --}}
    
-    @push('scripts')
+    {{-- @push('scripts')
     <script>
 
         window.addEventListener('graficar', event => {
@@ -25,11 +25,10 @@
                     }
                 });
 
-
         });
 
     </script>
-    @endpush
+    @endpush --}}
 
 
 </x-principal-layout>
