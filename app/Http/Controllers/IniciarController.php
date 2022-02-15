@@ -39,7 +39,11 @@ class IniciarController extends Controller
 
 
         if (config('sistema.justdata')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
-            return redirect()->route('panel.control');
+            if (config('sistema.datapollo')) { 
+                return redirect()->route('historial.resumen');
+            } else {
+                return redirect()->route('panel.control');
+            }
         }
 
         if (session('config_tipo_usuario') == 7) {

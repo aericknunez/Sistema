@@ -5,7 +5,13 @@
         <!-- Logo -->
         <li>
             <div class="logo-wrapper waves-light">
-                <a href="{{ route('panel.control') }}">
+                
+
+                @if (config('sistema.datapollo'))
+                    <a href="{{ route('historial.resumen') }}">
+                @else
+                    <a href="{{ route('panel.control') }}">
+                @endif
                     <img src="{{ asset('img/logo/pizto.png') }}" class="img-fluid flex-center">
                 </a>
             </div>
@@ -40,6 +46,8 @@
         <li><a href="{{ route('historial.meseros') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Meseros</a></li>
         {{-- <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen Repartidores</a></li> --}}
         <li><a href="{{ route('historial.ordenes') }}" class="waves-effect"><i class="fas fa-cog"></i> Ordenes</a></li>
+        <li><a href="{{ route('historial.entradas') }}" class="waves-effect"><i class="fas fa-cog"></i> Entradas y Salidas</a></li>
+
     </ul>
     </div>
 </li>   
@@ -174,7 +182,13 @@
                 
 
             <li class="nav-item">
+
+            @if (config('sistema.datapollo'))
+                <a href="{{ route('historial.resumen') }}" class="nav-link"><i class="fas fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Inicio</span></a>
+            @else
                 <a href="{{ route('panel.control') }}" class="nav-link"><i class="fas fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Inicio</span></a>
+            @endif
+
             </li>
 
      
