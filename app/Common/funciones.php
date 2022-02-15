@@ -135,6 +135,10 @@ function formatJustFecha($value){
     return Carbon::parse($value)->format('d-m-Y');
 }
 
+function formatJustHora($value){
+    return Carbon::parse($value)->format('H:i:s');
+}
+
   function nombreMesa($mesa){
     if($mesa > 10){
         return "mesax.jpg";
