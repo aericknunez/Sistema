@@ -65,7 +65,6 @@ class Resumen extends Component
 
         $this->dispatchBrowserEvent('graficar', ['facturado' => $this->porcentaje['facturado'], 'nofacturado' => $this->porcentaje['nofacturado']]);
 
-
         $this->reset(['fecha1f', 'fecha2f']);
     }
 

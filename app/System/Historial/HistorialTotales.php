@@ -67,7 +67,7 @@ trait HistorialTotales {
 
 
     public function cortesAbiertos(){
-        return CorteDeCaja::where('edo', 2)
+        return CorteDeCaja::where('edo', 1)
                            ->count();
     }
 
