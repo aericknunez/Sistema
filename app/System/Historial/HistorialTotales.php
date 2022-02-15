@@ -7,7 +7,6 @@ use App\Models\EfectivoGastos;
 use App\Models\SyncLastUpdate;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
-use App\Models\TicketProducto;
 
 
 
@@ -18,16 +17,16 @@ trait HistorialTotales {
 
 
     public function historialTotalUnica($fecha){
-        return TicketProducto::where('edo', 1)
+        return TicketNum::where('edo', 1)
                                 ->whereDate('created_at', $fecha)
-                                ->sum('cantidad');
+                                ->sum('total');
     }
 
 
     public function historialTotalMultiple($fecha1, $fecha2){
-        return TicketProducto::where('edo', 1)
+        return TicketNum::where('edo', 1)
                                 ->whereBetween('created_at', [$fecha1, $fecha2])
-                                ->sum('cantidad');
+                                ->sum('total');
     }
 
 
