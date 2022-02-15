@@ -64,10 +64,6 @@
     
     
     <li><a href="{{ route('facturacion.emitidas') }}" class="waves-effect"><i class="fas fa-cog"></i> Facturas Emitidas</a></li>
-    <li><a href="{{ route('facturacion.ultimas') }}" class="waves-effect"><i class="fas fa-cog"></i> Eliminar Facturas</a></li>
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Ingresar Registros</a></li>
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Ventas</a></li>
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Detalle de Gastos</a></li>
         
     </ul>
     </div>
@@ -99,15 +95,9 @@
     <ul class="list-unstyled">
     <li><a href="{{ route('profile.show') }}" class="waves-effect"><i class="fas fa-cog"></i> {{ __('Perfil de Usuario') }}</a></li>
 
-@if (isGrandAdmin())
-
-    <li><a href="{{ route('config.usuarios') }}" class="waves-effect"><i class="fas fa-cog"></i> Cambiar Usuarios</a></li>
-
-@endif
-
     </ul>
     </div>
-    </li>  
+</li>  
 
 
 
