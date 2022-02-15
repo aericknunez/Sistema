@@ -13,6 +13,7 @@ class Reporte extends Component
     use Historial, ImprimirCortes, Corte, DatosEspeciales;
 
     public $fecha1;
+    public $fecha1f;
     public $productos = [];
     public $cortes = [];
     public $gastos = [];
@@ -49,15 +50,18 @@ class Reporte extends Component
             $this->gastos = $this->gastosUnica($this->fecha1);
             $this->remesas = $this->remesasUnica($this->fecha1);
             $this->ordenes = $this->ordenesUnica($this->fecha1);
+            
+            $this->reset(['fecha1f']);
+
     }
 
 
     public function formatFechas(){
 
-            if(!$this->fecha1){ $this->fecha1 = date('Y-m-d'); 
-            } else {
-                $this->fecha1 =  $this->fecha1f;
-            }
+        if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
+        } else {
+            $this->fecha1 =  $this->fecha1f;
+        }
         
     }
 
