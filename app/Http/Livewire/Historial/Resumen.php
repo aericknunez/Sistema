@@ -19,6 +19,11 @@ class Resumen extends Component
     public $gastos = [];
     public $cuentas = [];
 
+    public $porcentaje = []; //porcentaje de facturado y no facturado
+    public $noOrdenes;
+    public $promedioPollo = 0;
+    public $cortesAbiertos;
+    public $lastUpdate;
 
 
     public function mount(){
@@ -43,11 +48,24 @@ class Resumen extends Component
             $this->ventas = $this->historialTotalUnica($this->fecha1);     
             $this->gastos = $this->historialGastosUnica($this->fecha1);     
             $this->cuentas = $this->saldosCuentas();
+            $this->cortesAbiertos = $this->cortesAbiertos();            
+            $this->lastUpdate = $this->LastUpdate();
+            $this->porcentaje = $this->PorcentajeUnico($this->fecha1);
+            $this->noOrdenes = $this->ordenesUnica($this->fecha1);
         } else {
             $this->ventas = $this->historialTotalMultiple($this->fecha1, $this->fecha2);
             $this->gastos = $this->historialGastosMultiple($this->fecha1, $this->fecha2);
             $this->cuentas = $this->saldosCuentas();
+            $this->cortesAbiertos = $this->cortesAbiertos();            
+            $this->lastUpdate = $this->LastUpdate();
+            $this->porcentaje = $this->PorcentajeMultiple($this->fecha1, $this->fecha2);
+            $this->noOrdenes = $this->ordenesMultiple($this->fecha1, $this->fecha2);
         }
+        // $this->emit('graficar');
+
+        $this->dispatchBrowserEvent('graficar', ['facturado' => $this->porcentaje['facturado'], 'nofacturado' => $this->porcentaje['nofacturado']]);
+
+
         $this->reset(['fecha1f', 'fecha2f']);
     }
 
