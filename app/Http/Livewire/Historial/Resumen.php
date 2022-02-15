@@ -29,7 +29,7 @@ class Resumen extends Component
 
     public function mount(){
         $this->tipo_fecha = 1;
-        $this->aplicarFechas();
+        $this->getAllData();
     }
 
 
@@ -42,7 +42,7 @@ class Resumen extends Component
 
 
 
-    public function aplicarFechas(){
+    public function getAllData(){
         $this->formatFechas();
 
         if ($this->tipo_fecha == 1) {

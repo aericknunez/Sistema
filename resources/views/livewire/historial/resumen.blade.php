@@ -11,7 +11,7 @@
             </div>
 
 
-            <div >
+            <div wire:poll.{{ config('sistema.synctime') }}s.visible="getAllData()">
 
                 <div class="row">
 
