@@ -69,7 +69,7 @@ trait HistorialTotales {
     }
 
     public function LastUpdate(){
-        $fecha = SyncLastUpdate::orderBy('id', 'ASC')->first();
+        $fecha = SyncLastUpdate::orderBy('id', 'desc')->first();
         if ($fecha) {
             return $fecha->last_update;
         } else {
