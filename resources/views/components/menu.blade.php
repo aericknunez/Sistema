@@ -96,7 +96,7 @@
     <div class="collapsible-body">
     <ul class="list-unstyled">
 
-    <li><a href="{{ route('historial.resumen') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Efectivo</a></li>
+    {{-- <li><a href="{{ route('historial.resumen') }}" class="waves-effect"><i class="fas fa-cog"></i> Resumen de Efectivo</a></li> --}}
     
     @can('historial.reporte')
     <li><a href="{{ route('historial.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Diario</a></li>
