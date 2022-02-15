@@ -145,7 +145,7 @@
             <canvas id="pieChart"></canvas>
 
 
-
+{{-- 
             <div class="clearfix mb-2">
                 <div class="h2 float-left">Seleccionar Fechas</div>
             </div>
@@ -159,7 +159,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- <div class="card mt-3">
                 <form class="md-form" wire:submit.prevent="aplicarFechas">
