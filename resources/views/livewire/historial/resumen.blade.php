@@ -161,7 +161,7 @@
                 </div>
             </div>
 
-            <div class="card mt-3">
+            {{-- <div class="card mt-3">
                 <form class="md-form" wire:submit.prevent="aplicarFechas">
 
                     <div class="row">
@@ -193,14 +193,14 @@
                     </div>
                 </form>
 
-            </div>
+            </div> --}}
 
-            @if ($tipo_fecha == 1)
+            {{-- @if ($tipo_fecha == 1)
                 <small class="my-2"> Fecha seleccionada: {{ formatFecha($fecha1) }}</small>
             @else
                 <small class="my-2"> Fecha desde : {{ formatFecha($fecha1) }} hasta:
                     {{ formatFecha($fecha2) }}</small>
-            @endif
+            @endif --}}
 
         </x-slot>
 
