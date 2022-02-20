@@ -26,6 +26,8 @@ class Resumen extends Component
     public $cortesAbiertos;
     public $lastUpdate;
 
+    public $dataModal = [];
+
 
     public function mount(){
         $this->tipo_fecha = 1;

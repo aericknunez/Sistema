@@ -7,6 +7,7 @@ use App\Models\EfectivoGastos;
 use App\Models\SyncLastUpdate;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
+use App\Models\User;
 
 trait HistorialTotales {
 
@@ -68,6 +69,8 @@ trait HistorialTotales {
                            ->count();
     }
 
+
+
     public function LastUpdate(){
         $fecha = SyncLastUpdate::orderBy('id', 'desc')->first();
         if ($fecha) {
@@ -127,6 +130,26 @@ trait HistorialTotales {
         return  $data;
     }
 
+
+
+
+    // DATOS DE LOS MODALES
+
+    public  function CajasAbiertas(){
+        return CorteDeCaja::addSelect(['user' => User::select('name')
+                            ->whereColumn('usuario', 'users.id')])
+                            ->where('edo', 1)->get();
+    }
+
+
+    public function resumenGastos($fecha){
+        return EfectivoGastos::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('cajero', 'users.id')])
+                                ->whereDate('created_at', $fecha)
+                                ->with('banco')
+                                ->orderBy('tiempo', 'desc')
+                                ->get();
+    }
 
 
 

@@ -114,7 +114,7 @@
         <x-slot name="lateral">
 
             <div class="clearfix mb-2">
-                <div class="h2 float-left">Porcentaje</div>
+                <div class="h2 float-left">Porcentaje {{ $porcentaje['facturado'] }} / {{ $porcentaje['nofacturado'] }} </div>
             </div>
 
             <canvas id="pieChart"></canvas>
