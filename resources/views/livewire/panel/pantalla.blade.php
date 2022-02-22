@@ -4,6 +4,7 @@
 
     <x-contenido >
 
+        {{ $hashSound}}
         <div class="row  px-3 row justify-content-left click" wire:poll.{{ config('sistema.synctime') }}s.visible="getOrdenes">
             @foreach ($datos as $orden)
                     <div class="mt-3 col-md-3">
@@ -13,7 +14,6 @@
         </div>
     
     </x-contenido >
-
 
     <x-panel.pantalla-ordenes-terminadas :datos="$terminadas" />
 

@@ -40,15 +40,14 @@ class Mesas extends Component
 
 
     public function getOrdenesActive(){
-        $ordenes = $this->ordenesInicio();
-        $this->mesasAll = $ordenes;
+        $this->mesasAll = $this->ordenesInicio();
     }
 
 
     public function ordenSelect($orden){
         $ordenx = TicketOrden::select('clientes','edo')
-        ->where('id', $orden)
-        ->first();
+                                ->where('id', $orden)
+                                ->first();
         if ($ordenx->edo == 1) {
             session(['clientes' => $ordenx->clientes]);
 

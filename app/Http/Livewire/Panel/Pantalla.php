@@ -24,12 +24,12 @@ class Pantalla extends Component
     public $limitTerminadas;
 
     public $sound;
+    public $hashSound = 1;
 
 
 
     public function mount(){
         $this->panelImprimir = 1;
-        session(['hash_sound' => 1]);
         $this->getOrdenes();
         $this->getPanels();
         $this->limitTerminadas = 20;
@@ -49,15 +49,15 @@ class Pantalla extends Component
                                         ->with('productos')
                                         ->with('productos.subOpcion')->get();
 
-            $this->sound = md5($this->datos);
+            $this->sound = sha1($this->datos);
             $this->emitSound($this->sound);
     }
 
 
 
     public function emitSound($datos){ // compara si son los mismos datos, sino emite el sonido
-        if($datos != session('hash_sound')){
-            session(['hash_sound' => $datos]);
+        if($datos != $this->hashSound){
+            $this->hashSound = $datos;
             $this->emit('sound'); // sonido 
         }
     }

@@ -13,7 +13,7 @@
                         <div class="text-dark">
                             <p class="mb-1 fw-bold">{{ $mesa->nombre_mesa }}</p>
                             <p class="small text-muted mb-0">{{ formatFecha($mesa->created_at) }} <span class="ml-1"><i class="mdi mdi-circle-medium mr-1"></i>
-                                {{ nombreUsuario($mesa->empleado) }}</span></p>
+                                {{ $mesa->usuario }}</span></p>
                         </div>
                         <div class="badge bg-success ml-auto mb-auto">{{ $mesa->clientes }}</div>
                         </div>

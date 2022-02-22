@@ -77,7 +77,9 @@ class Delivery extends Component
 
 
     public function obtenerOrdenes(){
-        $ordenes = TicketOrden::where('tipo_servicio', 3)
+        $ordenes = TicketOrden::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('empleado', 'users.id')])
+                                ->where('tipo_servicio', 3)
                                 ->where('edo', 1)
                                 ->with('deliverys')
                                 ->with('deliverys.cliente')

@@ -74,7 +74,7 @@
 /* para el nuevo menu de productos*/
 .newmenu {
     background: #ebebeb;
-    height: 170px;
+    height: 150px; /* 170 para mas alto*/
     max-width: 120px;
     border: 2px solid #979797;
     transition-duration: 0.4s;
@@ -108,7 +108,7 @@ top: 10px;
 
 
 .menu-title {
-     padding: 15px; /* tamano de alto del titulo */
+    padding: 5px; /* 15 (alto normal) tamano de alto del titulo */
     text-align: center;
     font-size: 90%;
     background: #c3c6ca;
@@ -117,7 +117,7 @@ top: 10px;
 }
 
 .menu-title2 { /*para productos y no para categorias*/
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #002061;
@@ -126,7 +126,7 @@ top: 10px;
 }
 
 .menu-titleC {
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #5A0101;
@@ -135,7 +135,7 @@ top: 10px;
 }
 
 .menu-titleO {
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #013E5A;

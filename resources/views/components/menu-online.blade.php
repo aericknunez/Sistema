@@ -56,6 +56,26 @@
 
 
 
+@if (auth()->user()->canany(['efectivo.transacciones']))
+<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-dollar-sign"></i> EFECTIVO<i class="fa fa-angle-down rotate-icon"></i></a>
+    <div class="collapsible-body">
+    <ul class="list-unstyled">
+    
+
+@can('efectivo.transacciones')
+<li><a href="{{ route('efectivo.transacciones') }}" class="waves-effect"><i class="fas fa-cog"></i> Lista de Transacciones</a></li>  
+@endcan
+
+
+    </ul>
+    </div>
+    </li>    
+@endif
+
+
+
+
+
 
 @if (isAdmin())
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> FACTURACION<i class="fa fa-angle-down rotate-icon"></i></a>
