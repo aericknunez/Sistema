@@ -2,10 +2,12 @@
 namespace App\System\Ventas;
 
 use App\Common\Helpers;
+use App\Models\Cliente;
 use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
@@ -20,24 +22,24 @@ Los tipos de impresion se distribuiran asi:
 
 trait Imprimir{
 
+    use OrdenarProductosImprimir;
 
     public function ImprimirFactura($factura){ // para factura
       
         $datos = $this->getTotalFactura($factura);
         $datos['productos'] = $this->getProductosFactura($factura);
         $datos['empresa'] = $this->getDatosEmpresa();
+        if ($datos['cliente']) {
+            $datos['cliente'] = $this->getDatosCliente($datos['cliente']);
+        }
         $datos['caja'] = session('caja_select');
         $datos['documento_factura'] = session('impresion_seleccionado');
         $datos['no_factura'] = $factura;
-        $datos['fecha'] = date('d-m-Y');
-        $datos['hora'] = date('H:i:s');
         $datos['tipo_moneda'] = Helpers::paisSimbolo(session('config_pais'));
-        // $datos['cliente'] = $this->getDatosCliente();
         $datos['cajero'] = Auth::user()->name;
         $datos['config_imp'] = session('config_impuesto');
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = config('sistema.td');
-        $datos['numero_documento'] = $factura; // numero de factura
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
@@ -80,31 +82,6 @@ trait Imprimir{
     }
 
 
-    public function ImprimirComanda(){
-        if ($this->contarProductos(2) > 0) {
-            if ($this->contarProductosPanel(2, 1) > 0) {
-                $this->productosComanda(2, 1);
-            }
-            if ($this->contarProductosPanel(2, 2) > 0) {
-                $this->productosComanda(2, 2);
-            }
-            if ($this->contarProductosPanel(2, 3) > 0) {
-                $this->productosComanda(2, 3);
-            }
-        }
-        if ($this->contarProductos(4) > 0) {
-            if ($this->contarProductosPanel(4, 1) > 0) {
-                $this->productosComanda(4, 1);
-            }
-            if ($this->contarProductosPanel(4, 2) > 0) {
-                $this->productosComanda(4, 2);
-            }
-            if ($this->contarProductosPanel(4, 3) > 0) {
-                $this->productosComanda(4, 3);
-            }
-        }
-    }
-
 
 
     public function AbrirCaja(){
@@ -116,7 +93,6 @@ trait Imprimir{
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
-        // Http::asForm()->post('http://localhost/impresiones/index.php', ['datos' => $datos]);
     }
 
 
@@ -146,6 +122,38 @@ trait Imprimir{
 
 
 
+
+    public function ImprimirComanda(){
+        if ($this->contarProductos(2) > 0) {
+            if ($this->contarProductosPanel(2, 1) > 0) {
+                $this->productosComanda(2, 1);
+            }
+            if ($this->contarProductosPanel(2, 2) > 0) {
+                $this->productosComanda(2, 2);
+            }
+            if ($this->contarProductosPanel(2, 3) > 0) {
+                $this->productosComanda(2, 3);
+            }
+        }
+        if ($this->contarProductos(4) > 0) {
+            if ($this->contarProductosPanel(4, 1) > 0) {
+                $this->productosComanda(4, 1);
+            }
+            if ($this->contarProductosPanel(4, 2) > 0) {
+                $this->productosComanda(4, 2);
+            }
+            if ($this->contarProductosPanel(4, 3) > 0) {
+                $this->productosComanda(4, 3);
+            }
+        }
+    }
+
+
+
+
+
+
+
     public function getDatosEmpresa(){
         $conf = ConfigApp::find(1);
         $datos['empresa_nombre'] = $conf->cliente;
@@ -160,53 +168,15 @@ trait Imprimir{
     }
 
     
-    public function getDatosCliente(){
-
-    }
-
-    private function formatData($datos){
-        $datos = $datos->sortBy('cod');
-        $datos->values()->all();
-        $count = 0;
-        $conteo = 0;
-        $data = [];
-        foreach ($datos as $producto) {     
-            if ($count != $producto->cod) {
-
-            $cod = $datos->where('cod', $producto->cod);
-            $cod->all();
-            $cant = count($cod);
-            $total = $cod->sum('total');
-            $count = $producto->cod;
-                $data[$conteo]['cant'] = $cant;
-                $data[$conteo]['producto'] = $producto->producto;        
-                $data[$conteo]['pv'] = $producto->pv;
-                $data[$conteo]['imp'] = $producto->imp;
-                $data[$conteo]['total'] = $total;
-            $conteo ++;  
-            }
-        }
-
-        return $data;
-    }
-
-    private function formatDataComanda($datos){
-        $conteo = 0;
-        $data = [];
-        foreach ($datos as $producto) {   
-                $data[$conteo]['subOpcion'] = [];  
-
-                $data[$conteo]['cant'] = $producto->cantidad;
-                $data[$conteo]['producto'] = $producto->producto;  
-                $x = 0;  
-                foreach ($producto->subOpcion as $opcion) {
-                    $data[$conteo]['subOpcion'][$x]['nombre'] = $opcion->nombre;
-                $x ++;
-                }    
-            $conteo ++;  
-        }
-
-        return $data;
+    public function getDatosCliente($cliente){
+        $client = Cliente::find($cliente);
+        $datos['cliente'] = $client->cliente;
+        $datos['giro'] = $client->giro;
+        $datos['departamento_doc'] = $client->departamento_doc;
+        $datos['direccion_doc'] = $client->direccion_doc;
+        $datos['documento'] = $client->documento;
+        $datos['registro'] = $client->registro;
+        return $datos;
     }
 
 
@@ -307,8 +277,7 @@ trait Imprimir{
                             ->sum('total');
 
                             
-        $pago = TicketNum::select('efectivo', 'propina_cant', 'propina_porcent', 'total')
-                            ->where('tipo_pago', session('tipo_pago'))
+        $pago = TicketNum::where('tipo_pago', session('tipo_pago'))
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', $factura)
                             ->first();
@@ -318,6 +287,10 @@ trait Imprimir{
         $datos['propina_porcent'] = $pago->propina_porcent;
 
         $datos['cambio'] = $pago->efectivo - $pago->total;
+        $datos['cliente'] = $pago->cliente_id;
+        $datos['fecha'] = Carbon::parse($pago->created_at)->format('d-m-Y');
+        $datos['hora'] = Carbon::parse($pago->created_at)->format('H:i:s');
+
         return $datos;
     }    
 
