@@ -27,6 +27,7 @@ trait ReImprimir{
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = config('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+        $datos['reimprimir'] = true;
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 

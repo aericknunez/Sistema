@@ -17,6 +17,14 @@
             )
         });
 
+        Livewire.on('errorCantidad', ()=>{
+            Swal.fire(
+                'ERROR AL IMPRIMIR',
+                'El rango mayor es de 25 facturas',
+                'error'
+            )
+        });
+
     </script>   
     @endpush
 

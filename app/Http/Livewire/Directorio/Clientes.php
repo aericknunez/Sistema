@@ -38,6 +38,13 @@ class Clientes extends Component
     public $client_iden;
 
 
+    public function mount(){
+        $this->telefono = 0;
+        $this->direccion = "Ninguno";
+    }
+
+
+
     public function render()
     {
         $clientes = $this->getClientes();

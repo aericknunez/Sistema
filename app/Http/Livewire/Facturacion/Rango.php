@@ -35,13 +35,19 @@ class Rango extends Component
                         'fin' => 'required|numeric'
         ]);
 
-        for ($i=$this->inicio; $i <= $this->fin; $i++) { 
-            $num = TicketNum::where('factura', $i)->where('tipo_venta', $this->tipo_venta)->first();
-            if ($num->factura) {
-                $this->ReImprimirFactura($i, $this->tipo_venta); // imprime la factura
+        if (($this->fin - $this->inicio) <= 25) {
+            for ($i=$this->inicio; $i <= $this->fin; $i++) { 
+                $num = TicketNum::where('factura', $i)->where('tipo_venta', $this->tipo_venta)->first();
+                if ($num->factura) {
+                    $this->ReImprimirFactura($i, $this->tipo_venta); // imprime la factura
+                }
             }
+            $this->emit('imprimiendo');
+        } else {
+            $this->emit('errorCantidad');
         }
-        $this->emit('imprimiendo');
+
+
     }
 
 
