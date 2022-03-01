@@ -4,7 +4,7 @@ namespace App\System\Ventas;
 use App\Common\Helpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-
+use App\System\Ventas\Imprimir;
 
 trait ReImprimir{
 

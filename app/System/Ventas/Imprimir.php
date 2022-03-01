@@ -10,6 +10,7 @@ use App\Models\TicketProducto;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\System\Ventas\OrdenarProductosImprimir;
 
 /*
 Los tipos de impresion se distribuiran asi:
