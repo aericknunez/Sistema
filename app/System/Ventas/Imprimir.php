@@ -50,7 +50,7 @@ trait Imprimir{
 
 
 
-    public function ImprimirPrecuenta($cliente = NULL, $propina, $porcentaje){ // si trae cliente o no 
+    public function ImprimirPrecuenta($propina, $porcentaje, $cliente = NULL){ // si trae cliente o no 
         
         if ($cliente) {
             $datos = $this->getTotalOrdenCliente(session('orden'), $cliente, $propina, $porcentaje);
