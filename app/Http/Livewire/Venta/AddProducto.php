@@ -281,7 +281,7 @@ public function btnGuardar(){ /// guardar la orden
 
 
 public function btnImprimirPreCuenta(){ /// Imprime la precuenta
-    $this->ImprimirPrecuenta(NULL, $this->propinaCantidad, $this->propinaPorcentaje);
+    $this->ImprimirPrecuenta($this->propinaCantidad, $this->propinaPorcentaje, NULL);
     $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Imprimiendo Pre Cuenta']);
 
 } 
