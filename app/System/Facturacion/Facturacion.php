@@ -63,7 +63,6 @@ trait Facturacion {
 
     public function facturaInicial($fecha, $tipo){
         $data = TicketNum::select('factura')
-                            ->where('edo', 1)
                             ->where('tipo_venta', $tipo)
                             ->whereDate('created_at', $fecha)
                             ->orderBy('factura', 'ASC')
@@ -75,7 +74,6 @@ trait Facturacion {
 
     public function facturaFinal($fecha, $tipo){
         $data = TicketNum::select('factura')
-                            ->where('edo', 1)
                             ->where('tipo_venta', $tipo)
                             ->whereDate('created_at', $fecha)
                             ->orderBy('factura', 'DESC')
@@ -130,7 +128,6 @@ trait Facturacion {
 
     public function facturaInicialMonth($fecha, $tipo){
         $data = TicketNum::select('factura')
-                            ->where('edo', 1)
                             ->where('tipo_venta', $tipo)
                             ->whereMonth('created_at', $fecha)
                             ->orderBy('factura', 'ASC')
@@ -142,7 +139,6 @@ trait Facturacion {
 
     public function facturaFinalMonth($fecha, $tipo){
         $data = TicketNum::select('factura')
-                            ->where('edo', 1)
                             ->where('tipo_venta', $tipo)
                             ->whereMonth('created_at', $fecha)
                             ->orderBy('factura', 'DESC')
