@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Facturacion;
 
 use App\Models\ConfigImpresion;
 use App\System\Facturacion\Facturacion;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class ReporteMensualEs extends Component
@@ -19,6 +18,8 @@ class ReporteMensualEs extends Component
     public $aniof;
     public $documentos = [];
     public $datos = [];
+    public $finales = [];
+    public $eliminadas = [];
 
 
 
@@ -41,14 +42,14 @@ class ReporteMensualEs extends Component
     public function aplicarFechas(){
         $this->formatFechas();
 
-
             if ($this->busqueda == 10) {
-                $this->datos = [];
+                $this->datos = NUll;
             } else {
-                $this->datos = [];
+                $this->datos = $this->diasDelMes($this->mes, $this->anio, $this->busqueda);
+                $this->finales = $this->getDataPerMonth($this->mes, $this->busqueda);
+                $this->eliminadas = $this->facturasEliminadas($this->mes, $this->busqueda);
             }
             $this->reset(['mesf', 'aniof']);
-        // $this->diasDelMes($this->mes, $this->anio);
     }
 
 

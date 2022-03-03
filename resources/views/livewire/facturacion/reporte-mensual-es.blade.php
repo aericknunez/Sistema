@@ -4,7 +4,11 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2 float-left">Reporte de Ventas</div> 
+                <div class="h2 float-left">Reporte de Ventas 
+                    @if ($busqueda != 10)
+                       ( {{ tipoVenta($busqueda) }} )
+                    @endif
+                </div> 
                 <div class="h2 float-right font-weight-bold text-uppercase"> 
                     {{-- Total: {{ dinero(collect($datos)->where('edo', 1)->sum('cantidad')) }}                 --}}
                 </div>
@@ -12,7 +16,10 @@
 
 
             <div wire:loading.remove wire:target="aplicarFechas">
-                <x-facturacion.lista-facturas :datos="$datos" />
+
+                
+                @include('components.facturacion.reporte-mensual')
+
             </div>
 
             <div class="row justify-content-center">
@@ -34,7 +41,7 @@
                     <div class="col mb-2">
                         <small>Tipo de documento</small>
                         <select class="browser-default custom-select" wire:model="busqueda">
-                            <option value="10" selected >Todos</option>
+                            <option value="10" selected >Seleccione el Documento</option>
                             @if ( $documentos->ninguno)
                                 <option value="0">Ninguno</option>
                             @endif
@@ -71,7 +78,8 @@
                             <option value="03">Marzo</option>
                             <option value="04">Abril</option>
                             <option value="05">Mayo</option>
-                            <option value="07">Junio</option>
+                            <option value="06">Junio</option>
+                            <option value="07">Julio</option>
                             <option value="08">Agosto</option>
                             <option value="09">Septiembre</option>
                             <option value="10">Octubre</option>
@@ -84,14 +92,9 @@
                         <small>Año</small>
                         <select class="browser-default custom-select" wire:model="aniof">
                             <option>Seleccione un año</option>
-                            <option value="2016">2016</option>
-                            <option value="2016">2016</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                            <option value="2022">2022</option>
+                            @for ($i = 2016; $i <= date('Y'); $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
                         </select>
 
                  </div>

@@ -13,7 +13,7 @@ class Rango extends Component
 
     public $inicio, $fin;
     public $documentos = [];
-    public $tipo_venta;
+    public $tipo_venta = 0;
 
 
     public function mount(){

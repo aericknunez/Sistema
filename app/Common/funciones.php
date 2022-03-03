@@ -127,6 +127,14 @@ function Nentero($numero){
     return intval($numero);
  } 
 
+function numeracionFactura($numero){ 
+    $numero1=str_pad($numero, 8, "0", STR_PAD_LEFT);
+    $format="000-001-01-$numero1";
+    return $format;
+ } 
+
+
+
  function formatFecha($value){
     return Carbon::parse($value)->format('d-m-Y H:i:s');
 }
