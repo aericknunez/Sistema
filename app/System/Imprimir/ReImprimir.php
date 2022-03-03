@@ -1,10 +1,10 @@
 <?php
-namespace App\System\Ventas;
+namespace App\System\Imprimir;
 
 use App\Common\Helpers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use App\System\Ventas\Imprimir;
+use App\System\Imprimir\Imprimir;
 
 trait ReImprimir{
 

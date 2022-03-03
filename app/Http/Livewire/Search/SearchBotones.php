@@ -6,7 +6,7 @@ use App\Common\Helpers;
 use App\Models\TicketNum;
 use App\Models\TicketProducto;
 use Livewire\Component;
-use App\System\Ventas\Imprimir;
+use App\System\Imprimir\Imprimir;
 
 
 class SearchBotones extends Component

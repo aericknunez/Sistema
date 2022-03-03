@@ -8,7 +8,7 @@ use App\Models\ConfigMoneda;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
-use App\System\Ventas\Imprimir;
+use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 use Livewire\Component;
 

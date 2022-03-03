@@ -1,5 +1,5 @@
 <?php
-namespace App\System\Ventas;
+namespace App\System\Imprimir;
 
 use App\Common\Helpers;
 use App\Models\Cliente;
@@ -10,7 +10,7 @@ use App\Models\TicketProducto;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use App\System\Ventas\OrdenarProductosImprimir;
+use App\System\Imprimir\OrdenarProductosImprimir;
 
 /*
 Los tipos de impresion se distribuiran asi:

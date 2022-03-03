@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Facturacion;
 
 use App\Models\ConfigImpresion;
 use App\Models\TicketNum;
-use App\System\Ventas\ReImprimir;
+use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
 
 class Rango extends Component

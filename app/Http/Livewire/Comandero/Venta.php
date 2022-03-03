@@ -12,7 +12,7 @@ use Livewire\Component;
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
 use App\System\Config\Validaciones;
-use App\System\Ventas\Imprimir;
+use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 
 

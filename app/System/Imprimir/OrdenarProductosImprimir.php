@@ -1,5 +1,5 @@
 <?php
-namespace App\System\Ventas;
+namespace App\System\Imprimir;
 
 
 /*
