@@ -70,6 +70,13 @@ function paisDocumento($nombre){
     if($nombre == 3) return 'NIT';
 }
 
+function paisNombre($nombre){
+    if($nombre == 1) return 'El Salvador';
+    if($nombre == 2) return 'Honduras';
+    if($nombre == 3) return 'Guatemala';
+}
+
+
 
 function llevarAqui($tipo){
     if ($tipo == 1) {

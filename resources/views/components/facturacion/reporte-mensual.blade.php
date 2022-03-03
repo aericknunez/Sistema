@@ -2,7 +2,18 @@
     <div class="card-body">
 
         @if ($datos)
-        @json($generales)
+
+
+            <div class="text-center mb-3 font-weight-bold">
+                <div class="h3">{{ $generales['cliente'] }}</div>
+                <div>{{ $generales['propietario'] }}, {{ $generales['giro'] }}</div>
+                <div>Dirección: {{ $generales['direccion'] }}</div>
+                <div>Telefono: {{ $generales['telefono'] }}</div>
+                <div>{{ paisDocumento($generales['pais']) }}: {{ $generales['nit'] }}</div>
+                <div>{{ paisNombre($generales['pais']) }}</div>
+            </div>
+
+
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
