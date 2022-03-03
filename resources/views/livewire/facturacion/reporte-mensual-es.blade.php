@@ -92,7 +92,7 @@
                         <small>Año</small>
                         <select class="browser-default custom-select" wire:model="aniof">
                             <option>Seleccione un año</option>
-                            @for ($i = 2016; $i <= date('Y'); $i++)
+                            @for ($i =  date('Y'); $i >= 2016; $i--)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>

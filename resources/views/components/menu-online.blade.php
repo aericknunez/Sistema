@@ -84,7 +84,8 @@
     
     
     <li><a href="{{ route('facturacion.emitidas') }}" class="waves-effect"><i class="fas fa-cog"></i> Facturas Emitidas</a></li>
-        
+    <li><a href="{{ route('facturacion.reporte') }}" class="waves-effect"><i class="fas fa-cog"></i> Reporte Ventas</a></li>
+       
     </ul>
     </div>
 </li>

@@ -2,6 +2,7 @@
     <div class="card-body">
 
         @if ($datos)
+        @json($generales)
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
@@ -112,6 +113,7 @@
               </tbody>
           
             </table>
+            <div>TOTAL FACTURAS ELIMINADAS: {{ count($eliminadas)}} </div>
           </div>
           @endif
 
