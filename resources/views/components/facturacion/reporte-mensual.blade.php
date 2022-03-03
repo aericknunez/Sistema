@@ -4,13 +4,13 @@
         @if ($datos)
 
 
-            <div class="text-center mb-3 font-weight-bold">
-                <div class="h3">{{ $generales['cliente'] }}</div>
+            <div class="text-center mb-3 font-weight-bold card">
+                <div class="h3 mt-2">{{ $generales['cliente'] }}</div>
                 <div>{{ $generales['propietario'] }}, {{ $generales['giro'] }}</div>
                 <div>Dirección: {{ $generales['direccion'] }}</div>
                 <div>Telefono: {{ $generales['telefono'] }}</div>
                 <div>{{ paisDocumento($generales['pais']) }}: {{ $generales['nit'] }}</div>
-                <div>{{ paisNombre($generales['pais']) }}</div>
+                <div class="mb-2">{{ paisNombre($generales['pais']) }}</div>
             </div>
 
 
