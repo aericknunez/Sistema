@@ -8,8 +8,8 @@ use App\Models\EntradasSalidas;
 use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
-use App\System\Corte\ImprimirCortes;
 use App\System\Corte\InicializaCorte;
+use App\System\Imprimir\ImprimirCortes;
 
 class Index extends Component
 {

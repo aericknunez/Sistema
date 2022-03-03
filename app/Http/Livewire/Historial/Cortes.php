@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Historial;
 
 use App\System\Corte\Corte;
-use App\System\Corte\ImprimirCortes;
+use App\System\Imprimir\ImprimirCortes;
 use App\System\Historial\Historial;
 use Carbon\Carbon;
 use Livewire\Component;
