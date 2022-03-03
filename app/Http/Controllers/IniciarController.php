@@ -14,6 +14,7 @@ use App\System\Config\ManejarIconos;
 use App\System\Corte\InicializaCorte;
 use App\System\Ventas\Ventas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class IniciarController extends Controller
 {
@@ -57,6 +58,11 @@ class IniciarController extends Controller
 
         // $this->CrearIconos();
         // $this->crearModalMoneda();
+        
+        if (!View::exists('components.venta.lateral-modal-tpago')) {
+            $this->CrearIconos();
+            $this->crearModalMoneda();
+        }
         
         if (session('config_tipo_servicio') == 1) {
             session(['llevar_aqui' => session('principal_llevar_rapida')]);
