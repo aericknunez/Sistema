@@ -5,12 +5,14 @@ namespace App\Http\Livewire\Facturacion;
 use App\Models\ConfigApp;
 use App\Models\ConfigImpresion;
 use App\System\Facturacion\Facturacion;
+use App\System\Imprimir\ImprimirCortes;
 use Livewire\Component;
 
 class ReporteMensualEs extends Component
 {
 
     use Facturacion;
+    use ImprimirCortes;
 
     public $busqueda;
     public $mes;
@@ -66,6 +68,14 @@ class ReporteMensualEs extends Component
             $this->anio = date('Y');
         }     
         
+    }
+
+
+    public function imprimirReporte($date){
+
+        $this->ImprimirReporteDiario($date, $this->busqueda);
+        $this->emit('imprimiendo');
+
     }
 
 

@@ -27,6 +27,8 @@ trait Facturacion {
                 $data['facturaInicial'] = $this->facturaInicial($anio . "-" . $mes . "-" . $i, $tipo);
                 $data['facturaFinal'] = $this->facturaFinal($anio . "-" . $mes . "-" . $i, $tipo);
                 $data['facturaCantidad'] = $cantidad;
+                $data['fechaFormat'] = $anio . "-" . $mes . "-" . $i;
+
 
                 array_push($this->dias, $data);
                 unset($data);
@@ -110,6 +112,14 @@ trait Facturacion {
                                ->where('tipo_venta', $tipo)
                                ->whereDate('created_at', $fecha)
                                ->sum('total');
+    }
+
+
+    public function totalFacturasEliminadas($fecha, $tipo){
+        return TicketNum::where('edo', 2)
+                                ->where('tipo_venta', $tipo)
+                                ->whereDate('created_at', $fecha)
+                                ->count();
     }
 
 

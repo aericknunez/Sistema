@@ -34,7 +34,7 @@
                 @foreach ($datos as $data)
 
                     <tr>
-                        <td class="text-uppercase">{{ $data['fecha'] }}</td>
+                        <td class="text-uppercase"><a wire:click="imprimirReporte('{{ $data['fechaFormat'] }}')" title="{{ $data['fechaFormat'] }}">{{ $data['fecha'] }}</a></td>
                         <td>{{ $data['facturaCantidad'] }}</td>
                         <td>{{ numeracionFactura($data['facturaInicial']) }} <br> {{ numeracionFactura($data['facturaFinal']) }}</td>
                         <th>{{ dinero(0) }}</th>
