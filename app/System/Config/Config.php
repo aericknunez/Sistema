@@ -105,6 +105,7 @@ trait Config{
             'data_special' => $private->data_special, 
             'sync_time' => $private->sync_time, 
             'print' => $private->print,
+            'pusher' => $private->pusher,
             'livewire_path' => $private->livewire_path
         ]);
   

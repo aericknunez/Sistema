@@ -7,7 +7,7 @@
         {{-- {{ $hashSound}} --}}
 
         @if (config('broadcasting.default') == 'log')
-            <div class="row  px-3 row justify-content-left click" wire:poll.{{ config('sistema.synctime') }}s="getOrdenes">
+            <div class="row  px-3 row justify-content-left click" wire:poll.{{ session('sync_time') }}s="getOrdenes">
         @else
             <div class="row  px-3 row justify-content-left click">
         @endif

@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->get('/', function () {
-    if (config('sistema.login')) {
+    if (session('sys_login')) {
         return view('login');
     } else {
         return view('auth.login');

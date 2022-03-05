@@ -7,7 +7,7 @@
             <div class="logo-wrapper waves-light">
                 
 
-                @if (config('sistema.datapollo'))
+                @if (session('data_special'))
                     <a href="{{ route('historial.resumen') }}">
                 @else
                     <a href="{{ route('panel.control') }}">
@@ -194,7 +194,7 @@
 
             <li class="nav-item">
 
-            @if (config('sistema.datapollo'))
+            @if (session('data_special'))
                 <a href="{{ route('historial.resumen') }}" class="nav-link"><i class="fas fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Inicio</span></a>
             @else
                 <a href="{{ route('panel.control') }}" class="nav-link"><i class="fas fa-home"></i> <span class="clearfix d-none d-sm-inline-block">Inicio</span></a>

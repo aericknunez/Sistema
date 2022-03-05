@@ -239,7 +239,7 @@ class Cambios extends Component
                     'cambio' => Helpers::Dinero($this->cantidad - $this->total)
     ]);
 
-        if (config('sistema.print')) { /// imprime a menos que el env diga que no
+        if (session('print')) { /// imprime a menos que el env diga que no
             $this->ImprimirFactura($num_fact); // imprime la factura
         }
 

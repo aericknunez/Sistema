@@ -59,6 +59,10 @@
             <span>{{ isActivo($datos->print) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Impresiones Pusher:
+            <span>{{ isActivo($datos->pusher) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Tiempo Sincronización:
             <span>{{ $datos->sync_time }}</span>
         </li>

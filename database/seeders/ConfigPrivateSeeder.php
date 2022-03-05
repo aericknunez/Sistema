@@ -20,6 +20,7 @@ class ConfigPrivateSeeder extends Seeder
             'data_special' => 0,
             'sync_time' => 5,
             'print' => 1,
+            'pusher' => 0,
             'livewire_path' => 'http://sistema.test'
         ]);
     }

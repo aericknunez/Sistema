@@ -55,7 +55,7 @@ return [
     */
 
     // 'asset_url' => null,
-    'asset_url' => config('app.url'),
+    'asset_url' => session('livewire_path'),
 
     /*
     |--------------------------------------------------------------------------

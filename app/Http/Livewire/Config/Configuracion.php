@@ -90,6 +90,7 @@ class Configuracion extends Component
                 $data_special,
                 $sync_time,
                 $print,
+                $pusher,
                 $livewire_path;
         
 
@@ -199,7 +200,23 @@ class Configuracion extends Component
         $this->config['ftp_user'] = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
         $this->config['ftp_password'] = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
 
-        $this->config = ConfigPrivate::first();
+        $priv = ConfigPrivate::first();
+        if (!$priv) {
+            $this->config = ConfigPrivate::create([
+                'sys_login' => 1,
+                'just_data' => 0,
+                'data_special' => 0,
+                'sync_time' => 5,
+                'print' => 1,
+                'pusher' => 0,
+                'livewire_path' => 'http://sistema.test'
+            ]);
+
+        } else {
+            $this->config = $priv;
+        }
+
+        // $this->config = ConfigPrivate::first();
 
         $this->tipoBusqueda = 5;
 
@@ -367,6 +384,7 @@ class Configuracion extends Component
         $this->data_special = $datos['data_special'];
         $this->sync_time = $datos['sync_time'];
         $this->print = $datos['print'];
+        $this->pusher = $datos['pusher'];
         $this->livewire_path = $datos['livewire_path'];
     
     }
@@ -397,6 +415,7 @@ class Configuracion extends Component
                 'data_special' => $this->data_special,
                 'sync_time' => $this->sync_time,
                 'print' => $this->print,
+                'pusher' => $this->pusher,
                 'livewire_path' => $this->livewire_path
             ]);
 

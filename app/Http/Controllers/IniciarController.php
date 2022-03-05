@@ -39,8 +39,8 @@ class IniciarController extends Controller
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
 
-        if (config('sistema.justdata')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
-            if (config('sistema.datapollo')) { 
+        if (session('just_data')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
+            if (session('data_special')) { 
                 return redirect()->route('historial.resumen');
             } else {
                 return redirect()->route('panel.control');
