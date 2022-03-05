@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Config;
 
 use App\Common\Helpers;
+use App\Events\DataPantalla;
+use App\Events\Datospantalla;
 use App\Models\Image;
 use App\Models\ImageCategory;
 use App\Models\ImageTag;
@@ -18,6 +20,7 @@ use App\Models\User;
 use App\System\Config\ManejarIconos;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Livewire\Component;
 
 class Opciones extends Component
@@ -65,6 +68,7 @@ class Opciones extends Component
 
 
     public function crearMenu(){
+
             $this->CrearIconos();
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 

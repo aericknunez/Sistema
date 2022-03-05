@@ -14,6 +14,10 @@ class Pantalla extends Component
 {
     use Ventas;
 
+    protected $listeners = ['Ordenes' => 'getOrdenes'];
+
+
+
     public $datos = [];
     public $retirados = [];
 

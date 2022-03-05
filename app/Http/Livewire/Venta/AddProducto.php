@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Venta;
 
 use App\Common\Helpers;
+use App\Events\PantallaDatos;
 use App\Models\Cliente;
 use App\Models\ConfigMoneda;
 use App\Models\Producto;
@@ -208,6 +209,9 @@ class AddProducto extends Component
         if (session('principal_ticket_pantalla') == 2) {
             $this->ImprimirComanda();
         }
+        if (session('principal_ticket_pantalla') == 1 and config('broadcasting.default') == 'pusher') {
+            event(new PantallaDatos());
+        }
 
         $this->verificaCantidad(1);
     }
@@ -276,6 +280,10 @@ public function btnGuardar(){ /// guardar la orden
 
     if (session('principal_ticket_pantalla') == 2) {
         $this->ImprimirComanda();
+    }
+
+    if (session('principal_ticket_pantalla') == 1 and config('broadcasting.default') == 'pusher') {
+        event(new PantallaDatos());
     }
 } 
 
@@ -549,6 +557,9 @@ public function pagar(){
     /// probar el codigo este
     if (session('principal_ticket_pantalla') == 1) {
         $this->guardarProductosImprimir();  
+        if (config('broadcasting.default') == 'pusher') {
+            event(new PantallaDatos());
+        }
     }
     if (session('principal_ticket_pantalla') == 2) {
         $this->guardarProductosImprimir();  
