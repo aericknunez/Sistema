@@ -6,6 +6,7 @@ use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
+use App\Models\ConfigPrivate;
 use App\Models\TicketNum;
 use App\Models\TicketProducto;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['guest'])->get('/', function () {
-    if (session('sys_login')) {
+
+    $priv = ConfigPrivate::first();
+    if ($priv->sys_login) {
         return view('login');
     } else {
         return view('auth.login');
