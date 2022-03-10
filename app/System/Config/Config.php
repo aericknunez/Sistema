@@ -5,6 +5,7 @@ use App\Models\ConfigApp;
 use App\Common\Helpers;
 use App\Models\ConfigImpresion;
 use App\Models\ConfigPrincipal;
+use App\Models\ConfigPrivate;
 use App\Models\ConfigRoot;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -96,6 +97,18 @@ trait Config{
             'root_ftp_user' => $root->ftp_user,
             'root_ftp_password' => $root->ftp_password
         ]);
+
+        $private = ConfigPrivate::find(1);
+        Session::put([
+            'sys_login' => $private->sys_login, 
+            'just_data' => $private->just_data,
+            'data_special' => $private->data_special, 
+            'sync_time' => $private->sync_time, 
+            'print' => $private->print,
+            'pusher' => $private->pusher,
+            'livewire_path' => $private->livewire_path
+        ]);
+  
     }
 
 

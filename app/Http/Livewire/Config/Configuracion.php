@@ -9,6 +9,7 @@ use App\Models\ConfigImpresion;
 use App\Models\ConfigMoneda;
 use App\Models\ConfigPaneles;
 use App\Models\ConfigPrincipal;
+use App\Models\ConfigPrivate;
 use App\Models\ConfigRoot;
 use App\Models\NumeroCajas;
 use App\System\Config\Config;
@@ -83,6 +84,15 @@ class Configuracion extends Component
                 $ftp_server,
                 $ftp_user,
                 $ftp_password;
+
+        public $sys_login,
+                $just_data,
+                $data_special,
+                $sync_time,
+                $print,
+                $pusher,
+                $livewire_path;
+        
 
     protected $rules = [
         'cliente' => 'required',
@@ -189,6 +199,25 @@ class Configuracion extends Component
         $this->config['ftp_server'] = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
         $this->config['ftp_user'] = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
         $this->config['ftp_password'] = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
+
+        $priv = ConfigPrivate::first();
+        if (!$priv) {
+            $this->config = ConfigPrivate::create([
+                'sys_login' => 1,
+                'just_data' => 0,
+                'data_special' => 0,
+                'sync_time' => 5,
+                'print' => 1,
+                'pusher' => 0,
+                'livewire_path' => 'http://sistema.test'
+            ]);
+
+        } else {
+            $this->config = $priv;
+        }
+
+        // $this->config = ConfigPrivate::first();
+
         $this->tipoBusqueda = 5;
 
     }
@@ -347,6 +376,17 @@ class Configuracion extends Component
         $this->ftp_server = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
         $this->ftp_user = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
         $this->ftp_password = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
+
+
+        $datos = ConfigPrivate::first();
+        $this->sys_login = $datos['sys_login'];
+        $this->just_data = $datos['just_data'];
+        $this->data_special = $datos['data_special'];
+        $this->sync_time = $datos['sync_time'];
+        $this->print = $datos['print'];
+        $this->pusher = $datos['pusher'];
+        $this->livewire_path = $datos['livewire_path'];
+    
     }
 
 
@@ -366,6 +406,18 @@ class Configuracion extends Component
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')]);
+
+
+        ConfigPrivate::updateOrCreate(
+                ['id' => 1], [
+                'sys_login' => $this->sys_login,
+                'just_data' => $this->just_data,
+                'data_special' => $this->data_special,
+                'sync_time' => $this->sync_time,
+                'print' => $this->print,
+                'pusher' => $this->pusher,
+                'livewire_path' => $this->livewire_path
+            ]);
 
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();

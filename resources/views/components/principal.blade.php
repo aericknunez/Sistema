@@ -49,7 +49,7 @@
             <div class="indeterminate"></div>
           </div>
 
-        @if (config('sistema.justdata'))
+        @if (session('just_data'))
             <x-menu-online />
         @else
             <x-menu />

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Common\Encrypt;
 // use App\Common\Helpers;
 use App\Models\ConfigMoneda;
+use App\Models\ConfigPrivate;
 use App\Models\CorteDeCaja;
 use App\Models\InvAsignado;
 use App\Models\NumeroCajas;
@@ -25,6 +26,19 @@ class IniciarController extends Controller
 
         // return Helpers::FlashCode(Encrypt::encrypt(101, 101));
 
+        $priv = ConfigPrivate::first();
+        if (!$priv) {
+            ConfigPrivate::create([
+                'sys_login' => 1,
+                'just_data' => 0,
+                'data_special' => 0,
+                'sync_time' => 5,
+                'print' => 1,
+                'pusher' => 0,
+                'livewire_path' => 'http://sistema.test'
+            ]);
+        }
+
         $this->sessionApp();
         $this->sessionImpresion();
         $this->sessionPrincipal();
@@ -39,8 +53,8 @@ class IniciarController extends Controller
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
 
-        if (config('sistema.justdata')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
-            if (config('sistema.datapollo')) { 
+        if (session('just_data')) { // si esta activa la opcion de solo mostrar datos en el env mandar a panel
+            if (session('data_special')) { 
                 return redirect()->route('historial.resumen');
             } else {
                 return redirect()->route('panel.control');
