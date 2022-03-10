@@ -31,6 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(InvUnidadesSeeder::class);
-        $this->call(ConfigPrivate::class);
+        $this->call(ConfigPrivateSeeder::class);
     }
 }
