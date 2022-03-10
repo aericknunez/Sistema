@@ -156,7 +156,7 @@ class Venta extends Component
             $this->ImprimirComanda();
         }
 
-        if (session('principal_ticket_pantalla') == 1 and config('broadcasting.default') == 'pusher') {
+        if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
             event(new PantallaDatos());
         }
 
@@ -261,7 +261,7 @@ public function btnGuardar(){ /// guardar la orden
     if (session('principal_ticket_pantalla') == 2) {
         $this->ImprimirComanda();
     }
-    if (session('principal_ticket_pantalla') == 1 and config('broadcasting.default') == 'pusher') {
+    if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
         event(new PantallaDatos());
     }
 } 

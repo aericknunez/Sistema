@@ -24,7 +24,7 @@
 
     </script>
 
-    @if (config('broadcasting.default') == 'pusher')
+    @if (session('pusher'))
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
   
