@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 // use App\Common\Encrypt;
 // use App\Common\Helpers;
 use App\Models\ConfigMoneda;
+use App\Models\ConfigPrivate;
 use App\Models\CorteDeCaja;
 use App\Models\InvAsignado;
 use App\Models\NumeroCajas;
@@ -24,6 +25,19 @@ class IniciarController extends Controller
     public function iniciar(){
 
         // return Helpers::FlashCode(Encrypt::encrypt(101, 101));
+
+        $priv = ConfigPrivate::first();
+        if (!$priv) {
+            ConfigPrivate::create([
+                'sys_login' => 1,
+                'just_data' => 0,
+                'data_special' => 0,
+                'sync_time' => 5,
+                'print' => 1,
+                'pusher' => 0,
+                'livewire_path' => 'http://sistema.test'
+            ]);
+        }
 
         $this->sessionApp();
         $this->sessionImpresion();
