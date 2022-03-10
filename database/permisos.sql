@@ -108,7 +108,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 	(4, 'Cajero', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
 	(5, 'Mesero', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
 	(6, 'Invitado', 'web', '2022-01-31 09:28:43', '2022-01-31 09:28:43'),
-	(8, 'Pantalla', 'web', '2022-01-31 10:32:52', '2022-01-31 10:32:52');
+	(7, 'Pantalla', 'web', '2022-01-31 10:32:52', '2022-01-31 10:32:52');
 
 
 CREATE TABLE IF NOT EXISTS `role_has_permissions` (
