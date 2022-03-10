@@ -26,24 +26,24 @@
 
     @if (session('pusher'))
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-  
-      // Enable pusher logging - don't include this in production
-      Pusher.logToConsole = true;
-  
-      var pusher = new Pusher('1d0f3961e3e3d11c0d2a', {
-        cluster: 'us2'
-      });
-  
-      var channel = pusher.subscribe('pantalla');
-      channel.bind('evento{{ config('sistema.td') }}', function(data) {
-        // alert(JSON.stringify(data));
-        Livewire.emitTo('panel.pantalla', 'Ordenes');
-        console.log('Evento Recibido');
+      <script>
+    
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        var pusher = new Pusher('1d0f3961e3e3d11c0d2a', {
+          cluster: 'us2'
+        });
+    
+        var channel = pusher.subscribe('pantalla');
+        channel.bind('evento{{ config('sistema.td') }}', function(data) {
+          // alert(JSON.stringify(data));
+          Livewire.emitTo('panel.pantalla', 'Ordenes');
+          console.log('Evento Recibido');
 
-      });
-      
-    </script>
+        });
+        
+      </script>
     @endif
 
 
