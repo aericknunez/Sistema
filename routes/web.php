@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware(['guest'])->get('/', function () {
 
     $priv = ConfigPrivate::first();

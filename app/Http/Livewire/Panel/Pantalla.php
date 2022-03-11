@@ -53,8 +53,12 @@ class Pantalla extends Component
                                         ->with('productos')
                                         ->with('productos.subOpcion')->get();
 
-            $this->sound = sha1($this->datos);
-            $this->emitSound($this->sound);
+            if(session('pusher')){
+                $this->emit('sound'); // sonido 
+            } else {
+                $this->sound = sha1($this->datos);
+                $this->emitSound($this->sound);
+            }
     }
 
 
