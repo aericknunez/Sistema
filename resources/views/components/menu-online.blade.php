@@ -138,7 +138,7 @@
 </ul>
 </li>
 
-<small>Version: 3.1</small>
+<small>Version: 3.4</small>
 
 
 

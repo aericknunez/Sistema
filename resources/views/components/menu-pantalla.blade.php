@@ -41,7 +41,7 @@
         </ul>
         </li>
         
-        <small>Version: </small>
+        <small>Version: 3.4</small>
     
         {{-- MENU  --}}
         

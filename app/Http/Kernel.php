@@ -44,14 +44,6 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
-
-        'tenant.web' => [
-            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
-            \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
-        ],
-        'tenant.api' => [
-            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
-        ],
     ];
 
     /**
