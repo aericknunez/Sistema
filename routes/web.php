@@ -7,8 +7,6 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchController;
 use App\Models\ConfigPrivate;
-use App\Models\TicketNum;
-use App\Models\TicketProducto;
 use Illuminate\Support\Facades\Route;
 
 /*
