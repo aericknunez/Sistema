@@ -22,11 +22,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware(['guest'])->get('/', function () {
 
     $priv = ConfigPrivate::first();
-    if ($priv->sys_login) {
-        return view('login');
+    if ($priv) {
+        if ($priv->sys_login) {
+            return view('login');
+        } else {
+            return view('auth.login');
+        }
     } else {
         return view('auth.login');
     }
