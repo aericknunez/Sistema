@@ -29,7 +29,6 @@ trait Config{
             'config_tipo_servicio' => $conf->tipo_servicio, // 1 rapido, 2 mesa, 3 delivery en el que iniciara
             'config_usuario_id' => Auth::user()->id,
             'config_tipo_usuario' => Auth::user()->tipo_usuario,
-
         ]);
     }
 
