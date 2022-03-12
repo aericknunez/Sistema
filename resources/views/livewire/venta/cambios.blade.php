@@ -18,13 +18,14 @@
         @if (count($productosFactura))
         
         {{-- Detalles de los productos, total e iconos  --}}
-        <x-venta.lateral-total :subtotal="$subtotal" :propina="$propinaCantidad" :porcentaje="$propinaPorcentaje" :total="$total" />
+        @include('venta.includes.inicio.lateral-total')
+
         <x-venta.cambios-botones />
-        <x-venta.lateral-datos />
+       @include('venta.includes.inicio.lateral-datos')
 
-        <x-venta.lateral-modal-propina />
+       @include('venta.includes.modales.tventa')
+       @include('venta.includes.modales.propina')
 
-        <x-venta.lateral-modal-tventa />
         <x-venta.lateral-modal-tpago />
  
         @endif
@@ -34,10 +35,9 @@
         @endif
     </div>
 
-    <x-venta.lateral-modal-cambio-venta />
+    @include('venta.includes.modales.cambio-venta')
 
     {{-- Busqueda de clientes para asignarle facturas --}}
-    <x-venta.modal-client-asign :search="$search" :busqueda="$busqueda" />
-
+    @include('venta.includes.modales.client-asign')
 
 </div>

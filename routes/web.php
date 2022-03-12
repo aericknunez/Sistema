@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IniciarController;
 use App\Models\ConfigPrivate;
 use Illuminate\Support\Facades\Route;
 
