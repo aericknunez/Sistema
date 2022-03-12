@@ -82,9 +82,17 @@ class Pantalla extends Component
     }
 
     
-    public function deleteProduct($producto){
+    public function deleteProduct($producto, $orden){
         TicketProducto::where('id', $producto)
                         ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+
+        /// verificar si eliminamos o no 
+        $cantidad = TicketProducto::where('orden', $orden)
+                    ->where('imprimir','!=', 3)->count();
+
+        if ($cantidad == 0) {
+            $this->estadoImprimirOrden($orden, 0);
+        }
 
         $this->getOrdenes();
     }
@@ -98,8 +106,14 @@ class Pantalla extends Component
         if ($cantidad == 0) {
             TicketProducto::where('orden', $orden)
                           ->where('imprimir', 2)
+                          ->where('panel', $this->panelImprimir)
                           ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
-            
+        }
+        
+        $cant = TicketProducto::where('orden', $orden)
+                ->where('imprimir','!=', 3)->count();
+
+        if ($cant == 0) {
             $this->estadoImprimirOrden($orden, 0);
         }
         
