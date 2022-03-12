@@ -3,19 +3,19 @@
 namespace App\Http\Livewire\Corte;
 
 use App\Common\Helpers;
-use App\Events\PantallaDatos;
 use App\Models\CorteDeCaja;
 use App\Models\EntradasSalidas;
 use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
 use App\System\Corte\InicializaCorte;
+use App\System\Eventos\SendEventos;
 use App\System\Imprimir\ImprimirCortes;
 
 class Index extends Component
 {
 
-    use Corte, InicializaCorte, ImprimirCortes;
+    use Corte, InicializaCorte, ImprimirCortes, SendEventos;
 
     public $cantidad;
     public $cajero;
@@ -49,9 +49,7 @@ class Index extends Component
         $this->obtenerDatosCorte();
         $this->verCorte();
         $this->emit('creado'); // manda el mensaje de creado
-        if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
-            event(new PantallaDatos());
-        }
+        $this->eventPantallaSend(); // envia el evento a la pantalla
         $this->borrarComandasPantalla();
         $this->reset(['existenMovimientos']);
     }

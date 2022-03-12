@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Comandero;
 
 use App\Common\Helpers;
-use App\Events\PantallaDatos;
 use App\Models\ConfigMoneda;
 use App\Models\Producto;
 use App\Models\TicketOpcion;
@@ -13,13 +12,14 @@ use Livewire\Component;
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
 use App\System\Config\Validaciones;
+use App\System\Eventos\SendEventos;
 use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 
 
 class Venta extends Component
 {
-    use Ventas, Imprimir, Validaciones;
+    use Ventas, Imprimir, Validaciones, SendEventos;
 
 
     public $productAgregado;
@@ -156,13 +156,13 @@ class Venta extends Component
             $this->ImprimirComanda();
         }
 
-        if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
-            event(new PantallaDatos());
-        }
+        $this->eventPantallaSend(); // envia el evento a la pantalla
+
 
         $this->verificaCantidad(1);
     }
 
+    
     public function productosAdded(){ /// productos agregados a la orden
         $product = $this->getProductosAgregados();
         $this->productAgregado = $product;
@@ -261,9 +261,8 @@ public function btnGuardar(){ /// guardar la orden
     if (session('principal_ticket_pantalla') == 2) {
         $this->ImprimirComanda();
     }
-    if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
-        event(new PantallaDatos());
-    }
+    $this->eventPantallaSend(); // envia el evento a la pantalla
+
 } 
 
 

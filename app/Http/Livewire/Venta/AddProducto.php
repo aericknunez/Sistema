@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Venta;
 
 use App\Common\Helpers;
-use App\Events\PantallaDatos;
 use App\Models\Cliente;
 use App\Models\ConfigMoneda;
 use App\Models\Producto;
@@ -14,6 +13,7 @@ use Livewire\Component;
 use App\Models\TicketProducto;
 use App\Models\TicketOrden;
 use App\System\Config\Validaciones;
+use App\System\Eventos\SendEventos;
 use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 Use App\System\Inventario\Administrar;
@@ -24,6 +24,7 @@ class AddProducto extends Component
     use Imprimir; 
     use Validaciones;
     use Administrar;
+    use SendEventos;
 
 
     public $productAgregado;
@@ -209,9 +210,7 @@ class AddProducto extends Component
         if (session('principal_ticket_pantalla') == 2) {
             $this->ImprimirComanda();
         }
-        if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
-            event(new PantallaDatos());
-        }
+        $this->eventPantallaSend(); // envia el evento a la pantalla
 
         $this->verificaCantidad(1);
     }
@@ -282,9 +281,7 @@ public function btnGuardar(){ /// guardar la orden
         $this->ImprimirComanda();
     }
 
-    if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
-        event(new PantallaDatos());
-    }
+    $this->eventPantallaSend(); // envia el evento a la pantalla
 } 
 
 
@@ -557,10 +554,9 @@ public function pagar(){
     /// probar el codigo este
     if (session('principal_ticket_pantalla') == 1) {
         $this->guardarProductosImprimir();  
-        if (session('pusher')) {
-            event(new PantallaDatos());
-        }
     }
+    $this->eventPantallaSend(); // envia el evento a la pantalla
+    
     if (session('principal_ticket_pantalla') == 2) {
         $this->guardarProductosImprimir();  
         $this->ImprimirComanda();
