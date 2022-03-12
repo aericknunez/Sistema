@@ -13,9 +13,7 @@
         @endif
 
             @foreach ($datos as $orden)
-                    <div class="mt-3 col-md-3">
-                        <x-panel.card-pantalla :datos="$orden" :panel="$panelImprimir" />
-                    </div>
+             <x-panel.card-pantalla :datos="$orden" :panel="$panelImprimir" />
             @endforeach
         </div>
     
