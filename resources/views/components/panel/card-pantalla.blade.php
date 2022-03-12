@@ -1,3 +1,9 @@
+@php
+$filtered = collect($datos->productos)->where('panel', $panel)->where('imprimir', 2)->all();
+@endphp
+
+@if (count($filtered) > 0)
+  
 <div class="card promoting-card">
     <!-- Card content -->
     <div wire:click="deleteOrden({{ $datos->id }})" wire:key="{{ $datos->id }}" class="py-2 px-3 d-flex flex-row {{ getColor($datos->id) }}  link pointer">
@@ -69,3 +75,5 @@
 
 
   </div>
+
+@endif
