@@ -45,6 +45,7 @@
 </div>
 <!-- </div> -->
 
+
 <div class="fixed-bottom">
     <a href="{{ route('login') }}" class="btn btn-link btn-sm">Cambiar inicio</a>
 </div>

@@ -24,13 +24,13 @@
         @if ($producto->panel == $panel)
           
             @if ($producto->imprimir == 1)
-                <tr><td wire:click="deleteProduct({{ $producto->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="far fa-clock ml-2 pr-2 blue-text"></i> {{ $producto->producto }}</td></tr>
+                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="far fa-clock ml-2 pr-2 blue-text"></i> {{ $producto->producto }}</td></tr>
 
             @elseif ($producto->imprimir == 2)
-                <tr><td wire:click="deleteProduct({{ $producto->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="fas fa-check-double ml-2 pr-2 green-text"></i>{{ $producto->producto }}</div></td></tr>
+                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="fas fa-check-double ml-2 pr-2 green-text"></i>{{ $producto->producto }}</div></td></tr>
 
             @elseif ($producto->imprimir == 4)
-                <tr><td wire:click="deleteProduct({{ $producto->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold withe red-text link pointer"><i class="far fa-trash-alt ml-2 pr-2"></i> {{ $producto->producto }}</td></tr>
+                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold withe red-text link pointer"><i class="far fa-trash-alt ml-2 pr-2"></i> {{ $producto->producto }}</td></tr>
             @endif
           
           @if (count($producto->subOpcion) >= 1 and $producto->imprimir != 3)        

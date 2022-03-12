@@ -1,5 +1,8 @@
 <?php
 
+
+(env('MULTITENANCY_ENABLED')) ? $urlPath = null : $urlPath = config('app.url');
+
 return [
 
     /*  1279 6427 828
@@ -56,7 +59,7 @@ return [
 
     // 'asset_url' => null,
     // 'asset_url' => session('livewire_path'),
-    'asset_url' => config('app.url'),
+    'asset_url' => $urlPath,
 
 
     /*
