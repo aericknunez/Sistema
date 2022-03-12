@@ -241,4 +241,16 @@ trait Corte{
 
 
 
+    public function borrarComandasPantalla(){
+        TicketOrden::where('edo', 2)
+                    ->where('imprimir', 1)
+                    ->update(['imprimir' => 0, 'tiempo' => Helpers::timeId()]);
+
+        TicketProducto::where('cajero', session('config_usuario_id'))
+                    ->where('imprimir','!=', 3)
+                    ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+    }
+
+
+
 }

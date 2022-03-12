@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Corte;
 
 use App\Common\Helpers;
+use App\Events\PantallaDatos;
 use App\Models\CorteDeCaja;
 use App\Models\EntradasSalidas;
 use App\Models\User;
@@ -48,6 +49,10 @@ class Index extends Component
         $this->obtenerDatosCorte();
         $this->verCorte();
         $this->emit('creado'); // manda el mensaje de creado
+        if (session('principal_ticket_pantalla') == 1 and session('pusher')) {
+            event(new PantallaDatos());
+        }
+        $this->borrarComandasPantalla();
         $this->reset(['existenMovimientos']);
     }
 
