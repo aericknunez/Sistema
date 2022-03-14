@@ -308,4 +308,12 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
          }
      }
 
+     function getLogo(){
+         if (file_exists(asset('img/logo/' . session('config_logo')))) {
+            return asset("img/logo/" . session('config_logo'));
+         } else {
+            return asset("img/logo/hibrido_logo.png");
+         }
+     }
+
 
