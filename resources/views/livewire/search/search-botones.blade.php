@@ -27,12 +27,24 @@
     
         <div class="col-xs-4 col-sm-12 col-md-4">
         
-                <x-venta.cambios-productos-cliente :datos="$detalles" />
-                <x-venta.lateral-total 
+            @php
+            $subtotal = $factura->subtotal; 
+            $propinaCantidad = $factura->propina_cant; 
+            $propinaPorcentaje = $factura->propina_porcent; 
+            $total = $factura->total;
+            $productosFactura = $detalles;
+            @endphp
+                {{-- <x-venta.cambios-productos-cliente :datos="$detalles" /> --}}
+                @include('venta.includes.cambios.productos-cliente')
+
+
+                @include('venta.includes.inicio.lateral-total')
+
+                {{-- <x-venta.lateral-total 
                 :subtotal="$factura->subtotal" 
                 :propina="$factura->propina_cant" 
                 :porcentaje="$factura->propina_porcent" 
-                :total="$factura->total" />    
+                :total="$factura->total" />     --}}
 
 {{-- {{ $datos->total }} --}}
         </div>
@@ -51,7 +63,8 @@
         </div>
     @endif
 
-    <x-venta.lateral-modal-tventa />
+    @include('venta.includes.modales.tventa')
+
 
 
 </div>

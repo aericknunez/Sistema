@@ -1,10 +1,10 @@
 <div>
 
-    @if ($datos)
+    @if ($productosFactura)
     {{-- Ordeno los datos por codigo para despues procesarlos --}}
     @php
-      $datos = $datos->sortBy('cod');
-      $datos->values()->all();
+      $productosFactura = $productosFactura->sortBy('cod');
+      $productosFactura->values()->all();
       $count = 0;
     @endphp
   
@@ -19,12 +19,12 @@
         </thead>
         <tbody>
   
-            @foreach ($datos as $producto)      
+            @foreach ($productosFactura as $producto)      
   
   
           @if ($count != $producto->cod)
           @php
-          $cod = $datos->where('cod', $producto->cod);
+          $cod = $productosFactura->where('cod', $producto->cod);
           $cod->all();
   
           $cant = count($cod);
