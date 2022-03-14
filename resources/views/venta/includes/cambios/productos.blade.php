@@ -1,6 +1,6 @@
 <div wire:ignore.self >
   
-    @if ($datos)
+    @if ($productAgregado)
 
     <table class="table table-sm table-hover table-striped table-round">
         <thead>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
 
-            @foreach ($datos as $producto)      
+            @foreach ($productAgregado as $producto)      
 
               <tr class="tventas">
                 <td class="text-center font-weight-bold">{{ $producto->cliente }}</td>
@@ -23,10 +23,10 @@
                 <td class="font-weight-bold">{{ $producto->total }}</td>
                 <td  class="click">
                 {{-- Al darle seguimiento con wire:key falla y no se muestra correctamente --}}
-                    @if ($cliente == $producto->cliente)
+                    @if ($clientSelected == $producto->cliente)
                         <span><i class="fas fa-ban red-text fa-2x" aria-hidden="true"></i></span>
                     @endif
-                    @if ($cliente != $producto->cliente)
+                    @if ($clientSelected != $producto->cliente)
                         <a wire:click="asignarProducto({{ $producto->id }})" wire:loading.attr="disabled">
                             <span><i class="fas fa-check-square green-text fa-2x" aria-hidden="true"></i></span>
                     @endif

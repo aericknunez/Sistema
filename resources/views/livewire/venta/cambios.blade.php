@@ -2,25 +2,27 @@
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- CONTENIDO IZQUIERDO  --}}
-        <x-venta.cambios-clientes />
+       @include('venta.includes.cambios.clientes')
         {{-- Clientes  --}}
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
-        <x-venta.cambios-productos :datos="$productAgregado" :cliente="$clientSelected"  />
+       @include('venta.includes.cambios.productos')
+
 
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- DATA LIVE CLASS desaparece en pantalla pequena 'd-none d-md-block' --}}
-        <x-venta.cambios-productos-cliente :datos="$productosFactura" />
+        @include('venta.includes.cambios.productos-cliente')
 
         @if (count($productosFactura))
         
         {{-- Detalles de los productos, total e iconos  --}}
         @include('venta.includes.inicio.lateral-total')
 
-        <x-venta.cambios-botones />
+       @include('venta.includes.cambios.botones')
+
        @include('venta.includes.inicio.lateral-datos')
 
        @include('venta.includes.modales.tventa')

@@ -17,7 +17,7 @@
             @foreach ($busqueda as $cliente)
               <tr>
                 <td scope="row">
-                  <a wire:click="btnChangeClient({{ $delivery }}, {{ $cliente->id }})" >
+                  <a wire:click="btnChangeClient({{ $deliverySelected }}, {{ $cliente->id }})" >
                   <div class="row">
                     <div class="col-2">
                       <img src="{{ asset('img/imagenes/avatar.png') }}" class="img-fluid img-responsive" alt="Avatar">
