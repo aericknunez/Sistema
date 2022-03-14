@@ -1,8 +1,8 @@
 <div>
-    @if (count($mesas))
+    @if (count($mesasAll))
         
         <div class="row justify-content-center click">
-            @foreach ($mesas as $mesa)
+            @foreach ($mesasAll as $mesa)
 
                 <div class="mx-2">
                     <a wire:click="ordenSelect({{ $mesa->id }})">

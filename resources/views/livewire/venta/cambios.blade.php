@@ -2,29 +2,32 @@
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- CONTENIDO IZQUIERDO  --}}
-        <x-venta.cambios-clientes />
+       @include('venta.includes.cambios.clientes')
         {{-- Clientes  --}}
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
-        <x-venta.cambios-productos :datos="$productAgregado" :cliente="$clientSelected"  />
+       @include('venta.includes.cambios.productos')
+
 
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- DATA LIVE CLASS desaparece en pantalla pequena 'd-none d-md-block' --}}
-        <x-venta.cambios-productos-cliente :datos="$productosFactura" />
+        @include('venta.includes.cambios.productos-cliente')
 
         @if (count($productosFactura))
         
         {{-- Detalles de los productos, total e iconos  --}}
-        <x-venta.lateral-total :subtotal="$subtotal" :propina="$propinaCantidad" :porcentaje="$propinaPorcentaje" :total="$total" />
-        <x-venta.cambios-botones />
-        <x-venta.lateral-datos />
+        @include('venta.includes.inicio.lateral-total')
 
-        <x-venta.lateral-modal-propina />
+       @include('venta.includes.cambios.botones')
 
-        <x-venta.lateral-modal-tventa />
+       @include('venta.includes.inicio.lateral-datos')
+
+       @include('venta.includes.modales.tventa')
+       @include('venta.includes.modales.propina')
+
         <x-venta.lateral-modal-tpago />
  
         @endif
@@ -34,10 +37,9 @@
         @endif
     </div>
 
-    <x-venta.lateral-modal-cambio-venta />
+    @include('venta.includes.modales.cambio-venta')
 
     {{-- Busqueda de clientes para asignarle facturas --}}
-    <x-venta.modal-client-asign :search="$search" :busqueda="$busqueda" />
-
+    @include('venta.includes.modales.client-asign')
 
 </div>

@@ -2,7 +2,7 @@
 
     <x-cuerpo >
         <x-slot name="contenido">
-            <x-venta.delivery-all :ordenes="$ordenesAll" />
+       @include('venta.includes.delivery.delivery-all')
 
         </x-slot>
     
@@ -26,10 +26,10 @@
     </x-cuerpo>
 
     {{-- search y busqueda coresponden al formulario y a los datos de busqueda, son diferentes  --}}
-    <x-venta.modal-add-delivery :search="$search" :busqueda="$busqueda" />
-    <x-venta.modal-add-cliente />
-    <x-venta.modal-cambiar-cliente-delivery :search="$search" :busqueda="$busqueda" :delivery="$deliverySelected" />
-    <x-venta.modal-detalles-orden-delivery :datos="$ordenDetalles" />
+       @include('venta.includes.modales.add-delivery')
+       @include('venta.includes.modales.add-cliente-delivery')
+       @include('venta.includes.modales.cambiar-cliente-delivery')
+       @include('venta.includes.modales.detalles-orden-delivery')
 
 
 </div>

@@ -46,7 +46,7 @@
 
                 @if ($tipo != 1)
                     <small>Cuenta Transferencia</small>
-                    <select class="browser-default custom-select mb-3" wire:model.defer="idbanco" id="idbanco">
+                    <select class="browser-default custom-select mb-3" wire:model="idbanco" id="idbanco">
                         <option selected>Seleccione ...</option>  
                         @foreach ($datos as $dato)
                             <option value="{{ $dato->id }}">{{ $dato->banco }}</option>  

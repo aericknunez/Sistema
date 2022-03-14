@@ -1,10 +1,10 @@
 <div>
 
-    @if ($datos)
+    @if ($productAgregado)
     {{-- Ordeno los datos por codigo para despues procesarlos --}}
     @php
-      $datos = $datos->sortBy('cod');
-      $datos->values()->all();
+      $productAgregado = $productAgregado->sortBy('cod');
+      $productAgregado->values()->all();
       $count = 0;
     @endphp
 
@@ -24,12 +24,12 @@
         </thead>
         <tbody>
 
-            @foreach ($datos as $producto)      
+            @foreach ($productAgregado as $producto)      
 
 
           @if ($count != $producto->cod)
           @php
-          $cod = $datos->where('cod', $producto->cod);
+          $cod = $productAgregado->where('cod', $producto->cod);
           $cod->all();
 
           $cant = count($cod);

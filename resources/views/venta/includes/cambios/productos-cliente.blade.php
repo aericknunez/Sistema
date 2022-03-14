@@ -1,6 +1,6 @@
 <div>
   
-    @if (count($datos))
+    @if (count($productosFactura))
 
     <table class="table table-sm table-hover table-striped table-round">
         <thead>
@@ -13,7 +13,7 @@
         </thead>
         <tbody>
 
-            @foreach ($datos as $producto)      
+            @foreach ($productosFactura as $producto)      
 
               <tr class="tventas">
                 <td class="text-center font-weight-bold">{{ $producto->cantidad }}</td>

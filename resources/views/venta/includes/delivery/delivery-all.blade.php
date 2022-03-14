@@ -1,11 +1,11 @@
 <div>
-    @if (count($ordenes))
+    @if (count($ordenesAll))
 
         
         <div class="row justify-content-center click">
 
 
-            @foreach ($ordenes as $orden)
+            @foreach ($ordenesAll as $orden)
 
                 <div class="mx-2">
 
