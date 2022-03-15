@@ -5,14 +5,14 @@ namespace App\Http\Livewire\Search;
 use App\Common\Helpers;
 use App\Models\TicketNum;
 use App\Models\TicketProducto;
+use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
-use App\System\Imprimir\Imprimir;
 
 
 class SearchBotones extends Component
 {
 
-    use Imprimir;
+    use ReImprimir;
 
     protected $listeners = ['borrarFactura' => 'eliminar'];
 
@@ -52,7 +52,8 @@ class SearchBotones extends Component
 
 
     public function imprimir(){
-        $this->ImprimirFactura(session('idSearch')); // imprime la factura
+        session(['tipo_pago' => $this->factura->tipo_pago]);
+        $this->ReImprimirFactura(session('idSearch')); // imprime la factura
         $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Imprimiendo Factura']);    
     }
 

@@ -39,7 +39,8 @@ class Rango extends Component
             for ($i=$this->inicio; $i <= $this->fin; $i++) { 
                 $num = TicketNum::where('factura', $i)->where('tipo_venta', $this->tipo_venta)->first();
                 if ($num->factura) {
-                    $this->ReImprimirFactura($i, $this->tipo_venta); // imprime la factura
+                    session(['impresion_seleccionado' => $this->tipo_venta]);
+                    $this->ReImprimirFactura($i); // imprime la factura
                 }
             }
             $this->emit('imprimiendo');
