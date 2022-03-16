@@ -52,20 +52,17 @@ class Resumen extends Component
         if ($this->tipo_fecha == 1) {
             $this->ventas = $this->historialTotalUnica($this->fecha1);     
             $this->gastos = $this->historialGastosUnica($this->fecha1);     
-            $this->cuentas = $this->saldosCuentas();
-            $this->cortesAbiertos = $this->cortesAbiertos();            
-            $this->lastUpdate = $this->LastUpdate();
             $this->porcentaje = $this->PorcentajeUnico($this->fecha1);
             $this->noOrdenes = $this->ordenesUnica($this->fecha1);
         } else {
             $this->ventas = $this->historialTotalMultiple($this->fecha1, $this->fecha2);
             $this->gastos = $this->historialGastosMultiple($this->fecha1, $this->fecha2);
-            $this->cuentas = $this->saldosCuentas();
-            $this->cortesAbiertos = $this->cortesAbiertos();            
-            $this->lastUpdate = $this->LastUpdate();
             $this->porcentaje = $this->PorcentajeMultiple($this->fecha1, $this->fecha2);
             $this->noOrdenes = $this->ordenesMultiple($this->fecha1, $this->fecha2);
         }
+        $this->lastUpdate = $this->LastUpdate();
+        $this->cortesAbiertos = $this->cortesAbiertos();            
+        $this->cuentas = $this->saldosCuentas();
         $this->getDetalleGastos($this->fecha1, $this->fecha2);
         
         // $this->emision($this->porcentaje['facturado'], $this->porcentaje['nofacturado']);
