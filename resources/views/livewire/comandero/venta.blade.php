@@ -35,23 +35,25 @@
                             :porcentaje="$propinaPorcentaje" 
                             :total="$total" />
 
-    <x-venta.lateral-modal-comentario />
-    <x-venta.lateral-modal-cantidad-producto />
-    <x-venta.modal-detalle-productos :productSelected="$productSelected"/>
-    <x-venta.lateral-modal-nombre />
+        @include('venta.includes.modales.comentario')
+
+       @include('venta.includes.modales.cantidad-producto')
+       @include('venta.includes.modales.detalle-productos')
+       @include('venta.includes.modales.nombre')
     <x-comandero.modal-cambio-cliente />
 
 
-    <x-venta.modal-otras-ventas />
-    <x-venta.lateral-modal-add-cliente />
+        @include('venta.includes.modales.otras-ventas')
+        @include('venta.includes.modales.add-cliente')
+
 
 
     {{-- modales de borrado  --}}
      @if (session('principal_registro_borrar'))
-         <x-venta.modal-motivo-borrado />
+            @include('venta.includes.modales.motivo-borrado')
      @endif
      @if (session('principal_solicitar_clave'))
-         <x-venta.modal-codigo_borrado />
+            @include('venta.includes.modales.codigo-borrado')
      @endif
                      
 
