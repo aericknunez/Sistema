@@ -61,11 +61,11 @@
           </div>
         
         @if (session('principal_ticket_pantalla'))
-        <a class="btn btn-success" wire:click="btnGuardar()" wire:loading.remove wire:target="btnGuardar"> 
-          <i class="fas fa-save mr-1"></i>Guardar</a>
+        <button type="button" class="btn btn-success" wire:click="btnGuardar()" wire:loading.remove wire:target="btnGuardar"> 
+          <i class="fas fa-save mr-1"></i>Guardar</button>
 
-          <a class="btn btn-danger" wire:loading wire:target="btnGuardar"> 
-            <i class="fas fa-sync fa-spin"></i>Guardar</a>
+          <button type="button" class="btn btn-danger" wire:loading wire:target="btnGuardar"> 
+            <i class="fas fa-sync fa-spin"></i>Guardar</button>
         @endif
  
         @if (session('apertura_caja') == 1)
