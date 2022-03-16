@@ -45,7 +45,7 @@ trait HistorialTotales {
 
 
     public function saldosCuentas(){
-        return EfectivoCuentaBancos::select('cuenta', 'saldo')->where('edo', 1)->get();
+        return EfectivoCuentaBancos::select('cuenta', 'banco', 'saldo')->where('edo', 1)->get();
     }
 
 

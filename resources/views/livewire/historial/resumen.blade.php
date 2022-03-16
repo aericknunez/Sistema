@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
-                        <div class="card-counter danger z-depth-2">
+                        <div class="card-counter danger z-depth-2 pointer" data-toggle="modal" data-target="#DetalleGastos">
                             <i class="far fa-money-bill-alt"></i>
                             <span class="count-numbers">
                                 <h5 class="font-weight-bold">{{ dinero($gastos) }}</h5>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="col-xl-3 col-md-6 mb-4  col-sm-6 col-6">
-                        <div class="card-counter light z-depth-2">
+                        <div class="card-counter light z-depth-2 pointer" data-toggle="modal" data-target="#DetalleCuentas">
                             <i class="fas fa-dollar-sign"></i>
                             <span class="count-numbers">
                                 <h5 class="font-weight-bold">{{ dinero(collect($cuentas)->sum('saldo')) }}</h5>
@@ -123,6 +123,9 @@
 
     </x-cuerpo>
 
+    @include('historial.includes.resumen-detalle-cuentas')
+
+    @include('historial.includes.resumen-detalle-gastos')
 </div>
 
 @push('scripts')
@@ -142,6 +145,5 @@
                     responsive: true
                 }
             });
-
 </script>
 @endpush
