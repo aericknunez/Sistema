@@ -9,7 +9,12 @@
 
 
 <div class="modal-body">
-    <x-venta.lateral-productos :datos="$datos" />
+    {{-- <x-venta.lateral-productos :datos="$datos" /> --}}
+    @php
+      $productAgregado = $datos;
+    @endphp
+    @include('venta.includes.inicio.lateral-productos')
+
 
     @if ($porcentaje > 0)
 
