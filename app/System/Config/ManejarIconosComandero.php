@@ -11,7 +11,7 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
     public function GenerarIco(){
         $retorno = NULL;
         // $this->productosDesdeCategoria();
-        $retorno .= $this->crearCategoriasComandero();
+        $retorno .= $this->crearCategoriasComanderoSelect();
 
         $opciones = Opciones::all();
         foreach ($opciones as $opcion) {
@@ -22,6 +22,78 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
 
 
     }
+
+
+
+    public function crearCategoriasComanderoSelect(){
+        $retorno = '<div wire:ignore >
+    
+        <section class="near py-2 pl-3 bg-light">
+            <div class="dropdown click">
+                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list pointer">
+                    <div class="bg-light overflow-hidden box_rounded">
+                    <img src="{{ asset("img/ico/a19a4bf04b.png") }}" class="img-fluid">
+                    </div>
+                    <div class="ml-2">
+                    <p class="mb-1 fw-bold text-dark">SELECCIONE UNA CATEGORIA</p>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-primary">';
+
+        $datos = ProductoCategoria::all();
+
+        foreach ($datos as $data) {
+                $img = 'img/ico/' . $data->img;
+                $retorno .= '<a wire:click="btnCatSelect('.$data->id.')" wire:loading.class="disabled" wire:target="btnCatSelect('.$data->id.')" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list pointer">
+                                <div class="bg-light overflow-hidden box_rounded">
+                                <img src="{{ asset("'.$img.'") }}" class="img-fluid">
+                                </div>
+                                <div class="ml-2">
+                                <p class="mb-1 fw-bold text-dark">'.$data->nombre.'</p>
+                                </div>
+                            </a>'; 
+                
+            }
+
+            if (session('principal_otras_ventas')) {
+            //Otras ventas
+            $retorno .= '<a data-toggle="modal" data-target="#ModalOtrasVentas" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list pointer">
+                            <div class="bg-light overflow-hidden box_rounded">
+                            <img src="{{ asset("img/ico/4d87a6a1c0.png") }}" class="img-fluid">
+                            </div>
+                            <div class="ml-2">
+                            <p class="mb-1 fw-bold text-dark">OTRAS VENTAS</p>
+                            </div>
+                        </a>'; 
+            }
+
+
+            if (session('principal_venta_especial')) {
+                //Otras ventas
+                $retorno .= '<a wire:click="BtnVentaEspecial()" class="d-flex align-items-center bg-white box_rounded p-2 mb-2 shadow-sm osahan-list pointer">
+                            <div class="bg-light overflow-hidden box_rounded">
+                            <img src="{{ asset("img/ico/2c2044f4e9.png") }}" class="img-fluid">
+                            </div>
+                            <div class="ml-2">
+                            <p class="mb-1 fw-bold text-dark">Venta Especial</p>
+                            </div>
+                        </a>'; 
+            }
+
+
+            
+
+        $retorno .= '</div>
+            </div>
+        </section>
+
+</div>';
+
+            return $retorno;
+
+    }
+
+
 
     public function crearCategoriasComandero(){
         $retorno = '<div wire:ignore >
