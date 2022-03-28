@@ -38,7 +38,7 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
                     <p class="mb-1 fw-bold text-dark">SELECCIONE UNA CATEGORIA</p>
                     </div>
                 </a>
-                <div class="dropdown-menu dropdown-primary">';
+                <div class="dropdown dropdown-menu dropdown-primary">';
 
         $datos = ProductoCategoria::all();
 
