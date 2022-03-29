@@ -28,7 +28,8 @@
        @include('venta.includes.modales.tventa')
        @include('venta.includes.modales.propina')
 
-        <x-venta.lateral-modal-tpago />
+       @include('iconos_x.tipo_pago_'. session('sistema.td'))
+
  
         @endif
 

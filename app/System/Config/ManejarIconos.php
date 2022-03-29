@@ -277,7 +277,7 @@ return $retorno;
 
     public function guardarArchivo($data){
         
-        $archivo = fopen("../resources/views/venta/iconos.blade.php",'w+');
+        $archivo = fopen("../resources/views/iconos_x/iconos_principal_". session('sistema.td') .".blade.php",'w+');
         fwrite($archivo, $data);
         fclose($archivo);
 

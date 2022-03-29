@@ -13,7 +13,8 @@
             @include('venta.includes.delivery.delivery')
             @endif
             {{-- Iconos de los productos  --}}
-            @include('venta.iconos')
+            @include('iconos_x.iconos_principal_'. session('sistema.td'))
+
         </x-slot>
     
 
@@ -57,7 +58,8 @@
        @include('venta.includes.modales.propina')
 
        {{-- Se genera segun las monedas  --}}
-       <x-venta.lateral-modal-tpago /> 
+       @include('iconos_x.tipo_pago_'. session('sistema.td'))
+
 
        @include('venta.includes.modales.comentario')
        @include('venta.includes.modales.cantidad-producto')

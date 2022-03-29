@@ -18,9 +18,7 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
             $retorno .= $this->crearModalOpcionesComandero($opcion);
         }
 
-        $this->saveData($retorno, '../resources/views/components/comandero/iconos/categorias.blade.php');
-
-
+        $this->saveData($retorno, '../resources/views/iconos_x/comandero_categorias_'. session('sistema.td') .'.blade.php');
     }
 
 

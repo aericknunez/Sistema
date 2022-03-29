@@ -18,7 +18,9 @@
 
 
 
-    <x-comandero.iconos.categorias />
+    {{-- <x-comandero.iconos.categorias /> --}}
+    @include('iconos_x.comandero_categorias_' . session('sistema.td'))
+
 
     @if (session('venta_especial_active'))
     {{ mensajex('Atención: la función de venta especial esta activa, todos los productos marcados, se agregaran sin precio de venta','danger') }}      
