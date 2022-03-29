@@ -14,5 +14,5 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/resources/views/iconos_x/
+/resources/views/iconos_x/*.php
 /public/img/logo/logo.png
