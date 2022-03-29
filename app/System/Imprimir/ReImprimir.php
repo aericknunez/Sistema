@@ -30,7 +30,7 @@ trait ReImprimir{
         $datos['reimprimir'] = true;
 
         
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
         // dd($datos);
 

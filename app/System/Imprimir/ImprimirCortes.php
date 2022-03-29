@@ -37,7 +37,7 @@ trait ImprimirCortes{
         $datos['cajero'] = Auth::user()->name;
         $datos['identidad'] = session('sistema.td');
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
     }
 
@@ -75,7 +75,7 @@ trait ImprimirCortes{
         $datos['cajero'] = Auth::user()->name;
         $datos['identidad'] = session('sistema.td');
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
     }
 

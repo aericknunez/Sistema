@@ -1,6 +1,7 @@
 <?php
 namespace App\System\Imprimir;
 
+use App\Common\Encrypt;
 use App\Common\Helpers;
 use App\Models\Cliente;
 use App\Models\ConfigApp;
@@ -25,6 +26,15 @@ trait Imprimir{
 
     use OrdenarProductosImprimir;
 
+    public function getRoutePrint(){
+        if (Encrypt::decrypt(session('root_plataforma'), session('sistema.td')) == 1) {
+            return 'http://'.config('sistema.ip').'/impresiones/index.php';
+        } else {
+            return session('livewire_path');
+        }
+    }
+
+
     public function ImprimirFactura($factura){ // para factura
       
         $datos = $this->getTotalFactura($factura);
@@ -43,7 +53,7 @@ trait Imprimir{
         $datos['identidad'] = session('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
         // Http::asForm()->post('http://localhost/impresiones/index.php', ['datos' => $datos]);
     }
@@ -79,7 +89,7 @@ trait Imprimir{
         $datos['cliente_telefono'] = session('delivery_telefono'); 
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
     }
 
 
@@ -92,7 +102,7 @@ trait Imprimir{
         $datos['tipo_impresion'] = 5;
         $datos['identidad'] = session('sistema.td');
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
     }
 
@@ -115,7 +125,7 @@ trait Imprimir{
         $datos['cliente_telefono'] = session('delivery_telefono'); 
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
 
         $this->productosActualizar(session('orden'), $imprimir, 3, $panel); // (orden,imprimir,tipo de impresion, panel)
 

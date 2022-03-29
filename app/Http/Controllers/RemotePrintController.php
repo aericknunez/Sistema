@@ -23,13 +23,15 @@ class RemotePrintController extends Controller
 
     public function store(Request $request){
         
+        // return ($request);
+
         if ($request) {
             RemotePrint::create([
-                'impresion' => json_encode($request)
+                'impresion' => json_encode($request->all())
             ]);
             return response()->json(['mensaje' => 'Guardado correctamente'], 200);
         } else {
-            return response()->json(['error' => 'No se encuentran documentos pendientes'], 404);
+            return response()->json(['error' => 'Error al insertar datos'], 404);
         }
     }
 
