@@ -16,7 +16,7 @@ class RemotePrintController extends Controller
             $impresiones->delete();
             return response()->json($impresion, 200);
         } else {
-            return response()->json(['error' => 'No se encuentran documentos pendientes'], 404);
+            return response()->json(['error' => 'No se encuentran documentos pendientes'], 206);
         }
     }
 
@@ -31,7 +31,7 @@ class RemotePrintController extends Controller
             ]);
             return response()->json(['mensaje' => 'Guardado correctamente'], 200);
         } else {
-            return response()->json(['error' => 'Error al insertar datos'], 404);
+            return response()->json(['error' => 'Error al insertar datos'], 206);
         }
     }
 
@@ -42,7 +42,7 @@ class RemotePrintController extends Controller
         if ($count) {
             return response()->json(['cantidad' => $count], 200);
         } else {
-            return response()->json(['error' => 'No se encuentran documentos pendientes'], 404);
+            return response()->json(['error' => 'No se encuentran documentos pendientes'], 206);
         }
     }
 
