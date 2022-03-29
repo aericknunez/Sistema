@@ -37,7 +37,7 @@ class RemotePrintController extends Controller
 
     
     public function contador(){
-        $count = RemotePrint::first();
+        $count = RemotePrint::count();
 
         if ($count) {
             return response()->json(['cantidad' => $count], 200);
