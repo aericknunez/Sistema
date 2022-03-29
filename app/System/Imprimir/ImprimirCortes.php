@@ -5,7 +5,7 @@ use App\Models\TicketProducto;
 use App\System\Facturacion\Facturacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-
+use App\Common\Helpers;
 /*
 Los tipos de impresion se distribuiran asi:
 10. Corte de caja
@@ -38,7 +38,9 @@ trait ImprimirCortes{
         $datos['identidad'] = session('sistema.td');
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
-
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 
@@ -76,7 +78,9 @@ trait ImprimirCortes{
         $datos['identidad'] = session('sistema.td');
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
-
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 

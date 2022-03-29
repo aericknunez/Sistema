@@ -31,7 +31,9 @@ trait ReImprimir{
 
         
         Http::asForm()->post($this->getRoutePrint(), $datos);
-
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
         // dd($datos);
 
     }

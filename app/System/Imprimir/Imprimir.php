@@ -1,7 +1,6 @@
 <?php
 namespace App\System\Imprimir;
 
-use App\Common\Encrypt;
 use App\Common\Helpers;
 use App\Models\Cliente;
 use App\Models\ConfigApp;
@@ -27,10 +26,9 @@ trait Imprimir{
     use OrdenarProductosImprimir, SendEventos;
 
     public function getRoutePrint(){
-        if (Encrypt::decrypt(session('root_plataforma'), session('sistema.td')) == 1) {
+        if(Helpers::isLocalSystem()){
             return 'http://'.config('sistema.ip').'/impresiones/index.php';
         } else {
-            $this->eventImpresionSend();
             return session('livewire_path');
         }
     }
@@ -55,6 +53,9 @@ trait Imprimir{
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
 
         // Http::asForm()->post('http://localhost/impresiones/index.php', ['datos' => $datos]);
     }
@@ -91,6 +92,9 @@ trait Imprimir{
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 
@@ -104,7 +108,9 @@ trait Imprimir{
         $datos['identidad'] = session('sistema.td');
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
-
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 
@@ -127,7 +133,9 @@ trait Imprimir{
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
-
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
         $this->productosActualizar(session('orden'), $imprimir, 3, $panel); // (orden,imprimir,tipo de impresion, panel)
 
     }
