@@ -316,4 +316,17 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
          }
      }
 
+     function getPhoto($photo){
+        if ($photo) {
+            if (file_exists(public_path('storage/' . $photo))) {
+                return asset('storage/' . $photo);
+             } else {
+                return asset('img/imagenes/avatar.png');
+             }
+         } else {
+            return asset('img/imagenes/avatar.png');
+         }
+    }
+
+
 
