@@ -42,33 +42,41 @@
             <span>********</span>
         </li>
 
+
+
+        @if ($datos->private)
+            
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar Login:
-            <span>{{ isActivo($datos->sys_login) }}</span>
+            <span>{{ isActivo($datos->private->sys_login) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar respaldo:
-            <span>{{ isActivo($datos->just_data) }}</span>
+            <span>{{ isActivo($datos->private->just_data) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Datos Especiales:
-            <span>{{ isActivo($datos->data_special) }}</span>
+            <span>{{ isActivo($datos->private->data_special) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Impresiones Ticket:
-            <span>{{ isActivo($datos->print) }}</span>
+            <span>{{ isActivo($datos->private->print) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Impresiones Pusher:
-            <span>{{ isActivo($datos->pusher) }}</span>
+            <span>{{ isActivo($datos->private->pusher) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Tiempo Sincronización:
-            <span>{{ $datos->sync_time }}</span>
+            <span>{{ $datos->private->sync_time }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Dirección LiveWire:
-            <span>{{ $datos->livewire_path }}</span>
+            <span>{{ $datos->private->livewire_path }}</span>
         </li>
+        @endif
+
+
+
     </ul>
 </div>

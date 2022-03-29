@@ -202,7 +202,7 @@ class Configuracion extends Component
 
         $priv = ConfigPrivate::first();
         if (!$priv) {
-            $this->config = ConfigPrivate::create([
+            $this->config['private'] = ConfigPrivate::create([
                 'sys_login' => 1,
                 'just_data' => 0,
                 'data_special' => 0,
@@ -213,11 +213,10 @@ class Configuracion extends Component
             ]);
 
         } else {
-            $this->config = $priv;
+            $this->config['private'] = $priv;
         }
 
         // $this->config = ConfigPrivate::first();
-
         $this->tipoBusqueda = 5;
 
     }
