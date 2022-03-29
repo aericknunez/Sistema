@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\System\Imprimir\OrdenarProductosImprimir;
-
+use App\System\Eventos\SendEventos;
 /*
 Los tipos de impresion se distribuiran asi:
 1. Pre Cuenta
@@ -24,12 +24,13 @@ Los tipos de impresion se distribuiran asi:
 
 trait Imprimir{
 
-    use OrdenarProductosImprimir;
+    use OrdenarProductosImprimir, SendEventos;
 
     public function getRoutePrint(){
         if (Encrypt::decrypt(session('root_plataforma'), session('sistema.td')) == 1) {
             return 'http://'.config('sistema.ip').'/impresiones/index.php';
         } else {
+            $this->eventImpresionSend();
             return session('livewire_path');
         }
     }

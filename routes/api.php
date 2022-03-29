@@ -27,3 +27,7 @@ Route::get('/impresiones', [RemotePrintController::class, 'index'])
 Route::post('/impresiones', [RemotePrintController::class, 'store'])
 ->middleware(['guest'])
 ->name('impresiones.store');
+
+Route::get('/impresiones/cantidad', [RemotePrintController::class, 'contador'])
+->middleware(['guest'])
+->name('impresiones.cantidad');

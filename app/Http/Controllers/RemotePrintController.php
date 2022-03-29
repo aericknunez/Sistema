@@ -36,8 +36,14 @@ class RemotePrintController extends Controller
     }
 
     
-    public function destroy(RemotePrint $role){
+    public function contador(){
+        $count = RemotePrint::first();
 
+        if ($count) {
+            return response()->json(['cantidad' => $count], 200);
+        } else {
+            return response()->json(['error' => 'No se encuentran documentos pendientes'], 404);
+        }
     }
 
 
