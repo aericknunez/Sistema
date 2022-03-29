@@ -47,7 +47,7 @@ trait InicializaCorte{
             'usuario' => session('config_usuario_id'), //usuario
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->updateCaja($caja, TRUE);

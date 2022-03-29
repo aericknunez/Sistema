@@ -133,7 +133,7 @@ class Gastos extends Component
             'efectivo_gastos_categorias_id' => $this->cat_gasto,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 

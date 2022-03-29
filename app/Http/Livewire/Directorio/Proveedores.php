@@ -113,7 +113,7 @@ class Proveedores extends Component
                     'comentarios' => $this->comentarios,
                     'clave' => Helpers::hashId(),
                     'tiempo' => Helpers::timeId(),
-                    'td' => config('sistema.td')
+                    'td' => session('sistema.td')
                 ]);
 
         

@@ -159,7 +159,7 @@ class Configuracion extends Component
             'pais' => $this->pais,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')]);
+            'td' => session('sistema.td')]);
 
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
@@ -190,15 +190,15 @@ class Configuracion extends Component
 
     public function getDatosRoot(){
         $data = ConfigRoot::first();
-        $this->config['expira'] = Encrypt::decrypt($data['expira'], config('sistema.td'));
-        $this->config['expiracion'] = Encrypt::decrypt($data['expiracion'], config('sistema.td'));
-        $this->config['edo_sistema'] = Encrypt::decrypt($data['edo_sistema'], config('sistema.td'));
-        $this->config['tipo_sistema'] = Encrypt::decrypt($data['tipo_sistema'], config('sistema.td'));
-        $this->config['plataforma'] = Encrypt::decrypt($data['plataforma'], config('sistema.td'));
-        $this->config['url_to_upload'] = Encrypt::decrypt($data['url_to_upload'], config('sistema.td'));
-        $this->config['ftp_server'] = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
-        $this->config['ftp_user'] = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
-        $this->config['ftp_password'] = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
+        $this->config['expira'] = Encrypt::decrypt($data['expira'], session('sistema.td'));
+        $this->config['expiracion'] = Encrypt::decrypt($data['expiracion'], session('sistema.td'));
+        $this->config['edo_sistema'] = Encrypt::decrypt($data['edo_sistema'], session('sistema.td'));
+        $this->config['tipo_sistema'] = Encrypt::decrypt($data['tipo_sistema'], session('sistema.td'));
+        $this->config['plataforma'] = Encrypt::decrypt($data['plataforma'], session('sistema.td'));
+        $this->config['url_to_upload'] = Encrypt::decrypt($data['url_to_upload'], session('sistema.td'));
+        $this->config['ftp_server'] = Encrypt::decrypt($data['ftp_server'], session('sistema.td'));
+        $this->config['ftp_user'] = Encrypt::decrypt($data['ftp_user'], session('sistema.td'));
+        $this->config['ftp_password'] = Encrypt::decrypt($data['ftp_password'], session('sistema.td'));
 
         $priv = ConfigPrivate::first();
         if (!$priv) {
@@ -297,7 +297,7 @@ class Configuracion extends Component
             'agrupar_orden' => $this->agrupar_orden,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')]);
+            'td' => session('sistema.td')]);
 
         NumeroCajas::where('id', '!=', 1)->delete();
 
@@ -307,7 +307,7 @@ class Configuracion extends Component
                 'edo' => 0,
                 'clave' => Helpers::hashId(),
                 'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
+                'td' => session('sistema.td')
             ]);
         }
        
@@ -352,7 +352,7 @@ class Configuracion extends Component
             'comanda_agrupada' => $this->comanda_agrupada,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')]);
+            'td' => session('sistema.td')]);
 
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
@@ -367,15 +367,15 @@ class Configuracion extends Component
         
     public function asignSistema(){
         $data = ConfigRoot::first();
-        $this->expira = Encrypt::decrypt($data['expira'], config('sistema.td'));
-        $this->expiracion = Encrypt::decrypt($data['expiracion'], config('sistema.td'));
-        $this->edo_sistema = Encrypt::decrypt($data['edo_sistema'], config('sistema.td'));
-        $this->tipo_sistema = Encrypt::decrypt($data['tipo_sistema'], config('sistema.td'));
-        $this->plataforma = Encrypt::decrypt($data['plataforma'], config('sistema.td'));
-        $this->url_to_upload = Encrypt::decrypt($data['url_to_upload'], config('sistema.td'));
-        $this->ftp_server = Encrypt::decrypt($data['ftp_server'], config('sistema.td'));
-        $this->ftp_user = Encrypt::decrypt($data['ftp_user'], config('sistema.td'));
-        $this->ftp_password = Encrypt::decrypt($data['ftp_password'], config('sistema.td'));
+        $this->expira = Encrypt::decrypt($data['expira'], session('sistema.td'));
+        $this->expiracion = Encrypt::decrypt($data['expiracion'], session('sistema.td'));
+        $this->edo_sistema = Encrypt::decrypt($data['edo_sistema'], session('sistema.td'));
+        $this->tipo_sistema = Encrypt::decrypt($data['tipo_sistema'], session('sistema.td'));
+        $this->plataforma = Encrypt::decrypt($data['plataforma'], session('sistema.td'));
+        $this->url_to_upload = Encrypt::decrypt($data['url_to_upload'], session('sistema.td'));
+        $this->ftp_server = Encrypt::decrypt($data['ftp_server'], session('sistema.td'));
+        $this->ftp_user = Encrypt::decrypt($data['ftp_user'], session('sistema.td'));
+        $this->ftp_password = Encrypt::decrypt($data['ftp_password'], session('sistema.td'));
 
 
         $datos = ConfigPrivate::first();
@@ -394,18 +394,18 @@ class Configuracion extends Component
     {        
         ConfigRoot::updateOrCreate(
             ['id' => 1], [
-            'expira' => Encrypt::encrypt($this->expira,config('sistema.td')),
-            'expiracion' => Encrypt::encrypt(Helpers::fechaFormat($this->expira),config('sistema.td')),
-            'edo_sistema' => Encrypt::encrypt($this->edo_sistema,config('sistema.td')),
-            'tipo_sistema' => Encrypt::encrypt($this->tipo_sistema,config('sistema.td')),
-            'plataforma' => Encrypt::encrypt($this->plataforma,config('sistema.td')),
-            'url_to_upload' => Encrypt::encrypt($this->url_to_upload,config('sistema.td')),
-            'ftp_server' => Encrypt::encrypt($this->ftp_server,config('sistema.td')),
-            'ftp_user' => Encrypt::encrypt($this->ftp_user,config('sistema.td')),
-            'ftp_password' => Encrypt::encrypt($this->ftp_password,config('sistema.td')),
+            'expira' => Encrypt::encrypt($this->expira,session('sistema.td')),
+            'expiracion' => Encrypt::encrypt(Helpers::fechaFormat($this->expira),session('sistema.td')),
+            'edo_sistema' => Encrypt::encrypt($this->edo_sistema,session('sistema.td')),
+            'tipo_sistema' => Encrypt::encrypt($this->tipo_sistema,session('sistema.td')),
+            'plataforma' => Encrypt::encrypt($this->plataforma,session('sistema.td')),
+            'url_to_upload' => Encrypt::encrypt($this->url_to_upload,session('sistema.td')),
+            'ftp_server' => Encrypt::encrypt($this->ftp_server,session('sistema.td')),
+            'ftp_user' => Encrypt::encrypt($this->ftp_user,session('sistema.td')),
+            'ftp_password' => Encrypt::encrypt($this->ftp_password,session('sistema.td')),
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')]);
+            'td' => session('sistema.td')]);
 
 
         ConfigPrivate::updateOrCreate(

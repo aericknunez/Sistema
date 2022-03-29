@@ -36,7 +36,7 @@
         });
     
         var channel = pusher.subscribe('pantalla');
-        channel.bind('evento{{ config('sistema.td') }}', function(data) {
+        channel.bind('evento{{ session('sistema.td') }}', function(data) {
           // alert(JSON.stringify(data));
           Livewire.emitTo('panel.pantalla', 'Ordenes');
           console.log('Evento Recibido');

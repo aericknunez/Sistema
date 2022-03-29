@@ -94,7 +94,8 @@ trait Config{
             'root_url_to_upload' => $root->url_to_upload,
             'root_ftp_server' => $root->ftp_server,
             'root_ftp_user' => $root->ftp_user,
-            'root_ftp_password' => $root->ftp_password
+            'root_ftp_password' => $root->ftp_password,
+            'sistema.td' => $root->td,
         ]);
 
         $private = ConfigPrivate::find(1);

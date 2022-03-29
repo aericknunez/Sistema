@@ -35,7 +35,7 @@ trait ImprimirCortes{
         $datos['tipo_impresion'] = 10;
         $datos['caja'] = session('caja_select');
         $datos['cajero'] = Auth::user()->name;
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 
@@ -73,7 +73,7 @@ trait ImprimirCortes{
         $datos['empresa'] = $this->getDatosEmpresa();
         $datos['tipo_impresion'] = 12;
         $datos['cajero'] = Auth::user()->name;
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
 
         Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
 

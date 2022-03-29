@@ -69,7 +69,7 @@ class Ingreso extends Component
             'efectivo_cuenta_bancos_id' => $this->idbanco,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 

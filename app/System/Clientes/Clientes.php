@@ -19,7 +19,7 @@ trait Clientes{
     //         'motivo_borrado' => null,
     //         'clave' => Helpers::hashId(),
     //         'tiempo' => Helpers::timeId(),
-    //         'td' => config('sistema.td')
+    //         'td' => session('sistema.td')
     //     ]);
 
 

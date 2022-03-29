@@ -59,7 +59,7 @@ class Index extends Component
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 
@@ -72,7 +72,7 @@ class Index extends Component
 
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 
@@ -88,7 +88,7 @@ class Index extends Component
         if (!InvUnidades::count()) {
             $sql = database_path('inv_unidades.sql');
             DB::unprepared(file_get_contents($sql)); 
-            InvUnidades::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            InvUnidades::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
         }
         $this->unidades = InvUnidades::all();
     }
@@ -118,7 +118,7 @@ class Index extends Component
         
                     'clave' => Helpers::hashId(),
                     'tiempo' => Helpers::timeId(),
-                    'td' => config('sistema.td')
+                    'td' => session('sistema.td')
                 ]);
         
                 $this->dispatchBrowserEvent('mensaje', 
@@ -158,7 +158,7 @@ class Index extends Component
         
                     'clave' => Helpers::hashId(),
                     'tiempo' => Helpers::timeId(),
-                    'td' => config('sistema.td')
+                    'td' => session('sistema.td')
                 ]);
         
                 $this->dispatchBrowserEvent('mensaje', 

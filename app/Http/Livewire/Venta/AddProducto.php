@@ -525,7 +525,7 @@ public function pagar(){
         'edo' => 1,
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
+        'td' => session('sistema.td')
     ]);
     
     $this->actualizarDatosVenta($num_fact); // actualiza los campos de los productos

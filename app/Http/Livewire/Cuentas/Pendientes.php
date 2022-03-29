@@ -74,7 +74,7 @@ class Pendientes extends Component
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->reset(['proveedor', 'nombre', 'detalles', 'factura', 'tdocumento', 'cantidad', 'fecha']);
@@ -149,7 +149,7 @@ class Pendientes extends Component
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ])) {
             // Actualizar los valores
             $abonos = $this->selectCuenta['abonos'] + $this->cAbono;

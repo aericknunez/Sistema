@@ -53,7 +53,7 @@ class Index extends Component
             'img' => $this->imgSelected,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $img = OrderImg::where('imagen', $categoria->id)
@@ -66,7 +66,7 @@ class Index extends Component
                 'imagen' => $categoria->id,
                 'clave' => Helpers::hashId(),
                 'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
+                'td' => session('sistema.td')
             ]);
         }
 
