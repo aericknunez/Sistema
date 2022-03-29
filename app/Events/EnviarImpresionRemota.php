@@ -18,7 +18,7 @@ class EnviarImpresionRemota implements ShouldBroadcastNow
 
     public function broadcastOn()
     {
-        return ['impresion'];
+        return ['impresion' . session('sistema.td')];
     }
   
     public function broadcastAs()
