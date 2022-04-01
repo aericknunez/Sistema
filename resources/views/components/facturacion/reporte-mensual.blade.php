@@ -110,7 +110,7 @@
                 @foreach ($eliminadas as $data)
 
                     <tr>
-                        <td>{{ formatJustFecha($data['created_at']) }}</td>
+                        <td><a wire:click="imprimirFactura({{ $data['factura'] }})">{{ formatJustFecha($data['created_at']) }}</a></td>
                         <td>{{ numeracionFactura($data['factura']) }}</td>
                         <th>{{ dinero(0) }}</th>
                         <td>{{ dinero(STotal($data['total'], session('config_impuesto'))) }}</td>
