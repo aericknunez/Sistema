@@ -1,7 +1,9 @@
 <x-no-login>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a class="d-flex justify-content-center mb-4" href="/login">
+                <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">
+            </a>
         </x-slot>
 
         <div class="card-body">
