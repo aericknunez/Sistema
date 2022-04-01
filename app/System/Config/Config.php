@@ -29,7 +29,6 @@ trait Config{
             'config_tipo_servicio' => $conf->tipo_servicio, // 1 rapido, 2 mesa, 3 delivery en el que iniciara
             'config_usuario_id' => Auth::user()->id,
             'config_tipo_usuario' => Auth::user()->tipo_usuario,
-
         ]);
     }
 
@@ -95,7 +94,8 @@ trait Config{
             'root_url_to_upload' => $root->url_to_upload,
             'root_ftp_server' => $root->ftp_server,
             'root_ftp_user' => $root->ftp_user,
-            'root_ftp_password' => $root->ftp_password
+            'root_ftp_password' => $root->ftp_password,
+            'sistema.td' => $root->td,
         ]);
 
         $private = ConfigPrivate::find(1);

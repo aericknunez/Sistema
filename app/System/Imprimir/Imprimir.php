@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\System\Imprimir\OrdenarProductosImprimir;
-
+use App\System\Eventos\SendEventos;
 /*
 Los tipos de impresion se distribuiran asi:
 1. Pre Cuenta
@@ -23,7 +23,16 @@ Los tipos de impresion se distribuiran asi:
 
 trait Imprimir{
 
-    use OrdenarProductosImprimir;
+    use OrdenarProductosImprimir, SendEventos;
+
+    public function getRoutePrint(){
+        if(Helpers::isLocalSystem()){
+            return 'http://'.config('sistema.ip').'/impresiones/index.php';
+        } else {
+            return session('livewire_path');
+        }
+    }
+
 
     public function ImprimirFactura($factura){ // para factura
       
@@ -40,10 +49,13 @@ trait Imprimir{
         $datos['cajero'] = Auth::user()->name;
         $datos['config_imp'] = session('config_impuesto');
         $datos['tipo_impresion'] = 3;
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
 
         // Http::asForm()->post('http://localhost/impresiones/index.php', ['datos' => $datos]);
     }
@@ -70,7 +82,7 @@ trait Imprimir{
         $datos['cajero'] = Auth::user()->name;
         $datos['config_imp'] = session('config_impuesto');
         $datos['tipo_impresion'] = 1;
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
@@ -79,7 +91,10 @@ trait Imprimir{
         $datos['cliente_telefono'] = session('delivery_telefono'); 
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
+        Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 
@@ -90,10 +105,12 @@ trait Imprimir{
         $datos['caja'] = session('caja_select');
         $datos['cajero'] = Auth::user()->name;
         $datos['tipo_impresion'] = 5;
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
-
+        Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
     }
 
 
@@ -106,7 +123,7 @@ trait Imprimir{
         $datos['panel'] = $panel;
         $datos['fecha'] = date('d-m-Y');
         $datos['hora'] = date('H:i:s');
-        $datos['identidad'] = config('sistema.td');
+        $datos['identidad'] = session('sistema.td');
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
 
@@ -115,8 +132,10 @@ trait Imprimir{
         $datos['cliente_telefono'] = session('delivery_telefono'); 
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
-        Http::asForm()->post('http://'.config('sistema.ip').'/impresiones/index.php', $datos);
-
+        Http::asForm()->post($this->getRoutePrint(), $datos);
+        if (!Helpers::isLocalSystem()) {
+            $this->eventImpresionSend();
+        }
         $this->productosActualizar(session('orden'), $imprimir, 3, $panel); // (orden,imprimir,tipo de impresion, panel)
 
     }

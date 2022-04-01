@@ -42,10 +42,8 @@ class Ingreso extends Component
 
 
     public function updated(){ // se ejecuta al cambiar el model 
-        if ($this->tipo_pago != 1) {
-            $this->idbanco =1;
-        } else {
-            $this->idbanco = NULL;
+        if ($this->tipo_pago == 1) {
+            $this->idbanco = null;
         }
     }
 
@@ -71,7 +69,7 @@ class Ingreso extends Component
             'efectivo_cuenta_bancos_id' => $this->idbanco,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 

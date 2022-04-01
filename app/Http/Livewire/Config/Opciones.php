@@ -52,10 +52,10 @@ class Opciones extends Component
             'titulo' => 'Realizado', 
             'texto' => 'Iconos Actualizados correctamente']);
 
-            Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-            ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-            ImageTag::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-            OrderImg::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            Image::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageCategory::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            ImageTag::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+            OrderImg::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
             
         } else {
             $this->dispatchBrowserEvent('error', 
@@ -125,17 +125,17 @@ class Opciones extends Component
         $sql = database_path('inv_unidades.sql');
         DB::unprepared(file_get_contents($sql));
         
-        Image::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageCategory::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ImageTag::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OrderImg::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        Producto::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        ProductoCategoria::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Image::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageCategory::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ImageTag::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OrderImg::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        Producto::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ProductoCategoria::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
-        ModelsOpciones::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesSub::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        OpcionesProducto::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
-        InvUnidades::where('td', '<>', config('sistema.td'))->update(['td' => config('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        ModelsOpciones::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesSub::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        OpcionesProducto::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
+        InvUnidades::where('td', '<>', session('sistema.td'))->update(['td' => session('sistema.td'), 'tiempo' => Helpers::timeId()]);
 
 
         $this->dispatchBrowserEvent('mensaje', 

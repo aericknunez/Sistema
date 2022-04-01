@@ -14,7 +14,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-/resources/views/venta/iconos.blade.php
-/resources/views/components/venta/lateral-modal-tpago.blade.php
-/resources/views/components/comandero/iconos/categorias.blade.php
+/resources/views/iconos_x/*.php
 /public/img/logo/logo.png
+/public/img/logo/logo/*.png

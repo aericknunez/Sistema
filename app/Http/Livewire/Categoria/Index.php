@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Categoria;
 
 use App\Common\Helpers;
 use App\Models\OrderImg;
+use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\System\Config\ImagenesProductos;
 use App\System\Config\ManejarIconos;
@@ -52,18 +53,22 @@ class Index extends Component
             'img' => $this->imgSelected,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
-        // orden de la imagen
-        OrderImg::updateOrCreate(
-            ['imagen' => $categoria->id],[
-            'tipo_img' => 2,
-            'imagen' => $categoria->id,
-            'clave' => Helpers::hashId(),
-            'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
-        ]);
+        $img = OrderImg::where('imagen', $categoria->id)
+                        ->where('tipo_img', 2)->first();
+
+        if (!$img) {
+            OrderImg::Create(
+                ['imagen' => $categoria->id],[
+                'tipo_img' => 2,
+                'imagen' => $categoria->id,
+                'clave' => Helpers::hashId(),
+                'tiempo' => Helpers::timeId(),
+                'td' => session('sistema.td')
+            ]);
+        }
 
         $this->CrearIconos(); // crea los iconos despues de guardar
 
@@ -85,8 +90,11 @@ class Index extends Component
 
     public function destroy($id)
     {
+        Producto::where('producto_categoria_id', $id)
+                    ->update(['producto_categoria_id' => 1, 'tiempo' => Helpers::timeId()]);
         ProductoCategoria::find($id)->delete();
         OrderImg::where('tipo_img', 2)->where('imagen', $id)->delete();
+        
 
         $this->getCategorias();
         $this->CrearIconos(); // crea los iconos despues de guardar
@@ -100,7 +108,7 @@ class Index extends Component
 
 
     public function getCategorias(){
-        $this->categorias = ProductoCategoria::where('principal', NULL)->get();
+        $this->categorias = ProductoCategoria::where('principal', NULL)->orderBy('id', 'DESC')->get();
     }
 
 

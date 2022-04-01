@@ -4,7 +4,7 @@
     <x-cuerpo >
         <x-slot name="contenido">
             <div wire:poll.{{ config('sistema.synctime') }}s.visible="carga">
-                <x-venta.mesas-all :mesas="$mesasAll" />
+                @include('venta.includes.mesa.mesas-all')
             </div>
         </x-slot>
     
@@ -24,7 +24,7 @@
 
     </x-cuerpo>
 
-    <x-venta.modal-add-mesa :clientes="$clientes" />
+       @include('venta.includes.modales.add-mesa')
 
 
 </div>

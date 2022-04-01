@@ -29,7 +29,7 @@ trait Ventas{
             'imprimir' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
     
         session(['orden' => $orden->id]);
@@ -84,7 +84,7 @@ trait Ventas{
         'imprimir' => 1, // 1 = agregado 2 = listo a imprimir, 0 impreso
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
+        'td' => session('sistema.td')
     ]); 
 
     if (session('principal_ticket_pantalla') == 1) { // pasa a 1 el estado de impresion para la pantalla
@@ -113,7 +113,7 @@ public function agregarOpciones($idProducto, $productoAgregado){ // agraga las o
             'ticket_producto_id' => $productoAgregado, 
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]); 
     }
 }
@@ -298,7 +298,7 @@ public function addDeliveryData(){
 
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
+        'td' => session('sistema.td')
     ]);
 
 }
@@ -395,7 +395,7 @@ public function getDeliveryData(){ // crea la variables del delivery
             'imprimir' => 0, // 1 = agregado 2 = listo a imprimir, 0 impreso
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]); 
     }
 /// funciones de ordenes o mesas
@@ -494,7 +494,7 @@ public function getDeliveryData(){ // crea la variables del delivery
             'imprimir' => 1, // 1 = agregado 2 = listo a imprimir, 0 impreso
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]); 
     
         if (session('principal_ticket_pantalla') == 1) { // pasa a 1 el estado de impresion para la pantalla

@@ -32,9 +32,12 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
                     $counter ++;
                 }
             } else {
-                $datoy = ProductoCategoria::where('principal', null)->where('id', $dato->imagen)->first();
-                $retorno .= $this->creaCategoriaIco($datoy); 
-                $counter ++;
+                $datoy = ProductoCategoria::where('id', $dato->imagen)->first();
+                if ($datoy) {
+                    $retorno .= $this->creaCategoriaIco($datoy); 
+                    $counter ++;
+                }
+
             }
         }
 
@@ -277,7 +280,7 @@ return $retorno;
 
     public function guardarArchivo($data){
         
-        $archivo = fopen("../resources/views/venta/iconos.blade.php",'w+');
+        $archivo = fopen("../resources/views/iconos_x/iconos_principal_". session('sistema.td') .".blade.php",'w+');
         fwrite($archivo, $data);
         fclose($archivo);
 

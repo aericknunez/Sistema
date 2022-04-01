@@ -61,7 +61,7 @@ trait CrearTipoPagoModal { // nombre del Trait Igual al del archivo
 
     public function guardarArchivoModal($data){
         
-        $archivo = fopen("../resources/views/components/venta/lateral-modal-tpago.blade.php",'w+');
+        $archivo = fopen("../resources/views/iconos_x/tipo_pago_". session('sistema.td') .".blade.php",'w+');
         fwrite($archivo, $data);
         fclose($archivo);
 

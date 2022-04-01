@@ -57,7 +57,7 @@ trait EfectivoCuentas{
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
     }
@@ -84,7 +84,7 @@ trait EfectivoCuentas{
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
     }

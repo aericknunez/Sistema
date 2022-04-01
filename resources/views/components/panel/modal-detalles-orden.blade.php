@@ -24,10 +24,13 @@
                         @endif
                     </div>
 
+                    @php
+                      $productosFactura = $datos['productos'];
+                    @endphp
                     @if (session('principal_agrupar_orden'))
-                    <x-venta.cambios-productos-cliente-agrupado :datos="$datos['productos']" />
+                      @include('venta.includes.cambios.productos-cliente-agrupado')
                     @else
-                    <x-venta.cambios-productos-cliente :datos="$datos['productos']" />         
+                      @include('venta.includes.cambios.productos-cliente')
                     @endif
 
                     <div class="row">

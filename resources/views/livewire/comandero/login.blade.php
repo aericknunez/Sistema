@@ -3,7 +3,7 @@
     <section class="p-3 bg-info mt-2">
         <div class="d-flex align-items-center">
             <div class="text-white ml-3">
-            <p class="mb-1 h3">SELECCIONE UN USUARIO</p>
+            <div class="mb-1 h4">SELECCIONE UN USUARIO</div>
             </div>
         </div>
     </section>

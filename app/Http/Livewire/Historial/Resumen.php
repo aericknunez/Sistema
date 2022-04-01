@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Historial;
 
+use App\Models\EfectivoGastos;
+use App\Models\User;
 use App\System\Historial\HistorialTotales;
 use Livewire\Component;
 use Carbon\Carbon;
@@ -26,7 +28,7 @@ class Resumen extends Component
     public $cortesAbiertos;
     public $lastUpdate;
 
-    public $dataModal = [];
+    public $detalleGastos = [];
 
 
     public function mount(){
@@ -50,35 +52,24 @@ class Resumen extends Component
         if ($this->tipo_fecha == 1) {
             $this->ventas = $this->historialTotalUnica($this->fecha1);     
             $this->gastos = $this->historialGastosUnica($this->fecha1);     
-            $this->cuentas = $this->saldosCuentas();
-            $this->cortesAbiertos = $this->cortesAbiertos();            
-            $this->lastUpdate = $this->LastUpdate();
             $this->porcentaje = $this->PorcentajeUnico($this->fecha1);
             $this->noOrdenes = $this->ordenesUnica($this->fecha1);
         } else {
             $this->ventas = $this->historialTotalMultiple($this->fecha1, $this->fecha2);
             $this->gastos = $this->historialGastosMultiple($this->fecha1, $this->fecha2);
-            $this->cuentas = $this->saldosCuentas();
-            $this->cortesAbiertos = $this->cortesAbiertos();            
-            $this->lastUpdate = $this->LastUpdate();
             $this->porcentaje = $this->PorcentajeMultiple($this->fecha1, $this->fecha2);
             $this->noOrdenes = $this->ordenesMultiple($this->fecha1, $this->fecha2);
         }
+        $this->lastUpdate = $this->LastUpdate();
+        $this->cortesAbiertos = $this->cortesAbiertos();            
+        $this->cuentas = $this->saldosCuentas();
+        $this->getDetalleGastos($this->fecha1, $this->fecha2);
         
         // $this->emision($this->porcentaje['facturado'], $this->porcentaje['nofacturado']);
         $this->reset(['fecha1f', 'fecha2f']);
     }
 
     
-    
-
-    public function emision($facturado, $nofacturado){
-        $this->dispatchBrowserEvent('graficar', 
-        [
-            'facturado' => $facturado, 
-            'nofacturado' => $nofacturado
-        ]);
-    }
 
 
     public function formatFechas(){
@@ -94,6 +85,25 @@ class Resumen extends Component
             if(!$this->fecha2f){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
                 $this->fecha2 = $this->fecha2f . ' 23:59:59';
             }         
+        }
+    }
+
+
+    public function getDetalleGastos($fecha1, $fecha2){
+        if ($this->tipo_fecha == 1) {
+            $this->detalleGastos = EfectivoGastos::addSelect(['usuario' => User::select('name')
+                                    ->whereColumn('cajero', 'users.id')])
+                                    ->whereDate('created_at', $fecha1)
+                                    ->with('banco')
+                                    ->orderBy('tiempo', 'desc')
+                                    ->get();
+        } else {
+            $this->detalleGastos = EfectivoGastos::addSelect(['usuario' => User::select('name')
+                                    ->whereColumn('cajero', 'users.id')])
+                                    ->whereBetween('created_at', [$fecha1, $fecha2])
+                                    ->with('banco')
+                                    ->orderBy('tiempo', 'desc')
+                                    ->get();
         }
     }
 

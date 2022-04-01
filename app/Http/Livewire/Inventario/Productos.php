@@ -66,7 +66,7 @@ class Productos extends Component
             
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->emit('creado');

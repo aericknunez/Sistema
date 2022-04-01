@@ -7,7 +7,9 @@
             </div>
             <div class="forny-form">
                 <div class="text-center">
-                    <x-jet-authentication-card-logo />
+                    <a class="d-flex justify-content-center mb-4" href="/login">
+                        <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">
+                    </a>
     
                     <h4>¿Olvidaste tu contraseña?</h4>
                     <p class="mb-10">No hay problema. Solo háganos saber su dirección de correo electrónico y le enviaremos un enlace para restablecer la contraseña que le permitirá elegir una nueva.</p>

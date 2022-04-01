@@ -20,6 +20,7 @@
 
     </x-cuerpo>
 
-    <x-venta.modal-add-cliente />
+    {{-- <x-venta.modal-add-cliente /> --}}
+    @include('venta.includes.modales.add-cliente-delivery')
 
 </div>

@@ -163,5 +163,14 @@ class Helpers{
      }
 
 
+     static public function isLocalSystem(){
+        if (Encrypt::decrypt(session('root_plataforma'), session('sistema.td')) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+     }
+
+
 
 }

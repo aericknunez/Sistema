@@ -66,7 +66,7 @@ class Remesas extends Component
             'efectivo_cuenta_bancos_id' => $this->idbanco,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         // obtiene total para sumarlo a la cuenta y crear historial

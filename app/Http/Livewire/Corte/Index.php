@@ -9,12 +9,13 @@ use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
 use App\System\Corte\InicializaCorte;
+use App\System\Eventos\SendEventos;
 use App\System\Imprimir\ImprimirCortes;
 
 class Index extends Component
 {
 
-    use Corte, InicializaCorte, ImprimirCortes;
+    use Corte, InicializaCorte, ImprimirCortes, SendEventos;
 
     public $cantidad;
     public $cajero;
@@ -48,6 +49,8 @@ class Index extends Component
         $this->obtenerDatosCorte();
         $this->verCorte();
         $this->emit('creado'); // manda el mensaje de creado
+        $this->eventPantallaSend(); // envia el evento a la pantalla
+        $this->borrarComandasPantalla();
         $this->reset(['existenMovimientos']);
     }
 
@@ -96,7 +99,7 @@ class Index extends Component
                 'usuario' => session('config_usuario_id'), //usuario
                 'clave' => Helpers::hashId(),
                 'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
+                'td' => session('sistema.td')
             ]);
     
             $this->updateCaja($this->datos['numero_caja'], TRUE);

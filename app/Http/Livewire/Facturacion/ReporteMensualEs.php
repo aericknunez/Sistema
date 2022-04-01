@@ -6,6 +6,7 @@ use App\Models\ConfigApp;
 use App\Models\ConfigImpresion;
 use App\System\Facturacion\Facturacion;
 use App\System\Imprimir\ImprimirCortes;
+use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
 
 class ReporteMensualEs extends Component
@@ -13,6 +14,7 @@ class ReporteMensualEs extends Component
 
     use Facturacion;
     use ImprimirCortes;
+    use ReImprimir;
 
     public $busqueda;
     public $mes;
@@ -76,6 +78,12 @@ class ReporteMensualEs extends Component
         $this->ImprimirReporteDiario($date, $this->busqueda);
         $this->emit('imprimiendo');
 
+    }
+
+    public function imprimirFactura($iden){
+        session(['impresion_seleccionado' => $this->busqueda]);
+        $this->ReImprimirFactura($iden); // imprime la factura
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Imprimiendo Factura']);   
     }
 
 

@@ -36,7 +36,7 @@ class PantallaDatos implements ShouldBroadcastNow
   
     public function broadcastAs()
     {
-        $evento = 'evento' . config('sistema.td');
+        $evento = 'evento' . session('sistema.td');
         return $evento;
     }
 }

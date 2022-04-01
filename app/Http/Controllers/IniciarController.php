@@ -12,6 +12,7 @@ use App\Models\NumeroCajas;
 use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
 use App\System\Config\ManejarIconos;
+use App\System\Config\ManejarIconosComandero;
 use App\System\Corte\InicializaCorte;
 use App\System\Ventas\Ventas;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\View;
 class IniciarController extends Controller
 {
     
-    use Config, InicializaCorte, Ventas, ManejarIconos, CrearTipoPagoModal;
+    use Config, InicializaCorte, Ventas, ManejarIconos, CrearTipoPagoModal, ManejarIconosComandero;
 
     public function iniciar(){
 
@@ -59,6 +60,16 @@ class IniciarController extends Controller
             } else {
                 return redirect()->route('panel.control');
             }
+        } else {
+            if (!View::exists('iconos_x.iconos_principal_' . session('sistema.td'))) {
+                $this->CrearIconos();
+            }
+            if (!View::exists('iconos_x.comandero_categorias_' . session('sistema.td'))) {
+                $this->GenerarIco();
+            }
+            if (!View::exists('iconos_x.tipo_pago_' . session('sistema.td'))) {
+                $this->crearModalMoneda();
+            }
         }
 
         if (session('config_tipo_usuario') == 7) {
@@ -70,13 +81,6 @@ class IniciarController extends Controller
             session(['invDesc' => true]);
         }
 
-        // $this->CrearIconos();
-        // $this->crearModalMoneda();
-        
-        if (!View::exists('components.venta.lateral-modal-tpago')) {
-            $this->CrearIconos();
-            $this->crearModalMoneda();
-        }
         
         if (session('config_tipo_servicio') == 1) {
             session(['llevar_aqui' => session('principal_llevar_rapida')]);
@@ -127,7 +131,9 @@ class IniciarController extends Controller
                                 ->where('usuario', session('config_usuario_id'))
                                 ->first();
                                 
-            session(['caja_select' => $caja->numero_caja]);
+            if ($caja) {
+                session(['caja_select' => $caja->numero_caja]);
+            }                  
             return redirect()->route('venta.rapida');
         } else {
             return redirect()->route('caja.select');

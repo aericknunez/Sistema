@@ -83,7 +83,7 @@ class Crear extends Component
             'producto_categoria_id' => $this->categoria,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         // orden de la imagen
@@ -92,7 +92,7 @@ class Crear extends Component
             'imagen' => $producto->id,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         // $producto->opciones()->attach($this->opcionesSelect);
@@ -104,7 +104,7 @@ class Crear extends Component
                         'opcion_id' => $opcion,
                         'clave' => Helpers::hashId(),
                         'tiempo' => Helpers::timeId(),
-                        'td' => config('sistema.td')
+                        'td' => session('sistema.td')
                     ]);
                 }
             }
@@ -144,7 +144,7 @@ class Crear extends Component
     public function getCategoria(){
         $cat = ProductoCategoria::select(['id'])
                                         ->where('principal', 1)
-                                        ->where('td', config('sistema.td'))
+                                        ->where('td', session('sistema.td'))
                                         ->first();
         $this->categoria = $cat->id;
     }

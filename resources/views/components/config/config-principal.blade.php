@@ -28,15 +28,25 @@
         <div class="col-12 col-md-9">
             <div class="card">
                 <div class="card-body">
+                    
+
                     @if ($datos['tipo'] == 1)
                         <x-config.config.principal :datos="$datos['data']" />
-                    @elseif ($datos['tipo'] == 2)
+                    @endif
+            
+                    @if ($datos['tipo'] == 2)
                         <x-config.config.monedas :datos="$datos['data']" />
-                    @elseif ($datos['tipo'] == 3)
+                    @endif
+                
+                    @if ($datos['tipo'] == 3)
                         <x-config.config.paneles :datos="$datos['data']" />
-                    @elseif ($datos['tipo'] == 4)
+                    @endif
+                    
+                    @if ($datos['tipo'] == 4)
                         <x-config.config.impresiones :datos="$datos['data']" />
-                    @else
+                    @endif
+                    
+                    @if ($datos['tipo'] == 5)
                         @if (session('config_tipo_usuario') == 1)
                             <x-config.config.sistema :datos="$datos['data']" />
                         @endif
