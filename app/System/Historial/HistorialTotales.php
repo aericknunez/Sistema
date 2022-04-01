@@ -102,8 +102,14 @@ trait HistorialTotales {
                                     ->sum('total');
                                 
         $totalVenta = $totalFacturado + $totalNoFacturado;
-        @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
-        @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
+        if ($totalVenta) {
+            @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
+            @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
+        } else {
+            @$pFacturado = 0;
+            @$pNoFacturado = 0;
+        }
+
         
         $data = collect(['facturado' => $pFacturado, 'nofacturado' => $pNoFacturado]);
         return  $data;
