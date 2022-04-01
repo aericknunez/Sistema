@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 /resources/views/iconos_x/*.php
 /public/img/logo/logo.png
+/public/img/logo/logo/*.png
