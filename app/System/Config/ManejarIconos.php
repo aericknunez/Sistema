@@ -32,7 +32,7 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
                     $counter ++;
                 }
             } else {
-                $datoy = ProductoCategoria::where('principal','!=', 1)->where('id', $dato->imagen)->first();
+                $datoy = ProductoCategoria::where('id', $dato->imagen)->first();
                 if ($datoy) {
                     $retorno .= $this->creaCategoriaIco($datoy); 
                     $counter ++;
