@@ -131,7 +131,9 @@ class IniciarController extends Controller
                                 ->where('usuario', session('config_usuario_id'))
                                 ->first();
                                 
-            session(['caja_select' => $caja->numero_caja]);
+            if ($caja) {
+                session(['caja_select' => $caja->numero_caja]);
+            }                  
             return redirect()->route('venta.rapida');
         } else {
             return redirect()->route('caja.select');
