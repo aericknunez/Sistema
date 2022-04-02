@@ -65,6 +65,11 @@ class SearchBotones extends Component
                         ->where('factura', session('idSearch'))
                         ->where('edo', 1)
                         ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
+                        
+        TicketProducto::where('tipo_venta', session('impresion_seleccionado'))
+                        ->where('num_fact', session('idSearch'))
+                        ->where('edo', 1)
+                        ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
        $this->getData(); 
        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Imprimiendo', 'texto' => 'Factura eliminada correctamente']);    
     }
