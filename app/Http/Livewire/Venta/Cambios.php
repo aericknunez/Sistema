@@ -11,11 +11,15 @@ use App\Models\TicketProducto;
 use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 use Livewire\Component;
+Use App\System\Inventario\Administrar;
+
 
 class Cambios extends Component
 {
 
-    use Imprimir, Ventas;
+    use Ventas; 
+    use Imprimir; 
+    use Administrar;
 
     public $productAgregado;
     public $productosFactura;
