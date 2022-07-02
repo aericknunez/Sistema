@@ -36,7 +36,8 @@ class SearchBotones extends Component
 
     
     public function getData(){
-        $this->detalles = TicketProducto::where('tipo_venta', session('impresion_seleccionado'))
+        $this->detalles = TicketProducto::
+                                    // where('tipo_venta', session('impresion_seleccionado'))
                                     ->where('num_fact', session('idSearch'))
                                     // ->where('edo', 1)
                                     ->with('subOpcion')
