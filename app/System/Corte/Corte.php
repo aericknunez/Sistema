@@ -216,7 +216,7 @@ trait Corte{
     public function diferencia($efectivo_inicial, $efectivo_ingresado, $inicio, $fin, $cajero){
         $total = $efectivo_inicial 
                 + $this->totalEfectivo($inicio, $fin, $cajero) 
-                + $this->propinaEfectivo($inicio, $fin, $cajero)
+               // + $this->propinaEfectivo($inicio, $fin, $cajero)
                 + $this->entradasEfectivo($inicio, $fin, $cajero)
                 - $this->salidasEfectivo($inicio, $fin, $cajero)
                 - $this->gastosEfectivo($inicio, $fin, $cajero)
