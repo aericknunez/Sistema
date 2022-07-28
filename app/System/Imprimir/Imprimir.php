@@ -48,9 +48,11 @@ trait Imprimir{
         $datos['tipo_moneda'] = Helpers::paisSimbolo(session('config_pais'));
         $datos['cajero'] = Auth::user()->name;
         $datos['config_imp'] = session('config_impuesto');
+        $datos['tipo_pago'] = session('tipo_pago');
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = session('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+        $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post($this->getRoutePrint(), $datos);
         if (!Helpers::isLocalSystem()) {
