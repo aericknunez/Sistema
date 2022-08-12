@@ -64,7 +64,7 @@ trait CreaIconosMenuSecundario { // nombre del Trait Igual al del archivo
 
     public function creaIconoOtrasVentas2(){
 
-            $retorno = '<li><a toggle="modal" data-target="#ModalOtrasVentas" title="Otras Ventas">
+            $retorno = '<li><a data-toggle="modal" data-target="#ModalOtrasVentas" title="Otras Ventas">
                     <em class="text-center">Otras Ventas</em>
                     <img src="{{ asset("img/ico/4d87a6a1c0.png") }}" alt="Otras Ventas" class="img-fluid wow fadeIn" />
                 </a></li>
