@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md z-depth-4 bordeado-x1" role="document">
       <div class="modal-content bordeado-x1">
         <div class="modal-header">
-          <h5 class="modal-title">AREGAR UN NUEVO DELIVERY</h5>
+          <h5 class="modal-title">AGREGAR UN NUEVO DELIVERY</h5>
 
         </div>
         <div class="modal-body">
