@@ -351,6 +351,7 @@ top: 10px;
 	width: 100px;
 	height: auto;
 	border-radius: 5px;
+  font-weight: 500;
 }
 .gallery a {
 	text-decoration: none;
