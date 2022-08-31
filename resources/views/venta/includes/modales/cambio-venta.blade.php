@@ -19,11 +19,11 @@
             <div class="display-4 font-weight-bold" id="fact_total"></div> <hr>
                         
             
-            <p class="font-weight-bold">EFECTIVO:</p>';
+            <p class="font-weight-bold">EFECTIVO:</p>
             <div class="display-4 font-weight-bold" id="fact_efectivo"></div> <hr>
             
-            <p class="text-danger font-weight-bold">CAMBIO:</p>'; 
-            <div class="display-4 text-danger font-weight-bold" id="fact_cambio"></div>'
+            <p class="text-danger font-weight-bold">CAMBIO:</p>
+            <div class="display-4 text-danger font-weight-bold" id="fact_cambio"></div>
              
         
         </div>    

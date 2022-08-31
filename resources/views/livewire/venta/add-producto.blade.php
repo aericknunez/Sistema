@@ -42,7 +42,7 @@
              <div>Cliente: {{ session('factura_cliente') }} ||  Documento: {{ session('factura_documento') }}</div>
         @endif
 
-        @if ((session('sistema.td') == 10 or session('sistema.td') == 0 or session('sistema.td') == 11) and session('impresion_seleccionado') == 1)
+        @if ((session('sistema.td') == 10 or session('sistema.td') == 11) and session('impresion_seleccionado') == 1)
         <div class="font-weight-bold red-text bordeado-x1 border text-center">
             <div class="h4-responsive">{{ App\System\Ventas\Ventas::Porcentaje() }}</div>
         </div>

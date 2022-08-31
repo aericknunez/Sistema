@@ -227,13 +227,12 @@ class AddProducto extends Component
     public function obtenerTotal(){ // Obtiene el total de toda la venta   
         $this->subtotal = $this->totalDeVenta();
 
-        if($this->propinaPorcentaje > 0){
+        if($this->propinaPorcentaje >= 0){
             $this->propinaCantidad = Helpers::propina($this->subtotal, $this->propinaPorcentaje);
             $this->total = $this->subtotal + $this->propinaCantidad;
         } else {
             $this->total = $this->subtotal;
         }
-
         $this->obtenerCantidadImprimir();
     }
 

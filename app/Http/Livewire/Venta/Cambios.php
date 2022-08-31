@@ -116,7 +116,7 @@ class Cambios extends Component
                                         ->where('num_fact', NULL)
                                         ->sum('total');
         
-        if($this->propinaPorcentaje > 0){
+        if($this->propinaPorcentaje >= 0){
             $this->propinaCantidad = Helpers::propina($this->subtotal, $this->propinaPorcentaje);
             $this->total = $this->subtotal + $this->propinaCantidad;
         } else {

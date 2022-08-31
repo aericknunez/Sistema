@@ -58,8 +58,12 @@ class Helpers{
 
 
     static public function propina($cantidad, $propinaPorcentaje){ 
-        $num = $propinaPorcentaje / 100;
-        return $cantidad * $num;
+        if($propinaPorcentaje == 0){
+            return 0;
+        } else {
+            $num = $propinaPorcentaje / 100;
+            return $cantidad * $num;
+        }
     }
 
 
