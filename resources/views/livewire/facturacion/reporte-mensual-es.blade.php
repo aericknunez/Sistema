@@ -102,6 +102,8 @@
                 </div>
 
                     <div class="text-right">
+                        <button class="btn btn-mdb-color btn-sm" wire:click="getPdf()" ><i class="fas fa-print mr-1"></i> Imprimir</button>
+
                         <button class="btn btn-mdb-color" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
                     </div>
                 </form>

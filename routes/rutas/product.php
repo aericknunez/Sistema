@@ -73,3 +73,5 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/cuentas/pendientes', fun
 })->name('cuentas.pendientes');
 
 
+/// PDF's
+Route::get('generate-pdf', [PDFController::class, 'generatePDF']);

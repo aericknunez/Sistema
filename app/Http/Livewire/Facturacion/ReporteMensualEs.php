@@ -108,6 +108,4 @@ class ReporteMensualEs extends Component
 
 
 
-
-
 }
