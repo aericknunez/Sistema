@@ -96,6 +96,7 @@ class Cambios extends Component
     public function productosAdded(){ /// productos agregados a la orden
         $this->productAgregado = TicketProducto::where('orden', session('orden'))
                                     ->where('num_fact', NULL)
+                                    ->where('edo', 1)
                                     ->with('subOpcion')->get();
     }
 
@@ -105,6 +106,7 @@ class Cambios extends Component
         $product = TicketProducto::where('orden', session('orden'))
                                   ->where('cliente', $this->clientSelected)
                                   ->where('num_fact', NULL)
+                                  ->where('edo', 1)
                                   ->with('subOpcion')->get();
         $this->productosFactura = $product;
     }
@@ -114,6 +116,7 @@ class Cambios extends Component
         $this->subtotal = TicketProducto::where('orden', session('orden'))
                                         ->where('cliente', $this->clientSelected)
                                         ->where('num_fact', NULL)
+                                        ->where('edo', 1)
                                         ->sum('total');
         
         if($this->propinaPorcentaje >= 0){
