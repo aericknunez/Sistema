@@ -60,19 +60,22 @@ $filtered = collect($datos->productos)->where('panel', $panel)->where('imprimir'
             // contar si hay productos en el mismo cod y com imprimir 4
             $cancelado = $productAgregado->where('cod', $producto->cod)->where('imprimir', 4);
             @endphp
-            <tr>
-              <td wire:key="{{ $producto->id }}" class="font-weight-bold link pointer">
-                @if (count($esperando) > 0)
-                <i class="far fa-clock ml-2 pr-2 blue-text"></i>
-                @else
-                <i class="fas fa-check-double ml-2 pr-2 green-text"></i>
-                @endif
-                <span>{{ $cant }}</span> {{ $producto->producto }}
-                @if (count($cancelado) > 0)
-                <i class="far fa-trash-alt ml-2 red-text"></i> {{count($cancelado)}}
-                @endif
-                </td>
-            </tr> 
+              @if ($cant > 0)
+              <tr>
+                <td wire:click="deleteProductsGroup({{$producto->cod}}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer">
+                  @if (count($esperando) > 0)
+                  <i class="far fa-clock ml-2 pr-2 blue-text"></i>
+                  @else
+                  <i class="fas fa-check-double ml-2 pr-2 green-text"></i>
+                  @endif
+                  <span>{{ $cant }}</span> {{ $producto->producto }}
+                  @if (count($cancelado) > 0)
+                  <i class="far fa-trash-alt ml-2 red-text"></i> {{count($cancelado)}}
+                  @endif
+                  </td>
+              </tr> 
+              @endif
+
             @endif
 
       @endif
