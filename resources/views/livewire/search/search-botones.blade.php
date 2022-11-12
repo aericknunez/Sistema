@@ -9,9 +9,9 @@
             <div class="card">
                 <div class="card-body px-lg-5 pt-0 click text-center" style="color: #757575;">
                     @if ($factura->edo == 1)
-                    <a class="btn-floating btn-lg btn-success" wire:click="imprimir()"><i class="fas fa-print"></i></a>
                     <a class="btn-floating btn-lg btn-danger" wire:click="$emit('deleteFactura')"><i class="fas fa-trash"></i></a>
                     @endif 
+                    <a class="btn-floating btn-lg btn-success" wire:click="imprimir()"><i class="fas fa-print"></i></a>
                     <a class="btn-floating btn-lg btn-secondary" data-toggle="modal" data-target="#ModalTipoVenta"><i class="fas fa-sync"></i></a>
                             
                 

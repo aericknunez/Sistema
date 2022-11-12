@@ -13,7 +13,11 @@
         @endif
 
             @foreach ($datos as $orden)
-             <x-panel.card-pantalla :datos="$orden" :panel="$panelImprimir" />
+             @if (session('impresion_comanda_agrupada') == 1)
+                <x-panel.card-pantalla-group :datos="$orden" :panel="$panelImprimir" />
+                @else
+                <x-panel.card-pantalla :datos="$orden" :panel="$panelImprimir" />
+             @endif
             @endforeach
         </div>
     
