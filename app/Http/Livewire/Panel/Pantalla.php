@@ -121,6 +121,23 @@ class Pantalla extends Component
     }
 
 
+    public function deleteProductsGroup($cod, $orden){
+        TicketProducto::where('cod', $cod)
+                        ->where('orden', $orden)
+                        ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+
+        /// verificar si eliminamos o no 
+        $cantidad = TicketProducto::where('orden', $orden)
+                    ->where('imprimir','!=', 3)->count();
+
+        if ($cantidad == 0) {
+            $this->estadoImprimirOrden($orden, 0);
+        }
+
+        $this->getOrdenes();
+    }
+
+
 
     public function getPanels(){
     
