@@ -34,16 +34,7 @@ $filtered = collect($datos->productos)->where('panel', $panel)->where('imprimir'
         @foreach ($productAgregado as $producto)      
 
         @if ($producto->panel == $panel)
-          
-            {{-- @if ($producto->imprimir == 1)
-                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="far fa-clock ml-2 pr-2 blue-text"></i> {{ $producto->producto }}</td></tr>
-
-            @elseif ($producto->imprimir == 2)
-                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer"><i class="fas fa-check-double ml-2 pr-2 green-text"></i>{{ $producto->producto }}</div></td></tr>
-
-            @elseif ($producto->imprimir == 4)
-                <tr><td wire:click="deleteProduct({{ $producto->id }}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold withe red-text link pointer"><i class="far fa-trash-alt ml-2 pr-2"></i> {{ $producto->producto }}</td></tr>
-            @endif --}}
+        
 
             @if ($count != $producto->cod)
             @php
@@ -62,7 +53,7 @@ $filtered = collect($datos->productos)->where('panel', $panel)->where('imprimir'
             @endphp
               @if ($cant > 0)
               <tr>
-                <td wire:click="deleteProductsGroup({{$producto->cod}}, {{ $datos->id }})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer">
+                <td wire:click="deleteProductsGroup({{$producto->cod}}, {{ $datos->id }}, {{$cant}})" wire:key="{{ $producto->id }}" class="font-weight-bold link pointer">
                   @if (count($esperando) > 0)
                   <i class="far fa-clock ml-2 pr-2 blue-text"></i>
                   @else

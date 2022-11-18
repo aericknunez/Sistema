@@ -367,6 +367,46 @@ trait Imprimir{
 
         return $datos;  
     }    
+
+
+    public function productosComandaConPantalla($imprimir, $panel, $limit){
+        // imprimir: 2 - guardados, 4 Eliminados
+         $datos['productos'] = $this->getProductosComandaConPantalla(session('orden'), $imprimir, $panel, $limit);
+         $datos['cajero'] = Auth::user()->name;
+         $datos['tipo_impresion'] = $imprimir;
+         $datos['panel'] = $panel;
+         $datos['fecha'] = date('d-m-Y');
+         $datos['hora'] = date('H:i:s');
+         $datos['identidad'] = session('sistema.td');
+         $datos['numero_documento'] = session('orden'); // numero de orden
+         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+ 
+         $datos['cliente_nombre'] = session('delivery_nombre'); 
+         $datos['cliente_direccion'] = session('delivery_direccion'); 
+         $datos['cliente_telefono'] = session('delivery_telefono'); 
+         $datos['mesa'] = $this->detallesMesa(session('orden'));
+ 
+         Http::asForm()->post($this->getRoutePrint(), $datos);
+         if (!Helpers::isLocalSystem()) {
+             $this->eventImpresionSend();
+         }
+     }
+
+     public function getProductosComandaConPantalla($orden, $imprimir, $panel, $limit){
+        $datos =  TicketProducto::where('orden', $orden)
+                                ->where('imprimir', $imprimir)
+                                ->where('panel', $panel)
+                                ->with('subOpcion')
+                                ->limit($limit)
+                                ->orderBy('id', 'DESC')
+                                ->get();
+
+        if (session('impresion_comanda_agrupada')) {
+            return $this->formatData($datos);
+        } else {
+            return $this->formatDataComanda($datos);
+        }
+    }
     
 
 }

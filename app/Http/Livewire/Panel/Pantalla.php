@@ -7,12 +7,13 @@ use App\Models\ConfigPaneles;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
 use App\Models\User;
+use App\System\Imprimir\ImprimirConPantalla;
 use App\System\Ventas\Ventas;
 use Livewire\Component;
 
 class Pantalla extends Component
 {
-    use Ventas;
+    use Ventas, ImprimirConPantalla;
 
     protected $listeners = ['Ordenes' => 'getOrdenes'];
 
@@ -109,7 +110,9 @@ class Pantalla extends Component
                           ->where('panel', $this->panelImprimir)
                           ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
         }
-        
+        // imprime la comanda de la pantalla si esta activa la funcion
+        $this->productosComandaConPantalla($this->panelImprimir);
+
         $cant = TicketProducto::where('orden', $orden)
                 ->where('imprimir','!=', 3)->count();
 
@@ -121,11 +124,13 @@ class Pantalla extends Component
     }
 
 
-    public function deleteProductsGroup($cod, $orden){
+    public function deleteProductsGroup($cod, $orden, $limit){
         TicketProducto::where('cod', $cod)
                         ->where('orden', $orden)
                         ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
 
+        // imprime la comanda de la pantalla si esta activa la funcion
+        $this->productosComandaConPantalla($this->panelImprimir, $limit, $cod, true);
         /// verificar si eliminamos o no 
         $cantidad = TicketProducto::where('orden', $orden)
                     ->where('imprimir','!=', 3)->count();
