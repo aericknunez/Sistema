@@ -15,6 +15,9 @@ trait ImprimirConPantalla{
 
 
     public function productosComandaConPantalla($panel, $limit = null, $cod = null, $type = false){
+        // returnar null si no se encuentra la opcion de imprimir activa
+        if (!session('print')) return null;
+        
         if ($type) {
             $datos['productos'] = $this->getProductosComandaConPantalla(session('orden'), $panel, $limit, $cod);
         } else {
