@@ -67,6 +67,7 @@ class AddProducto extends Component
             $this->productosAdded();
             $this->obtenerTotal();
             $this->getAqui();
+            $this->nombre = TicketOrden::select('nombre_mesa')->where('id', session('orden'))->first()['nombre_mesa'];
             // $this->comentario; cargarlo desde la db
         }
         session(['cliente' => 1]);
