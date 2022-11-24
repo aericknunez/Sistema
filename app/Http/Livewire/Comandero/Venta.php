@@ -14,12 +14,13 @@ use App\Models\TicketOrden;
 use App\System\Config\Validaciones;
 use App\System\Eventos\SendEventos;
 use App\System\Imprimir\Imprimir;
+use App\System\Ventas\RestriccionInventario;
 use App\System\Ventas\Ventas;
 
 
 class Venta extends Component
 {
-    use Ventas, Imprimir, Validaciones, SendEventos;
+    use Ventas, Imprimir, Validaciones, SendEventos, RestriccionInventario;
 
 
     public $productAgregado;
@@ -81,6 +82,10 @@ class Venta extends Component
 
 
     public function addProducto($cod){ // agregar producto a la venta
+        if($this->comprobarInventario($cod)){
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'No tiene existencias en el inventario']);
+            return;
+        }
         $this->asignarOrden();
         $modal = $this->agregarProducto($cod); // si agrega opciones trae la data
 
