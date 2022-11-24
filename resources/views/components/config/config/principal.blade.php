@@ -92,5 +92,9 @@
             Agrupar productos en Ordenes
             <span>{{ isActivo($datos->agrupar_orden) }}</span>
         </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Restringir ventas cuando no existe inventario
+            <span>{{ isActivo($datos->restringir_inventario) }}</span>
+        </li>
     </ul>
 </div>
