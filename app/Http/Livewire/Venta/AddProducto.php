@@ -17,6 +17,7 @@ use App\System\Eventos\SendEventos;
 use App\System\Imprimir\Imprimir;
 use App\System\Ventas\Ventas;
 Use App\System\Inventario\Administrar;
+use App\System\Ventas\RestriccionInventario;
 
 class AddProducto extends Component
 {
@@ -25,6 +26,7 @@ class AddProducto extends Component
     use Validaciones;
     use Administrar;
     use SendEventos;
+    use RestriccionInventario;
 
 
     public $productAgregado;
@@ -96,6 +98,10 @@ class AddProducto extends Component
 
 
     public function addProducto($cod){ // agregar producto a la venta
+        if($this->comprobarInventario($cod)){
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'No tiene existencias en el inventario']);
+            return;
+        }
         $this->asignarOrden();
         $modal = $this->agregarProducto($cod); // si agrega opciones trae la data
 
