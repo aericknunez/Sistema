@@ -42,7 +42,8 @@
                             <a wire:click="seleccionarProducto({{ $dato->id }})" data-toggle="modal" data-target="#Del" title="Descontar Averias"><i class="fas fa-minus-square fa-2x red-text mx-2"></i></a>
                             <a wire:click="seleccionarProducto({{ $dato->id }})" data-toggle="modal" data-target="#Add" title="Agregar Productos"><i class="fas fa-plus-square fa-2x green-text mx-2"></i></a>
                             <a wire:click="detallesProducto({{ $dato->id }})" data-toggle="modal" data-target="#Detalles" title="Ultimos Movimientos"><i class="fas fa-list-ul fa-2x blue-text mx-2"></i> </a>
-                                                        
+                            <a title="Eliminar Producto" wire:click="$emit('deleteProducto', {{ $dato->id }})"><i class="fa fa-trash red-text fa-2x"></i></a>
+                           
                           </td>
                       </tr>
                   @endforeach    

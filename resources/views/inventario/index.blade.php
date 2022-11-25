@@ -8,6 +8,25 @@
     <script src="{{ asset('js/sweetalert2@11.js') }}"></script>
 
     <script>
+
+        Livewire.on('deleteProducto', categoryId => {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "¡No se puede revertir esta acción!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Si, Eliminar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Livewire.emitTo('inventario.index', 'EliminarProducto', categoryId);
+
+                }
+            })
+        });
+
         Livewire.on('creado', ()=>{
             $('#ModalAddProducto').modal('hide');
             Swal.fire(
