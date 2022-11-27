@@ -46,7 +46,7 @@ class IniciarController extends Controller
         $this->sessionRoot();
 
 
-        if (!session('config_tipo_usuario')) {
+        if (!session('config_tipo_usuario') or session('config_tipo_usuario') == 99) {
             abort(401);
         }
 
@@ -75,6 +75,7 @@ class IniciarController extends Controller
         if (session('config_tipo_usuario') == 7) {
             return redirect()->route('pantalla');
         }
+
 
         // compruebo si tengo productos asignados en inventario para crear session
         if (InvAsignado::count() > 0) {
