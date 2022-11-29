@@ -179,12 +179,13 @@
 
 
 @can('cuentas.pendientes')
-<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> CUENTAS POR PAGAR<i class="fa fa-angle-down rotate-icon"></i></a>
+<li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> CUENTAS<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
     
     
     <li><a href="{{ route('cuentas.pendientes') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas por Pagar</a></li>
+    <li><a href="{{ route('cuentas.porcobrar') }}" class="waves-effect"><i class="fas fa-cog"></i> Cuentas por Cobrar</a></li>
         
     </ul>
     </div>

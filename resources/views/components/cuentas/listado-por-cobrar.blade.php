@@ -36,11 +36,7 @@
                         @endif
                         </td>
                         <td>
-                          @if ($cuenta->edo == 1)
-                          <div class="text-success font-weight-bold">Activo</div>
-                          @else
-                          <div class="text-danger font-weight-bold">Pagado</div>
-                          @endif 
+                          {{ edoCredito($cuenta->edo) }}
                         </td>
                         
                         <td>

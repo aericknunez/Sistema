@@ -256,6 +256,13 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
         if ($cuenta == 2) { return 'Cerrado'; }
      }
 
+     function edoCredito($edo){
+        if ($edo == 0) { echo '<span class="text-danger font-weight-bold">Eliminado</span>'; }
+        if ($edo == 1) { echo '<span class="text-success font-weight-bold">Activo</span>'; }
+        if ($edo == 2) { echo '<span class="text-info font-weight-bold">Pagado</span>'; }
+     }
+
+
 
 
      //// finciones config
