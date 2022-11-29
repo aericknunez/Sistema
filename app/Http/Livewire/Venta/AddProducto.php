@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Venta;
 use App\Common\Helpers;
 use App\Models\Cliente;
 use App\Models\ConfigMoneda;
+use App\Models\CuentasPorCobrar;
 use App\Models\Producto;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
@@ -516,7 +517,7 @@ public function pagar(){
         $this->cantidad = $this->total;
     }
 
-    TicketNum::create([
+    $factOrder = TicketNum::create([
         'factura' => $num_fact, 
         'orden' => session('orden'),
         'tipo_pago' => session('tipo_pago'),
@@ -566,6 +567,20 @@ public function pagar(){
     if (session('principal_ticket_pantalla') == 2) {
         $this->guardarProductosImprimir();  
         $this->ImprimirComanda();
+    }
+    // si es al credito agrega el credito a la base de datos
+    if (session('tipo_pago') == 5) {
+        CuentasPorCobrar::create([
+            'factura_id' => $factOrder->id,
+            'cantidad' => $this->total,
+            'abonos' => 0,
+            'saldo' => $this->total,
+            'caduca' => null,
+            'edo' => 1,
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => session('sistema.td')
+        ]);
     }
     //// fin del codigo
     

@@ -247,6 +247,7 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
         if ($cuenta == 2) { return 'Tarjeta'; }
         if ($cuenta == 3) { return 'Transferencia'; }
         if ($cuenta == 4) { return 'Cheque'; }
+        if ($cuenta == 5) { return 'Credito'; }
      }
 
      function edoCorte($cuenta){

@@ -13,8 +13,11 @@ class TicketNum extends Model
 
 
     public function cliente(){
-        return $this->hasOne(Cliente::class, 'id');
+        return $this->hasOne(Cliente::class, 'id', 'cliente_id');
     }
     
+    public function productos(){
+        return $this->hasMany(TicketProducto::class, 'orden', 'orden');
+    }
 
 }

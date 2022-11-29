@@ -74,7 +74,11 @@
                 <button class="btn btn-info" type="submit"> <i class="fas fa-coins mr-1"></i> Pagar</button>
               </form>
             @else
-              <button type="button" class="btn btn-info" wire:click="pagar()"> <i class="fas fa-coins mr-1"></i> Pagar</button>
+              <button type="button" class="btn btn-info" wire:click="pagar()"
+              @if (session('tipo_pago') == 5 && !session('factura_documento'))
+              disabled
+              @endif
+            > <i class="fas fa-coins mr-1"></i> Pagar </button>
             @endif
 
         @endif

@@ -4,6 +4,7 @@ namespace App\System\Corte;
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
 use App\Models\CuentasPagarAbono;
+use App\Models\CuentasPorCobrarAbono;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
 use App\Models\EntradasSalidas;
@@ -188,6 +189,17 @@ trait Corte{
         return $totalAbonos;
     }
 
+    public function abonosCobrados($inicio, $fin, $cajero){
+        $totalAbonos = CuentasPorCobrarAbono::where('user', $cajero)
+                        ->whereBetween('tiempo', [$inicio, $fin])
+                        ->where('edo', 1)
+                        ->where('tipo_pago', 1)
+                        ->orderBy('tiempo', 'desc')
+                        ->sum('cantidad');
+
+        return $totalAbonos;
+    }
+
     // efectivo ingresado a caja
     public function entradasEfectivo($inicio, $fin, $cajero){
         $total = EntradasSalidas::where('cajero', $cajero)
@@ -218,6 +230,7 @@ trait Corte{
                 + $this->totalEfectivo($inicio, $fin, $cajero) 
                // + $this->propinaEfectivo($inicio, $fin, $cajero)
                 + $this->entradasEfectivo($inicio, $fin, $cajero)
+                + $this->abonosCobrados($inicio, $fin, $cajero)
                 - $this->salidasEfectivo($inicio, $fin, $cajero)
                 - $this->gastosEfectivo($inicio, $fin, $cajero)
                 - $this->remesas($inicio, $fin, $cajero);

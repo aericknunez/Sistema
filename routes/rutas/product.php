@@ -73,3 +73,9 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/cuentas/pendientes', fun
 })->name('cuentas.pendientes');
 
 
+/// cuentas por cobrar
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/cuentas/porcobrar', function () {
+    return view('cuentas.porcobrar');
+})->name('cuentas.porcobrar');
+
+
