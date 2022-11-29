@@ -64,8 +64,10 @@
                                 <button class="btn btn-mdb-color" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
                             </div>
                         </form>
+                    @elseif ($datos->edo == 2)
+                        <div class="h3 mt-3 border border-success bordeado-x1 text-center green-text">CUENTA PAGADA</div>
                     @else
-                        <div class="h3 mt-3 border border-danger bordeado-x1 text-center red-text">CUENTA PAGADA</div>
+                        <div class="h3 mt-3 border border-danger bordeado-x1 text-center red-text">CUENTA ELIMINADA</div>
                     @endif
 
                 </div>
@@ -115,6 +117,8 @@
 
     {{-- Abonos --}}
 
+    @if (count($datos->misabonos))
+        
     <table class="table table-sm">
         <thead>
           <tr>
@@ -151,6 +155,9 @@
 
         </tbody>
       </table>
+      @else
+            <div class="mt-3 border border-danger bordeado-x1 text-center red-text">NO SE HAN REGISTRADO ABONOS</div>
+      @endif
 
 
 
