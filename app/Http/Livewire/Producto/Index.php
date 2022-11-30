@@ -34,6 +34,7 @@ class Index extends Component
     public $imgSelected;
     public $productos;
 
+    public $search;
 
     public function hydrate() {
         $this->getOpciones();
@@ -46,13 +47,24 @@ class Index extends Component
         $this->getOpciones();
         $this->getCategorias();
         $this->getPaneles();
-        $this->getProductos();
+        $this->search = NULL;
     }
 
 
 
     public function render(){
-        $this->getProductos();
+        if ($this->search) {
+            $this->productos = Producto::where('nombre', '!=', NULL)
+                    ->where('nombre', 'LIKE', '%'.$this->search.'%')
+                    ->latest('id')
+                    ->with('opciones')
+                    ->with('categoria')
+                    ->with('paneles')
+                    ->get();
+        } else {
+            $this->getProductos();
+        }
+
         $iconos = $this->getAllIconos();
         return view('livewire.producto.index', compact('iconos'));
     }
@@ -185,10 +197,6 @@ class Index extends Component
     }
 
 
-
-
-
-
     public function seleccionarProducto($iden){ // levanta el modal de los iconos
         $this->productId = $iden;
     }
@@ -220,6 +228,10 @@ class Index extends Component
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
         'texto' => 'Iconos Creados Correctamente']);
+    }
+
+    public function cancelar(){
+        $this->reset(['search']);
     }
 
 

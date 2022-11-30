@@ -8,10 +8,6 @@ use App\Models\Producto;
 
 trait RestriccionInventario{
 
-
-/// comprobar si esta activo el inventario
-/// comprobar si hay resticciones de inventario 
-
     public function comprobarInventario($cod){
         return $this->comprobarActivacionDeInventario($cod);
     }

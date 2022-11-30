@@ -19,6 +19,13 @@
     
         <x-slot name="lateral">
             {{-- @json($productos) --}}
+            <div class="h2 float-left">Buscar</div>
+              <div class="md-form mt-0">
+                <input wire:model="search" class="form-control" type="text" placeholder="Buscar Producto" aria-label="Search" >
+                <div class="float-right"><button wire:click="cancelar" class="btn btn-sm btn-link">Limpiar</button></div>
+              </div>
+
+
         </x-slot>
 
     </x-cuerpo>

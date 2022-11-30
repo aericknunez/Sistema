@@ -18,17 +18,27 @@ class Asignados extends Component
 
     public $idProd, $dependiente;
 
+    public $search;
 
 
     public function mount(){
-        $this->getProductosIcon();
         $this->getProductos();
+        $this->search = NULL;
     }
 
 
 
     public function render()
     {
+        if ($this->search) {
+            $this->proIco = Producto::where('nombre', '!=', NULL)
+                ->where('nombre', 'LIKE', '%'.$this->search.'%')
+                ->with('asignados.dependientes')
+                ->latest('id')
+                ->get();
+        } else {
+            $this->getProductosIcon();
+        }
         return view('livewire.inventario.asignados');
     }
 
@@ -99,6 +109,8 @@ class Asignados extends Component
     }
 
 
-
+    public function cancelar(){
+        $this->reset(['search']);
+    }
 
 }
