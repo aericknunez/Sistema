@@ -14,14 +14,14 @@ trait ImprimirConPantalla{
     use OrdenarProductosImprimir, SendEventos, Imprimir; 
 
 
-    public function productosComandaConPantalla($panel, $limit = null, $cod = null, $type = false){
+    public function productosComandaConPantalla($orden, $panel, $limit = null, $cod = null, $type = false){
         // returnar null si no se encuentra la opcion de imprimir activa
         if (!session('print')) return null;
         
         if ($type) {
-            $datos['productos'] = $this->getProductosComandaConPantalla(session('orden'), $panel, $limit, $cod);
+            $datos['productos'] = $this->getProductosComandaConPantalla($orden, $panel, $limit, $cod);
         } else {
-            $datos['productos'] = $this->getProductosComandaConPantallaCompleta(session('orden'), $panel);
+            $datos['productos'] = $this->getProductosComandaConPantallaCompleta($orden, $panel);
         }      
          $datos['cajero'] = Auth::user()->name;
          $datos['tipo_impresion'] = 6;
@@ -29,13 +29,13 @@ trait ImprimirConPantalla{
          $datos['fecha'] = date('d-m-Y');
          $datos['hora'] = date('H:i:s');
          $datos['identidad'] = session('sistema.td');
-         $datos['numero_documento'] = session('orden'); // numero de orden
+         $datos['numero_documento'] = $orden; // numero de orden
          $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
  
          $datos['cliente_nombre'] = session('delivery_nombre'); 
          $datos['cliente_direccion'] = session('delivery_direccion'); 
          $datos['cliente_telefono'] = session('delivery_telefono'); 
-         $datos['mesa'] = $this->detallesMesa(session('orden'));
+         $datos['mesa'] = $this->detallesMesa($orden);
  
          Http::asForm()->post($this->getRoutePrint(), $datos);
          if (!Helpers::isLocalSystem()) {

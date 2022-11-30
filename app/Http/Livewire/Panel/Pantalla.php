@@ -111,7 +111,7 @@ class Pantalla extends Component
                           ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
         }
         // imprime la comanda de la pantalla si esta activa la funcion
-        $this->productosComandaConPantalla($this->panelImprimir);
+        $this->productosComandaConPantalla($orden, $this->panelImprimir);
 
         $cant = TicketProducto::where('orden', $orden)
                 ->where('imprimir','!=', 3)->count();
@@ -130,7 +130,7 @@ class Pantalla extends Component
                         ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
 
         // imprime la comanda de la pantalla si esta activa la funcion
-        $this->productosComandaConPantalla($this->panelImprimir, $limit, $cod, true);
+        $this->productosComandaConPantalla($orden, $this->panelImprimir, $limit, $cod, true);
         /// verificar si eliminamos o no 
         $cantidad = TicketProducto::where('orden', $orden)
                     ->where('imprimir','!=', 3)->count();
