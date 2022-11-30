@@ -108,10 +108,18 @@ class Pantalla extends Component
             TicketProducto::where('orden', $orden)
                           ->where('imprimir', 2)
                           ->where('panel', $this->panelImprimir)
-                          ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+                          ->update(['imprimir' => 9, 'tiempo' => Helpers::timeId()]);
         }
         // imprime la comanda de la pantalla si esta activa la funcion
         $this->productosComandaConPantalla($orden, $this->panelImprimir);
+
+        // vuelve a establecer a 3 las impresiones despues de imprimir
+        if ($cantidad == 0) {
+            TicketProducto::where('orden', $orden)
+                          ->where('imprimir', 9)
+                          ->where('panel', $this->panelImprimir)
+                          ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+        }
 
         $cant = TicketProducto::where('orden', $orden)
                 ->where('imprimir','!=', 3)->count();

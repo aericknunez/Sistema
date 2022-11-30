@@ -63,7 +63,7 @@ trait ImprimirConPantalla{
 
     public function getProductosComandaConPantallaCompleta($orden, $panel){
         $datos =  TicketProducto::where('orden', $orden)
-                                ->where('imprimir', 3)
+                                ->where('imprimir', 9)
                                 ->where('panel', $panel)
                                 ->with('subOpcion')
                                 ->get();
