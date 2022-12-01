@@ -40,7 +40,7 @@ trait Administrar {
     }
 
     private function obtenerAsign($iden){
-        return InvAsignado::addSelect(['cantidad_descontar' => InvDependiente::select('cantidad_descontar')
+        return InvAsignado::addSelect(['cantidad_descontar' => InvDependiente::select('relacion')
                             ->whereColumn('inv_asignados.dependiente', 'inv_dependientes.id')])
                             ->addSelect(['producto_descontar' => InvDependiente::select('producto')
                             ->whereColumn('inv_asignados.dependiente', 'inv_dependientes.id')])
