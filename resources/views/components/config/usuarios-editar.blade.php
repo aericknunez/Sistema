@@ -26,6 +26,7 @@
                               <a title="Cambiar Tipo de Usuario"><i class="fas fa-user fa-2x grey-text mx-2"></i> </a>
                               @else
                               <a data-toggle="modal" data-target="#ModalModUser" wire:click="selectUser({{ $usuario->id }})" title="Cambiar Tipo de Usuario"><i class="fas fa-user fa-2x green-text mx-2"></i> </a>
+                              <a title="Inhabilitar" wire:click="$emit('inhabilitar', {{ $usuario->id }})"><i class="fa fa-trash red-text fa-2x"></i></a>
                               @endif
                             </div>
                         </td>

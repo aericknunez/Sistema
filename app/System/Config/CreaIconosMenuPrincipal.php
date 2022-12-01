@@ -29,7 +29,7 @@ trait CreaIconosMenuPrincipal { // nombre del Trait Igual al del archivo
                         <div class="'.$icono.' text-center" '.$target.' wire:click="addProducto('.$data->cod.')" wire:key="p'.$data->id.'">
                             <a  title="'.$data->nombre.'">
                             <img src="{{ asset("'.$img.'") }}" class="img-fluid wow fadeIn '.$class.' border border-dark ">
-                            <div class="menu-title text-truncate">'.$data->nombre.'</div> 
+                            <div class="menu-title">'.$data->nombre.'</div> 
                             </a>
                         </div>
                     </div> 
@@ -45,7 +45,7 @@ trait CreaIconosMenuPrincipal { // nombre del Trait Igual al del archivo
                             <div class="newmenu text-center" data-target="#categoria-'.$data->id.'" data-toggle="modal">
                                 <a title="'.$data->nombre.'">
                                 <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
-                                <div class="menu-title2 text-truncate">'.$data->nombre.'</div> 
+                                <div class="menu-title2">'.$data->nombre.'</div> 
                                 </a>
                             </div>
                     </div>
