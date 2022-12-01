@@ -11,7 +11,7 @@
                         </div>
                         <div class="ml-3 d-flex w-100">
                         <div class="text-dark">
-                            <p class="mb-1 fw-bold">{{ $mesa->nombre_mesa }}</p>
+                            <p class="mb-1 fw-bold" style="font-size:large;"><strong>{{ $mesa->nombre_mesa }}</strong></p> 
                             <p class="small text-muted mb-0">{{ formatFecha($mesa->created_at) }} <span class="ml-1"><i class="mdi mdi-circle-medium mr-1"></i>
                                 {{ $mesa->usuario }}</span></p>
                         </div>

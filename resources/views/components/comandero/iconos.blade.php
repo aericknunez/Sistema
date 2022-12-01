@@ -18,7 +18,7 @@
                         
 
                         @if ($data->opciones_active == 1) 
-                            <p class="small mb-0 text-muted text-left"><span class="bg-info font-weight-bold text-white rounded-3 py-1 px-2 small">Con Opciones</span></p>';
+                            <p class="small mb-0 text-muted text-left"><span class="bg-info font-weight-bold text-white rounded-3 py-1 px-2 small">Con Opciones</span></p>
                         @endif
         
                         </div>

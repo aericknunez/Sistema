@@ -32,7 +32,7 @@
             <select class="browser-default custom-select custom-select-lg mb-3" wire:model="mesaNombre">
               <option selected>SELECCIONE UNA MESA</option>
                 @for ($i = 1; $i < session('principal_no_mesas'); $i++)
-                    <option value="MESA NUMERO {{ $i }}">MESA NUMERO {{ $i }}</option>
+                    <option value="MESA # {{ $i }}">MESA # {{ $i }}</option>
                 @endfor
             </select>
           </div>

@@ -13,6 +13,9 @@ class UsuariosEditar extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    protected $listeners = ['delete' => 'delete'];
+
+
     public $userId;
 
     public $nombre, $email, $password, $password_confirmation, $tipo_user = 6;
@@ -27,10 +30,11 @@ class UsuariosEditar extends Component
 
     public function getUsuarios(){
         if (session('config_tipo_usuario') == 1) {
-            return  User::whereNotIn('id',[1, 2])->latest('id')->paginate(6);
+            return  User::whereNotIn('id',[1, 2])->where('tipo_usuario', '!=', '99')->latest('id')->paginate(6);
         } else {
             return  User::whereNotIn('id',[1, 2])
                         ->where('tipo_usuario', '!=', '7')
+                        ->where('tipo_usuario', '!=', '99')
                         ->OrWhere('tipo_usuario', NULL)
                         ->latest('id')->paginate(6);
         }
@@ -49,6 +53,12 @@ class UsuariosEditar extends Component
         $this->emit('creado'); // manda el mensaje de creado
     }
 
+
+    public function delete(User $iden){
+        $iden->update(['tipo_usuario' => 99]);
+
+        $this->emit('desabilitada'); // manda el mensaje de creado
+    }
 
 
     // agregar Usuario

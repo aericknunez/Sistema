@@ -52,6 +52,11 @@ trait Imprimir{
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = session('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+
+        $datos['cliente_nombre'] = session('delivery_nombre'); 
+        $datos['cliente_direccion'] = session('delivery_direccion'); 
+        $datos['cliente_telefono'] = session('delivery_telefono'); 
+        
         $datos['mesa'] = $this->detallesMesa(session('orden'));
 
         Http::asForm()->post($this->getRoutePrint(), $datos);

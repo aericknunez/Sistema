@@ -72,6 +72,7 @@ class Meseros extends Component
             $this->usuarios = User::select(['id', 'name'])
                                     ->whereNotIn('id',[1, 2])
                                     ->where('tipo_usuario', '!=', '7')
+                                    ->where('tipo_usuario', '!=', '99')
                                     ->OrWhere('tipo_usuario', NULL)->get();
     }
 

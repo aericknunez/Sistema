@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Inventario;
 
 use App\Common\Helpers;
+use App\Models\InvDependiente;
 use App\Models\Inventario;
 use App\Models\InvHistorial;
 use App\Models\InvUnidades;
@@ -12,6 +13,8 @@ use Livewire\Component;
 
 class Index extends Component
 {
+
+    protected $listeners = ['EliminarProducto' => 'destroy'];
 
     public $unidades;
     public $producto, $cantidad, $minimo, $mostrar, $unidad = 1;
@@ -193,6 +196,24 @@ class Index extends Component
                                         ->get();
     }
 
+    public function destroy($iden){
+
+        $dependientes = InvDependiente::where('producto', $iden)->count();
+
+        if ($dependientes > 0) {
+            $this->dispatchBrowserEvent('error', 
+            ['titulo' => 'Errorr!', 
+            'texto' => 'No puede eliminar este elemento por que tiene productos dependientes']);
+        } else {
+            Inventario::find($iden)->delete();
+            InvHistorial::where('producto', $iden)->delete();
+            $this->dispatchBrowserEvent('mensaje', 
+            ['titulo' => 'Realizado', 
+            'texto' => 'Elemento Eliminado Correctamente']);
+        }
+
+        $this->getProductos();
+    }
 
 
 
