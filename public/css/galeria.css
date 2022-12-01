@@ -113,6 +113,11 @@ top: 10px;
     font-size: 90%;
     background: #c3c6ca;
     color: #000000;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.2rem !important;
 }
 
@@ -122,6 +127,11 @@ top: 10px;
     font-size: 90%;
     background: #002061;
     color: #FFFFFF;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.2rem !important;
 }
 
