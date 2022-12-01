@@ -25,7 +25,7 @@ trait RestriccionInventario{
         $productos = InvAsignado::where('producto', $codigo->id)->get();
         $count = 0;
         // contar cuantos hay a la espera de facturar
-        $cantidad = TicketProducto::where('cod', $cod)->where('num_fact', null)->count();
+        $cantidad = TicketProducto::where('cod', $cod)->where('num_fact', null)->where('edo', 1)->count();
         foreach ($productos as $producto) {
             $dependiente = InvDependiente::where('id', $producto->dependiente)->first();
             $prod = Inventario::where('id', $dependiente->producto)->first();
