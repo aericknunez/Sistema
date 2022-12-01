@@ -5,6 +5,7 @@ use App\Models\InvAsignado;
 use App\Models\InvDependiente;
 use App\Models\Inventario;
 use App\Models\Producto;
+use App\Models\TicketProducto;
 
 trait RestriccionInventario{
 
@@ -23,10 +24,13 @@ trait RestriccionInventario{
         $codigo = Producto::select('id')->where('cod', $cod)->first();
         $productos = InvAsignado::where('producto', $codigo->id)->get();
         $count = 0;
+        // contar cuantos hay a la espera de facturar
+        $cantidad = TicketProducto::where('cod', $cod)->where('num_fact', null)->count();
         foreach ($productos as $producto) {
             $dependiente = InvDependiente::where('id', $producto->dependiente)->first();
             $prod = Inventario::where('id', $dependiente->producto)->first();
-            if ($dependiente->relacion > $prod->cantidad) {
+            $enEspera = $dependiente->relacion * ($cantidad + 1);
+            if ($enEspera > $prod->cantidad) {
                $count ++;
             }
         }
