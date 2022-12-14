@@ -232,6 +232,7 @@ trait Imprimir{
     public function getProductosFactura($factura){
         $datos =  TicketProducto::where('num_fact', $factura)
         ->where('tipo_venta', session('impresion_seleccionado'))
+        ->where('edo', 1)
         ->with('subOpcion')->get();
 
         return $this->formatData($datos);
