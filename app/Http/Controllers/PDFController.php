@@ -16,8 +16,8 @@ class PDFController extends Controller
 
         $data = [
             'datos' => $this->diasDelMes($request->mes, $request->anio, $request->busqueda),
-            'finales' => $this->getDataPerMonth($request->mes, $request->busqueda),
-            'eliminadas' => $this->facturasEliminadas($request->mes, $request->busqueda),
+            'finales' => $this->getDataPerMonth($request->anio, $request->mes, $request->busqueda),
+            'eliminadas' => $this->facturasEliminadas($request->anio, $request->mes, $request->busqueda),
             'generales' => ConfigApp::where('id', 1)->first()
         ]; 
 
