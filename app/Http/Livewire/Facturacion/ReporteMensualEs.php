@@ -54,7 +54,7 @@ class ReporteMensualEs extends Component
             } else {
                 $this->datos = $this->diasDelMes($this->mes, $this->anio, $this->busqueda);
                 $this->finales = $this->getDataPerMonth($this->mes, $this->busqueda);
-                $this->eliminadas = $this->facturasEliminadas($this->mes . '-' . $this->anio, $this->busqueda);
+                $this->eliminadas = $this->facturasEliminadas($this->mes, $this->mes, $this->busqueda);
             }
             $this->reset(['mesf', 'aniof']);
     }
