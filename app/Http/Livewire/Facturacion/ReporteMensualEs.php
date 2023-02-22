@@ -9,6 +9,7 @@ use App\System\Imprimir\ImprimirCortes;
 use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
 
+
 class ReporteMensualEs extends Component
 {
 
