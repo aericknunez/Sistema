@@ -38,9 +38,12 @@
                         <td>{{ $data['facturaCantidad'] }}</td>
                         <td>{{ numeracionFactura($data['facturaInicial']) }} <br> {{ numeracionFactura($data['facturaFinal']) }}</td>
                         <th>{{ dinero(0) }}</th>
+                        {{-- <td>{{ dinero($data['subtotal']) }}</td>
                         <td>{{ dinero($data['subtotal']) }}</td>
-                        <td>{{ dinero($data['subtotal']) }}</td>
-                        <td>{{ dinero($data['impuestos']) }}</td>
+                        <td>{{ dinero($data['impuestos']) }}</td> --}}
+                        <td>{{ dinero($data['total'] / 1.15) }}</td>
+                        <td>{{ dinero($data['total'] / 1.15) }}</td>
+                        <td>{{ dinero($data['total'] - ($data['total'] / 1.15)) }}</td>
                         <td>{{ dinero(0) }}</td>
                         <td class="font-weight-bold text-uppercase">{{ dinero($data['total']) }}</td>
                     </tr>
@@ -74,9 +77,12 @@
                         <td>{{ $data['cantidadMes'] }}</td>
                         <td>{{ numeracionFactura($data['inicialMes']) }} <br> {{ numeracionFactura($data['finalMes']) }}</td>
                         <th>{{ dinero(0) }}</th>
+                        {{-- <td>{{ dinero($data['subtotalMes']) }}</td>
                         <td>{{ dinero($data['subtotalMes']) }}</td>
-                        <td>{{ dinero($data['subtotalMes']) }}</td>
-                        <td>{{ dinero($data['impuestosMes']) }}</td>
+                        <td>{{ dinero($data['impuestosMes']) }}</td> --}}
+                        <td>{{ dinero($data['totalMes'] / 1.15) }}</td>
+                        <td>{{ dinero($data['totalMes'] / 1.15) }}</td>
+                        <td>{{ dinero($data['totalMes'] - ($data['totalMes'] / 1.15)) }}</td>
                         <td>{{ dinero(0) }}</td>
                         <td class="font-weight-bold text-uppercase">{{ dinero($data['totalMes']) }}</td>
                     </tr>
