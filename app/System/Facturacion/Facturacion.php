@@ -43,15 +43,15 @@ trait Facturacion {
 
 
 
-    public function getDataPerMonth($mes, $tipo){
+    public function getDataPerMonth($anio, $mes, $tipo){
         $this->month = [];
 
-        $data['subtotalMes'] = $this->subtotalMes($mes, $tipo);
-        $data['impuestosMes'] = $this->impuestosMes($mes, $tipo);
-        $data['totalMes'] = $this->totalMes($mes, $tipo);
-        $data['inicialMes'] = $this->facturaInicialMonth($mes, $tipo);
-        $data['finalMes'] = $this->facturaFinalMonth($mes, $tipo);
-        $data['cantidadMes'] = $this->facturaCantidadMes($mes, $tipo);
+        $data['subtotalMes'] = $this->subtotalMes($anio, $mes, $tipo);
+        $data['impuestosMes'] = $this->impuestosMes($anio, $mes, $tipo);
+        $data['totalMes'] = $this->totalMes($anio, $mes, $tipo);
+        $data['inicialMes'] = $this->facturaInicialMonth($anio, $mes, $tipo);
+        $data['finalMes'] = $this->facturaFinalMonth($anio, $mes, $tipo);
+        $data['cantidadMes'] = $this->facturaCantidadMes($anio, $mes, $tipo);
         array_push($this->month, $data);
 
         return $this->month;
@@ -137,10 +137,11 @@ trait Facturacion {
     }
 
 
-    public function facturaInicialMonth($fecha, $tipo){
+    public function facturaInicialMonth($anio, $mes, $tipo){
         $data = TicketNum::select('factura')
                             ->where('tipo_venta', $tipo)
-                            ->whereMonth('created_at', $fecha)
+                            ->whereYear('created_at', $anio)
+                            ->whereMonth('created_at', $mes)
                             ->orderBy('factura', 'ASC')
                             ->first();
         if ($data) {
@@ -148,10 +149,11 @@ trait Facturacion {
         }
     }
 
-    public function facturaFinalMonth($fecha, $tipo){
+    public function facturaFinalMonth($anio, $mes, $tipo){
         $data = TicketNum::select('factura')
                             ->where('tipo_venta', $tipo)
-                            ->whereMonth('created_at', $fecha)
+                            ->whereYear('created_at', $anio)
+                            ->whereMonth('created_at', $mes)
                             ->orderBy('factura', 'DESC')
                             ->first();
         if ($data) {
@@ -160,33 +162,37 @@ trait Facturacion {
     }
 
 
-    public function facturaCantidadMes($fecha, $tipo){
+    public function facturaCantidadMes($anio, $mes, $tipo){
         return TicketNum::where('edo', 1)
                             ->where('tipo_venta', $tipo)
-                            ->whereMonth('created_at', $fecha)
+                            ->whereYear('created_at', $anio)
+                            ->whereMonth('created_at', $mes)
                             ->count();
     }
 
 
 
-    public function subtotalMes($fecha, $tipo){
+    public function subtotalMes($anio, $mes, $tipo){
         return TicketProducto::where('edo', 1)
                                ->where('tipo_venta', $tipo)
-                               ->whereMonth('created_at', $fecha)
+                               ->whereYear('created_at', $anio)
+                               ->whereMonth('created_at', $mes)
                                ->sum('stotal');
     }
 
-    public function impuestosMes($fecha, $tipo){
+    public function impuestosMes($anio, $mes, $tipo){
         return TicketProducto::where('edo', 1)
                                ->where('tipo_venta', $tipo)
-                               ->whereMonth('created_at', $fecha)
+                               ->whereYear('created_at', $anio)
+                               ->whereMonth('created_at', $mes)
                                ->sum('imp');
     }
 
-    public function totalMes($fecha, $tipo){
+    public function totalMes($anio, $mes, $tipo){
         return TicketProducto::where('edo', 1)
                                ->where('tipo_venta', $tipo)
-                               ->whereMonth('created_at', $fecha)
+                               ->whereYear('created_at', $anio)
+                               ->whereMonth('created_at', $mes)
                                ->sum('total');
     }
 
