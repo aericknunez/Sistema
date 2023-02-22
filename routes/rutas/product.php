@@ -3,7 +3,7 @@
 use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PDFController;
 
 
 

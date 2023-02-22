@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use App\Models\User;
 
 class PDFController extends Controller
 {
@@ -17,8 +18,8 @@ class PDFController extends Controller
             'users' => $users
         ]; 
             
-        $pdf = PDF::loadView('myPDF', $data);
+        $pdf = PDF::loadView('pdf.reporte-mensual-es', $data);
      
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download(date('d-m-Y') . '.pdf');
     }
 }
