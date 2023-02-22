@@ -3,7 +3,7 @@
 use App\Http\Controllers\EfectivoController;
 use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PDFController;
 
 
 
@@ -79,3 +79,5 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/cuentas/porcobrar', func
 })->name('cuentas.porcobrar');
 
 
+/// PDF's
+Route::get('reporte-pdf/busqueda/{busqueda}/anio/{anio}/mes/{mes}', [PDFController::class, 'reportePDF'])->name('reportePDF');

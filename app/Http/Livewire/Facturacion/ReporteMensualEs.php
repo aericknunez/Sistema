@@ -9,6 +9,7 @@ use App\System\Imprimir\ImprimirCortes;
 use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
 
+
 class ReporteMensualEs extends Component
 {
 
@@ -96,8 +97,6 @@ class ReporteMensualEs extends Component
     public function getDataBussines(){
         $this->generales = ConfigApp::where('id', 1)->first();
     }
-
-
 
 
 
