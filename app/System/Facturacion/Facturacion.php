@@ -116,10 +116,11 @@ trait Facturacion {
 
 
     public function totalFacturasEliminadas($fecha, $tipo){
-        return TicketNum::where('edo', 2)
-                                ->where('tipo_venta', $tipo)
-                                ->whereMonth('created_at', $fecha)
-                                ->count();
+        // return TicketNum::where('edo', 2)
+        //                         ->where('tipo_venta', $tipo)
+        //                         ->whereDate('created_at', $fecha)
+        //                         ->count();
+        return ;
     }
 
 
