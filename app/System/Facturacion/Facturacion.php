@@ -119,6 +119,7 @@ trait Facturacion {
         return TicketNum::where('edo', 2)
                                 ->where('tipo_venta', $tipo)
                                 ->whereDate('created_at', $fecha)
+                                ->whereYear('created_at', $fecha)
                                 ->count();
     }
 
