@@ -21,7 +21,7 @@ class Index extends Component
     
     protected $paginationTheme = 'bootstrap';
 
-    protected $listeners = ['EliminarProducto' => 'destroy'];
+    protected $listeners = ['EliminarProducto' => 'destroy', 'Inhabilitar' => 'inhabilitar'];
 
     public $productId;
     public $precio, $nombre;
@@ -110,6 +110,15 @@ class Index extends Component
         $this->reset();
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalNombre']);
         $this->mensajeModificado();
+    }
+
+    public function inhabilitar($id){
+        $edo = Producto::select('estado')->find($id);
+        Producto::where('id', $id)->update(['estado' => !$edo->estado, 'tiempo' => Helpers::timeId()]);
+
+        $this->reset();
+        $this->mensajeModificado();
+        $this->CrearIconos(); // crea los iconos despues de guardar
     }
 
     public function addOpcion($opcion){

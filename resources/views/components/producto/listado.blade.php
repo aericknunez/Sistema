@@ -23,7 +23,13 @@
                     <tr>
                         <td scope="row" data-toggle="modal" data-target="#ModalIconos" wire:click="seleccionarProducto({{ $producto->id }})" class="pointer"><img src="{{ asset('img/ico/'. $producto->img) }}" class="imgSize img-fluid z-depth-1 rounded-circle" alt="Responsive image"></td>
 
-                        <td><div class="font-weight-bold text-uppercase"><a title="Cambiar Nombre" data-toggle="modal" data-target="#ModalNombre" wire:click="selectProduct({{ $producto->id }})">{{ $producto->nombre }}</a> </div></td>
+                        <td><div class="font-weight-bold text-uppercase"><a title="Cambiar Nombre" data-toggle="modal" data-target="#ModalNombre" wire:click="selectProduct({{ $producto->id }})">{{ $producto->nombre }}</a> </div>
+                        <div class="font-weight-bold text-uppercase red-text">
+                          @if ($producto->estado == 0) 
+                          Deshabilitado
+                          @endif
+                        </div>
+                        </td>
 
                         <td><div class="font-weight-bold text-uppercase">
                           @if ($producto->categoria)
@@ -64,6 +70,13 @@
                                     <a title="Modificar Opciones" data-toggle="modal" data-target="#ModalOpciones" wire:click="selectProduct({{ $producto->id }})"  class="dropdown-item"><i class="fas fa-hamburger blue-text fa-lg"></i> Modificar Opciones</a>
                                     <a title="Modificar categorias" data-toggle="modal" data-target="#ModalCategoria" wire:click="selectProduct({{ $producto->id }})"  class="dropdown-item"><i class="fas fa-bars black-text fa-lg"></i> Modificar Categorias</a>
                                     <a title="Modificar Panel" data-toggle="modal" data-target="#ModalPanel" wire:click="selectProduct({{ $producto->id }})"  class="dropdown-item"><i class="fas fa-tv orange-text fa-lg"></i> Modificar Panel</a>
+                                    <a title=" @if ($producto->estado == 1) Inhabilitar @else Habilitar @endif Producto" wire:click="$emit('inhabilitar', {{ $producto->id }})"  
+                                      class="dropdown-item"><i class="@if ($producto->estado == 1) fa fa-ban red-text @else fa fa-check green-text @endif fa-lg"></i> 
+                                    @if ($producto->estado == 1)
+                                      Inhabilitar
+                                    @else
+                                      Habilitar
+                                    @endif Producto</a>
                                     <a title="Eliminar Producto" wire:click="$emit('deleteProducto', {{ $producto->id }})"  class="dropdown-item"><i class="fa fa-trash red-text fa-lg"></i> Eliminar Producto</a>
                                     
                                 </div>

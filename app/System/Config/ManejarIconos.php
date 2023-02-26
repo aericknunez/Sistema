@@ -35,7 +35,7 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 
         foreach ($datos as $dato) {
             if ($dato->tipo_img == 1) {
-                $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->first();
+                $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->where('estado', 1)->first();
                 if ($datox) {
                     if (session('principal_tipo_menu') == 1) {
                         $retorno .= $this->creaIcono($datox); 
