@@ -108,7 +108,7 @@ trait Corte{
     public function totalEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                ->where('tipo_pago', [1, 6])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('total');
         return $total;

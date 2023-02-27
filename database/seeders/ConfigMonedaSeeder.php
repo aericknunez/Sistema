@@ -65,6 +65,32 @@ class ConfigMonedaSeeder extends Seeder
             'td' => config('sistema.td')
         ]);
 
+
+        ConfigMoneda::create([
+            'moneda' => 'Credito',
+            'activo' => 0,
+            'edo' => 0,
+            'extra' => NULL, 
+            'tipo' => NULL,
+            'icono' => 'fas fa-dollar-sign',
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+
+
+        ConfigMoneda::create([
+            'moneda' => 'Pago Mixto',
+            'activo' => 0,
+            'edo' => 0,
+            'extra' => NULL, 
+            'tipo' => NULL,
+            'icono' => 'fas fa-credit-card',
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+
     
 
     }

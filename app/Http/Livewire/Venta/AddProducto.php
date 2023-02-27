@@ -550,7 +550,7 @@ public function pagar(){
                     'propina' => Helpers::Dinero($this->propinaCantidad),
                     'total' => Helpers::Dinero($this->total),
                     'efectivo' => Helpers::Dinero($this->cantidad),
-                    'cambio' => Helpers::Dinero($this->cantidad - $this->total)
+                    'cambio' => Helpers::Dinero(session('tipo_pago') == 6 ? $this->total - $this->cantidad : $this->cantidad - $this->total)
     ]);
 
     if (session('print')) { /// imprime a menos que el env diga que no
