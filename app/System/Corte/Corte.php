@@ -143,7 +143,7 @@ trait Corte{
     public function propinaEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                ->where('tipo_pago', [1, 6])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('propina_cant');
         return $total;
@@ -152,7 +152,7 @@ trait Corte{
     public function propinaNoEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago','!=', 1)
+                                ->where('tipo_pago','!=', [1, 6])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('propina_cant');
         return $total;
