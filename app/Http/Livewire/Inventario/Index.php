@@ -26,16 +26,31 @@ class Index extends Component
     public $productos = [];
 
     public $historial = [];
+    public $search;
 
 
     public function mount(){
         $this->unidadesMedida();
         $this->getProductos();
+        $this->search = NULL;
+
     }
 
 
     public function render()
     {
+
+        if ($this->search) {
+            $this->productos = Inventario::where('producto', '!=', NULL)
+                    ->where('producto', 'LIKE', '%'.$this->search.'%')
+                    ->with('medida')
+                    ->where('edo', 1)
+                    ->orderBy('id', 'DESC')
+                    ->get();
+        } else {
+            $this->getProductos();
+        }
+
         return view('livewire.inventario.index');
     }
 
@@ -215,7 +230,9 @@ class Index extends Component
         $this->getProductos();
     }
 
-
+    public function cancelar(){
+        $this->reset(['search']);
+    }
 
 
 
