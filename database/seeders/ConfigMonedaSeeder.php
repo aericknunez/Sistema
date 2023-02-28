@@ -80,6 +80,18 @@ class ConfigMonedaSeeder extends Seeder
 
 
         ConfigMoneda::create([
+            'moneda' => 'Transferencia',
+            'activo' => 0,
+            'edo' => 1,
+            'extra' => NULL, 
+            'tipo' => NULL,
+            'icono' => 'fas fa-credit-card',
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => config('sistema.td')
+        ]);
+
+        ConfigMoneda::create([
             'moneda' => 'Pago Mixto',
             'activo' => 0,
             'edo' => 0,

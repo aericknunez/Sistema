@@ -23,7 +23,7 @@
             <div class="display-4 font-weight-bold" id="fact_efectivo"></div> <hr>
             
             <p class="text-danger font-weight-bold">
-              @if (session('tipo_pago') == 6)
+              @if (session('tipo_pago') == 7)
               TARJETA:
               @else
               CAMBIO:
