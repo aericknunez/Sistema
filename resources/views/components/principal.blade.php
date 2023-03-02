@@ -26,6 +26,7 @@
     @endif">
     
 {{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin --}}
+{{-- indigo-skin, deep-purple-skin, latam-skin --}}
 
 {{-- PRELOADER  --}}
 
