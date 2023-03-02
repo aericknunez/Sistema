@@ -22,11 +22,11 @@
     @if (Session("config_skin"))
        {{  Session("config_skin") }}
     @else
-        black-skin
+        mdb-skin
     @endif">
     
-{{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin --}}
-{{-- indigo-skin, deep-purple-skin, latam-skin --}}
+{{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin, indigo-skin, deep-purple-skin --}}
+{{-- latam-skin --}}
 
 {{-- PRELOADER  --}}
 

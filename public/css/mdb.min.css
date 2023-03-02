@@ -24928,12 +24928,12 @@ ul.stepper li.completed a .latam-skin .circle {
 }
 
 .latam-skin .btn-primary {
-	background-color: #ff4a67!important;
+	background-color: #73D200!important;
 	color: #fff
 }
 
 .latam-skin .btn-primary:hover {
-	background-color: #ff647c;
+	background-color: #549A00;
 	color: #fff
 }
 
@@ -24946,16 +24946,16 @@ ul.stepper li.completed a .latam-skin .circle {
 .latam-skin .btn-primary.active,
 .latam-skin .btn-primary:active,
 .latam-skin .btn-primary:focus {
-	background-color: #e30024
+	background-color: #8EFF07
 }
 
 .latam-skin .btn-primary.dropdown-toggle {
-	background-color: #ff4a67!important
+	background-color: #73D200!important
 }
 
 .latam-skin .btn-primary.dropdown-toggle:focus,
 .latam-skin .btn-primary.dropdown-toggle:hover {
-	background-color: #ff647c!important
+	background-color: #549A00!important
 }
 
 .latam-skin .btn-primary:not([disabled]):not(.disabled).active,
@@ -24963,7 +24963,7 @@ ul.stepper li.completed a .latam-skin .circle {
 .show>.latam-skin .btn-primary.dropdown-toggle {
 	-webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
 	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
-	background-color: #e30024!important
+	background-color: #8EFF07!important
 }
 
 .latam-skin .btn-primary:not([disabled]):not(.disabled).active:focus,
@@ -24974,12 +24974,12 @@ ul.stepper li.completed a .latam-skin .circle {
 }
 
 .latam-skin .primary-ic {
-	color: #ff4a67!important
+	color: #73D200!important
 }
 
 .latam-skin .primary-ic:focus,
 .latam-skin .primary-ic:hover {
-	color: #ff4a67
+	color: #73D200
 }
 
 .latam-skin table.table a.btn.btn-primary {
@@ -24987,12 +24987,12 @@ ul.stepper li.completed a .latam-skin .circle {
 }
 
 .latam-skin .btn-secondary {
-	background-color: #64c3f0!important;
+	background-color: #5CCB5F!important;
 	color: #fff
 }
 
 .latam-skin .btn-secondary:hover {
-	background-color: #7bccf2;
+	background-color: #1FD924;
 	color: #fff
 }
 
@@ -25005,16 +25005,16 @@ ul.stepper li.completed a .latam-skin .circle {
 .latam-skin .btn-secondary.active,
 .latam-skin .btn-secondary:active,
 .latam-skin .btn-secondary:focus {
-	background-color: #159ad9
+	background-color: #25C42A
 }
 
 .latam-skin .btn-secondary.dropdown-toggle {
-	background-color: #64c3f0!important
+	background-color: #5CCB5F!important
 }
 
 .latam-skin .btn-secondary.dropdown-toggle:focus,
 .latam-skin .btn-secondary.dropdown-toggle:hover {
-	background-color: #7bccf2!important
+	background-color: #1FD924!important
 }
 
 .latam-skin .btn-secondary:not([disabled]):not(.disabled).active,
@@ -25022,7 +25022,7 @@ ul.stepper li.completed a .latam-skin .circle {
 .show>.latam-skin .btn-secondary.dropdown-toggle {
 	-webkit-box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
 	box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .18), 0 4px 15px 0 rgba(0, 0, 0, .15);
-	background-color: #159ad9!important
+	background-color: #25C42A!important
 }
 
 .latam-skin .btn-secondary:not([disabled]):not(.disabled).active:focus,
@@ -25033,12 +25033,12 @@ ul.stepper li.completed a .latam-skin .circle {
 }
 
 .latam-skin .secondary-ic {
-	color: #64c3f0!important
+	color: #5CCB5F!important
 }
 
 .latam-skin .secondary-ic:focus,
 .latam-skin .secondary-ic:hover {
-	color: #64c3f0
+	color: #1FD924
 }
 
 .latam-skin table.table a.btn.btn-secondary {
