@@ -22,7 +22,13 @@
             <p class="font-weight-bold">EFECTIVO:</p>
             <div class="display-4 font-weight-bold" id="fact_efectivo"></div> <hr>
             
-            <p class="text-danger font-weight-bold">CAMBIO:</p>
+            <p class="text-danger font-weight-bold">
+              @if (session('tipo_pago') == 7)
+              TARJETA:
+              @else
+              CAMBIO:
+              @endif
+              </p>
             <div class="display-4 text-danger font-weight-bold" id="fact_cambio"></div>
              
         

@@ -18,7 +18,7 @@
 
 
     {{-- para meter el formulario --}}
-    @if (session('tipo_pago') == 1 and session('apertura_caja') == 1)
+    @if ((session('tipo_pago') == 1 or session('tipo_pago') == 7) and session('apertura_caja') == 1)
     <form wire:submit.prevent="pagar">
       <div class="row">
           <div class="col-12">                

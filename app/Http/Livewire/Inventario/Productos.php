@@ -22,17 +22,30 @@ class Productos extends Component
 
     public $id_dependiente, $relacion, $idProd, $producto;
 
+    public $search;
 
 
 
     public function mount(){
         $this->getProPricipales();
         $this->getProductos();
+        $this->search = NULL;
     }
 
 
     public function render()
     {
+        if ($this->search) {
+            $this->productos = InvDependiente::where('dependiente', '!=', NULL)
+                    ->where('dependiente', 'LIKE', '%'.$this->search.'%')
+                    ->with('product')
+                    ->with('product.medida')
+                    ->orderBy('id', 'DESC')
+                    ->get();
+        } else {
+            $this->getProductos();
+        }
+
         return view('livewire.inventario.productos');
     }
 
@@ -106,7 +119,9 @@ class Productos extends Component
     }
 
 
-
+    public function cancelar(){
+        $this->reset(['search']);
+    }
 
 
 
