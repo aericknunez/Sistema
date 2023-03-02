@@ -11,7 +11,13 @@
         <link rel="stylesheet" href="{{ asset('archivos_login/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('archivos_login/css/common.css') }}">
         <link href="{{ asset('archivos_login/css/css?family=Open+Sans:400,600,700&amp;display=swap') }}" rel="stylesheet">
-        <link href="{{ asset('archivos_login/css/theme-02.css') }}" rel="stylesheet">
+        <link href="
+        @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+        {{ asset('archivos_login/css/theme-latam.css') }}
+        @else
+        {{ asset('archivos_login/css/theme.css') }}
+        @endif
+        " rel="stylesheet">
 
         @stack('style')
 

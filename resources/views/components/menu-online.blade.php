@@ -12,7 +12,13 @@
                 @else
                     <a href="{{ route('panel.control') }}">
                 @endif
-                    <img src="{{ asset('img/logo/pizto.png') }}" class="img-fluid flex-center">
+                    <img src="
+                    @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+                    {{ asset('img/logo/latam.png') }}
+                    @else
+                    {{ asset('img/logo/pizto.png') }}
+                    @endif
+                    " class="img-fluid flex-center">
                 </a>
             </div>
         </li>
