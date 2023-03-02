@@ -4,7 +4,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Proveedores</h2> 
                 <h2 class="float-right">
-                    <a data-toggle="modal" data-target="#ModalAddProveedor" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Proveedor</a>
+                    <a data-toggle="modal" data-target="#ModalAddProveedor" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Proveedor</a>
                 </h2>
             </div>
             <x-directorio.proveedores :datos="$proveedores" />

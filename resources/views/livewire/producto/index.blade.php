@@ -5,7 +5,7 @@
                 <h2 class="h2 float-left">Productos</h2> 
                 <h2 class="float-right">
                     <a wire:click="btnCrearIconos()" title="Crear Iconos" class="btn btn-link btn-sm"><i class="fas fa-plus"></i></a>
-                    <a href="{{ route('producto.create') }}" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Producto</a>
+                    <a href="{{ route('producto.create') }}" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Producto</a>
                 </h2>
             </div>
             <x-producto.listado :datos="$productos" />

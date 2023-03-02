@@ -8,7 +8,7 @@
                     <input wire:model="cantidad" id="cantidad" type="number" step="any" class="form-control mt-3" placeholder="0.00">
                 </div>
                 <div class="col-12 text-center">
-                  <button class="btn blue-gradient mt-1 btn-lg" type="submit"><i class="fas fa-coins mr-1"></i> Pagar</button>
+                  <button class="btn btn-secondary mt-1 btn-lg" type="submit"><i class="fas fa-coins mr-1"></i> Pagar</button>
                 </div>
             </div>
           </form>   

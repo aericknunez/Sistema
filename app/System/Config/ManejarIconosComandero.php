@@ -204,7 +204,7 @@ $retorno .= '</div>
 
 </div>
     <div class="modal-footer">
-        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+        <button type="button" class="btn btn-secondary btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
     </div>
     </div>
 </div>

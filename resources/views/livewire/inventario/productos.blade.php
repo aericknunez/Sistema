@@ -7,7 +7,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Productos Agregados</h2> 
                 <h2 class="float-right">
-                    <a data-toggle="modal" data-target="#ProductoNuevo"  class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Producto</a>
+                    <a data-toggle="modal" data-target="#ProductoNuevo"  class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Producto</a>
                 </h2>
             </div>
 
