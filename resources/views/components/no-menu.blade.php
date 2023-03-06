@@ -11,7 +11,13 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome-582.css') }}">
         <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/galeria.css') }}">
+        <link rel="stylesheet" href="
+        @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+        {{ asset('css/galeria-latam.css') }}
+        @else
+        {{ asset('css/galeria.css') }}
+        @endif
+        ">
 
         @stack('style')
 

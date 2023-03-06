@@ -7,6 +7,7 @@ use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\System\Config\ManejarIconosComandero;
+use Illuminate\Support\Facades\Request;
 
 trait ManejarIconos { // nombre del Trait Igual al del archivo
 
@@ -131,11 +132,17 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
         if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
+        if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test') {
+            $colorModalOptions = 'light-green';
+        } else {
+            $colorModalOptions = 'cyan';
+        }  
+
 $retorno = '
 <div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
     <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-    <div class="modal-content bordeado-x1 blue lighten-5">
-    <div class="modal-header  bordeado-x1 cyan lighten-2">
+    <div class="modal-content bordeado-x1 '. $colorModalOptions .' lighten-5">
+    <div class="modal-header  bordeado-x1 '. $colorModalOptions .' lighten-2">
             <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
 
     </div>

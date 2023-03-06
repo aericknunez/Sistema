@@ -1,0 +1,374 @@
+/*card de reportes*/
+.card-counter{
+    background-color: #fff;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+  }
+
+  .card-counter:hover{
+    box-shadow: 4px 4px 20px #49e43b;
+    transition: .3s linear all;
+  }
+
+  .card-counter.primary{
+    background-color: #007bff;
+    color: #FFF;
+  }
+
+  .card-counter.danger{
+    background-color: #ef5350;
+    color: #FFF;
+  }  
+
+  .card-counter.success{
+    background-color: #66bb6a;
+    color: #FFF;
+  }  
+
+  .card-counter.info{
+    background-color: #26c6da;
+    color: #FFF;
+  }  
+
+
+  .card-counter.light{
+    background-color: #e8fae6;
+    color: #000000;
+    border-color: #000000;
+    border: 3px;
+  }  
+
+  .card-counter.white{
+    background-color: #ffd2d2;
+    color: #000000;
+    border-color: #000000;
+    border: 3px;
+  }  
+
+  .card-counter i{
+    font-size: 5em;
+    opacity: 0.2;
+  }
+
+  .card-counter .count-numbers{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: block;
+  }
+
+  .card-counter .count-name{
+    position: absolute;
+    right: 20px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.7;
+    display: block;
+  }
+
+
+
+
+/* para el nuevo menu de productos*/
+.newmenu {
+    background: #ffffff;
+    height: 145px; /* 170 para mas alto*/
+    max-width: 120px;
+    border: 2px solid #00d138; /* Borde del marco */
+    transition-duration: 0.4s;
+    border-radius: 10px;
+    animation: winanim 0.5s ;
+    box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12)
+}
+
+.newmenu:hover {
+    box-shadow: 0 12px 16px 0 rgb(0, 137, 21),0 17px 50px 0 rgba(94, 255, 0, 0.19);
+}
+
+.newmenu img {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 100px;
+  width: 100px;
+}
+
+.newmenu a {
+  text-decoration: none;
+}
+
+.newmenu a:active {
+position: relative;
+opacity: 0.5;
+top: 10px;
+}
+
+
+.menu-title {
+    padding: 5px; /* 15 (alto normal) tamano de alto del titulo */
+    text-align: center;
+    font-size: 90%;
+    background: #108700;
+    color: #ffffff;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem !important;
+    border-bottom-right-radius: 0.4rem !important;
+    border-bottom-left-radius: 0.4rem !important;
+}
+
+.menu-title2 { /*para productos y no para categorias*/
+    padding: 5px;
+    text-align: center;
+    font-size: 90%;
+    background: #909001;
+    color: #FFFFFF;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem !important;
+}
+/* Categorias */
+.menu-titleC {
+    padding: 5px;
+    text-align: center;
+    font-size: 90%;
+    background: #19410f;
+    color: #FFFFFF;
+    border-radius: 0.2rem !important;
+}
+/* Opciones */
+.menu-titleO { 
+    padding: 5px;
+    text-align: center;
+    font-size: 90%;
+    background: #595a01;
+    color: #FFFFFF;
+    border-radius: 0.2rem !important;
+}
+
+
+
+
+
+
+/*tabla de lateral venta donde van las opciones*/
+.topcion td { /* productos en la tabla */
+  padding: .1rem!important;
+  height: 5px!important;
+  background-color: #004268;
+  color: #ffffff;
+}
+
+.trfcliente td { /* productos en la tabla factura cliente */
+  padding: .1rem!important;
+  height: 5px!important;
+  background-color: #4e0000;
+  color: #ffffff;
+}
+
+.tventas td { /* Opciones en la tabla*/
+  padding: .1rem!important;
+  height: 30px!important;
+}
+
+
+
+
+
+/*/// bordeados*/
+.bordeado-x4{
+  border-radius: 4rem !important;
+}
+
+.bordeado-x3{
+  border-radius: 3rem !important;
+}
+
+.bordeado-x2{
+  border-radius: 2rem !important;
+}
+
+.bordeado-x1{
+  border-radius: 1rem !important;
+}
+
+
+
+
+/* rondeado de una tabla */
+.table-round {
+  border-collapse:separate;
+  border-spacing: 1;
+  border:solid rgb(165, 165, 165) 1px;
+  border-radius:1px;
+  -moz-border-radius:1px;
+  -webkit-border-radius: 5px;  
+  -webkit-box-shadow: 0 3px 3px #ccc;
+  -moz-box-shadow: 0 3px 3px #ccc;
+  box-shadow: 0 3px 3px #ccc; 
+}
+
+
+.click a:active { /* Movimiento al dar clic a un enlace o boton*/
+  position: relative;
+  opacity: 0.5;
+  top: 5px;
+}
+
+
+.pointer { /* Poner corsor como vinculo */
+  cursor: pointer;
+}
+
+
+/* Para imagenes previsualizadas al cargar  */
+.image-visualizer{
+  position: relative;
+  padding-bottom: 56.25%
+}
+
+.image-visualizer img {
+  position: absolute;
+  object-fit: cover;
+  width: 100px;
+  height: 72px;
+}
+
+
+.imgSize { /* Tamano de un icono pequeno*/
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+
+}
+
+
+
+
+
+
+/* para el nuevo menu de productos*/
+.newmenux {
+  background: #ebebeb;
+  height: 150px;
+  max-width: 240px;
+  border: 2px solid #979797;
+  transition-duration: 0.4s;
+  border-radius: 5px;
+  animation: winanim 0.5s ;
+  box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 5px 8px 0 rgba(0,0,0,.14),0 1px 14px 0 rgba(0,0,0,.12)
+}
+
+.newmenux:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
+}
+
+.newmenux img {
+margin-top: 10px;
+margin-bottom: 5px;
+margin-left: 5px;
+margin-right: 5px;
+height: 100px;
+width: 236px;
+}
+
+.newmenux a {
+text-decoration: none;
+}
+
+.newmenux a:active {
+position: relative;
+opacity: 0.5;
+top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- gallery styles start here ----------------------- */
+.gallery {
+	list-style: none;
+	margin: 0;
+	padding-left: 3px;
+}
+
+.gallery li {
+	border: solid 2px #002E79; /*color de border solido*/
+  background-color: #FFFFFF;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+	position: relative;
+	width: 120px;
+	height: 110px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 10px;
+}
+
+.gallery li:hover input {
+	border-color: #fff;
+}
+.gallery li:active input {
+     position: relative;
+	 opacity: 0.5;
+     top: 10px;
+}
+
+
+
+.gallery img { 
+	display: block;
+	position: relative;
+	bottom: 22px;
+	top: -27px;
+	width: 1000px;
+	height: 72px;
+}
+
+.gallery em {
+	background: #fff;
+	color: #000;
+	font-style: normal;
+	padding: 1px 5px;
+	display: block;
+	position: relative;
+	top: 73px;
+	border: 1px solid #999; 
+	border-left-color: #888;
+	font-size:0.6em; /* tama;o de las letras */
+	width: 100px;
+	height: auto;
+	border-radius: 5px;
+  font-weight: 500;
+}
+.gallery a {
+	text-decoration: none;
+}
+.gallery a:hover em {
+	background: #ffdb01;
+	border-color: #c25b08;
+}
