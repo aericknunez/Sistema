@@ -13,7 +13,7 @@
                     <a href="{{ route('panel.control') }}">
                 @endif
                     <img src="
-                    @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+                    @if (config('sistema.latam') == true)
                     {{ asset('img/logo/latam.png') }}
                     @else
                     {{ asset('img/logo/pizto.png') }}

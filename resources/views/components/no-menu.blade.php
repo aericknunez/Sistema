@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ asset('css/font-awesome-582.css') }}">
         <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
         <link rel="stylesheet" href="
-        @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+        @if (config('sistema.latam') == true)
         {{ asset('css/galeria-latam.css') }}
         @else
         {{ asset('css/galeria.css') }}

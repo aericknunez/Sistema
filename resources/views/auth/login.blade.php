@@ -9,7 +9,7 @@
             <div class="text-center">
                 {{-- <x-jet-authentication-card-logo /> --}}
                 <a class="d-flex justify-content-center mb-4" href="/login">
-                    @if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test')
+                    @if (config('sistema.latam') == true)
                     <img src="{{ asset('img/logo/latamPOS.png') }}" height="100" width="100" alt="LatamPOS">
                     @else
                     <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">

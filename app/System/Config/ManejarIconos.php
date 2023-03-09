@@ -20,19 +20,21 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 
     public function CrearIconos(){
 
-        if (session('principal_tipo_menu') == 1) {
-            $retorno = '<div class="container mb-4"> 
-                <div class="row justify-content-left click">';
-        } else {
-            $retorno = '<div class="justify-content-center click"> 
-            <ul class="gallery"> ';
-        }
-
         $counter = 0;
-
+        $retorno = '';
         // aqui se comienzan a crear los iconos
 
         $datos = OrderImg::all();
+
+        if (count($datos)) {
+            if (session('principal_tipo_menu') == 1) {
+                $retorno .= '<div class="container mb-4"> 
+                    <div class="row justify-content-left click">';
+            } else {
+                $retorno .= '<div class="justify-content-center click"> 
+                <ul class="gallery"> ';
+            }
+        }
 
         foreach ($datos as $dato) {
             if ($dato->tipo_img == 1) {
@@ -77,21 +79,33 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 
 
         if ($counter == 0) {
-            $retorno .= '<div class="row justify-content-center click">
-            <img src="{{ asset("img/errors/oops.png") }}" alt="Sin Registros">    
-            {{ mensajex("NO HAY PRODUCTOS REGISTRADOS", "info") }}
-        </div>';
+        $retorno .= '
+        <div class="mb-4">
+            <div class="row justify-content-center click">
+                <img src="{{ asset("img/errors/oops.png") }}" alt="Sin Registros">
+            </div>
+
+            <div class="row justify-content-center click h4-responsive text-uppercase">NO HAY PRODUCTOS REGISTRADOS</div>
+            <div>
+                <div class="row justify-content-center">Puede iniciar agregando productos</div>
+                <div class="row justify-content-center"><a class="btn btn-primary btn-sm" href="{{ route("producto.create") }}">Aqui</a></div>
+            </div>
+        </div>
+        ';
+
         }
 
 
-        if (session('principal_tipo_menu') == 1) {
-            $retorno .= '
-            </div> 
-        </div>';
-        } else {
-            $retorno .= '
-            </ul> 
+        if (count($datos)) {
+            if (session('principal_tipo_menu') == 1) {
+                $retorno .= '
+                </div> 
             </div>';
+            } else {
+                $retorno .= '
+                </ul> 
+                </div>';
+            }
         }
 
 
@@ -132,7 +146,7 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
         if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-        if (Request::root() == 'https://latam-pos.com' or Request::root() == 'http://template.test') {
+        if (config('sistema.latam') == true) {
             $colorModalOptions = 'light-green';
         } else {
             $colorModalOptions = 'cyan';

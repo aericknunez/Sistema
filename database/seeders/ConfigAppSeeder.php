@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 
 use App\Common\Helpers;
 
-
 class ConfigAppSeeder extends Seeder
 {
     /**
@@ -32,8 +31,8 @@ class ConfigAppSeeder extends Seeder
             'envio' => 0,
             'multiple_pago' => 0,
             'pais' => 1,
-            'skin' => 'mdb-skin',
-            'logo' => 'logo.png',
+            'skin' => (config('sistema.latam') == true) ? 'latam-skin' : 'mdb-skin',
+            'logo' => (config('sistema.latam') == true) ? 'latamPOS.png' : 'hibrido_logo.png',
             'tipo_servicio' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
