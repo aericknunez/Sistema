@@ -15,11 +15,12 @@ use App\Models\NumeroCajas;
 use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Configuracion extends Component
 {
 
-    use Config, CrearTipoPagoModal;
+    use Config, CrearTipoPagoModal, WithFileUploads;
 
     public $datos = [];
     public $config = [];
@@ -37,7 +38,8 @@ class Configuracion extends Component
             $imp,
             $propina,
             $envio,
-            $pais;
+            $pais, 
+            $logo;
 
     /// config principal model
     public $no_mesas,
@@ -142,8 +144,14 @@ class Configuracion extends Component
 
     public function store()
     {
-        $this->validate();
-        
+        $this->validate([
+            'logo' => 'image|max:1024', // 1MB Max
+        ]);
+ 
+        $image = $this->logo->store('public/logos');
+
+        $namedImage = str_replace('public/logos/', '', $image);
+
         ConfigApp::updateOrCreate(
             ['id' => 1], [
             'cliente' => $this->cliente,
@@ -158,10 +166,10 @@ class Configuracion extends Component
             'propina' => $this->propina,
             'envio' => $this->envio,
             'pais' => $this->pais,
+            'logo' => $namedImage,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => session('sistema.td')]);
-
         $this->emit('creado'); // manda el mensaje de creado
         $this->getConfigDatos();
         $this->sessionApp(); // llama las variables de session

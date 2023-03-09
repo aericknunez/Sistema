@@ -121,6 +121,20 @@
             </div>
         </div>
     </div>
+
+    <div class="form-row my-0">
+        <div class="col">
+            <div class="md-form my-0">
+                <input type="file" wire:model="logo">
+                @error('logo') <span class="error">{{ $message }}</span> @enderror
+            </div>
+        </div>
+        <div class="col">
+            <div class="md-form my-0">
+
+            </div>
+        </div>
+    </div>
     {{-- form  --}}
     </div>
     </div>
