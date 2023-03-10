@@ -31,7 +31,7 @@ class ConfigAppSeeder extends Seeder
             'envio' => 0,
             'multiple_pago' => 0,
             'pais' => 1,
-            'skin' => (config('sistema.latam') == true) ? 'atam-skin' : 'mdb-skin',
+            'skin' => (config('sistema.latam') == true) ? 'latam-skin' : 'mdb-skin',
             'logo' => (config('sistema.latam') == true) ? 'latamPOS.png' : 'hibrido_logo.png',
             'tipo_servicio' => 1,
             'clave' => Helpers::hashId(),
