@@ -97,7 +97,7 @@
           @if (count($eliminadas))
               
           <div class="h3">Facturas Eliminadas</div>
-          <div class="table-responsive">
+          <div class="table-responsive newtable">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
                 <tr>
