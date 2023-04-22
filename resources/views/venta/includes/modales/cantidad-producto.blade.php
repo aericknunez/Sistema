@@ -9,7 +9,7 @@
 
           <form wire:submit.prevent="btnCambiarCantidad">
             <div class="form-group green-border-focus">
-              <label for="cantidadproducto">Cantidad</label>
+              <label for="cantidadproducto">Cantidad Actual: {{ $cantidad }}</label>
               <input type="text" class="form-control" id="cantidadproducto" wire:model.defer="cantidadproducto">
             </div>
             <div class="text-right">

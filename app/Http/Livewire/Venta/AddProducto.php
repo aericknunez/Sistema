@@ -636,7 +636,7 @@ public function validarMotivo(){
     }
 }
 
-
+// 7955 9386 - Nelson Ivan Martinez (FGR)
 
 public function btnClienteIdSelect($clientex){
     $this->clientSessionFactura($clientex);   
