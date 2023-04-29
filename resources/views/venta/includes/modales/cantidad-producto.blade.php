@@ -9,11 +9,29 @@
 
           <form wire:submit.prevent="btnCambiarCantidad">
             <div class="form-group green-border-focus">
-              <label for="cantidadproducto">Cantidad Actual: {{ $cantidad }}</label>
-              <input type="text" class="form-control" id="cantidadproducto" wire:model.defer="cantidadproducto">
-            </div>
-            <div class="text-right">
-              <button class="btn btn-mdb-color" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
+              <div class="h4 font-bold" for="cantidadproducto">Cantidad Actual: {{ $cantidadActual }}</div>
+              <input type="number" class="form-control" id="cantidadproducto" wire:model="cantidadproducto">
+              <div class="h4 font-bold" >Resultado: 
+                @if ($cantidadproducto)
+                  {{ $cantidadproducto + $cantidadActual }}
+                  @if ($cantidadproducto + $cantidadActual > 0)
+                    <div class="text-right">
+                      <button class="btn btn-mdb-color" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
+                    </div>
+                  @else
+                    <div class="red-text">Valor no válido</div>
+                  @endif
+                @else
+                  {{ $cantidadActual }}
+                  @if ($cantidadActual > 0)
+                    <div class="text-right">
+                      <button class="btn btn-mdb-color" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
+                    </div>
+                  @else
+                    <div class="red-text">Valor no válido</div>
+                  @endif
+                @endif
+                </div>
             </div>
           </form>
             

@@ -171,6 +171,7 @@ public function getProductosModal($producto){ // obtiene los detalles de los pro
     return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
                             ->where('cod', $producto)
+                            ->where('edo', 1)
                             ->with('subOpcion')->get();
 }
 

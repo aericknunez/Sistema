@@ -63,6 +63,9 @@ class AddProducto extends Component
     /// busqueda de asignacion del cliente
     public $search, $busqueda;
 
+    // cantidad de producto seleccionadocuando se cambiara la cantidad
+    public $cantidadActual;
+
 
     public function mount(){
         if (session('orden')) {
@@ -383,21 +386,26 @@ public function btnEnvio(){ /// agrega el campo de envio a la orden
 
 
 public function btnCambiarCantidad(){ // cambia la cantidad de productos
-    $cantidad = $this->getCantidadProductosCod($this->codSelected);
-    if ($cantidad < $this->cantidadproducto) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
+    $cantidad = $this->cantidadActual + $this->cantidadproducto;
+
+    if ($this->cantidadproducto > 0) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
         //  aumentar la cantidad
-        $cant = $this->cantidadproducto - $cantidad;
+        $cant = $cantidad - $this->cantidadActual;
         $this->aumentarCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada ' . $cant]);
     }
-    if ($cantidad > $this->cantidadproducto) {
+    if ($this->cantidadproducto == 0) {
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'error', 'titulo' => 'Error', 'texto' => 'La cantidad no puede ser 0']);
+    }
+    if ($this->cantidadproducto < 0) {
         // reducir la cantidad
-        $cant = $cantidad - $this->cantidadproducto;
+        $cant = abs($this->cantidadproducto); // pasar el numero negativo a positivo para reducir
         $this->reducirCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida ' . $cant]);
     }
 
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->reset(['cantidadproducto']);
     $this->productosAdded();
     $this->obtenerTotal();
 }
@@ -449,8 +457,11 @@ public function productSelect($producto){ /// Productos para mostrar el detalle 
 }
 
 
-public function selectCod($cod){ /// Selecciona el foco en un codigo
+public function selectCod($cod, $cant = false){ /// Selecciona el foco en un codigo
     $this->codSelected = $cod;
+    if ($cant) {
+        $this->cantidadActual = $this->getCantidadProductosCod($this->codSelected);
+    }
 }
 
 
