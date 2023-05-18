@@ -20,6 +20,15 @@
                 @endforeach
             </ul>
 
+            <ul class="list-group mt-3">
+               <li class="list-group-item d-flex justify-content-between align-items-center">
+                 <span class="font-weight-bold">EFECTIVO DE CAMBIO</span>
+                  <span class="badge badge-danger badge-pill font-weight-bold px-2 py-2">
+                  {{ dinero($totalEnCajas) }}
+                  </span>
+                </li>                   
+          </ul>
+
 
         </div>
         <div class="modal-footer">

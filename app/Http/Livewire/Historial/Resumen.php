@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Historial;
 
+use App\Models\CorteDeCaja;
 use App\Models\EfectivoGastos;
+use App\Models\NumeroCajas;
 use App\Models\User;
 use App\System\Historial\HistorialTotales;
+use App\System\Inventario\ContarProductoVendido;
 use Livewire\Component;
 use Carbon\Carbon;
 
@@ -13,11 +16,12 @@ class Resumen extends Component
 {
 
     use HistorialTotales;
+    use ContarProductoVendido;
 
     public $tipo_fecha;
     public $fecha1, $fecha2;
     public $fecha1f, $fecha2f;
-    public $ventas = [];
+    public $ventas = null;
     public $gastos = [];
     public $cuentas = [];
 
@@ -25,15 +29,19 @@ class Resumen extends Component
 
     public $noOrdenes;
     public $promedioPollo = 0;
+    public $cantidadPollos = 0;
     public $cortesAbiertos;
     public $lastUpdate;
 
     public $detalleGastos = [];
+    public $totalEnCajas = [];
 
 
     public function mount(){
         $this->tipo_fecha = 1;
         $this->getAllData();
+        $this->getTotalEfectivoCajas();
+        $this->PromedioDePollo();
     }
 
 
@@ -105,6 +113,21 @@ class Resumen extends Component
                                     ->orderBy('tiempo', 'desc')
                                     ->get();
         }
+    }
+
+    public function getTotalEfectivoCajas(){
+        $cajas = NumeroCajas::where('edo', 0)->get();
+        $cantidad = 0;
+        foreach ($cajas as $caja) {
+            $cant = CorteDeCaja::select('efectivo_final')->where('numero_caja', $caja->id)->where('edo', 2)->first();
+            $cantidad = $cantidad + $cant->efectivo_final;
+        }
+        $this->totalEnCajas = $cantidad;
+    }
+
+    public function PromedioDePollo($producto = 1){
+        $this->cantidadPollos = $this->CantidadDeProducto($producto);
+        $this->promedioPollo = $this->cantidadPollos / $this->ventas;
     }
 
 
