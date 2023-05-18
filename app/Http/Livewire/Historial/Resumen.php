@@ -127,7 +127,11 @@ class Resumen extends Component
 
     public function PromedioDePollo($producto = 1){
         $this->cantidadPollos = $this->CantidadDeProducto($producto);
-        $this->promedioPollo = $this->ventas / $this->cantidadPollos;
+        if ($this->cantidadPollos != 0) {
+            $this->promedioPollo = $this->ventas / $this->cantidadPollos;
+        } else {
+            $this->promedioPollo = 0;
+        }
     }
 
 

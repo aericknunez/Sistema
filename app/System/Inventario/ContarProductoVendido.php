@@ -27,7 +27,7 @@ public function CantidadDeProducto($producto){
                         ->whereColumn('inv_asignados.dependiente', 'inv_dependientes.id')])
                         ->where('producto', $producto)
                         ->get();
-
+dd($productos);
     $cantidad_descontar = 0;
     foreach ($productos as $producto) {
 
