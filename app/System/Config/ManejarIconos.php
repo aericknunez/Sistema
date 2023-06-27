@@ -30,9 +30,19 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         $counter = 0;
 
         // aqui se comienzan a crear los iconos
-
+        
         $datos = OrderImg::all();
-
+        if (session('principal_ordenar_menu') == 1) {
+            foreach ($datos as $dato) {
+                if ($dato->tipo_img == 1) {
+                    OrderImg::where('id', $dato->id)->update(['inicial'=> ucwords(Producto::select('nombre')->where('id', $dato->id)->where('estado', 1)->first()->nombre)]);
+                } else {
+                    OrderImg::where('id', $dato->id)->update(['inicial'=> ucwords(ProductoCategoria::select('nombre')->where('id', $dato->id)->where('estado', 1)->first()->nombre)]); 
+                }
+            }
+        $datos = OrderImg::orderBy('inicial', 'asc')->get();
+        }
+        
         foreach ($datos as $dato) {
             if ($dato->tipo_img == 1) {
                 $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->where('estado', 1)->first();
