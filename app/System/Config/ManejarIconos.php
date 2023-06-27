@@ -35,9 +35,15 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         if (session('principal_ordenar_menu') == 1) {
             foreach ($datos as $dato) {
                 if ($dato->tipo_img == 1) {
-                    OrderImg::where('id', $dato->imagen)->update(['inicial'=> ucfirst(substr(Producto::select('nombre')->where('id', $dato->id)->where('estado', 1)->first()->nombre, 0, 1))]);
+                    $producto = Producto::select('nombre')->where('id', $dato->id)->where('estado', 1)->first()->nombre;
+                    if ($producto) {
+                        OrderImg::where('id', $dato->imagen)->update(['inicial'=> ucfirst(substr($producto, 0, 1))]);
+                    }
                 } else {
-                    OrderImg::where('id', $dato->id)->update(['inicial'=> ucfirst(substr(ProductoCategoria::select('nombre')->where('id', $dato->imagen)->first()->nombre, 0, 1))]); 
+                    $categoria = ProductoCategoria::select('nombre')->where('id', $dato->imagen)->first()->nombre;
+                    if ($categoria) {
+                        OrderImg::where('id', $dato->id)->update(['inicial'=> ucfirst(substr($categoria, 0, 1))]); 
+                    }
                 }
             }
         $datos = OrderImg::orderBy('inicial', 'asc')->get();
