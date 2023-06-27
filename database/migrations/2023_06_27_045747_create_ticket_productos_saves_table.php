@@ -4,6 +4,7 @@ use App\Models\TicketProducto;
 use App\Models\TicketProductosSave;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateTicketProductosSavesTable extends Migration
@@ -80,6 +81,10 @@ class CreateTicketProductosSavesTable extends Migration
                 TicketProducto::where('id', $producto->id)->delete();
             }
         }
+
+        Schema::dropIfExists('sync_tables');
+        $sql = database_path('sync_tables.sql');
+        DB::unprepared(file_get_contents($sql));
     }
 
     /**
