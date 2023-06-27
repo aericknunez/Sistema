@@ -95,7 +95,7 @@ class Venta extends Component
 
         $this->productosAdded();
         $this->obtenerTotal();
-        $this->numeroLineasFactura();
+        $this->numeroLineas = $this->numeroLineasFactura();
 
 
         $producto = Producto::where('cod', $cod)->first();
@@ -138,6 +138,8 @@ class Venta extends Component
 
         $this->verificaCantidad();
         $this->updateImprimirOrden();
+        $this->numeroLineas = $this->numeroLineasFactura();
+
 
         if (session('orden')) {
             $this->productosAdded();
@@ -318,6 +320,7 @@ public function getAqui(){
 
 public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
     session(['impresion_seleccionado' => $tipo]);
+    $this->numeroLineas = $this->numeroLineasFactura();
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoVenta']);
 } 
 
@@ -521,31 +524,6 @@ public function validarMotivo(){
 }
 
 
-/// valida el numero de lineas de la factura
-public function numeroLineasFactura() {
-    if(((session('principal_lineas_factura') != 0 or session('principal_lineas_factura') != null) 
-    or (session('lineas_ccf') != 0 or session('lineas_ccf') != null)) and 
-    (session('impresion_seleccionado') == 2 or session('impresion_seleccionado') == 3)){
-        $products = TicketProducto::where('orden', session('orden'))
-                                    ->where('num_fact', NULL)
-                                    ->where('edo', 1)
-                                    ->count();
-        if (session('impresion_seleccionado') == 2) {
-            # factura 
-            if ($products > session('principal_lineas_factura')) {
-                $this->numeroLineas = true;
-            }
-        }
-        if (session('impresion_seleccionado') == 3) {
-            # factura 
-            if ($products > session('lineas_ccf')) {
-                $this->numeroLineas = true;
-            }
-        }
-    } else {
-        $this->numeroLineas = false;
-    }
-}
 
 
 

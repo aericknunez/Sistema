@@ -36,6 +36,10 @@
         @if (session('factura_documento'))
         <div>Cliente: {{ session('factura_cliente') }}  Doc: {{ session('factura_documento') }}</div>
         @endif
+
+        @if ($numeroLineas == true)
+        {{ mensajex("HA EXEDIDO EL NUMERO MAXIMO DE ITEMS", "danger") }}
+        @endif
     </div>
 
     @include('venta.includes.modales.cambio-venta')
