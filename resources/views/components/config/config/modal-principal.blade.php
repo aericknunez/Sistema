@@ -262,9 +262,34 @@
                       </div>
                 </span>
             </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Numero de Items Factura:
+              <span>
+                  <input type="number" id="lineas_factura" wire:model.defer="lineas_factura" class="form-control" maxlength="2">
+              </span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Numero Items Credito Fiscal:
+              <span>
+                  <input type="number" id="lineas_ccf" wire:model.defer="lineas_ccf" class="form-control" maxlength="2">
+              </span>
+            </li>
             </ul>
     
-    
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Ordernar Menu Alfabeticamente
+              <span>
+                  <div class="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" wire:model.defer="ordenar_menu">
+                        <span class="lever"></span> On
+                      </label>
+                    </div>
+              </span>
+          </li>
     
     
     

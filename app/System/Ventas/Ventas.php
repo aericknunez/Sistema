@@ -582,10 +582,6 @@ public function getDeliveryData(){ // crea la variables del delivery
         $num = $descuento * 100;
         return $num / $cantidad; // retorna porcentaje
     }
-
-
-
- 
     
 
 
