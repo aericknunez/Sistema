@@ -207,7 +207,11 @@ return $retorno;
 
     public function creaModalCategorias($categoria){
         
-$datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+if (session('principal_ordenar_menu') == 1) {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->orderBy('nombre', 'asc')->get();
+} else {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+}
 
     $cantidad = count($datos);
     $modal = 'modal-md';
