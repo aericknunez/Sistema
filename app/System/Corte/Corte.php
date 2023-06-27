@@ -12,6 +12,7 @@ use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use App\Models\User;
 
 trait Corte{
@@ -56,6 +57,9 @@ trait Corte{
                             ->update(['edo' => 0,
                                     'tiempo' => Helpers::timeId()
                             ]);
+        
+        
+        TicketProducto::whereNotNull('num_fact')->delete();
 
         session()->forget('apertura_caja');
         // session()->forget('caja_select');
@@ -85,7 +89,7 @@ trait Corte{
 
     /* productos */
     public function productos($inicio, $fin, $cajero){
-        $productos = TicketProducto::where('cajero', $cajero)
+        $productos = TicketProductosSave::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('cantidad');
@@ -259,7 +263,7 @@ trait Corte{
                     ->where('imprimir', 1)
                     ->update(['imprimir' => 0, 'tiempo' => Helpers::timeId()]);
 
-        TicketProducto::where('cajero', session('config_usuario_id'))
+        TicketProductosSave::where('cajero', session('config_usuario_id'))
                     ->where('imprimir','!=', 3)
                     ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
     }

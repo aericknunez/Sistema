@@ -224,31 +224,33 @@ class Cambios extends Component
             'tiempo' => Helpers::timeId(),
             'td' => session('sistema.td')
         ]);
-
-       
+        
+        
         TicketProducto::where('orden', session('orden'))
-                        ->where('cliente', session('cliente'))
-                        ->update(['num_fact' => $num_fact, 
-                                'cancela' => session('cliente'), 
-                                'cajero' => session('config_usuario_id'),
-                                'tipo_pago' => session('tipo_pago'),
-                                'tipo_venta' => session('impresion_seleccionado'), 
-                                'tiempo' => Helpers::timeId()
-        ]);
-
+        ->where('cliente', session('cliente'))
+        ->update(['num_fact' => $num_fact, 
+        'cancela' => session('cliente'), 
+        'cajero' => session('config_usuario_id'),
+        'tipo_pago' => session('tipo_pago'),
+        'tipo_venta' => session('impresion_seleccionado'), 
+        'tiempo' => Helpers::timeId()
+    ]);
+    
     // $xst = Helpers::Format($this->subtotal);
     // $xpr = Helpers::Format($this->propinaCantidad);
     // $xto = Helpers::Format($this->total);
     // $xca = Helpers::Format($this->cantidad);
-
+    
     $this->dispatchBrowserEvent('modal-cambio-venta', [
-                    'subtotal' => Helpers::Dinero($this->subtotal),
-                    'propina' => Helpers::Dinero($this->propinaCantidad),
-                    'total' => Helpers::Dinero($this->total),
-                    'efectivo' => Helpers::Dinero($this->cantidad),
-                    'cambio' => Helpers::Dinero($this->cantidad - $this->total)
+        'subtotal' => Helpers::Dinero($this->subtotal),
+        'propina' => Helpers::Dinero($this->propinaCantidad),
+        'total' => Helpers::Dinero($this->total),
+        'efectivo' => Helpers::Dinero($this->cantidad),
+        'cambio' => Helpers::Dinero($this->cantidad - $this->total)
     ]);
-
+    
+    $this->copiarDatosTablaProductos();
+    
         if (session('print')) { /// imprime a menos que el env diga que no
             $this->ImprimirFactura($num_fact); // imprime la factura
         }
