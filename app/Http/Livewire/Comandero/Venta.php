@@ -492,7 +492,11 @@ public function btnCerrarModal(){ /// Cierra el modal de fin de venta
 } 
 
 public function btnCatSelect($iden){
-    $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+    if (session('principal_ordenar_menu') == 1) {
+        $this->catSelect = Producto::where('producto_categoria_id', $iden)->orderBy('nombre', 'asc')->get();
+    } else {
+        $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+    }
     $this->dispatchBrowserEvent('focus');
 }
 
