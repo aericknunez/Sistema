@@ -13,7 +13,7 @@ class TicketOrden extends Model
 
 
     public function productos(){
-        return $this->hasMany(TicketProducto::class, 'orden');
+        return $this->hasMany(TicketProductosSave::class, 'orden');
     }
 
 

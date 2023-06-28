@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Search;
 use App\Common\Helpers;
 use App\Models\CuentasPorCobrar;
 use App\Models\TicketNum;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use App\System\Imprimir\ReImprimir;
 use Livewire\Component;
 
@@ -37,7 +37,7 @@ class SearchBotones extends Component
 
     
     public function getData(){
-        $this->detalles = TicketProducto::where('tipo_venta', session('impresion_seleccionado'))
+        $this->detalles = TicketProductosSave::where('tipo_venta', session('impresion_seleccionado'))
                                     ->where('num_fact', session('idSearch'))
                                     ->where('edo', 1)
                                     ->with('subOpcion')
@@ -66,7 +66,7 @@ class SearchBotones extends Component
                         ->where('edo', 1)
                         ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
                         
-        TicketProducto::where('tipo_venta', session('impresion_seleccionado'))
+        TicketProductosSave::where('tipo_venta', session('impresion_seleccionado'))
                         ->where('num_fact', session('idSearch'))
                         ->where('edo', 1)
                         ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);

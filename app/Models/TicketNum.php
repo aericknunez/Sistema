@@ -17,7 +17,7 @@ class TicketNum extends Model
     }
     
     public function productos(){
-        return $this->hasMany(TicketProducto::class, 'orden', 'orden');
+        return $this->hasMany(TicketProductosSave::class, 'orden', 'orden');
     }
 
 }

@@ -1,11 +1,12 @@
 <?php
 namespace App\System\Imprimir;
 
-use App\Models\TicketProducto;
 use App\System\Facturacion\Facturacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Common\Helpers;
+use App\Models\TicketProductosSave;
+
 /*
 Los tipos de impresion se distribuiran asi:
 10. Corte de caja
@@ -88,7 +89,7 @@ trait ImprimirCortes{
 
 
     public function getProductos($inicio, $fin, $cajero){
-        $productos = TicketProducto::where('cajero', $cajero)
+        $productos = TicketProductosSave::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->get();

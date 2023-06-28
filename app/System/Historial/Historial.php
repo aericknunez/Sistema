@@ -6,7 +6,7 @@ use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
 use App\Models\EntradasSalidas;
 use App\Models\TicketOrden;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +23,7 @@ trait Historial {
 
 
     public function ventasUnica($fecha){
-        return TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', 
+        return TicketProductosSave::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', 
                                                 DB::raw('sum(total) as totales, cod'), 
                                                 DB::raw('sum(descuento) as descuentos, cod'), 
                                                 DB::raw('count(*) as cantidad, cod'))
@@ -36,7 +36,7 @@ trait Historial {
 
 
     public function ventasMultiple($fecha1, $fecha2){
-        return TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', 
+        return TicketProductosSave::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', 
                                                 DB::raw('sum(total) as totales, cod'), 
                                                 DB::raw('sum(descuento) as descuentos, cod'), 
                                                 DB::raw('count(*) as cantidad, cod'))
@@ -135,7 +135,7 @@ trait Historial {
 
 
     public function eliminadosUnica($fecha){
-        return TicketProducto::addSelect(['user' => User::select('name')
+        return TicketProductosSave::addSelect(['user' => User::select('name')
                                 ->whereColumn('usuario', 'users.id')])
                                 ->addSelect(['user_borrado' => User::select('name')
                                 ->whereColumn('usuario_borrado', 'users.id')])
@@ -148,7 +148,7 @@ trait Historial {
 
 
     public function eliminadosMultiple($fecha1, $fecha2){
-        return TicketProducto::addSelect(['user' => User::select('name')
+        return TicketProductosSave::addSelect(['user' => User::select('name')
                                 ->whereColumn('usuario', 'users.id')])
                                 ->addSelect(['user_borrado' => User::select('name')
                                 ->whereColumn('usuario_borrado', 'users.id')])
