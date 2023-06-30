@@ -56,7 +56,6 @@ INSERT INTO `sync_tables` (`id`, `tabla`, `tipo`) VALUES
 	(32, 'ticket_opcions', 1),
 	(33, 'ticket_ordens', 1),
 	(34, 'ticket_productos', 1),
-	(34, 'ticket_productos', 1),
 	(35, 'clientes', 1),
 	(37, 'config_privates', 1),
 	(38, 'cuentas_por_cobrars', 1),

@@ -39,7 +39,9 @@ class CreateTicketProductosSavesTable extends Migration
 
             $table->integer('panel')->nullable(true);
             $table->integer('imprimir')->nullable(true)->comment('1 agregado || 2 Guardado a imprimir || 3 impreso || 4 Eliminado a imprimir');
-
+            $table->integer('usuario_borrado')->nullable(true);
+            $table->string('motivo_borrado', 200)->nullable(true);
+            
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);
             $table->integer('td')->nullable(true);
