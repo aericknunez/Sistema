@@ -449,7 +449,7 @@ INSERT INTO `images` (`id`, `imagen`, `descripcion`, `imagen_categoria_id`, `cla
 (448, '10ddab89b1.png', 'Imagen', 2, 'd9d6309aae', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10'),
 (449, '3d1b3da530.png', 'Imagen', 2, 'e7c6d74e86', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10'),
 (450, '6b3fb56f6c.png', 'Imagen', 2, '35031e4114', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10');
-INSERT INTO `image` (`id`, `imagen`, `descripcion`, `imagen_categoria_id`, `clave`, `tiempo`, `td`, `created_at`, `updated_at`) VALUES
+INSERT INTO `images` (`id`, `imagen`, `descripcion`, `imagen_categoria_id`, `clave`, `tiempo`, `td`, `created_at`, `updated_at`) VALUES
 (451, 'a320fe7d83.png', 'Imagen', 2, 'ce2f6e3a20', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10'),
 (452, '7c1d601047.png', 'Imagen', 6, '566c54fa13', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10'),
 (453, 'cde4d37712.png', 'Imagen', 6, 'e6e59df23d', 1639867023, 0, '2021-10-25 11:26:10', '2021-10-25 11:26:10'),
