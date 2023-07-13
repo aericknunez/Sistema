@@ -61,6 +61,7 @@ class Venta extends Component
 
     public function mount(){
         if (session('orden')) {
+            $this->delSessionFactura(); // temporal de prueba
             $this->determinaPropina();
             $this->productosAdded();
             $this->obtenerTotal();

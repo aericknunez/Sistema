@@ -71,6 +71,7 @@ class AddProducto extends Component
 
     public function mount(){
         if (session('orden')) {
+            $this->delSessionFactura(); // temporal de prueba
             $this->determinaPropina();
             $this->productosAdded();
             $this->obtenerTotal();
@@ -555,11 +556,6 @@ public function pagar(){
 
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
-
-    // $xst = Helpers::Format($this->subtotal);
-    // $xpr = Helpers::Format($this->propinaCantidad);
-    // $xto = Helpers::Format($this->total);
-    // $xca = Helpers::Format($this->cantidad);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
                     'subtotal' => Helpers::Dinero($this->subtotal),
