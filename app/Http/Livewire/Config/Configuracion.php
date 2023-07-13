@@ -64,7 +64,9 @@ class Configuracion extends Component
             $venta_especial,
             $lineas_factura,
             $lineas_ccf,
-            $ordenar_menu;
+            $ordenar_menu,
+            $ver_mesas,
+            $ver_delivery;
 
     /// config Impresiones model
     public $ninguno,
@@ -273,6 +275,8 @@ class Configuracion extends Component
         $this->lineas_factura = $data['lineas_factura'];
         $this->lineas_ccf = $data['lineas_ccf'];
         $this->ordenar_menu = $data['ordenar_menu'];
+        $this->ver_mesas = $data['ver_mesas'];
+        $this->ver_delivery = $data['ver_delivery'];
     }
 
 
@@ -306,6 +310,8 @@ class Configuracion extends Component
             'lineas_factura' => $this->lineas_factura,
             'lineas_ccf' => $this->lineas_ccf,
             'ordenar_menu' => $this->ordenar_menu,
+            'ver_mesas' => $this->ver_mesas,
+            'ver_delivery' => $this->ver_delivery,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => session('sistema.td')]);

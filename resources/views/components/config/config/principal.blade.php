@@ -108,5 +108,13 @@
             Ordenar menu alfabeticamente
             <span>{{ isActivo($datos->restringir_inventario) }}</span>
         </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Mesas a Mesero
+            <span>{{ isActivo($datos->ver_mesas) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Delivery a Mesero
+            <span>{{ isActivo($datos->ver_delivery) }}</span>
+        </li>
     </ul>
 </div>

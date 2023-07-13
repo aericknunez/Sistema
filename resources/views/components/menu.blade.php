@@ -178,7 +178,7 @@
 @endif
 
 
-@can('cuentas.pendientes')
+{{-- @can('cuentas.pendientes') --}}
 <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-user"></i> CUENTAS<i class="fa fa-angle-down rotate-icon"></i></a>
     <div class="collapsible-body">
     <ul class="list-unstyled">
@@ -190,7 +190,7 @@
     </ul>
     </div>
 </li>  
-@endcan
+{{-- @endcan --}}
 
 
 @if (auth()->user()->canany(['facturacion.emitidas', 'facturacion.ultimas']))
