@@ -52,6 +52,7 @@ trait Imprimir{
         $datos['tipo_impresion'] = 3;
         $datos['identidad'] = session('sistema.td');
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+        $datos['tipo_servicio'] = session('config_tipo_servicio'); // 1 rapido, 2 mesas, 3 delivery
 
         $datos['cliente_nombre'] = session('delivery_nombre'); 
         $datos['cliente_direccion'] = session('delivery_direccion'); 
@@ -92,6 +93,7 @@ trait Imprimir{
         $datos['identidad'] = session('sistema.td');
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+        $datos['tipo_servicio'] = session('config_tipo_servicio'); // 1 rapido, 2 mesas, 3 delivery
 
         $datos['cliente_nombre'] = session('delivery_nombre'); 
         $datos['cliente_direccion'] = session('delivery_direccion'); 
@@ -133,6 +135,7 @@ trait Imprimir{
         $datos['identidad'] = session('sistema.td');
         $datos['numero_documento'] = session('orden'); // numero de orden
         $datos['llevar_aqui'] = session('llevar_aqui'); // llevar o comer aqui
+        $datos['tipo_servicio'] = session('config_tipo_servicio'); // 1 rapido, 2 mesas, 3 delivery
 
         $datos['cliente_nombre'] = session('delivery_nombre'); 
         $datos['cliente_direccion'] = session('delivery_direccion'); 
