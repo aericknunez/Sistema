@@ -200,7 +200,8 @@ trait Imprimir{
     
     public function getDatosCliente($cliente){
         $client = Cliente::find($cliente);
-        $datos['cliente'] = $client->cliente;
+        $datos['cliente'] = $client->nombre;
+        $datos['direccion'] = $client->direccion;
         $datos['giro'] = $client->giro;
         $datos['departamento_doc'] = $client->departamento_doc;
         $datos['direccion_doc'] = $client->direccion_doc;
