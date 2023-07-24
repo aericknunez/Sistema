@@ -291,6 +291,31 @@
               </span>
           </li>
     
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Mesas a Mesero
+            <span>
+                <div class="switch">
+                    <label>
+                      Off
+                      <input type="checkbox" wire:model.defer="ver_mesas">
+                      <span class="lever"></span> On
+                    </label>
+                  </div>
+            </span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Permitir Delivery a Mesero
+          <span>
+              <div class="switch">
+                  <label>
+                    Off
+                    <input type="checkbox" wire:model.defer="ver_delivery">
+                    <span class="lever"></span> On
+                  </label>
+                </div>
+          </span>
+      </li>
     
     
     

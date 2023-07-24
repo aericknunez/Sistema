@@ -81,7 +81,9 @@ trait Config{
             'principal_restringir_inventario' => $principal->restringir_inventario,
             'principal_lineas_factura' => $principal->lineas_factura,
             'principal_lineas_ccf' => $principal->lineas_ccf,
-            'principal_ordenar_menu' => $principal->ordenar_menu
+            'principal_ordenar_menu' => $principal->ordenar_menu,
+            'principal_ver_mesas' => $principal->ver_mesas,
+            'principal_ver_delivery' => $principal->ver_delivery
         ]);
     }
 

@@ -236,10 +236,6 @@ class Cambios extends Component
                                 'tiempo' => Helpers::timeId()
         ]);
 
-    // $xst = Helpers::Format($this->subtotal);
-    // $xpr = Helpers::Format($this->propinaCantidad);
-    // $xto = Helpers::Format($this->total);
-    // $xca = Helpers::Format($this->cantidad);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
                     'subtotal' => Helpers::Dinero($this->subtotal),
@@ -262,7 +258,7 @@ class Cambios extends Component
                 $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
             }
         
-    } 
+    }  
     
     
     public function btnCerrarModal(){ /// Cierra el modal de fin de venta
