@@ -208,9 +208,9 @@ return $retorno;
     public function creaModalCategorias($categoria){
         
 if (session('principal_ordenar_menu') == 1) {
-    $datos = Producto::where('producto_categoria_id', $categoria->id)->orderBy('nombre', 'asc')->get();
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->orderBy('nombre', 'asc')->get();
 } else {
-    $datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->get();
 }
 
     $cantidad = count($datos);
