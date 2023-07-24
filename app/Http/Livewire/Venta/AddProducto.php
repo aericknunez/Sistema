@@ -70,8 +70,8 @@ class AddProducto extends Component
 
 
     public function mount(){
+        $this->delSessionFactura(); // temporal de prueba
         if (session('orden')) {
-            $this->delSessionFactura(); // temporal de prueba
             $this->determinaPropina();
             $this->productosAdded();
             $this->obtenerTotal();
@@ -648,7 +648,7 @@ public function validarMotivo(){
     }
 }
 
-// 7955 9386 - Nelson Ivan Martinez (FGR)
+
 
 public function btnClienteIdSelect($clientex){
     $this->clientSessionFactura($clientex);   
