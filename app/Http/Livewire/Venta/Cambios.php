@@ -227,20 +227,16 @@ class Cambios extends Component
         
         
         TicketProducto::where('orden', session('orden'))
-        ->where('cliente', session('cliente'))
-        ->update(['num_fact' => $num_fact, 
-        'cancela' => session('cliente'), 
-        'cajero' => session('config_usuario_id'),
-        'tipo_pago' => session('tipo_pago'),
-        'tipo_venta' => session('impresion_seleccionado'), 
-        'tiempo' => Helpers::timeId()
-    ]);
-    
-    // $xst = Helpers::Format($this->subtotal);
-    // $xpr = Helpers::Format($this->propinaCantidad);
-    // $xto = Helpers::Format($this->total);
-    // $xca = Helpers::Format($this->cantidad);
-    
+                        ->where('cliente', session('cliente'))
+                        ->update(['num_fact' => $num_fact, 
+                                'cancela' => session('cliente'), 
+                                'cajero' => session('config_usuario_id'),
+                                'tipo_pago' => session('tipo_pago'),
+                                'tipo_venta' => session('impresion_seleccionado'), 
+                                'tiempo' => Helpers::timeId()
+        ]);
+
+
     $this->dispatchBrowserEvent('modal-cambio-venta', [
         'subtotal' => Helpers::Dinero($this->subtotal),
         'propina' => Helpers::Dinero($this->propinaCantidad),
@@ -264,7 +260,7 @@ class Cambios extends Component
                 $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
             }
         
-    } 
+    }  
     
     
     public function btnCerrarModal(){ /// Cierra el modal de fin de venta

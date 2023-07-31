@@ -2,9 +2,7 @@
     <div class="row mr-2 ml-2">
         @if (session('principal_llevar_aqui'))
         <div class="col-4 text-left">
-            <a wire:click="BtnAquiLlevar()">
-                {{ llevarAqui(session('llevar_aqui')) }}
-            </a>
+            <a wire:click="BtnAquiLlevar()">{{ llevarAqui(session('llevar_aqui')) }}</a>
         </div>        
         @endif
 

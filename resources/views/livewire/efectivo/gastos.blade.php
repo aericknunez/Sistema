@@ -38,7 +38,9 @@
                 {{-- form  --}}
             </div>
         </div>
-
+        <div class="text-center click">
+            <a wire:click="imprimirGastosBySearch()" class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Gastos"><i class="fas fa-print"></i></a>
+        </div>
         </x-slot>
 
     </x-cuerpo>

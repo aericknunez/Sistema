@@ -79,15 +79,12 @@ function paisNombre($nombre){
 
 
 function llevarAqui($tipo){
-    if ($tipo == 1) {
-        return "Para LLevar";
-    }   
-    if ($tipo == 2) {
-        return "Comer Aqui";
-    }    
-    if ($tipo == 3) {
-        return "Delivery";
-    }    
+    switch ($tipo) {
+        case 1: return "Para LLevar";
+        case 2: return "Comer Aqui";
+        case 3: return "Delivery";
+        default: return "Comer Aqui";
+    }  
 }
 
 function edoOrden($tipo){

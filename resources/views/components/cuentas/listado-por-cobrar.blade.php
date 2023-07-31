@@ -6,12 +6,13 @@
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
                 <tr>
+                  <th scope="col">Fecha</th>
                   <th scope="col">Factura</th>
                   <th scope="col">Cliente</th>
                   <th scope="col">Cantidad</th>
                   <th scope="col">Abonos</th>
                   <th scope="col">Saldo</th>
-                  <th scope="col">Vencimiento</th>
+                  {{-- <th scope="col">Vencimiento</th> --}}
                   <th scope="col">Estado</th>
                   <th scope="col">Opciones</th>
                 </tr>
@@ -23,18 +24,19 @@
                         {{-- <td>{{ $cuenta->proveedor->nombre }}</td>
                         <td>{{ $cuenta->nombre }}</td>
                         <td>{{ $cuenta->factura }}</td> --}}
+                        <td>{{ formatJustFecha($cuenta->created_at) }}</td>
                         <td>{{ $cuenta->factura->factura }}</td>                        
                         <td>{{ $cuenta->factura->cliente->nombre }}</td>
                         <td>{{ dinero($cuenta->cantidad) }}</td>
                         <td>{{ dinero($cuenta->abonos) }}</td>
                         <td>{{ dinero($cuenta->saldo) }}</td>
-                        <td>
+                        {{-- <td>
                         @if ($cuenta->caducidad)
                         {{ formatJustFecha($cuenta->caducidad) }} 
                         @else
                         N/A
                         @endif
-                        </td>
+                        </td> --}}
                         <td>
                           {{ edoCredito($cuenta->edo) }}
                         </td>

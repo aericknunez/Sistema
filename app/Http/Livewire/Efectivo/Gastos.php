@@ -8,11 +8,12 @@ use App\Models\EfectivoGastos;
 use App\Models\EfectivoGastosCategorias;
 use App\System\Corte\Corte;
 use App\System\Efectivo\EfectivoCuentas;
+use App\System\Imprimir\ImprimirGastos;
 use Livewire\Component;
 
 class Gastos extends Component
 {
-    use Corte, EfectivoCuentas;
+    use Corte, EfectivoCuentas, ImprimirGastos;
 
 
     public $gastos;
@@ -167,6 +168,12 @@ class Gastos extends Component
 
         $this->gastosefec = $this->gastosEfectivo($this->inicioCorte(session('config_usuario_id')), Helpers::timeId(), session('config_usuario_id'));
     }
+
+    public function imprimirGastosBySearch(){
+        $this->ImprimirGastosDiario($this->gastos);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+    }
+
 
 
 
