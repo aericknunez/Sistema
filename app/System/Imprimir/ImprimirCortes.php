@@ -6,6 +6,7 @@ use App\System\Facturacion\Facturacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Common\Helpers;
+use App\Models\TicketNum;
 /*
 Los tipos de impresion se distribuiran asi:
 10. Corte de caja
@@ -32,6 +33,10 @@ trait ImprimirCortes{
 
         $datos['productos'] = $this->getProductos($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
         $datos['empresa'] = $this->getDatosEmpresa();
+        $datos['pagoMixto'] = $this->pagoMixto($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
+        $datos['efectivoPagoMixto'] = $this->efectivoPagoMixto($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
+        $datos['transferencias'] = $this->transferencias($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
+        $datos['creditos'] = $this->creditos($datos['aperturaT'], $datos['cierreT'], $datos['usuario']);
         $datos['tipo_impresion'] = 10;
         $datos['caja'] = session('caja_select');
         $datos['cajero'] = Auth::user()->name;
@@ -97,8 +102,44 @@ trait ImprimirCortes{
 
     }
 
+    public function pagoMixto($inicio, $fin, $cajero){      
+        $pagoMixto = TicketNum::where('cajero', $cajero)
+                                ->where('edo', 1)
+                                ->where('tipo_pago', 7)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->sum('total');
 
+        return $pagoMixto;
+    }
 
+    public function efectivoPagoMixto($inicio, $fin, $cajero){      
+        $efectivoPagoMixto = TicketNum::where('cajero', $cajero)
+                                ->where('edo', 1)
+                                ->where('tipo_pago', 7)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->sum('efectivo');
 
+        return $efectivoPagoMixto;
+    }
+
+    public function transferencias($inicio, $fin, $cajero){      
+        $transferencias = TicketNum::where('cajero', $cajero)
+                                ->where('edo', 1)
+                                ->where('tipo_pago', 6)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->sum('total');
+
+        return $transferencias;
+    }
+
+    public function creditos($inicio, $fin, $cajero){      
+        $creditos = TicketNum::where('cajero', $cajero)
+                                ->where('edo', 1)
+                                ->where('tipo_pago', 5)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->sum('total');
+
+        return $creditos;
+    }
 
 }

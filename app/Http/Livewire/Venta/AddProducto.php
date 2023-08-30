@@ -63,8 +63,14 @@ class AddProducto extends Component
     /// busqueda de asignacion del cliente
     public $search, $busqueda;
 
+    // cantidad de producto seleccionadocuando se cambiara la cantidad
+    public $cantidadActual;
+
+    public $numeroLineas;
+
 
     public function mount(){
+        $this->delSessionFactura(); // temporal de prueba
         if (session('orden')) {
             $this->determinaPropina();
             $this->productosAdded();
@@ -108,6 +114,7 @@ class AddProducto extends Component
 
         $this->productosAdded();
         $this->obtenerTotal();
+        $this->numeroLineas = $this->numeroLineasFactura();
 
         $producto = Producto::where('cod', $cod)->first();
         if ($producto->producto_categoria_id != 1) {
@@ -189,6 +196,7 @@ class AddProducto extends Component
 
         $this->verificaCantidad();
         $this->updateImprimirOrden();
+        $this->numeroLineas = $this->numeroLineasFactura();
 
         if (session('orden')) {
             $this->productosAdded();
@@ -333,6 +341,7 @@ public function getAqui(){
 
 public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
     session(['impresion_seleccionado' => $tipo]);
+    $this->numeroLineas = $this->numeroLineasFactura();
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoVenta']);
 } 
 
@@ -383,21 +392,26 @@ public function btnEnvio(){ /// agrega el campo de envio a la orden
 
 
 public function btnCambiarCantidad(){ // cambia la cantidad de productos
-    $cantidad = $this->getCantidadProductosCod($this->codSelected);
-    if ($cantidad < $this->cantidadproducto) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
+    $cantidad = $this->cantidadActual + $this->cantidadproducto;
+
+    if ($this->cantidadproducto > 0) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
         //  aumentar la cantidad
-        $cant = $this->cantidadproducto - $cantidad;
+        $cant = $cantidad - $this->cantidadActual;
         $this->aumentarCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada ' . $cant]);
     }
-    if ($cantidad > $this->cantidadproducto) {
+    if ($this->cantidadproducto == 0) {
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'error', 'titulo' => 'Error', 'texto' => 'La cantidad no puede ser 0']);
+    }
+    if ($this->cantidadproducto < 0) {
         // reducir la cantidad
-        $cant = $cantidad - $this->cantidadproducto;
+        $cant = abs($this->cantidadproducto); // pasar el numero negativo a positivo para reducir
         $this->reducirCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida ' . $cant]);
     }
 
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->reset(['cantidadproducto']);
     $this->productosAdded();
     $this->obtenerTotal();
 }
@@ -449,8 +463,11 @@ public function productSelect($producto){ /// Productos para mostrar el detalle 
 }
 
 
-public function selectCod($cod){ /// Selecciona el foco en un codigo
+public function selectCod($cod, $cant = false){ /// Selecciona el foco en un codigo
     $this->codSelected = $cod;
+    if ($cant) {
+        $this->cantidadActual = $this->getCantidadProductosCod($this->codSelected);
+    }
 }
 
 
@@ -539,11 +556,6 @@ public function pagar(){
 
     TicketOrden::where('id', session('orden'))
                 ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
-
-    // $xst = Helpers::Format($this->subtotal);
-    // $xpr = Helpers::Format($this->propinaCantidad);
-    // $xto = Helpers::Format($this->total);
-    // $xca = Helpers::Format($this->cantidad);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
                     'subtotal' => Helpers::Dinero($this->subtotal),
@@ -658,9 +670,6 @@ public function quitarCliente(){
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'addClientAsign']);
     $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Cliente Desvinculado Correctamente']);
 }
-
-
-
 
 
 

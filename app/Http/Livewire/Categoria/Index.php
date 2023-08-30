@@ -60,7 +60,7 @@ class Index extends Component
                         ->where('tipo_img', 2)->first();
 
         if (!$img) {
-            OrderImg::Create(
+            OrderImg::updateOrCreate(
                 ['imagen' => $categoria->id],[
                 'tipo_img' => 2,
                 'imagen' => $categoria->id,

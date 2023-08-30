@@ -171,6 +171,7 @@ public function getProductosModal($producto){ // obtiene los detalles de los pro
     return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
                             ->where('cod', $producto)
+                            ->where('edo', 1)
                             ->with('subOpcion')->get();
 }
 
@@ -581,17 +582,45 @@ public function getDeliveryData(){ // crea la variables del delivery
         $num = $descuento * 100;
         return $num / $cantidad; // retorna porcentaje
     }
-
-
-
- 
     
 
-
-
-
-
-
+/// valida el numero de lineas de la factura
+public function numeroLineasFactura($clientSelected = null) {
+    if(((session('principal_lineas_factura') != 0 or session('principal_lineas_factura') != null) 
+    or (session('lineas_ccf') != 0 or session('lineas_ccf') != null)) and 
+    (session('impresion_seleccionado') == 2 or session('impresion_seleccionado') == 3)){
+        if ($clientSelected != null) {
+            $products = TicketProducto::where('orden', session('orden'))
+            ->where('num_fact', NULL)
+            ->where('cliente', $clientSelected)
+            ->where('edo', 1)
+            ->distinct('cod')
+            ->count();
+        } else {
+            $products = TicketProducto::where('orden', session('orden'))
+            ->where('num_fact', NULL)
+            ->where('edo', 1)
+            ->distinct('cod')
+            ->count();
+        }
+        
+        if (session('impresion_seleccionado') == 2) {
+            # factura 
+            if ($products > session('principal_lineas_factura')) {
+                return true;
+            }
+        }
+        if (session('impresion_seleccionado') == 3) {
+            # factura 
+            if ($products > session('principal_lineas_ccf')) {
+                return true;
+            }
+        }
+    } else {
+        return false;
+    }
+    // dd($this->numeroLineas = false);
+}
 
 
 

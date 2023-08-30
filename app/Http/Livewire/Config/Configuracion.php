@@ -63,7 +63,12 @@ class Configuracion extends Component
             $otras_ventas,
             $agrupar_orden,
             $restringir_inventario,
-            $venta_especial;
+            $venta_especial,
+            $lineas_factura,
+            $lineas_ccf,
+            $ordenar_menu,
+            $ver_mesas,
+            $ver_delivery;
 
     /// config Impresiones model
     public $ninguno,
@@ -275,6 +280,11 @@ class Configuracion extends Component
         $this->venta_especial = $data['venta_especial'];
         $this->agrupar_orden = $data['agrupar_orden'];
         $this->restringir_inventario = $data['restringir_inventario'];
+        $this->lineas_factura = $data['lineas_factura'];
+        $this->lineas_ccf = $data['lineas_ccf'];
+        $this->ordenar_menu = $data['ordenar_menu'];
+        $this->ver_mesas = $data['ver_mesas'];
+        $this->ver_delivery = $data['ver_delivery'];
     }
 
 
@@ -305,6 +315,11 @@ class Configuracion extends Component
             'venta_especial' => $this->venta_especial,
             'agrupar_orden' => $this->agrupar_orden,
             'restringir_inventario' => $this->restringir_inventario,
+            'lineas_factura' => $this->lineas_factura,
+            'lineas_ccf' => $this->lineas_ccf,
+            'ordenar_menu' => $this->ordenar_menu,
+            'ver_mesas' => $this->ver_mesas,
+            'ver_delivery' => $this->ver_delivery,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => session('sistema.td')]);

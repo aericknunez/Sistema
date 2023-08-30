@@ -43,7 +43,10 @@
        @include('venta.includes.modales.detalle-productos')
        @include('venta.includes.modales.nombre')
     <x-comandero.modal-cambio-cliente />
-
+    @if ($numeroLineas == true)
+    {{ mensajex("HA EXEDIDO EL NUMERO MAXIMO DE ITEMS", "danger") }}
+    @endif
+    {{ $numeroLineas }}
 
         @include('venta.includes.modales.otras-ventas')
         @include('venta.includes.modales.add-cliente')

@@ -53,10 +53,15 @@ class Venta extends Component
     // Otras ventas
     public $otras_producto, $otras_cantidad; 
 
+    // cantidad de producto seleccionadocuando se cambiara la cantidad
+    public $cantidadActual;
+
+    public $numeroLineas;
 
 
     public function mount(){
         if (session('orden')) {
+            $this->delSessionFactura(); // temporal de prueba
             $this->determinaPropina();
             $this->productosAdded();
             $this->obtenerTotal();
@@ -91,6 +96,8 @@ class Venta extends Component
 
         $this->productosAdded();
         $this->obtenerTotal();
+        $this->numeroLineas = $this->numeroLineasFactura();
+
 
         $producto = Producto::where('cod', $cod)->first();
         if ($producto->producto_categoria_id != 1) {
@@ -132,6 +139,8 @@ class Venta extends Component
 
         $this->verificaCantidad();
         $this->updateImprimirOrden();
+        $this->numeroLineas = $this->numeroLineasFactura();
+
 
         if (session('orden')) {
             $this->productosAdded();
@@ -312,6 +321,7 @@ public function getAqui(){
 
 public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
     session(['impresion_seleccionado' => $tipo]);
+    $this->numeroLineas = $this->numeroLineasFactura();
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoVenta']);
 } 
 
@@ -351,21 +361,26 @@ public function btnPropina(){ /// establece un procentaje de propina
 
 
 public function btnCambiarCantidad(){ // cambia la cantidad de productos
-    $cantidad = $this->getCantidadProductosCod($this->codSelected);
-    if ($cantidad < $this->cantidadproducto) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
+    $cantidad = $this->cantidadActual + $this->cantidadproducto;
+
+    if ($this->cantidadproducto > 0) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
         //  aumentar la cantidad
-        $cant = $this->cantidadproducto - $cantidad;
+        $cant = $cantidad - $this->cantidadActual;
         $this->aumentarCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido aumentada ' . $cant]);
     }
-    if ($cantidad > $this->cantidadproducto) {
+    if ($this->cantidadproducto == 0) {
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'error', 'titulo' => 'Error', 'texto' => 'La cantidad no puede ser 0']);
+    }
+    if ($this->cantidadproducto < 0) {
         // reducir la cantidad
-        $cant = $cantidad - $this->cantidadproducto;
+        $cant = abs($this->cantidadproducto); // pasar el numero negativo a positivo para reducir
         $this->reducirCantidadCod($cant, $this->codSelected);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida']);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'La cantidad ha sido reducida ' . $cant]);
     }
 
     $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCantidadProducto']);
+    $this->reset(['cantidadproducto']);
     $this->productosAdded();
     $this->obtenerTotal();
 }
@@ -411,10 +426,12 @@ public function productSelect($producto){ /// Productos para mostrar el detalle 
 }
 
 
-public function selectCod($cod){ /// Selecciona el foco en un codigo
+public function selectCod($cod, $cant = false){ /// Selecciona el foco en un codigo
     $this->codSelected = $cod;
+    if ($cant) {
+        $this->cantidadActual = $this->getCantidadProductosCod($this->codSelected);
+    }
 }
-
 
 public function delProductoDetalle($id, $cod){ // eliminar un producto de la venta desde modal detalles
     TicketProducto::destroy($id);
@@ -476,7 +493,11 @@ public function btnCerrarModal(){ /// Cierra el modal de fin de venta
 } 
 
 public function btnCatSelect($iden){
-    $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+    if (session('principal_ordenar_menu') == 1) {
+        $this->catSelect = Producto::where('producto_categoria_id', $iden)->orderBy('nombre', 'asc')->get();
+    } else {
+        $this->catSelect = Producto::where('producto_categoria_id', $iden)->get();
+    }
     $this->dispatchBrowserEvent('focus');
 }
 
@@ -506,6 +527,8 @@ public function validarMotivo(){
         $this->delOrden();
     }
 }
+
+
 
 
 

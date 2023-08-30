@@ -38,7 +38,12 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
                 </a>
                 <div class="dropdown dropdown-menu dropdown-primary">';
 
-        $datos = ProductoCategoria::all();
+        // $datos = ProductoCategoria::all();
+        if (session('principal_ordenar_menu') == 1) {
+            $datos = ProductoCategoria::orderBy('nombre', 'asc')->get();
+        } else {
+            $datos = ProductoCategoria::get();
+        }
 
         foreach ($datos as $data) {
                 $img = 'img/ico/' . $data->img;
@@ -99,7 +104,13 @@ trait ManejarIconosComandero { // nombre del Trait Igual al del archivo
         <section class="near py-2 pl-3 bg-light">
             <div class="near_slider click">';
 
-        $datos = ProductoCategoria::all();
+        // $datos = ProductoCategoria::all();
+
+        if (session('principal_ordenar_menu') == 1) {
+            $datos = ProductoCategoria::orderBy('nombre', 'asc')->get();
+        } else {
+            $datos = ProductoCategoria::get();
+        }
 
         foreach ($datos as $data) {
                 $img = 'img/ico/' . $data->img;

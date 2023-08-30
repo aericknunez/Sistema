@@ -5,7 +5,7 @@
 
 
             <div class="text-center mb-3 font-weight-bold card">
-                <div class="h3 mt-2">{{ $generales['cliente'] }}</div>
+                <div class="h4 mt-2">{{ $generales['cliente'] }}</div>
                 <div>{{ $generales['propietario'] }}, {{ $generales['giro'] }}</div>
                 <div>Dirección: {{ $generales['direccion'] }}</div>
                 <div>Telefono: {{ $generales['telefono'] }}</div>
@@ -14,7 +14,7 @@
             </div>
 
 
-        <div class="table-responsive">
+        <div class="table-responsive newtable">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
                 <tr>
@@ -36,7 +36,7 @@
                     <tr>
                         <td class="text-uppercase"><a wire:click="imprimirReporte('{{ $data['fechaFormat'] }}')" title="{{ $data['fechaFormat'] }}">{{ $data['fecha'] }}</a></td>
                         <td>{{ $data['facturaCantidad'] }}</td>
-                        <td>{{ numeracionFactura($data['facturaInicial']) }} <br> {{ numeracionFactura($data['facturaFinal']) }}</td>
+                        <td>{{ numeracionFactura($data['facturaInicial']) }} - {{ numeracionFactura($data['facturaFinal']) }}</td>
                         <th>{{ dinero(0) }}</th>
                         {{-- <td>{{ dinero($data['subtotal']) }}</td>
                         <td>{{ dinero($data['subtotal']) }}</td>
@@ -55,7 +55,7 @@
           </div>
 
 
-          <div class="table-responsive">
+          <div class="table-responsive newtable">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
                 <tr>
@@ -75,7 +75,7 @@
 
                     <tr>
                         <td>{{ $data['cantidadMes'] }}</td>
-                        <td>{{ numeracionFactura($data['inicialMes']) }} <br> {{ numeracionFactura($data['finalMes']) }}</td>
+                        <td>{{ numeracionFactura($data['inicialMes']) }} - {{ numeracionFactura($data['finalMes']) }}</td>
                         <th>{{ dinero(0) }}</th>
                         {{-- <td>{{ dinero($data['subtotalMes']) }}</td>
                         <td>{{ dinero($data['subtotalMes']) }}</td>
@@ -97,7 +97,7 @@
           @if (count($eliminadas))
               
           <div class="h3">Facturas Eliminadas</div>
-          <div class="table-responsive">
+          <div class="table-responsive newtable">
             <table class="table table-sm table-hover table-striped table-round">
               <thead>
                 <tr>

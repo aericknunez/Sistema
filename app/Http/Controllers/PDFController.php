@@ -22,7 +22,7 @@ class PDFController extends Controller
         ]; 
 
         $pdf = PDF::loadView('pdf.reporte-mensual-es', $data);
-        $pdf->setPaper('A4', 'landscape');
+        // $pdf->setPaper('A4', 'portrait');
      
         return $pdf->download(date('d-m-Y') . '.pdf');
     }

@@ -104,7 +104,7 @@
     <ul class="list-unstyled">
     
     
-    <li><a href="{{ route('error.nodisponible') }}" class="waves-effect"><i class="fas fa-cog"></i> Inventario Actual</a></li>
+    <li><a href="{{ route('inventario') }}" class="waves-effect"><i class="fas fa-cog"></i> Inventario Actual</a></li>
  
     </ul>
     </div>

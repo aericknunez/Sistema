@@ -23,19 +23,27 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         $counter = 0;
         $retorno = '';
         // aqui se comienzan a crear los iconos
-
+        
         $datos = OrderImg::all();
-
-        if (count($datos)) {
-            if (session('principal_tipo_menu') == 1) {
-                $retorno .= '<div class="container mb-4"> 
-                    <div class="row justify-content-left click">';
-            } else {
-                $retorno .= '<div class="justify-content-center click"> 
-                <ul class="gallery"> ';
+        if (session('principal_ordenar_menu') == 1) {
+            foreach ($datos as $dato) {
+                if ($dato->tipo_img == 1) {
+                    $producto = Producto::where('id', $dato->imagen)->first();
+                    if ($producto) {
+                        OrderImg::where('imagen', $producto->id)->where('tipo_img', 1)
+                        ->update(['inicial' => ucfirst(substr($producto->nombre, 0, 1))]);
+                    }
+                } else {
+                    $categoria = ProductoCategoria::where('id', $dato->imagen)->first();
+                    if ($categoria) {
+                        OrderImg::where('imagen', $categoria->id)->where('tipo_img', 2)
+                        ->update(['inicial'=> ucfirst(substr($categoria->nombre, 0, 1))]); 
+                    }
+                }
             }
+        $datos = OrderImg::orderBy('inicial', 'asc')->get();
         }
-
+        
         foreach ($datos as $dato) {
             if ($dato->tipo_img == 1) {
                 $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->where('estado', 1)->first();
@@ -210,7 +218,11 @@ return $retorno;
 
     public function creaModalCategorias($categoria){
         
-$datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+if (session('principal_ordenar_menu') == 1) {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->orderBy('nombre', 'asc')->get();
+} else {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->get();
+}
 
     $cantidad = count($datos);
     $modal = 'modal-md';

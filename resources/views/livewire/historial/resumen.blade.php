@@ -65,7 +65,8 @@
                         <div class="card-counter primary z-depth-2">
                             <i class="fas fa-hand-holding-usd"></i>
                             <span class="count-numbers">
-                                <h5 class="font-weight-bold">{{ $promedioPollo }}</h5>
+                                <h5 class="font-weight-bold">Cant: {{ nFormat($cantidadPollos) }} 
+                                    | Pro: {{ nFormat($promedioPollo) }}</h5>
                             </span>
                             <span class="count-name">Promedio de Pollo</span>
                         </div>

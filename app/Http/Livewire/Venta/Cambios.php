@@ -35,6 +35,7 @@ class Cambios extends Component
     /// busqueda de asignacion del cliente
     public $search, $busqueda;
 
+    public $numeroLineas;
 
 
     public function mount(){
@@ -70,6 +71,7 @@ class Cambios extends Component
         $this->clientSelected = $cliente;
         $this->determinaPropina();
 
+        $this->numeroLineas = $this->numeroLineasFactura($this->clientSelected);
         // $this->reset(['productAgregado']);
         // $this->productosAdded();
         $this->productFactura();
@@ -179,6 +181,7 @@ class Cambios extends Component
     
     public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a emimtir)
         session(['impresion_seleccionado' => $tipo]);
+        $this->numeroLineas = $this->numeroLineasFactura($this->clientSelected);
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoVenta']);
     } 
     
@@ -233,10 +236,6 @@ class Cambios extends Component
                                 'tiempo' => Helpers::timeId()
         ]);
 
-    // $xst = Helpers::Format($this->subtotal);
-    // $xpr = Helpers::Format($this->propinaCantidad);
-    // $xto = Helpers::Format($this->total);
-    // $xca = Helpers::Format($this->cantidad);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
                     'subtotal' => Helpers::Dinero($this->subtotal),
@@ -259,7 +258,7 @@ class Cambios extends Component
                 $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
             }
         
-    } 
+    }  
     
     
     public function btnCerrarModal(){ /// Cierra el modal de fin de venta

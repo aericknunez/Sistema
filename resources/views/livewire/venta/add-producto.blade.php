@@ -48,7 +48,9 @@
         </div>
         @endif
 
-
+        @if ($numeroLineas == true)
+        {{ mensajex("HA EXEDIDO EL NUMERO MAXIMO DE ITEMS", "danger") }}
+        @endif
         </x-slot>
        </x-cuerpo>
 
