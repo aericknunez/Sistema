@@ -18,7 +18,11 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-rounded"  data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn @if (config('sistema.latam') == true)
+          btn-dark
+          @else
+          btn-primary
+          @endif btn-rounded"  data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

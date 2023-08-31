@@ -1,9 +1,21 @@
 <div>
     
-    <section class="bg-info p-3">
+    <section class="
+        @if (config('sistema.latam') == true)
+          bg-success
+          @else
+          bg-info
+          @endif
+           p-3">
     
         <div class="d-flex justify-content-between">
-            <a href="{{ route('comandero.mesas') }}" class="btn-floating btn-sm btn-info"><i class="fas fa-home"></i></a>
+            <a href="{{ route('comandero.mesas') }}" class="btn-floating btn-sm 
+            @if (config('sistema.latam') == true)
+          btn-success
+          @else
+          btn-info
+          @endif
+          "><i class="fas fa-home"></i></a>
 
             <h2 class="text-white h1-responsive">Total: {{ dinero($total) }}</h2>
 

@@ -39,7 +39,11 @@
         <div class="modal-footer">
           <a data-toggle="modal" data-target="#ModalAddCliente" class="btn btn-sm btn-secondary btn-rounded">
             <i class="fas fa-user mr-1"></i> Agregar Cliente</a>
-          <button type="button" class="btn btn-primary btn-rounded"  data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn @if (config('sistema.latam') == true)
+          btn-dark
+          @else
+          btn-primary
+          @endif btn-rounded"  data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

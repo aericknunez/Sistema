@@ -1,6 +1,10 @@
 <div>
     
-    <section class="p-3 bg-info mt-2">
+    <section class="p-3 @if (config('sistema.latam') == true)
+    bg-success
+    @else
+    bg-info
+    @endif mt-2">
         <div class="d-flex align-items-center">
             <div class="text-white ml-3">
             <div class="mb-1 h4">SELECCIONE UN USUARIO</div>
