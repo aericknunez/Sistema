@@ -14,8 +14,10 @@ use App\Models\ConfigRoot;
 use App\Models\NumeroCajas;
 use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Configuracion extends Component
 {
@@ -149,36 +151,46 @@ class Configuracion extends Component
 
     public function store()
     {
-        $this->validate([
-            'logo' => 'image|max:1024', // 1MB Max
-        ]);
- 
-        $image = $this->logo->store('public/logos');
-
-        $namedImage = str_replace('public/logos/', '', $image);
-
+        if ($this->logo) {
+            $this->validate([
+                'logo' => 'image|max:1024', // 1MB Max
+            ]);
+            $oldImg = ConfigApp::select('logo')->find(1)->logo;
+     
+            $extension = $this->logo->extension();
+            $image = $this->logo->store('public/logos');
+            $name = Str::random(20) ."." . $extension;
+            Storage::move($image, 'public/logos/' . $name );            
+            if (ConfigApp::where('id', 1)->update(['logo' => $name])) {
+                if(Storage::exists('public/logos/'. $oldImg)){
+                    Storage::delete('public/logos/'. $oldImg);
+                }
+            }
+        }
+        
+        
         ConfigApp::updateOrCreate(
             ['id' => 1], [
-            'cliente' => $this->cliente,
-            'slogan' => $this->slogan,
-            'telefono' => $this->telefono,
-            'direccion' => $this->direccion,
-            'email' => $this->email,
-            'propietario' => $this->propietario,
-            'giro' => $this->giro,
-            'nit' => $this->nit,
-            'imp' => $this->imp,
-            'propina' => $this->propina,
-            'envio' => $this->envio,
-            'pais' => $this->pais,
-            'logo' => $namedImage,
-            'clave' => Helpers::hashId(),
-            'tiempo' => Helpers::timeId(),
-            'td' => session('sistema.td')]);
-        $this->emit('creado'); // manda el mensaje de creado
-        $this->getConfigDatos();
-        $this->sessionApp(); // llama las variables de session
-    }
+                'cliente' => $this->cliente,
+                'slogan' => $this->slogan,
+                'telefono' => $this->telefono,
+                'direccion' => $this->direccion,
+                'email' => $this->email,
+                'propietario' => $this->propietario,
+                'giro' => $this->giro,
+                'nit' => $this->nit,
+                'imp' => $this->imp,
+                'propina' => $this->propina,
+                'envio' => $this->envio,
+                'pais' => $this->pais,
+                'clave' => Helpers::hashId(),
+                'tiempo' => Helpers::timeId(),
+                'td' => session('sistema.td')]);
+                $this->emit('creado'); // manda el mensaje de creado
+                $this->getConfigDatos();
+                $this->sessionApp(); // llama las variables de session
+                $this->reset(['logo']);
+            }
 
 
 

@@ -125,7 +125,7 @@
     <div class="form-row my-0">
         <div class="col">
             <div class="md-form my-0">
-                <input type="file" wire:model="logo">
+                <input type="file" wire:model.defer="logo">
                 @error('logo') <span class="error">{{ $message }}</span> @enderror
             </div>
         </div>
