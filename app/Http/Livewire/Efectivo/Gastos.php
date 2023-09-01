@@ -6,14 +6,14 @@ use App\Common\Helpers;
 use App\Models\EfectivoCuentaBancos;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoGastosCategorias;
-use App\Models\EfectivoRemesas;
 use App\System\Corte\Corte;
 use App\System\Efectivo\EfectivoCuentas;
+use App\System\Imprimir\ImprimirGastos;
 use Livewire\Component;
 
 class Gastos extends Component
 {
-    use Corte, EfectivoCuentas;
+    use Corte, EfectivoCuentas, ImprimirGastos;
 
 
     public $gastos;
@@ -38,9 +38,18 @@ class Gastos extends Component
         $this->getCategorias();
         $this->totalGastos();
         $this->tipo_pago = 1;
+        $this->cat_gasto = 1;
         $this->tipocomprobante = 1;
     }
 
+
+    public function updated(){ // se ejecuta al cambiar el model 
+        if ($this->tipo_pago != 1) {
+            $this->idbanco =1;
+        } else {
+            $this->idbanco = NULL;
+        }
+    }
 
 
     public function render()
@@ -78,7 +87,7 @@ class Gastos extends Component
         $gasto = EfectivoGastos::select(['tipo_pago','cantidad','efectivo_cuenta_bancos_id'])
                                         ->where('id', $id)
                                         ->first();
-        if ($gasto->tipo_pago != 1) {
+        if ($gasto->tipo_pago != 1 and $gasto->efectivo_cuenta_bancos_id != NULL) {
         // obtiene total para sumarlo a la cuenta y crear historial
         $efectivo = $this->updateDataOrigenDestino($gasto->efectivo_cuenta_bancos_id);
         $totalx = $efectivo[0]['saldo'] + $gasto->cantidad;
@@ -116,7 +125,6 @@ class Gastos extends Component
             'descripcion' => $this->descripcion,
             'cantidad' => $this->cantidad,
             'fechaT' => Helpers::timeId(),
-            'fecha' => now(),
             'cajero' => session('config_usuario_id'),
             'edo' => 1,
             'tipo_comprobante' => $this->tipocomprobante,
@@ -126,11 +134,11 @@ class Gastos extends Component
             'efectivo_gastos_categorias_id' => $this->cat_gasto,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
 
-        if ($this->tipo_pago != 1) {
+        if ($this->tipo_pago != 1 and $this->idbanco != NULL) {
         // obtiene total para sumarlo a la cuenta y crear historial
         $efectivo = $this->updateDataOrigenDestino($this->idbanco);
         $totalx = $efectivo[0]['saldo'] - $this->cantidad;
@@ -140,6 +148,9 @@ class Gastos extends Component
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
+        $this->tipo_pago = 1;
+        $this->cat_gasto = 1;
+        $this->tipocomprobante = 1;
         $this->getGastos();
         $this->getCuentas();
         $this->getCategorias();
@@ -157,6 +168,12 @@ class Gastos extends Component
 
         $this->gastosefec = $this->gastosEfectivo($this->inicioCorte(session('config_usuario_id')), Helpers::timeId(), session('config_usuario_id'));
     }
+
+    public function imprimirGastosBySearch(){
+        $this->ImprimirGastosDiario($this->gastos);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+    }
+
 
 
 

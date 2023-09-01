@@ -3,29 +3,95 @@ namespace App\System\Config;
 
 use App\Models\Opciones;
 use App\Models\OpcionesSub;
+use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
+use App\System\Config\ManejarIconosComandero;
 
 trait ManejarIconos { // nombre del Trait Igual al del archivo
 
+    use ManejarIconosComandero;
+    use CreaIconosMenuPrincipal;
+    use CreaIconosMenuSecundario;
+    
     public $retorno;
 
 
     public function CrearIconos(){
-        $retorno = '<div class="container mb-4"> 
-                    <div class="row justify-content-left click">';
-        $counter = 0;
-        $datos = Producto::where('producto_categoria_id', 1)->get();
-        foreach ($datos as $dato) {
-            $retorno .= $this->creaIcono($dato); 
-            $counter ++;
+
+        if (session('principal_tipo_menu') == 1) {
+            $retorno = '<div class="container mb-4"> 
+                <div class="row justify-content-left click">';
+        } else {
+            $retorno = '<div class="justify-content-center click"> 
+            <ul class="gallery"> ';
         }
 
-        $datox = ProductoCategoria::where('principal', null)->get();
-        foreach ($datox as $datoy) {
-            $retorno .= $this->creaCategoriaIco($datoy); 
-            $counter ++;
+        $counter = 0;
+
+        // aqui se comienzan a crear los iconos
+        
+        $datos = OrderImg::all();
+        if (session('principal_ordenar_menu') == 1) {
+            foreach ($datos as $dato) {
+                if ($dato->tipo_img == 1) {
+                    $producto = Producto::where('id', $dato->imagen)->first();
+                    if ($producto) {
+                        OrderImg::where('imagen', $producto->id)->where('tipo_img', 1)
+                        ->update(['inicial' => ucfirst(substr($producto->nombre, 0, 1))]);
+                    }
+                } else {
+                    $categoria = ProductoCategoria::where('id', $dato->imagen)->first();
+                    if ($categoria) {
+                        OrderImg::where('imagen', $categoria->id)->where('tipo_img', 2)
+                        ->update(['inicial'=> ucfirst(substr($categoria->nombre, 0, 1))]); 
+                    }
+                }
+            }
+        $datos = OrderImg::orderBy('inicial', 'asc')->get();
         }
+        
+        foreach ($datos as $dato) {
+            if ($dato->tipo_img == 1) {
+                $datox = Producto::where('producto_categoria_id', 1)->where('id', $dato->imagen)->where('estado', 1)->first();
+                if ($datox) {
+                    if (session('principal_tipo_menu') == 1) {
+                        $retorno .= $this->creaIcono($datox); 
+                    } else {
+                        $retorno .= $this->creaIcono2($datox); 
+                    }
+                    $counter ++;
+                }
+            } else {
+                $datoy = ProductoCategoria::where('id', $dato->imagen)->first();
+                if ($datoy) {
+                    if (session('principal_tipo_menu') == 1) {
+                        $retorno .= $this->creaCategoriaIco($datoy); 
+                    } else {
+                        $retorno .= $this->creaCategoriaIco2($datoy); 
+                    }
+                    $counter ++;
+                }
+
+            }
+        }
+
+        if (session('principal_otras_ventas')) {
+            if (session('principal_tipo_menu') == 1) {
+                $retorno .= $this->creaIconoOtrasVentas();
+            } else {
+                $retorno .= $this->creaIconoOtrasVentas2();
+            }
+        }
+
+        if (session('principal_venta_especial')) {
+            if (session('principal_tipo_menu') == 1) {
+                $retorno .= $this->creaIconoVentaEspecial();
+            } else {
+                $retorno .= $this->creaIconoVentaEspecial2();
+            }
+        }
+
 
         if ($counter == 0) {
             $retorno .= '<div class="row justify-content-center click">
@@ -34,82 +100,42 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         </div>';
         }
 
-        $retorno .= '
-        </div> 
-    </div>';
+
+        if (session('principal_tipo_menu') == 1) {
+            $retorno .= '
+            </div> 
+        </div>';
+        } else {
+            $retorno .= '
+            </ul> 
+            </div>';
+        }
+
+
+
+
+
+        $categorias = ProductoCategoria::where('principal', null)->get();
+        foreach ($categorias as $cat) {
+            $retorno .= $this->creaModalCategorias($cat);
+        }
+
 
         $opciones = Opciones::all();
         foreach ($opciones as $opcion) {
             $retorno .= $this->creaModalOpciones($opcion);
         }
 
-        $categorias = ProductoCategoria::where('principal', null)->get();
-        foreach ($categorias as $cat) {
-            $retorno .= $this->creaModalCategorias($cat);
-        }
         
         $this->guardarArchivo($retorno);
+
+
+        $this->GenerarIco(); // para comandero
     }
 
 
 
-    public function creaIcono($data){
-        if ($data->tipo_icono == 1) { /// tipo de icono segun clase
-            $icono = 'newmenu';
-            $class = 'rounded-circle';
-            $img = 'img/ico/' . $data->img;
-        } else {
-            $icono = 'newmenux';
-            $class = 'bordeado-x1';
-            $img = 'img/ico/' . $data->img;
-        }
 
-        if ($data->opciones_active == 1) {
-            $target = 'wire:loading.class="disabled" wire:target="addProducto('.$data->cod.')"';
-        } else {
-            $target = NULL;
-        }
-
-        $retorno = '<div class="mx-2 my-2">
-                        <div class="'.$icono.' text-center" '.$target.'>
-                            <a  title="'.$data->nombre.'" wire:click="addProducto('.$data->cod.')">
-                            <img src="{{ asset("'.$img.'") }}" class="img-fluid wow fadeIn '.$class.' border border-dark ">
-                            <div class="menu-title text-truncate">'.$data->nombre.'</div> 
-                            </a>
-                        </div>
-                    </div> ';
-
-        return $retorno; 
-    }
-
-
-
-    public function creaCategoriaIco($data){
-        $retorno = '<div class="mx-2 my-2">
-                            <div class="newmenu text-center" data-target="#categoria-'.$data->id.'" data-toggle="modal">
-                                <a title="'.$data->nombre.'">
-                                <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
-                                <div class="menu-title2 text-truncate">'.$data->nombre.'</div> 
-                                </a>
-                            </div>
-                    </div>';
-
-        return $retorno;
-    }
-
-    public function creaOpcionesIconos($data){
-    
-        $retorno = '<div class="mx-2 my-2">
-                        <div class="newmenu text-center" wire:click="addOpcion('.$data->id.')">
-                            <a>
-                            <img src="{{ asset("img/ico/'.$data->img.'") }}" class="img-fluid wow fadeIn rounded-circle border border-dark ">
-                            <div class="menu-titleC">'.$data->nombre.'</div> 
-                            </a>
-                        </div>
-                    </div>';
-
-        return $retorno;
-    }
 
 
     public function creaModalOpciones($opcion){
@@ -117,35 +143,58 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         $sub_opciones = OpcionesSub::where('opcion_id', $opcion->id)->get();
 
         $cantidad = count($sub_opciones);
+        $modal = 'modal-md';
         if ($cantidad >= 24) { $modal = 'modal-fluid'; }
         if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
         if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-$retorno = '<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
-<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-    <div class="modal-content bordeado-x1">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UNA OPCION</h5>
+$retorno = '
+<div class="modal" id="opcion-'.$opcion->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+    <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+    <div class="modal-content bordeado-x1 blue lighten-5">
+    <div class="modal-header  bordeado-x1 cyan lighten-2">
+            <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UNA OPCION</h5>
 
     </div>
-    <div class="modal-body">
-<div class="row justify-content-center click">';
+    <div class="modal-body">';
 
-    foreach ($sub_opciones as $option) {
-        $retorno .= $this->creaOpcionesIconos($option);
-    }
+    
+        if (session('principal_tipo_menu') == 1) {
+            $retorno .= '<div class="row justify-content-center click">';
+        } else {
+            $retorno .= '<div class="row justify-content-center click"> 
+            <ul class="gallery"> ';
+        }
 
+            foreach ($sub_opciones as $option) {
 
-$retorno .= '</div> 
+                if (session('principal_tipo_menu') == 1) {
+                    $retorno .= $this->creaOpcionesIconos($option);
+                } else {
+                    $retorno .= $this->creaOpcionesIconos2($option);
+                }
+                
+            }
 
+            if (session('principal_tipo_menu') == 1) {
+                $retorno .= '</div>';
+
+            } else {
+                $retorno .= '</ul>
+                </div>';
+            }
+
+        $retorno .= ' 
+
+    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
+        </div>
+        </div>
+    </div>
 </div>
-    <div class="modal-footer">
-        <button type="button" class="btn blue-gradient btn-rounded" wire:click="omitirOpcion()">Omitir Opción <i class="fas fa-angle-double-right"></i></button>
-    </div>
-    </div>
-</div>
-</div>';
+';
 
 return $retorno;
 
@@ -158,46 +207,78 @@ return $retorno;
 
     public function creaModalCategorias($categoria){
         
-$datos = Producto::where('producto_categoria_id', $categoria->id)->get();
+if (session('principal_ordenar_menu') == 1) {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->orderBy('nombre', 'asc')->get();
+} else {
+    $datos = Producto::where('producto_categoria_id', $categoria->id)->where('estado', 1)->get();
+}
 
     $cantidad = count($datos);
+    $modal = 'modal-md';
     if ($cantidad >= 24) { $modal = 'modal-fluid'; }
     if ($cantidad >= 13 AND $cantidad < 24) { $modal = 'modal-lg'; }
     if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
     if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-$retorno = '<div class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
-<div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
-    <div class="modal-content bordeado-x1">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SELECCIONES UN PRODUCTO</h5>
+
+$retorno = '
+<div wire:ignore.self class="modal" id="categoria-'.$categoria->id.'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false">
+    <div class="modal-dialog '.$modal.' z-depth-4 bordeado-x1" role="document">
+        <div class="modal-content bordeado-x1">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SELECCIONE UN PRODUCTO</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
 
     </div>
-    <div class="modal-body">
-<div class="row justify-content-center click">';
+    <div class="modal-body">';
 
-        foreach ($datos as $dato) {
-            $retorno .= $this->creaIcono($dato); 
+            if (session('principal_tipo_menu') == 1) {
+            $retorno .= '<div class="row justify-content-center click">';
+        } else {
+            $retorno .= '<div class="row justify-content-center click"> 
+            <ul class="gallery"> ';
         }
+                foreach ($datos as $dato) {
 
-$retorno .= '</div> 
+                    if (session('principal_tipo_menu') == 1) {
+                        $retorno .= $this->creaIcono($dato); 
+                    } else {
+                        $retorno .= $this->creaIcono2($dato); 
+                    }
+                }
 
-</div>
-    <div class="modal-footer">
-        <button type="button" class="btn blue-gradient btn-rounded" data-dismiss="modal">Cerrar</button>
+                if (session('principal_tipo_menu') == 1) {
+                    $retorno .= '</div>';
+    
+                } else {
+                    $retorno .= '</ul>
+                    </div>';
+                }
+
+        $retorno .= '
+
     </div>
+        <div class="modal-footer">
+            <button type="button" class="btn blue-gradient btn-rounded" data-dismiss="modal">Cerrar</button>
+        </div>
     </div>
 </div>
-</div>';
+</div>
+';
 
 return $retorno;
     }
 
 
 
+
+
+
     public function guardarArchivo($data){
         
-        $archivo = fopen("../resources/views/venta/iconos.blade.php",'w+');
+        $archivo = fopen("../resources/views/iconos_x/iconos_principal_". session('sistema.td') .".blade.php",'w+');
         fwrite($archivo, $data);
         fclose($archivo);
 

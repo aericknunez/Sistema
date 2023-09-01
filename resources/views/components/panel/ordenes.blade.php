@@ -13,8 +13,7 @@
                   <th scope="col">LLevar</th>
                   <th scope="col">Mesa</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Propina</th>
-                  <th scope="col">Total</th>
+                  <th scope="col">Detalles</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,14 +30,13 @@
                         <td class="text-uppercase"> {{ llevarAqui($orden->llevar_aqui) }}</td>
                         <td class="text-uppercase"> {{ $orden->nombre_mesa }}</td>
                         <td class="text-uppercase"> @if ($orden->edo == 1)
-                                                    <span class="badge badge-pill badge-danger">Pendiente</span>
+                                                    <a wire:click="selectOrden({{ $orden->id }}, {{ $orden->tipo_servicio }})" ><span class="badge badge-pill badge-danger">Pendiente</span></a>
                                                     @elseif ($orden->edo == 2)
                                                     <span class="badge badge-pill badge-success">Pagado</span>
                                                     @else
                                                     <span class="badge badge-pill badge-danger">Eliminado</span>
                                                     @endif   </td>
-                        <td class="text-uppercase">{{ dinero($orden->total_propina) }}</td>
-                        <td class="font-weight-bold text-uppercase">{{ dinero($orden->total_factura) }}</td>
+                        <td><a data-toggle="modal" data-target="#ModalDetallesOrden" wire:click="getDetalles({{ $orden->id }})" title="Ver detalles"><i class="fas fa-info-circle blue-text fa-2x"></i></a></td>
                     </tr>
                 @endforeach    
     

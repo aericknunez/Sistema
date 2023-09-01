@@ -63,7 +63,7 @@ class Index extends Component
             'nombre' => $this->nombre,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->CrearIconos(); // crea los iconos despues de guardar
@@ -92,7 +92,7 @@ class Index extends Component
             'opcion_id' => $this->optionx, // opcion primaria
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->CrearIconos(); // crea los iconos despues de guardar
@@ -173,6 +173,10 @@ class Index extends Component
 
         }
         $this->reset(['nombre', 'option_id']);
+    }
+
+    public function cerrarModalImg(){ // vacio de momento
+
     }
 
 

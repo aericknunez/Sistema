@@ -1,13 +1,15 @@
 <x-no-login>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a class="d-flex justify-content-center mb-4" href="/login">
+                <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">
+            </a>
         </x-slot>
 
         <div class="card-body">
 
             <div class="mb-3 text-sm text-muted">
-                {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+                {{ __('Esta es un área segura de la aplicación. Por favor, confirme su contraseña antes de continuar.') }}
             </div>
 
             <x-jet-validation-errors class="mb-2" />
@@ -22,7 +24,7 @@
 
                 <div class="d-flex justify-content-end mt-4">
                     <x-jet-button class="ml-4">
-                        {{ __('Confirm') }}
+                        {{ __('Confirmar') }}
                     </x-jet-button>
                 </div>
             </form>

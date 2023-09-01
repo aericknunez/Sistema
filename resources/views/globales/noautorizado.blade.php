@@ -4,7 +4,7 @@
     <x-contenido >
 
         <div class="row justify-content-center">
-            <img src="{{ asset('img/imagenes/sorry.png') }}" alt="Error de Apertura"><br>
+            <img src="{{ asset('img/imagenes/sorry.png') }}" alt="Error de Apertura" class="img-fluid"><br>
         </div>
         <div class="row justify-content-center">
             <div class="h2-responsive">Acceso no Autorizado</div>

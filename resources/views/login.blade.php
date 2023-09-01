@@ -46,7 +46,10 @@
 <!-- </div> -->
 
 
-<a href="{{ route('login') }}">Cambiar inicio</a>
+<div class="fixed-bottom">
+    <a href="{{ route('login') }}" class="btn btn-link btn-sm">Cambiar inicio</a>
+</div>
+
 </main>
 
 @livewireScripts

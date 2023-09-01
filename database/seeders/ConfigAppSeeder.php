@@ -33,6 +33,7 @@ class ConfigAppSeeder extends Seeder
             'multiple_pago' => 0,
             'pais' => 1,
             'skin' => 'mdb-skin',
+            'logo' => 'logo.png',
             'tipo_servicio' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),

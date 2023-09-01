@@ -4,14 +4,17 @@ namespace App\Http\Livewire\Historial;
 
 use Livewire\Component;
 use Carbon\Carbon;
-use App\Models\TicketOrden;
 use App\Models\User;
+use App\System\Historial\Historial;
 
 class Meseros extends Component
 {
 
+    use Historial;
+
     public $tipo_fecha;
     public $fecha1, $fecha2;
+    public $fecha1f, $fecha2f;
     public $datos = [];
     public $usuarios = [];
     public $usuario;
@@ -20,8 +23,8 @@ class Meseros extends Component
 
     public function mount(){
         $this->tipo_fecha = 1;
-        $this->usuario = 1;
-        $this->formatFechas();
+        $this->usuario = 3;
+        $this->aplicarFechas();
         $this->getUsuarios();
     }
 
@@ -29,7 +32,6 @@ class Meseros extends Component
 
     public function render()
     {
-        $this->aplicarFechas();
         return view('livewire.historial.meseros');
     }
 
@@ -39,35 +41,27 @@ class Meseros extends Component
 
         if ($this->tipo_fecha == 1) {
 
-            $this->datos = TicketOrden::addSelect(['usuario' => User::select('name')
-                        ->whereColumn('empleado', 'users.id')])->whereDay('created_at', $this->fecha1)
-                        ->orderBy('empleado', 'desc')
-                        ->where('empleado', $this->usuario)
-                        ->get();
+            $this->datos = $this->meserosUnica($this->fecha1, $this->usuario);
         } else {
 
-            $this->datos = TicketOrden::addSelect(['usuario' => User::select('name')
-                        ->whereColumn('empleado', 'users.id')])->whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                        ->orderBy('empleado', 'desc')
-                        ->where('empleado', $this->usuario)
-                        ->get();
+            $this->datos = $this->meserosMultiple($this->fecha1, $this->fecha2, $this->usuario);
         }
+        $this->reset(['fecha1f', 'fecha2f']);
 
     }
 
-
     public function formatFechas(){
         if ($this->tipo_fecha == 1) {
-            if(!$this->fecha1){ $this->fecha1 = date('d-m-Y'); 
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
             } else {
-                $this->fecha1 = formatJustFecha($this->fecha1);
+                $this->fecha1 = $this->fecha1f;
             }
         } else {
-            if(!$this->fecha1){ $this->fecha1 = date('Y-m-01'); } else {
-                $this->fecha1 = $this->fecha1;
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-01 00:00:00'); } else {
+                $this->fecha1 = $this->fecha1f . ' 00:00:00';
             }
-            if(!$this->fecha2){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
-                $this->fecha2 = $this->fecha2;
+            if(!$this->fecha2f){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
+                $this->fecha2 = $this->fecha2f . ' 23:59:59';
             }         
         }
     }
@@ -75,7 +69,11 @@ class Meseros extends Component
 
 
     public function getUsuarios(){
-            $this->usuarios = User::select(['id', 'name'])->get();
+            $this->usuarios = User::select(['id', 'name'])
+                                    ->whereNotIn('id',[1, 2])
+                                    ->where('tipo_usuario', '!=', '7')
+                                    ->where('tipo_usuario', '!=', '99')
+                                    ->OrWhere('tipo_usuario', NULL)->get();
     }
 
 

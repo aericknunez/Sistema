@@ -38,16 +38,16 @@
                     @enderror
       
 
-                    <small>Tipo Pago</small>
-                    <select class="browser-default custom-select mb-3" wire:model="tipo_pago"  id="tipo_pago">
-                        <option value="1">Efectivo</option>
-                        <option value="2">Tarjeta</option>
-                        <option value="3">Transferencia</option>
-                        <option value="4">Cheque</option>
-                    </select>
-                    @error('tipo_pago')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror   
+                <small>Tipo Pago</small>
+                <select class="browser-default custom-select mb-3" wire:model="tipo_pago"  id="tipo_pago">
+                    <option value="1">Efectivo</option>
+                    <option value="2">Tarjeta</option>
+                    <option value="3">Transferencia</option>
+                    <option value="4">Cheque</option>
+                </select>
+                @error('tipo_pago')
+                    <span class="text-danger">{{$message}}</span>
+                @enderror   
 
                     <input type="number" step="any" wire:model.defer="cantidad" class="form-control mb-3" placeholder="Cantidad" id="cantidad">
                     @error('cantidad')
@@ -57,6 +57,7 @@
                 @if ($tipo['tipo_pago'] != 1)
                     <small>Cuenta Transferencia</small>
                     <select class="browser-default custom-select mb-3" wire:model.defer="idbanco" id="idbanco">
+                        <option selected>Seleccione ...</option>  
                         @foreach ($datos['bancos'] as $dato)
                             <option value="{{ $dato->id }}">{{ $dato->banco }}</option>  
                         @endforeach
@@ -65,8 +66,6 @@
                         <span class="text-danger">{{$message}}</span>
                     @enderror                   
                 @endif
-
-
 
             @if ($tipo['tipo'] == 2)
                         
@@ -82,7 +81,7 @@
                         <span class="text-danger">{{$message}}</span>
                     @enderror      
 
-                @endif
+            @endif
   
             @if ($tipo['tcomprobante'] != 1)
                 <input type="text" wire:model.defer="comprobante" id="comprobante" class="form-control mb-3" placeholder="Comprobante">

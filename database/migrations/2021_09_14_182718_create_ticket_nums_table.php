@@ -18,11 +18,11 @@ class CreateTicketNumsTable extends Migration
             $table->integer('factura');
             $table->integer('orden');
             $table->integer('tipo_pago')->comment('Efectivo u otros');
-            $table->double('efectivo', 8, 4);
-            $table->double('subtotal', 8, 4);
-            $table->double('total', 8, 4);
-            $table->double('propina_cant', 8, 4)->nullable(true);
-            $table->double('propina_porcent', 8, 4)->nullable(true);
+            $table->double('efectivo', 10, 4);
+            $table->double('subtotal', 10, 4);
+            $table->double('total', 10, 4);
+            $table->double('propina_cant', 10, 4)->nullable(true);
+            $table->double('propina_porcent', 10, 4)->nullable(true);
             $table->string('cajero', 25);
             $table->integer('tipo_venta')->nullable(true)->comment('Ticket, Factura u otros');
             $table->unsignedBigInteger('cliente_id')->nullable(true)->comment('Cliente al que se le facturo');

@@ -17,5 +17,7 @@
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond $1 !^(index.php|public|css|js|img|fonts|robots.txt|app|manuales|uploadFiles)
+    # RewriteRule ^(.*)$ /index.php/$1 [L]
     RewriteRule ^ index.php [L]
 </IfModule>

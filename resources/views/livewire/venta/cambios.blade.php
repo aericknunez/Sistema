@@ -2,35 +2,49 @@
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- CONTENIDO IZQUIERDO  --}}
-        <x-venta.cambios-clientes />
+       @include('venta.includes.cambios.clientes')
         {{-- Clientes  --}}
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
-        <x-venta.cambios-productos :datos="$productAgregado"  />
+       @include('venta.includes.cambios.productos')
+
 
     </div>
 
     <div class="col-xs-4 col-sm-12 col-md-4">
         {{-- DATA LIVE CLASS desaparece en pantalla pequena 'd-none d-md-block' --}}
-        <x-venta.cambios-productos-cliente :datos="$productosFactura" />
+        @include('venta.includes.cambios.productos-cliente')
 
         @if (count($productosFactura))
         
         {{-- Detalles de los productos, total e iconos  --}}
-        <x-venta.lateral-total :subtotal="$subtotal" :propina="$propinaCantidad" :porcentaje="$propinaPorcentaje" :total="$total" />
-        <x-venta.cambios-botones />
-        <x-venta.lateral-datos />
+        @include('venta.includes.inicio.lateral-total')
 
-        <x-venta.lateral-modal-propina />
+       @include('venta.includes.cambios.botones')
 
-        <x-venta.lateral-modal-tventa />
-        <x-venta.lateral-modal-tpago />
+       @include('venta.includes.inicio.lateral-datos')
+
+       @include('venta.includes.modales.tventa')
+       @include('venta.includes.modales.propina')
+
+       @include('iconos_x.tipo_pago_'. session('sistema.td'))
+
  
+        @endif
 
+        @if (session('factura_documento'))
+        <div>Cliente: {{ session('factura_cliente') }}  Doc: {{ session('factura_documento') }}</div>
+        @endif
+
+        @if ($numeroLineas == true)
+        {{ mensajex("HA EXEDIDO EL NUMERO MAXIMO DE ITEMS", "danger") }}
         @endif
     </div>
 
-    <x-venta.lateral-modal-cambio-venta />
+    @include('venta.includes.modales.cambio-venta')
+
+    {{-- Busqueda de clientes para asignarle facturas --}}
+    @include('venta.includes.modales.client-asign')
 
 </div>

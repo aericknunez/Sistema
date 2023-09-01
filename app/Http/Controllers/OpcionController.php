@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Opciones;
-use Illuminate\Http\Request;
 
 class OpcionController extends Controller
 {

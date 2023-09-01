@@ -32,6 +32,7 @@ class Repartidores extends Component
             $nacimiento, 
             $comentarios;
 
+    public $repartidor_iden;
 
 
 
@@ -63,12 +64,31 @@ class Repartidores extends Component
     }
 
 
-    public function btnAddRepartidor(){
+    public function selectRepartidor($reparti){
+        $this->repartidor_iden = $reparti;
+        $datos = Repartidor::where('id', $reparti)->first();
 
-        $this->validate();
-        
-        Repartidor::create([
-                    'nombre' => $this->nombre,
+            $this->nombre = $datos->nombre;
+            $this->telefono = $datos->telefono; 
+            $this->direccion = $datos->direccion;
+            $this->email = $datos->email; 
+            $this->documento = $datos->documento; 
+            $this->nacimiento = $datos->nacimiento; 
+            $this->comentarios = $datos->comentarios;
+
+    }
+
+
+
+    public function cerrarModal(){
+        $this->reset();
+    }
+
+
+    public function btnAddRepartidor(){
+        $this->validate();     
+        Repartidor::updateOrCreate(['id' => $this->repartidor_iden],
+                    ['nombre' => $this->nombre,
                     'direccion' => $this->direccion,
                     'telefono' => $this->telefono,
                     'email' => $this->email,
@@ -78,7 +98,7 @@ class Repartidores extends Component
                     'comentarios' => $this->comentarios,
                     'clave' => Helpers::hashId(),
                     'tiempo' => Helpers::timeId(),
-                    'td' => config('sistema.td')
+                    'td' => session('sistema.td')
                 ]);
 
         

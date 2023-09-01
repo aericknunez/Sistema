@@ -49,8 +49,11 @@
             <div class="indeterminate"></div>
           </div>
 
-
-        <x-menu />
+        @if (session('just_data'))
+            <x-menu-online />
+        @else
+            <x-menu />
+        @endif
 
 
         <!-- Page Content -->

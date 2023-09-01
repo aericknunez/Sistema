@@ -20,7 +20,6 @@ class CreateEfectivoGastosImagesTable extends Migration
             $table->string('imagen', 100)->nullable(true);
             $table->string('descripcion', 200)->nullable(true);
             $table->string('fechaT', 25)->nullable(true);
-            $table->timestamp('fecha', $precision = 0);
 
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);

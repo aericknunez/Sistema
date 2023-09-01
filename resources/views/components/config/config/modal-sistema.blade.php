@@ -50,24 +50,108 @@
                       </select>
                 </div>
 
+                
+                <div class="md-form my-0">
+                    <input type="text" id="ftp_server" class="form-control" wire:model.defer="url_to_upload" placeholder="Url de subida">
+                </div>
+                
                 <div class="md-form my-0">
                     <input type="text" id="ftp_server" class="form-control" wire:model.defer="ftp_server" placeholder="Server FTP">
                 </div>
     
     
                 <div class="md-form my-0">
-                    <input type="email" id="user_ftp" class="form-control" wire:model.defer="user_ftp" placeholder="Usuario FTP">
+                    <input type="text" id="user_ftp" class="form-control" wire:model.defer="ftp_user" placeholder="Usuario FTP">
                 </div>
 
 
     
                 <div class="md-form my-0">
-                    <input type="text" id="password" class="form-control" wire:model.defer="password" placeholder="Password FTP">
+                    <input type="text" id="password" class="form-control" wire:model.defer="ftp_password" placeholder="Password FTP">
                 </div>
 
     
+
+                <ul class="list-group font-weight-bold">
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Activar Login:
+                        <span>
+                            <div class="switch">
+                                <label>
+                                  Off
+                                  <input type="checkbox" wire:model.defer="sys_login">
+                                  <span class="lever"></span> On
+                                </label>
+                              </div>
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Activar respaldo:
+                        <span>
+                            <div class="switch">
+                                <label>
+                                  Off
+                                  <input type="checkbox" wire:model.defer="just_data">
+                                  <span class="lever"></span> On
+                                </label>
+                              </div>
+                        </span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Activar datos especiales:
+                        <span>
+                            <div class="switch">
+                                <label>
+                                  Off
+                                  <input type="checkbox" wire:model.defer="data_special">
+                                  <span class="lever"></span> On
+                                </label>
+                              </div>
+                        </span>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Activar impresion:
+                        <span>
+                            <div class="switch">
+                                <label>
+                                  Off
+                                  <input type="checkbox" wire:model.defer="print">
+                                  <span class="lever"></span> On
+                                </label>
+                              </div>
+                        </span>
+                    </li>
+
+                    
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Activar Pusher:
+                        <span>
+                            <div class="switch">
+                                <label>
+                                  Off
+                                  <input type="checkbox" wire:model.defer="pusher">
+                                  <span class="lever"></span> On
+                                </label>
+                              </div>
+                        </span>
+                    </li>
+
+
+                </ul>
     
-      
+                <div class="md-form my-0">
+                    <input type="text" id="sync_time" class="form-control" wire:model.defer="sync_time" placeholder="Tiempo de sincronización en segundos">
+                </div>
+
+
+    
+                <div class="md-form my-0">
+                    <input type="text" id="livewire_path" class="form-control" wire:model.defer="livewire_path" placeholder="Direccion livewire">
+                </div>
+  
     
     
         </div>

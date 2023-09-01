@@ -17,4 +17,12 @@ class TicketOrden extends Model
     }
 
 
+    public function deliverys(){
+        return $this->hasOne(TicketDelivery::class, 'orden_id', 'id');
+    }
+
+
+    
+
+
 }

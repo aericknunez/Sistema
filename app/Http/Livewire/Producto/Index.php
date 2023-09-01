@@ -3,9 +3,13 @@
 namespace App\Http\Livewire\Producto;
 
 use App\Common\Helpers;
+use App\Models\ConfigPaneles;
 use App\Models\Opciones;
 use App\Models\OpcionesProducto;
+use App\Models\OrderImg;
 use App\Models\Producto;
+use App\Models\ProductoCategoria;
+use App\System\Config\ImagenesProductos;
 use App\System\Config\ManejarIconos;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,31 +17,63 @@ use Livewire\WithPagination;
 class Index extends Component
 {
 
-    use WithPagination, ManejarIconos;
+    use WithPagination, ManejarIconos, ImagenesProductos;
     
     protected $paginationTheme = 'bootstrap';
 
-    protected $listeners = ['EliminarProducto' => 'destroy'];
+    protected $listeners = ['EliminarProducto' => 'destroy', 'Inhabilitar' => 'inhabilitar'];
 
     public $productId;
     public $precio, $nombre;
     public $opciones = [];
     public $OpAgregados = [];
+    public $categorias = [];
+    public $paneles = [];
+
+
+    public $imgSelected;
+    public $productos;
+
+    public $search;
+
+    public function hydrate() {
+        $this->getOpciones();
+        $this->getCategorias();
+        $this->getPaneles();
+        
+    }
 
     public function mount(){
         $this->getOpciones();
+        $this->getCategorias();
+        $this->getPaneles();
+        $this->search = NULL;
     }
 
-    public function render()
-    {
-        $productos = $this->getProductos();
-        return view('livewire.producto.index', compact('productos'));
+
+
+    public function render(){
+        if ($this->search) {
+            $this->productos = Producto::where('nombre', '!=', NULL)
+                    ->where('nombre', 'LIKE', '%'.$this->search.'%')
+                    ->latest('id')
+                    ->with('opciones')
+                    ->with('categoria')
+                    ->with('paneles')
+                    ->get();
+        } else {
+            $this->getProductos();
+        }
+
+        $iconos = $this->getAllIconos();
+        return view('livewire.producto.index', compact('iconos'));
     }
 
     public function destroy($id)
     {
         Producto::find($id)->delete();
-        
+        OrderImg::where('tipo_img', 1)->where('imagen', $id)->delete();
+
         $this->CrearIconos(); // crea los iconos despues de guardar
         $this->dispatchBrowserEvent('mensaje', 
         ['clase' => 'success', 
@@ -47,10 +83,12 @@ class Index extends Component
 
 
     public function getProductos(){
-        return  Producto::latest('id')
-                        ->with('opciones')
-                        ->with('categoria')
-                        ->paginate(6);
+            $this->productos =  Producto::latest('id')
+                            ->with('opciones')
+                            ->with('categoria')
+                            ->with('paneles')
+                            ->get();
+
     }
 
     public function selectProduct($iden){
@@ -59,7 +97,7 @@ class Index extends Component
     }
 
     public function updatePrecio(){
-        Producto::where('id', $this->productId)->update(['precio' => $this->precio]);
+        Producto::where('id', $this->productId)->update(['precio' => $this->precio, 'tiempo' => Helpers::timeId()]);
 
         $this->reset();
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalPrecio']);
@@ -67,11 +105,20 @@ class Index extends Component
     }
 
     public function updateNombre(){
-        Producto::where('id', $this->productId)->update(['nombre' => $this->nombre]);
+        Producto::where('id', $this->productId)->update(['nombre' => $this->nombre, 'tiempo' => Helpers::timeId()]);
 
         $this->reset();
         $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalNombre']);
         $this->mensajeModificado();
+    }
+
+    public function inhabilitar($id){
+        $edo = Producto::select('estado')->find($id);
+        Producto::where('id', $id)->update(['estado' => !$edo->estado, 'tiempo' => Helpers::timeId()]);
+
+        $this->reset();
+        $this->mensajeModificado();
+        $this->CrearIconos(); // crea los iconos despues de guardar
     }
 
     public function addOpcion($opcion){
@@ -80,7 +127,7 @@ class Index extends Component
             'opcion_id' => $opcion,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
         $this->updateOpcionesActive();
         $this->getOpcionesProducto();
@@ -109,6 +156,7 @@ class Index extends Component
         $this->opciones = Opciones::all();
     }
 
+
     public function getOpcionesProducto(){
         $this->OpAgregados = OpcionesProducto::addSelect(['nombre_opcion' => Opciones::select('nombre')
                                                 ->whereColumn('opcion_id', 'opciones.id')])
@@ -116,17 +164,84 @@ class Index extends Component
                                                 ->get();
     }
 
+
+    public function getPaneles(){
+        $this->paneles = ConfigPaneles::where('edo', 1)->get();
+    }
+
+
+
+    public function addPanel($iden = NULL){
+        Producto::where('id', $this->productId)->update(['panel' => $iden, 'tiempo' => Helpers::timeId()]);
+        
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalPanel']);
+        $this->mensajeModificado();
+    }
+
+
+
     
     public function updateOpcionesActive(){
         $cantidad = OpcionesProducto::where('producto_id', $this->productId)->count();
         if($cantidad > 0){
-            Producto::where('id',$this->productId)->update(['opciones_active' => 1]);
+            Producto::where('id',$this->productId)->update(['opciones_active' => 1, 'tiempo' => Helpers::timeId()]);
         } else { 
-            Producto::where('id',$this->productId)->update(['opciones_active' => 0]);
+            Producto::where('id',$this->productId)->update(['opciones_active' => 0, 'tiempo' => Helpers::timeId()]);
         }
     }
 
 
+    public function getCategorias(){
+        $this->categorias = ProductoCategoria::all();
+    }
+
+
+
+    public function addCategoria($iden){
+        Producto::where('id', $this->productId)->update(['producto_categoria_id' => $iden, 'tiempo' => Helpers::timeId()]);
+        
+        $this->dispatchBrowserEvent('closeModal', ['modal' => 'ModalCategoria']);
+        $this->mensajeModificado();
+        $this->CrearIconos(); // crea los iconos despues de guardar
+    }
+
+
+    public function seleccionarProducto($iden){ // levanta el modal de los iconos
+        $this->productId = $iden;
+    }
+
+    public function selectImageTmp($imagen){
+        $this->imgSelected = $imagen;
+
+        Producto::where('id',$this->productId)->update(['img' => $this->imgSelected, 'tiempo' => Helpers::timeId()]);
+
+        $this->CrearIconos(); // crea los iconos despues de guardar
+
+        $this->resetPage();
+        
+        $this->dispatchBrowserEvent('mensaje', 
+        ['clase' => 'success', 
+        'titulo' => 'Realizado', 
+        'texto' => 'Imagen cambiada Correctamente']);
+    }
+
+    public function cerrarModalImg(){
+        $this->resetPage();
+        $this->reset(); // quito la opcion de seleccionar imagen     
+    }
+
+
+    public function btnCrearIconos(){
+        $this->CrearIconos(); // crea los iconos despues de guardar
+        $this->dispatchBrowserEvent('mensaje', 
+        ['clase' => 'success', 
+        'titulo' => 'Realizado', 
+        'texto' => 'Iconos Creados Correctamente']);
+    }
+
+    public function cancelar(){
+        $this->reset(['search']);
+    }
 
 
 

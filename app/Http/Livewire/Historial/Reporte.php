@@ -2,16 +2,26 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\TicketProducto;
-use Illuminate\Support\Facades\DB;
+use App\System\Corte\Corte;
+use App\System\Imprimir\ImprimirCortes;
+use App\System\Historial\Historial;
+use App\System\Ventas\DatosEspeciales;
 use Livewire\Component;
 
 class Reporte extends Component
 {
+    use Historial, ImprimirCortes, Corte, DatosEspeciales;
 
     public $fecha1;
+    public $fecha1f;
     public $productos = [];
-    public $datos = [];
+    public $cortes = [];
+    public $gastos = [];
+    public $remesas = [];
+    public $ordenes = [];
+    public $detalles = []; // detalles del corde
+    public $detallesOrden = []; /// detalles de la orden
+
 
 
 
@@ -19,6 +29,10 @@ class Reporte extends Component
         $this->aplicarFechas();
     }
 
+
+    public function hydrate(){
+        $this->aplicarFechas();
+    }
 
 
     public function render()
@@ -29,24 +43,55 @@ class Reporte extends Component
 
 
     public function aplicarFechas(){
-        $this->formatFechas();
+            $this->formatFechas();
 
-            $this->productos = TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', DB::raw('sum(total) as totales, cod'), DB::raw('sum(descuento) as descuentos, cod'), DB::raw('count(*) as cantidad, cod'))
-                                              ->where('edo', 1)
-                                              ->whereDay('created_at', $this->fecha1)
-                                              ->groupBy('cod')
-                                              ->get();
+            $this->productos = $this->ventasUnica($this->fecha1);
+            $this->cortes = $this->cortesUnica($this->fecha1);
+            $this->gastos = $this->gastosUnica($this->fecha1);
+            $this->remesas = $this->remesasUnica($this->fecha1);
+            $this->ordenes = $this->ordenesUnica($this->fecha1);
+            
+            $this->reset(['fecha1f']);
+
     }
 
 
     public function formatFechas(){
 
-            if(!$this->fecha1){ $this->fecha1 = date('d-m-Y'); 
-            } else {
-                $this->fecha1 = formatJustFecha($this->fecha1);
-            }
+        if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
+        } else {
+            $this->fecha1 =  $this->fecha1f;
+        }
         
     }
+
+
+
+
+
+    /* Obtener los datos de un corte especifico */
+    public function obtenerDatosCorte($iden){
+        $this->detalles = $this->getDatosCorte($iden);
+    }
+
+    public function imprimirCorte(){
+
+        $this->ImprimirCortePrimario($this->detalles);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+
+    }
+
+
+    public function getDetalles($iden){ // se obtienen los detalles de cada orden para mostrarla en el modal
+        $this->detallesOrden = $this->getDatosOrden($iden);
+    }
+
+    public function cerrarModal(){
+        $this->reset(['detallesOrden']);
+    }
+
+
+
 
 
 

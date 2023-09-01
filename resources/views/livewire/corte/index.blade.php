@@ -11,6 +11,20 @@
                 </h2>
             </div>
 
+@if ($existenMovimientos)
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="alert-heading">Advertencia!</h4>
+        <p>Se detecto registros de movimientos de efectivo de caja, si no se toman en cuenta pueden afectar la diferencia del corte </p>
+        <div class="text-right">
+        <a href="{{ route('efectivo.ingreso') }}" class="alert-link">Ver Movimientos</a>
+        </div>
+    </div>    
+@endif
+
+
 
             @if ($sicorte)
 
@@ -84,8 +98,9 @@
                 </ul>
 
             <div class="text-center click">
-                <a class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Corte"><i class="fas fa-print"></i></a>
+                <a wire:click="imprimirCorte()" class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Corte"><i class="fas fa-print"></i></a>
                 <a data-toggle="modal" data-target="#modalConfirmDelete"  class="btn-floating btn-danger btn-md mb-3 waves-effect waves-light" title="Eliminar Corte"><i class="fas fa-trash"></i></a>
+                <a data-toggle="modal" data-target="#ModalDetallesCorte"  class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Detalles del Corte"><i class="fas fa-info-circle"></i></i></a>
                 {{-- <a class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Buscar Credito"><i class="fas fa-print"></i></a> --}}
             </div>
 
@@ -98,7 +113,7 @@
 
     <x-corte.modal-eliminar-corte />
 
-
+    <x-historial.modal-detalles-corte :datos="$datos" />
 
 
 

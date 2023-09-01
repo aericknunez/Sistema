@@ -22,7 +22,12 @@
                         <td class="text-uppercase">{{ tipoUsuario($usuario->tipo_usuario) }}</td>
                         <td>
                             <div>
-                                <a data-toggle="modal" data-target="#ModalModUser" wire:click="selectUser({{ $usuario->id }})" class="btn btn-success btn-sm"><i class="fas fa-user"></i> Cambiar </a>
+                              @if ($usuario->id == 3)
+                              <a title="Cambiar Tipo de Usuario"><i class="fas fa-user fa-2x grey-text mx-2"></i> </a>
+                              @else
+                              <a data-toggle="modal" data-target="#ModalModUser" wire:click="selectUser({{ $usuario->id }})" title="Cambiar Tipo de Usuario"><i class="fas fa-user fa-2x green-text mx-2"></i> </a>
+                              <a title="Inhabilitar" wire:click="$emit('inhabilitar', {{ $usuario->id }})"><i class="fa fa-trash red-text fa-2x"></i></a>
+                              @endif
                             </div>
                         </td>
                     </tr>

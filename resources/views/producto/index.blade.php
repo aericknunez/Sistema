@@ -16,7 +16,7 @@
 
 
     <script>
-        Livewire.on('deleteProducto', categoryId => {
+        Livewire.on('deleteProducto', productId => {
             Swal.fire({
                 title: '¿Esta seguro?',
                 text: "¡No se puede revertir esta acción!",
@@ -28,11 +28,31 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     
-                    Livewire.emitTo('producto.index', 'EliminarProducto', categoryId);
+                    Livewire.emitTo('producto.index', 'EliminarProducto', productId);
 
                 }
             })
         });
+
+
+        Livewire.on('inhabilitar', productId => {
+            Swal.fire({
+                title: '¿Esta seguro?',
+                text: "¡Se cambiará el estado de este producto!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#dc3545',
+                confirmButtonText: 'Si, Cambiar!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Livewire.emitTo('producto.index', 'Inhabilitar', productId);
+
+                }
+            })
+        });
+
 
         window.addEventListener('mensaje', event => {
                 toastr.success(event.detail.texto, event.detail.titulo, {

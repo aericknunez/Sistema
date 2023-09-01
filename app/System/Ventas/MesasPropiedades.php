@@ -2,19 +2,27 @@
 namespace App\System\Ventas;
 
 use App\Models\TicketOrden;
+use App\Models\TicketProducto;
+use App\Models\User;
 
 trait MesasPropiedades {
 
     public function ordenesInicio(){
         if (session('config_tipo_usuario') == 5) { // si es mesero
-            return $this->isMeseroOrdenes();
+            if (session('principal_ordenes_todo')) { // si tiene activas todas las ordenes
+                return $this->notIsMeseroOrdenes();
+            } else {
+                return $this->isMeseroOrdenes();
+            }
         } else {
             return $this->notIsMeseroOrdenes();
         }
     }
 
     private function isMeseroOrdenes(){
-        return TicketOrden::where('tipo_servicio', 2)
+        return TicketOrden::addSelect(['usuario' => User::select('name')
+                            ->whereColumn('empleado', 'users.id')])
+                            ->where('tipo_servicio', 2)
                             ->where('edo', 1)
                             ->where('empleado', session('config_usuario_id'))
                             ->get();
@@ -22,7 +30,9 @@ trait MesasPropiedades {
 
     private function notIsMeseroOrdenes(){
        
-        return TicketOrden::where('tipo_servicio', 2)
+        return TicketOrden::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('empleado', 'users.id')])
+                                ->where('tipo_servicio', 2)
                                 ->where('edo', 1)
                                 ->get();
     }
@@ -53,6 +63,15 @@ trait MesasPropiedades {
                                 ->where('edo', 1)
                                 ->sum('clientes');
         }
+    }
+
+
+    static public function cantidadSinGuardar($orden){
+        return TicketProducto::where('orden', $orden)
+                                ->where('num_fact', NULL)
+                                ->where('edo', 1)
+                                ->whereIn('imprimir', [1, 4])
+                                ->count();
     }
 
 

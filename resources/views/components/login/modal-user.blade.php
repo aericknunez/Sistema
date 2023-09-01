@@ -6,10 +6,7 @@
 
 <!--Header-->
     <div class="modal-header">
-        @php
-            ($datos->profile_photo_path) ? $photo = 'storage/' . $datos->profile_photo_path : $photo = 'img/imagenes/avatar.png';
-        @endphp
-        <img src="{{ asset($photo) }}" id="avatar" class="rounded-circle img-responsive" alt="Avatar photo" >
+        <img src="{{ getPhoto($datos->profile_photo_path) }}" id="avatar" class="rounded-circle img-responsive" alt="Avatar photo" >
     </div>
 <!--Body-->
     <div class="modal-body text-center mb-1">

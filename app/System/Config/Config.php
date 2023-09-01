@@ -1,11 +1,11 @@
 <?php
 namespace App\System\Config;
 
-use App\Common\Encrypt;
 use App\Models\ConfigApp;
 use App\Common\Helpers;
 use App\Models\ConfigImpresion;
 use App\Models\ConfigPrincipal;
+use App\Models\ConfigPrivate;
 use App\Models\ConfigRoot;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -25,10 +25,10 @@ trait Config{
             'config_multiple_pago' => $conf->multiple_pago,
             'config_pais' => $conf->pais,
             'config_skin' => $conf->skin,
+            'config_logo' => $conf->logo,
             'config_tipo_servicio' => $conf->tipo_servicio, // 1 rapido, 2 mesa, 3 delivery en el que iniciara
             'config_usuario_id' => Auth::user()->id,
             'config_tipo_usuario' => Auth::user()->tipo_usuario,
-
         ]);
     }
 
@@ -44,7 +44,8 @@ trait Config{
             'impresion_imprimir_antes' => $impresion->imprimir_antes,
             'impresion_comanda' => $impresion->comanda,
             'impresion_opcional' => $impresion->opcional,
-            'impresion_seleccionado' => $impresion->seleccionado
+            'impresion_seleccionado' => $impresion->seleccionado,
+            'impresion_comanda_agrupada' => $impresion->comanda_agrupada
         ]);
     }
 
@@ -56,6 +57,8 @@ trait Config{
             'principal_no_cajas' => $principal->no_cajas, 
             'principal_ticket_pantalla' => $principal->ticket_pantalla, 
             'principal_registro_borrar' => $principal->registro_borrar,
+            'principal_solicitar_clave' => $principal->solicitar_clave,
+            'principal_ordenes_todo' => $principal->ordenes_todo,
             'principal_comentarios_comanda' => $principal->comentarios_comanda,
             'principal_llevar_aqui' => $principal->llevar_aqui, //1 Llevar, 2 Comer Aqui
 
@@ -66,12 +69,21 @@ trait Config{
             'principal_propina_rapida' => $principal->propina_rapida,
             'principal_propina_mesa' => $principal->propina_mesa,
             'principal_propina_delivery' => $principal->propina_delivery,
+            'principal_llevar_aqui_propina_cambia' => $principal->llevar_aqui_propina_cambia,
 
 
             'principal_sonido' => $principal->sonido,
+            'principal_levantar_modal' => $principal->levantar_modal,
             'principal_tipo_menu' => $principal->tipo_menu,
             'principal_otras_ventas' => $principal->otras_ventas,
-            'principal_venta_especial' => $principal->venta_especial
+            'principal_venta_especial' => $principal->venta_especial,
+            'principal_agrupar_orden' => $principal->agrupar_orden,
+            'principal_restringir_inventario' => $principal->restringir_inventario,
+            'principal_lineas_factura' => $principal->lineas_factura,
+            'principal_lineas_ccf' => $principal->lineas_ccf,
+            'principal_ordenar_menu' => $principal->ordenar_menu,
+            'principal_ver_mesas' => $principal->ver_mesas,
+            'principal_ver_delivery' => $principal->ver_delivery
         ]);
     }
 
@@ -85,23 +97,25 @@ trait Config{
             'root_edo_sistema' => $root->edo_sistema, 
             'root_tipo_sistema' => $root->tipo_sistema, 
             'root_plataforma' => $root->plataforma,
+            'root_url_to_upload' => $root->url_to_upload,
             'root_ftp_server' => $root->ftp_server,
             'root_ftp_user' => $root->ftp_user,
-            'root_ftp_password' => $root->ftp_password
+            'root_ftp_password' => $root->ftp_password,
+            'sistema.td' => $root->td,
         ]);
+
+        $private = ConfigPrivate::find(1);
+        Session::put([
+            'sys_login' => $private->sys_login, 
+            'just_data' => $private->just_data,
+            'data_special' => $private->data_special, 
+            'sync_time' => $private->sync_time, 
+            'print' => $private->print,
+            'pusher' => $private->pusher,
+            'livewire_path' => $private->livewire_path
+        ]);
+  
     }
-
-
-    public function validarSistema(){
-        $code =  Helpers::FlashCode(Encrypt::encrypt(config('sistema.td'), config('sistema.td')));
-
-        if ($code == config('sistema.hash')) {
-           return true;
-        } else {
-            return false;
-        }
-    }
-
 
 
 

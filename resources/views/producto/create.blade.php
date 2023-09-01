@@ -36,7 +36,7 @@
                     'Puede continuar agregando productos',
                     'success'
                 )
-        });
+            });
         </script>
     @endpush
 

@@ -19,7 +19,7 @@ class CreateEfectivoCuentaBancosTable extends Migration
             $table->integer('tipo')->nullable(true);
             $table->string('cuenta', 100)->nullable(true);
             $table->string('banco', 200)->nullable(true);
-            $table->double('saldo', 8, 4);
+            $table->double('saldo', 10, 4);
             $table->integer('edo')->nullable(true);
 
             $table->string('clave', 25)->nullable(true);

@@ -1,11 +1,8 @@
 <?php
 namespace App\System\Panel;
 
-use App\Common\Helpers;
-use App\Models\CorteDeCaja;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
-use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
@@ -127,17 +124,12 @@ trait DatosDia{
     public function obtenerDatosOrdenesDiarios($fecha, $cantidad){
 
         return TicketOrden::addSelect(['usuario' => User::select('name')
-                                        ->whereColumn('ticket_ordens.empleado', 'users.id')])
-                                        ->addSelect(['total_propina' => TicketNum::select('propina_cant')
-                                        ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
-                                        ->addSelect(['total_factura' => TicketNum::select('total')
-                                        ->whereColumn('ticket_ordens.id', 'ticket_nums.orden')])
-                                        ->whereDay('created_at', $fecha)
-                                        ->orderBy('tiempo', 'desc')
-                                        ->paginate($cantidad);
+                        ->whereColumn('ticket_ordens.empleado', 'users.id')])
+                        ->whereDate('created_at', $fecha)
+                        ->orderBy('tiempo', 'desc')
+                        ->paginate($cantidad);
 
-}
-
+    }
     
 
 

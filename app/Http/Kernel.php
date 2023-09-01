@@ -44,6 +44,13 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'tenant.web' => [
+            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
+            \Spatie\Multitenancy\Http\Middleware\EnsureValidTenantSession::class,
+        ],
+        'tenant.api' => [
+            \Spatie\Multitenancy\Http\Middleware\NeedsTenant::class,
+        ],
     ];
 
     /**
@@ -66,6 +73,8 @@ class Kernel extends HttpKernel
         'noaperturacaja' => \App\Http\Middleware\NoAperturaCaja::class, // para dejar pasar si se aperturo la caja
         'siapertura' => \App\Http\Middleware\Siapertura::class, // si esta aperturada la caja
         'sipantalla' => \App\Http\Middleware\IsPantallaSelect::class, // si la pantalla esta activada y no ticket
-        // 'validar' => \App\Http\Middleware\ComprobarSistema::class, // compruba si la clave del sistema y el td son iguales
+        'pantallaauth' => \App\Http\Middleware\PantallaAuth::class, // si esta login desde la pantalla
+        'pantallaverified' => \App\Http\Middleware\PantallaVerified::class, // si esta logueado desde la pantalla
+        'sessiones' => \App\Http\Middleware\VerificaSesion::class, // Verifica que tenga todas las variables de sesion necesarias
     ];
 }

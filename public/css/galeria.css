@@ -74,7 +74,7 @@
 /* para el nuevo menu de productos*/
 .newmenu {
     background: #ebebeb;
-    height: 170px;
+    height: 150px; /* 170 para mas alto*/
     max-width: 120px;
     border: 2px solid #979797;
     transition-duration: 0.4s;
@@ -108,25 +108,35 @@ top: 10px;
 
 
 .menu-title {
-     padding: 15px; /* tamano de alto del titulo */
+    padding: 5px; /* 15 (alto normal) tamano de alto del titulo */
     text-align: center;
     font-size: 90%;
     background: #c3c6ca;
     color: #000000;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.2rem !important;
 }
 
 .menu-title2 { /*para productos y no para categorias*/
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #002061;
     color: #FFFFFF;
+    line-height: 85%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 0.2rem !important;
 }
 
 .menu-titleC {
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #5A0101;
@@ -135,7 +145,7 @@ top: 10px;
 }
 
 .menu-titleO {
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     font-size: 90%;
     background: #013E5A;
@@ -247,8 +257,8 @@ top: 10px;
 /* para el nuevo menu de productos*/
 .newmenux {
   background: #ebebeb;
-  height: 170px;
-  max-width: 250px;
+  height: 150px;
+  max-width: 240px;
   border: 2px solid #979797;
   transition-duration: 0.4s;
   border-radius: 5px;
@@ -277,4 +287,86 @@ text-decoration: none;
 position: relative;
 opacity: 0.5;
 top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- gallery styles start here ----------------------- */
+.gallery {
+	list-style: none;
+	margin: 0;
+	padding-left: 3px;
+}
+
+.gallery li {
+	border: solid 2px #002E79; /*color de border solido*/
+  background-color: #FFFFFF;
+	padding: 10px;
+	margin: 10px;
+	float: left;
+	position: relative;
+	width: 120px;
+	height: 110px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border-radius: 10px;
+}
+
+.gallery li:hover input {
+	border-color: #fff;
+}
+.gallery li:active input {
+     position: relative;
+	 opacity: 0.5;
+     top: 10px;
+}
+
+
+
+.gallery img { 
+	display: block;
+	position: relative;
+	bottom: 22px;
+	top: -27px;
+	width: 1000px;
+	height: 72px;
+}
+
+.gallery em {
+	background: #fff;
+	color: #000;
+	font-style: normal;
+	padding: 1px 5px;
+	display: block;
+	position: relative;
+	top: 73px;
+	border: 1px solid #999; 
+	border-left-color: #888;
+	font-size:0.6em; /* tama;o de las letras */
+	width: 100px;
+	height: auto;
+	border-radius: 5px;
+  font-weight: 500;
+}
+.gallery a {
+	text-decoration: none;
+}
+.gallery a:hover em {
+	background: #ffdb01;
+	border-color: #c25b08;
 }

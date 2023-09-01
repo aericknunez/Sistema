@@ -13,7 +13,7 @@
         
 
 
-    <form wire:submit.prevent="deteteCorte">
+    <form wire:submit.prevent="deleteCorte">
      
      <div class="form-group row justify-content-center align-items-center">
       <div class="col-xs-2">

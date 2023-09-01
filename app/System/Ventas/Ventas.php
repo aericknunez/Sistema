@@ -11,7 +11,6 @@ use App\Models\OpcionesProducto;
 use App\Models\TicketDelivery;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
-use App\Models\User;
 
 trait Ventas{
 
@@ -30,7 +29,7 @@ trait Ventas{
             'imprimir' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
     
         session(['orden' => $orden->id]);
@@ -51,17 +50,25 @@ trait Ventas{
 
     $producto = Producto::where('cod', $cod)->first();
 
-    $stotal = Helpers::STotal($producto->precio, session('config_impuesto'));
-    $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+    if (session('venta_especial_active')) {
+        $stotal = 0;
+        $impuesto = 0;
+        $precio = 0;
+    } else {
+        $stotal = Helpers::STotal($producto->precio, session('config_impuesto'));
+        $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+        $precio = $producto->precio;
+    }
+
     
     $creado = TicketProducto::create([
         'cod' => $cod, 
         'cantidad' => 1, 
         'producto' => $producto->nombre,
-        'pv' => $producto->precio, 
+        'pv' => $precio, 
         'stotal' => $stotal,
         'imp' => $impuesto,
-        'total' => $producto->precio,
+        'total' => $precio,
         'descuento' => null,
         'num_fact' => null,
         'orden' => session('orden'),
@@ -77,7 +84,7 @@ trait Ventas{
         'imprimir' => 1, // 1 = agregado 2 = listo a imprimir, 0 impreso
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
+        'td' => session('sistema.td')
     ]); 
 
     if (session('principal_ticket_pantalla') == 1) { // pasa a 1 el estado de impresion para la pantalla
@@ -106,7 +113,7 @@ public function agregarOpciones($idProducto, $productoAgregado){ // agraga las o
             'ticket_producto_id' => $productoAgregado, 
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]); 
     }
 }
@@ -118,6 +125,7 @@ public function agregarOpciones($idProducto, $productoAgregado){ // agraga las o
 public function totalDeVenta(){
     return TicketProducto::where('orden', session('orden'))
                                         ->where('num_fact', NULL)
+                                        ->where('edo', 1)
                                         ->sum('total');
 }
 
@@ -132,7 +140,7 @@ public function guardarProductosImprimir(){
     TicketProducto::where('orden', session('orden'))
                     ->where('edo', 1)
                     ->where('imprimir', 1)
-                    ->update(['imprimir' => 2]);
+                    ->update(['imprimir' => 2, 'tiempo' => Helpers::timeId()]);
 }
 
 public function cantidaProductosSinGuardar(){
@@ -150,10 +158,20 @@ public function cantidaProductosSinGuardar(){
 }
 
 
+public function cantidaProductosImpresos(){
+            return TicketProducto::where('orden', session('orden'))
+                                    ->where('num_fact', NULL)
+                                    ->whereIn('imprimir', [2, 3])
+                                    ->count();
+}
+
+
+
 public function getProductosModal($producto){ // obtiene los detalles de los productos par ael modal
     return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
                             ->where('cod', $producto)
+                            ->where('edo', 1)
                             ->with('subOpcion')->get();
 }
 
@@ -166,6 +184,10 @@ public function getUltimaFacturaNumber(){
 }
 
 
+public function getLlevarAqui(){
+    return TicketOrden::select('llevar_aqui')->where('id', session('orden'))->first();
+}
+
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
     TicketProducto::where('orden', session('orden'))
                     ->where('cliente', session('cliente'))
@@ -173,7 +195,8 @@ public function actualizarDatosVenta($num_fact){ // actualiza los campos de los 
                             'cancela' => session('cliente'), 
                             'cajero' => session('config_usuario_id'),
                             'tipo_pago' => session('tipo_pago'),
-                            'tipo_venta' => session('impresion_seleccionado')
+                            'tipo_venta' => session('impresion_seleccionado'), 
+                            'tiempo' => Helpers::timeId()
     ]);
 }
 
@@ -187,7 +210,7 @@ public function eliminarProducto($iden){
             TicketProducto::destroy($iden);
         } else {
             TicketProducto::where('id', $iden)
-                            ->update(['edo' => 2, 'imprimir' => 4]);
+                            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
         }
     } else {
         TicketProducto::destroy($iden);
@@ -201,10 +224,10 @@ public function eliminarOrden(){
         if ($cantidad > 0) {
             TicketProducto::where('orden', session('orden'))
             ->where('imprimir', 3)
-            ->update(['edo' => 2, 'imprimir' => 4]);
+            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
             TicketProducto::where('orden', session('orden'))->where('imprimir','!=', 4)->delete();
             TicketOrden::where('id', session('orden'))
-            ->update(['edo' => 0, 'imprimir' => 0]);
+            ->update(['edo' => 0, 'imprimir' => 0, 'tiempo' => Helpers::timeId()]);
         } else {
             TicketOrden::destroy(session('orden'));
             TicketProducto::where('orden', session('orden'))->delete();
@@ -215,8 +238,22 @@ public function eliminarOrden(){
     }
 }
 
+// registrar la eliminacion de orden o producto con registro de motvio
+public function eliminarOrdenRegister($motivo){
+    TicketProducto::where('orden', session('orden'))
+                    ->whereIn('imprimir', [2, 3])
+                    ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
+    TicketProducto::where('orden', session('orden'))->where('imprimir','!=', 4)->delete();
+    TicketOrden::where('id', session('orden'))
+                    ->update(['edo' => 0, 'imprimir' => 0, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
+}
 
 
+public function eliminarProductoRegister($iden, $motivo){
+        TicketProducto::where('id', $iden)
+                            ->update(['edo' => 2, 'imprimir' => 4, 'motivo_borrado' => $motivo, 'usuario_borrado' => session('config_usuario_id'), 'tiempo' => Helpers::timeId()]);
+}
+//
 
 
 
@@ -262,7 +299,7 @@ public function addDeliveryData(){
 
         'clave' => Helpers::hashId(),
         'tiempo' => Helpers::timeId(),
-        'td' => config('sistema.td')
+        'td' => session('sistema.td')
     ]);
 
 }
@@ -271,20 +308,52 @@ public function addDeliveryData(){
 
 public function getDeliveryData(){ // crea la variables del delivery
 
-    $cliente = Cliente::where('id', session('client_select'))
-                         ->first();
+    $cliente = Cliente::where('id', session('client_select'))->first();
 
             session(['delivery_nombre' => $cliente->nombre]);
             session(['delivery_direccion' => $cliente->direccion]);
             session(['delivery_telefono' => $cliente->telefono]);
+            session(['client_id' => session('client_select')]);
+
+            session(['factura_documento' => $cliente->documento]);
+            session(['factura_registro' => $cliente->registro]);
+            session(['factura_cliente' => $cliente->cliente]);
+            session(['factura_giro' => $cliente->giro]);
+            session(['factura_departamento' => $cliente->departamento_doc]);
+            session(['factura_direccion' => $cliente->direccion_doc]);
     }
 
-public function delDeliveryData(){ 
-    
-    session()->forget('delivery_nombre');
-    session()->forget('delivery_direccion');
-    session()->forget('delivery_telefono');
 
+    public function delDeliveryData(){ 
+        
+        session()->forget('delivery_nombre');
+        session()->forget('delivery_direccion');
+        session()->forget('delivery_telefono');
+        $this->delSessionFactura();
+
+    }
+
+    public function delSessionFactura(){
+        session()->forget('client_id');
+        session()->forget('factura_documento');
+        session()->forget('factura_registro');
+        session()->forget('factura_cliente');
+        session()->forget('factura_giro');
+        session()->forget('factura_departamento');
+        session()->forget('factura_direccion');
+    }
+
+
+    public function clientSessionFactura($clientex){ // obtiene las variables para la factura
+        $cliente = Cliente::where('id', $clientex)->first();
+
+        session(['client_id' => $clientex]);
+        session(['factura_documento' => $cliente->documento]);
+        session(['factura_registro' => $cliente->registro]);
+        session(['factura_cliente' => $cliente->cliente]);
+        session(['factura_giro' => $cliente->giro]);
+        session(['factura_departamento' => $cliente->departamento_doc]);
+        session(['factura_direccion' => $cliente->direccion_doc]);
     }
     
 
@@ -327,7 +396,7 @@ public function delDeliveryData(){
             'imprimir' => 0, // 1 = agregado 2 = listo a imprimir, 0 impreso
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]); 
     }
 /// funciones de ordenes o mesas
@@ -351,8 +420,207 @@ public function delDeliveryData(){
 
     public function updateLLevarAquiOrden(){
         TicketOrden::where('id', session('orden'))
-                    ->update(['llevar_aqui' => session('llevar_aqui')]);
+                    ->update(['llevar_aqui' => session('llevar_aqui'), 'tiempo' => Helpers::timeId()]);
     }
+
+
+
+    /// retorna la cantidad de productos en la orden segun producto 
+    public function getCantidadProductosCod($cod){
+        return TicketProducto::where('orden', session('orden'))
+                                ->where('cod', $cod)
+                                ->where('num_fact', NULL)
+                                ->whereIn('imprimir', [1, 2, 3])
+                                ->count();
+    }
+
+
+    /// retorna la cantidad de productos en la orden 
+    public function getCantidadProductos(){
+        return TicketProducto::where('orden', session('orden'))
+                                ->where('num_fact', NULL)
+                                ->count();
+    }
+
+
+
+    public function reducirCantidadCod($cant, $cod){
+    
+            TicketProducto::where('orden', session('orden'))
+                            ->where('cod', $cod)
+                            ->where('num_fact', NULL)
+                            ->whereIn('imprimir', [1, 2, 3])
+                            ->limit($cant)
+                            ->update(['edo' => 2, 'imprimir' => 4, 'tiempo' => Helpers::timeId()]);
+
+    }
+
+    public function aumentarCantidadCod($cant, $cod){
+
+        for ($i=0; $i < $cant; $i++) { 
+            $this->agregarProducto($cod);
+        }
+    }
+
+
+
+
+    
+    public function addOtrasVentas($producto, $cantidad){
+
+    
+        $stotal = Helpers::STotal($cantidad, session('config_impuesto'));
+        $impuesto = Helpers::Impuesto($stotal, session('config_impuesto'));
+        
+        TicketProducto::create([
+            'cod' => 99999, 
+            'cantidad' => 1, 
+            'producto' => $producto,
+            'pv' => $cantidad, 
+            'stotal' => $stotal,
+            'imp' => $impuesto,
+            'total' => $cantidad,
+            'descuento' => null,
+            'num_fact' => null,
+            'orden' => session('orden'),
+            'cliente' => session('cliente'),
+            'cancela' => null,
+            'tipo_pago' => 1,
+            'usuario' => session('config_usuario_id'),
+            'cajero' => null,
+            'tipo_venta' => 1,
+            'gravado' => 1,
+            'edo' => 1,
+            'panel' => NULL,
+            'imprimir' => 1, // 1 = agregado 2 = listo a imprimir, 0 impreso
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => session('sistema.td')
+        ]); 
+    
+        if (session('principal_ticket_pantalla') == 1) { // pasa a 1 el estado de impresion para la pantalla
+            $this->estadoImprimirOrden(session('orden'), 1);
+        }
+    
+            return FALSE;
+        
+    }
+
+
+
+
+    public function verificaProducto($iden){ // obtiene el imprimir del producto
+        return TicketProducto::select('imprimir')
+                                    ->where('id', $iden)->first();
+    }
+
+
+
+
+
+/*
+    Este metodo se obtiene direcatamente de la vista
+    y nada mas esta contando las Facturas y no Facturas
+*/
+    static public function Porcentaje(){ // porcentaje de facturado o no facturado
+    
+        $totalFacturado = TicketNum::whereDate('created_at', date('Y-m-d'))
+                                    ->where('edo', 1)
+                                    ->where('tipo_venta', 2)
+                                    ->sum('total');
+
+        $totalNoFacturado = TicketNum::whereDate('created_at', date('Y-m-d'))
+                                    ->where('edo', 1)
+                                    ->where('tipo_venta','!=', 2)
+                                    ->sum('total');
+                                
+        $totalVenta = $totalFacturado + $totalNoFacturado;
+        @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
+        @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
+        return $pFacturado . "/" . $pNoFacturado;
+    
+    }
+
+
+    /* @getDescuento() 
+        $categoria -= si es para todos o un producto 1 = orden, 0 = producto
+        $tipo = si es cantidad o porcentaje 1 = cantidad 0 = porcentaje
+        $inputCant = Cantidad de llega del usuario $ o %
+        $producto = el cod del producto a aplicar descuento si es un prodcuto   
+    */
+
+    public function getDescuento($categoria, $tipo, $inputCant, $producto = null){ 
+            if ($categoria == 1) { // 1 es descuento a orden 0 a producto     
+                if ($tipo == 1) { /// si es por cantidad o por porcentaje
+                    $total = $this->totalDeVenta();
+                    // $cantProductos = $this->getCantidadProductos();
+                    $porcentaje = $this->calculaDescuentoCantidad($inputCant, $total);
+                    $productos = $this->getProductosAgregados();
+                    foreach ($productos as $producto) {
+                       $descuento = $this->calculaDescuentoPorcentaje($producto->total, $porcentaje);
+                       
+                    }
+
+                } else { // porcentaje
+
+                }
+
+
+
+
+            }
+    }
+
+
+    // por cantidad
+     private function calculaDescuentoPorcentaje($cantidad, $porcentaje){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        $num = $porcentaje / 100;
+        return $cantidad * $num; // retorna cantidad
+    }
+
+    private function calculaDescuentoCantidad($cantidad, $descuento){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        $num = $descuento * 100;
+        return $num / $cantidad; // retorna porcentaje
+    }
+    
+
+/// valida el numero de lineas de la factura
+public function numeroLineasFactura($clientSelected = null) {
+    if(((session('principal_lineas_factura') != 0 or session('principal_lineas_factura') != null) 
+    or (session('lineas_ccf') != 0 or session('lineas_ccf') != null)) and 
+    (session('impresion_seleccionado') == 2 or session('impresion_seleccionado') == 3)){
+        if ($clientSelected != null) {
+            $products = TicketProducto::where('orden', session('orden'))
+            ->where('num_fact', NULL)
+            ->where('cliente', $clientSelected)
+            ->where('edo', 1)
+            ->distinct('cod')
+            ->count();
+        } else {
+            $products = TicketProducto::where('orden', session('orden'))
+            ->where('num_fact', NULL)
+            ->where('edo', 1)
+            ->distinct('cod')
+            ->count();
+        }
+        
+        if (session('impresion_seleccionado') == 2) {
+            # factura 
+            if ($products > session('principal_lineas_factura')) {
+                return true;
+            }
+        }
+        if (session('impresion_seleccionado') == 3) {
+            # factura 
+            if ($products > session('principal_lineas_ccf')) {
+                return true;
+            }
+        }
+    } else {
+        return false;
+    }
+    // dd($this->numeroLineas = false);
+}
 
 
 

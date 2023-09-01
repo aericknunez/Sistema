@@ -11,4 +11,16 @@ class TicketDelivery extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    
+
+
+    public function orden(){
+        return $this->hasOne(TicketOrden::class, 'id', 'orden_id');
+    }
+
+    public function cliente(){
+        return $this->hasOne(Cliente::class, 'id', 'cliente_id');
+    }
+
+
 }

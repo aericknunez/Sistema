@@ -10,7 +10,7 @@
     <div class="card">
         <div class="card-body">
             {{-- @json($datos) --}}
-            <div class="h3-responsive">{{ $datos->sistema }}</div>
+            <div class="h3-responsive">{{ $datos->cliente }}</div>
             <div class="right-text">{{ $datos->slogan }}</div>
 
             <ul class="list-group font-weight-bold">
@@ -48,7 +48,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Propina:
-                    <span>{{ dinero($datos->propina) }}</span>
+                    <span>{{ $datos->propina }} %</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Envio:

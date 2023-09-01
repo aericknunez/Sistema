@@ -7,11 +7,13 @@ use Illuminate\View\Component;
 class CardPantalla extends Component
 {
     public $datos;
+    public $panel;
 
     
-    public function __construct($datos)
+    public function __construct($datos, $panel)
     {
         $this->datos = $datos;
+        $this->panel = $panel;
     }
 
     /**

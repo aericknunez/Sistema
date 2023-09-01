@@ -2,17 +2,19 @@
 
 namespace App\Http\Livewire\Historial;
 
-use App\Models\TicketProducto;
+use App\System\Historial\Historial;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 
 class Ventas extends Component
 {
 
+    use Historial;
+
     public $tipo_fecha;
     public $fecha1, $fecha2;
+    public $fecha1f, $fecha2f;
     public $productos = [];
     public $datos = [];
 
@@ -37,35 +39,28 @@ class Ventas extends Component
         $this->formatFechas();
 
         if ($this->tipo_fecha == 1) {
-
-            $this->productos = TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', DB::raw('sum(total) as totales, cod'), DB::raw('sum(descuento) as descuentos, cod'), DB::raw('count(*) as cantidad, cod'))
-                                              ->where('edo', 1)
-                                              ->whereDay('created_at', $this->fecha1)
-                                              ->groupBy('cod')
-                                              ->get();
+            $this->productos = $this->ventasUnica($this->fecha1);
         } else {
-            $this->productos = TicketProducto::select('cod', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta', DB::raw('sum(total) as totales, cod'), DB::raw('sum(descuento) as descuentos, cod'), DB::raw('count(*) as cantidad, cod'))
-                                              ->where('edo', 1)
-                                              ->whereBetween('created_at', [$this->fecha1, $this->fecha2])
-                                              ->groupBy('cod')
-                                              ->get();
+            $this->productos = $this->ventasMultiple($this->fecha1, $this->fecha2);
         }
+        $this->reset(['fecha1f', 'fecha2f']);
 
     }
 
 
+
     public function formatFechas(){
         if ($this->tipo_fecha == 1) {
-            if(!$this->fecha1){ $this->fecha1 = date('d-m-Y'); 
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-d'); 
             } else {
-                $this->fecha1 = formatJustFecha($this->fecha1);
+                $this->fecha1 = $this->fecha1f;
             }
         } else {
-            if(!$this->fecha1){ $this->fecha1 = date('Y-m-01'); } else {
-                $this->fecha1 = $this->fecha1;
+            if(!$this->fecha1f){ $this->fecha1 = date('Y-m-01 00:00:00'); } else {
+                $this->fecha1 = $this->fecha1f . ' 00:00:00';
             }
-            if(!$this->fecha2){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
-                $this->fecha2 = $this->fecha2;
+            if(!$this->fecha2f){ $this->fecha2 = Carbon::now()->endOfMonth()->toDateTimeString();  } else {
+                $this->fecha2 = $this->fecha2f . ' 23:59:59';
             }         
         }
     }

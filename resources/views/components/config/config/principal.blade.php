@@ -21,8 +21,16 @@
           <span>{{ tipoComanda($datos->ticket_pantalla) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            Activar el registro al borrar una orden:
+            Activar el registro de justificación al borrar una orden:
             <span>{{ isActivo($datos->registro_borrar) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Activar solicitar clave al borrar una orden:
+            <span>{{ isActivo($datos->solicitar_clave) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Mostrar todas las ordenes al mesero:
+            <span>{{ isActivo($datos->ordenes_todo) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar comentarios en comanda para cocina:
@@ -57,8 +65,16 @@
             <span>{{ isActivo($datos->llevar_delivery) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
+            Establecer predeterminado si al cambiar para llevar se debe eliminar la propina:
+            <span>{{ isActivo($datos->llevar_aqui_propina_cambia) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar sonido al marcar Ordenes
             <span>{{ isActivo($datos->sonido) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Levantar modal de categorias al marcar producto
+            <span>{{ isActivo($datos->levantar_modal) }}</span>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Tipo de Menu
@@ -71,6 +87,34 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
             Activar Venta Especial
             <span>{{ isActivo($datos->venta_especial) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Agrupar productos en Ordenes
+            <span>{{ isActivo($datos->agrupar_orden) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Restringir ventas cuando no existe inventario
+            <span>{{ isActivo($datos->restringir_inventario) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Numero maximo de intems factura
+            <span>{{ $datos->lineas_factura }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Numero Maximo de items credito fiscal
+            <span>{{ $datos->lineas_ccf }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Ordenar menu alfabeticamente
+            <span>{{ isActivo($datos->restringir_inventario) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Mesas a Mesero
+            <span>{{ isActivo($datos->ver_mesas) }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Delivery a Mesero
+            <span>{{ isActivo($datos->ver_delivery) }}</span>
         </li>
     </ul>
 </div>

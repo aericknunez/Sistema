@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\System\Config\Config;
+use App\System\Config\Validaciones;
 use Closure;
 use Illuminate\Http\Request;
 
 class ComprobarSistema
 {
-    use Config;
+    use Validaciones;
     /**
      * Handle an incoming request.
      *
@@ -22,7 +22,7 @@ class ComprobarSistema
         if ($this->validarSistema()) {
             return $next($request);
         } else {
-            abort(401);
+            abort(401, 'NO SE PUEDE ACTIVAR EL SISTEMA');
         }
     }
 }

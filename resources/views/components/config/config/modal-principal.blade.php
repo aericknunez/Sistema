@@ -44,7 +44,7 @@
                 </li>
               @endif
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    Activar el registro al borrar una orden:
+                  Activar el registro de justificación al borrar una orden:
                     <span>
                         <div class="switch">
                             <label>
@@ -55,6 +55,33 @@
                           </div>
                     </span>
                 </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Activar solicitar clave al borrar una orden:
+                    <span>
+                        <div class="switch">
+                            <label>
+                              Off
+                              <input type="checkbox" wire:model.defer="solicitar_clave">
+                              <span class="lever"></span> On
+                            </label>
+                          </div>
+                    </span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Mostrar todas las ordenes al mesero
+                    <span>
+                        <div class="switch">
+                            <label>
+                              Off
+                              <input type="checkbox" wire:model.defer="ordenes_todo">
+                              <span class="lever"></span> On
+                            </label>
+                          </div>
+                    </span>
+                </li>
+
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Activar comentarios en comanda para cocina:
                     <span>
@@ -143,6 +170,18 @@
                     </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Establecer si al cambiar para llevar se debe eliminar la propina:
+                  <span>
+                    <div class="switch">
+                        <label>
+                          Off
+                          <input type="checkbox" wire:model.defer="llevar_aqui_propina_cambia">
+                          <span class="lever"></span> On
+                        </label>
+                      </div>
+                </span>
+              </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     Activar sonido al marcar Ordenes
                     <span>
                         <div class="switch">
@@ -154,6 +193,18 @@
                           </div>
                     </span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Levantar modal de categorias al marcar producto
+                  <span>
+                      <div class="switch">
+                          <label>
+                            Off
+                            <input type="checkbox" wire:model.defer="levantar_modal">
+                            <span class="lever"></span> On
+                          </label>
+                        </div>
+                  </span>
+              </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Tipo de Menu
                     <span>
@@ -187,10 +238,84 @@
                           </div>
                     </span>
                 </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Agrupar productos en Ordenes
+                  <span>
+                      <div class="switch">
+                          <label>
+                            Off
+                            <input type="checkbox" wire:model.defer="agrupar_orden">
+                            <span class="lever"></span> On
+                          </label>
+                        </div>
+                  </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Restringir ventas cuando no existe inventario
+                <span>
+                    <div class="switch">
+                        <label>
+                          Off
+                          <input type="checkbox" wire:model.defer="restringir_inventario">
+                          <span class="lever"></span> On
+                        </label>
+                      </div>
+                </span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Numero de Items Factura:
+              <span>
+                  <input type="number" id="lineas_factura" wire:model.defer="lineas_factura" class="form-control" maxlength="2">
+              </span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Numero Items Credito Fiscal:
+              <span>
+                  <input type="number" id="lineas_ccf" wire:model.defer="lineas_ccf" class="form-control" maxlength="2">
+              </span>
+            </li>
             </ul>
     
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Ordernar Menu Alfabeticamente
+              <span>
+                  <div class="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" wire:model.defer="ordenar_menu">
+                        <span class="lever"></span> On
+                      </label>
+                    </div>
+              </span>
+          </li>
     
-    
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Permitir Mesas a Mesero
+            <span>
+                <div class="switch">
+                    <label>
+                      Off
+                      <input type="checkbox" wire:model.defer="ver_mesas">
+                      <span class="lever"></span> On
+                    </label>
+                  </div>
+            </span>
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Permitir Delivery a Mesero
+          <span>
+              <div class="switch">
+                  <label>
+                    Off
+                    <input type="checkbox" wire:model.defer="ver_delivery">
+                    <span class="lever"></span> On
+                  </label>
+                </div>
+          </span>
+      </li>
     
     
     

@@ -64,11 +64,12 @@ class CuentasBanco extends Component
             'edo' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
+        $this->tipo = 3;
         $this->getCuentas();
 
     }
@@ -89,7 +90,7 @@ class CuentasBanco extends Component
         if($id == 1){
             $this->emit('error4'); // manda el mensaje de error al eliminar
         } elseif ($cuenta->saldo == 0) {
-            $cuenta->delete();  
+            $cuenta->update(['edo' => 0]);  
             $this->dispatchBrowserEvent('mensaje', 
             ['clase' => 'success', 
             'titulo' => 'Realizado', 

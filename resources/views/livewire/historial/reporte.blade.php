@@ -10,9 +10,33 @@
                 </h2>
             </div>
 
+            {{-- {{ $datos }} --}}
 
             <div wire:loading.remove wire:target="aplicarFechas">
-                <x-historial.reporte-informacion :datos="$productos" />
+                <div class="h2-responsive">Productos Vendidos</div>
+                <x-historial.ventas-listado :datos="$productos" />
+
+                @if (count($cortes))
+                <div class="h2-responsive mt-3">Cortes de Caja</div>
+                <x-historial.cortes-listado :datos="$cortes" />
+                @endif
+                @if (count($gastos))
+                <div class="h2-responsive mt-3">Gastos Registrados</div>
+                <x-historial.gastos-listado :datos="$gastos" />
+                @endif
+                @if (count($remesas))
+                <div class="h2-responsive mt-3">Remesas</div>
+                <x-historial.remesas :datos="$remesas" />
+                @endif
+                @if (count($ordenes))
+                <div class="h2-responsive mt-3">Ordenes Realizadas</div>
+                <x-historial.ordenes :datos="$ordenes" />
+                @endif
+                <div class="mb-5"></div>
+
+
+
+
             </div>
 
             <div class="row justify-content-center">
@@ -36,7 +60,7 @@
                     <div class="col mx-2">
 
                            <div class="md-form md-outline input-with-post-icon datepicker">
-                            <input wire:model.defer="fecha1" type="date" id="fecha1" name="fecha1" class="form-control">
+                            <input wire:model.defer="fecha1f" type="date" id="fecha1" name="fecha1" class="form-control">
                             <label for="example">Seleccione una fecha</label>
                           </div>
 
@@ -52,10 +76,14 @@
 
             </div>
 
-            <small class="my-2"> Fecha seleccionada: {{ $fecha1 }}</small>
+            <small class="my-2"> Fecha seleccionada: {{ formatFecha($fecha1) }}</small>
 
         </x-slot>
 
     </x-cuerpo>
+
+    <x-historial.modal-detalles-corte :datos="$detalles" />
+
+    <x-panel.modal-detalles-orden :datos="$detallesOrden" />
 
 </div>

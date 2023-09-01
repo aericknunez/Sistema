@@ -6,6 +6,7 @@ use App\Common\Helpers;
 use App\Models\ConfigPaneles;
 use App\Models\Opciones;
 use App\Models\OpcionesProducto;
+use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
 use App\System\Config\ImagenesProductos;
@@ -82,12 +83,19 @@ class Crear extends Component
             'producto_categoria_id' => $this->categoria,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
+        ]);
+
+        // orden de la imagen
+        OrderImg::create([
+            'tipo_img' => 1,
+            'imagen' => $producto->id,
+            'clave' => Helpers::hashId(),
+            'tiempo' => Helpers::timeId(),
+            'td' => session('sistema.td')
         ]);
 
         // $producto->opciones()->attach($this->opcionesSelect);
-
-
         if ($this->opcionesSelect) {
             foreach ($this->opcionesSelect as $opcion) {
                 if ($opcion) {
@@ -96,7 +104,7 @@ class Crear extends Component
                         'opcion_id' => $opcion,
                         'clave' => Helpers::hashId(),
                         'tiempo' => Helpers::timeId(),
-                        'td' => config('sistema.td')
+                        'td' => session('sistema.td')
                     ]);
                 }
             }
@@ -136,7 +144,7 @@ class Crear extends Component
     public function getCategoria(){
         $cat = ProductoCategoria::select(['id'])
                                         ->where('principal', 1)
-                                        ->where('td', config('sistema.td'))
+                                        ->where('td', session('sistema.td'))
                                         ->first();
         $this->categoria = $cat->id;
     }
@@ -147,6 +155,10 @@ class Crear extends Component
         ['clase' => 'success', 
         'titulo' => 'Realizado', 
         'texto' => 'Imagen seleccionada']);
+    }
+
+    public function cerrarModalImg(){ // vacio de momento
+
     }
 
 

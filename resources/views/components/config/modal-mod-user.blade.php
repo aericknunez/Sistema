@@ -22,6 +22,9 @@
                             <a class="dropdown-item" wire:click="changeUser(3)">{{ tipoUsuario(3) }}</a>
                             <a class="dropdown-item" wire:click="changeUser(4)">{{ tipoUsuario(4) }}</a>
                             <a class="dropdown-item" wire:click="changeUser(5)">{{ tipoUsuario(5) }}</a>
+                            @if (session('config_tipo_usuario') == 1)
+                            <a class="dropdown-item" wire:click="changeUser(7)">{{ tipoUsuario(7) }}</a>
+                            @endif
                           </div>
                         </div>
                       </div>

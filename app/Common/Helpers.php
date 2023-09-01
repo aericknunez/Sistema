@@ -17,13 +17,12 @@ class Helpers{
 
 
     public static function FlashCode($code){ // Los 5 primeros digitos de una cadena
-
         return strtoupper(substr($code,0, 5));  
     }
 
 
    static  public function Dinero($numero){  
-        $format= $_SESSION['config_moneda_simbolo'] ." " . number_format($numero,2,'.',',');
+        $format= session('config_moneda_simbolo') ." " . number_format($numero,2,'.',',');
         return $format;
      } 
 
@@ -59,8 +58,12 @@ class Helpers{
 
 
     static public function propina($cantidad, $propinaPorcentaje){ 
-        $num = $propinaPorcentaje / 100;
-        return $cantidad * $num;
+        if($propinaPorcentaje == 0){
+            return 0;
+        } else {
+            $num = $propinaPorcentaje / 100;
+            return $cantidad * $num;
+        }
     }
 
 
@@ -149,6 +152,8 @@ class Helpers{
         if($nombre == 3) return 'Administrador';
         if($nombre == 4) return 'Cajero';
         if($nombre == 5) return 'Mesero';
+        if($nombre == 6) return 'Invitado';
+        if($nombre == 7) return 'Pantalla';
     }
 
 
@@ -159,6 +164,15 @@ class Helpers{
 
     public static function fechaFormat($fecha){  
         return strtotime($fecha);
+     }
+
+
+     static public function isLocalSystem(){
+        if (Encrypt::decrypt(session('root_plataforma'), session('sistema.td')) == 1) {
+            return true;
+        } else {
+            return false;
+        }
      }
 
 

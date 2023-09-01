@@ -6,7 +6,7 @@
               <thead>
                 <tr>
                   <th scope="col">Apertura</th>
-                  <th scope="col">Cierre</th>
+                  <th scope="col">Usuario</th>
                   <th scope="col">Efectivo Inicial</th>
                   <th scope="col">Efectivo Final</th>
                   <th scope="col">Total Venta</th>
@@ -26,14 +26,20 @@
                         class="blue-text"
                         @endif >
                         <td>{{ formatFecha($corte->apertura) }}</td>
-                        <td>{{ formatFecha($corte->cierre) }}</td>
+                        <td>{{ $corte->user->name }}</td>
                         <td>{{ dinero($corte->efectivo_inicial) }}</td>
                         <td> {{ dinero($corte->efectivo_final) }}</td>
                         <td> {{ dinero($corte->total_venta) }}</td>
                         <td> {{ dinero($corte->gastos) }}</td>
                         <td> {{ dinero($corte->remesas) }}</td>
                         <td> {{ dinero($corte->diferencia) }}</td>
-                        <td> {{ edoCorte($corte->edo) }}</td>
+                    <td> 
+                          @if ($corte->edo == 1)
+                             {{ edoCorte($corte->edo) }}
+                          @else
+                            <a wire:click="obtenerDatosCorte({{ $corte->id }})" data-toggle="modal" data-target="#ModalDetallesCorte">{{ edoCorte($corte->edo) }} </a>  
+                          @endif
+                        </td>
                     </tr>
                 @endforeach    
                 

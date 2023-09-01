@@ -18,7 +18,7 @@ class CreateConfigMonedasTable extends Migration
             $table->string('moneda', 25);
             $table->string('activo', 25)->comment('0 no suma efectivo 1 suma efectivo');
             $table->integer('edo')->nullable(true);
-            $table->double('extra', 8, 8)->nullable(true)->comment('cantidad extra que se aplica en esta opcion');
+            $table->double('extra', 10, 8)->nullable(true)->comment('cantidad extra que se aplica en esta opcion');
             $table->integer('tipo')->default(0)->nullable(true)->comment('1 porcentaje, 2 cantidad');
             $table->string('icono')->nullable(true)->comment('icono para mostrar');
             $table->string('clave', 25)->nullable(true);

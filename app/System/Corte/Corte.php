@@ -3,12 +3,16 @@ namespace App\System\Corte;
 
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
+use App\Models\CuentasPagarAbono;
+use App\Models\CuentasPorCobrarAbono;
 use App\Models\EfectivoGastos;
 use App\Models\EfectivoRemesas;
+use App\Models\EntradasSalidas;
 use App\Models\NumeroCajas;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
+use App\Models\User;
 
 trait Corte{
 
@@ -40,6 +44,8 @@ trait Corte{
                                         'gastos' => $this->gastosEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'remesas' => $this->remesas($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'abonos' => $this->abonos($corte->aperturaT, Helpers::timeId(), $cajero),
+                                        'efectivo_ingresado' => $this->entradasEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
+                                        'efectivo_retirado' => $this->salidasEfectivo($corte->aperturaT, Helpers::timeId(), $cajero),
                                         'diferencia' => $this->diferencia($corte->efectivo_inicial, $efectivo, $corte->aperturaT, Helpers::timeId(), $cajero),
                                         'usuario_corte' => session('config_usuario_id'),
                                         'edo' => 2,
@@ -102,7 +108,7 @@ trait Corte{
     public function totalEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                ->where('tipo_pago', [1, 7])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('total');
         return $total;
@@ -137,7 +143,7 @@ trait Corte{
     public function propinaEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago', 1)
+                                ->where('tipo_pago', [1, 7])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('propina_cant');
         return $total;
@@ -146,7 +152,7 @@ trait Corte{
     public function propinaNoEfectivo($inicio, $fin, $cajero){
         $total = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
-                                ->where('tipo_pago','!=', 1)
+                                ->where('tipo_pago','!=', [1, 7])
                                 ->whereBetween('tiempo', [$inicio, $fin])
                                 ->sum('propina_cant');
         return $total;
@@ -174,20 +180,89 @@ trait Corte{
     }  
     /* abonos */
     public function abonos($inicio, $fin, $cajero){
-        return 0;
+        $totalAbonos = CuentasPagarAbono::where('user', $cajero)
+                        ->whereBetween('tiempo', [$inicio, $fin])
+                        ->where('edo', 1)
+                        ->orderBy('tiempo', 'desc')
+                        ->sum('cantidad');
+
+        return $totalAbonos;
     }
+
+    public function abonosCobrados($inicio, $fin, $cajero){
+        $totalAbonos = CuentasPorCobrarAbono::where('user', $cajero)
+                        ->whereBetween('tiempo', [$inicio, $fin])
+                        ->where('edo', 1)
+                        ->where('tipo_pago', 1)
+                        ->orderBy('tiempo', 'desc')
+                        ->sum('cantidad');
+
+        return $totalAbonos;
+    }
+
+    // efectivo ingresado a caja
+    public function entradasEfectivo($inicio, $fin, $cajero){
+        $total = EntradasSalidas::where('cajero', $cajero)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->where('edo', 1)
+                                ->where('tipo_movimiento', 1) // entrada
+                                ->where('tipo_pago', 1) // efectivo
+                                ->orderBy('tiempo', 'desc')
+                                ->sum('cantidad');
+        return $total;
+    }
+
+    // efectivo retirado de caja
+    public function salidasEfectivo($inicio, $fin, $cajero){
+        $total = EntradasSalidas::where('cajero', $cajero)
+                                ->whereBetween('tiempo', [$inicio, $fin])
+                                ->where('edo', 1)
+                                ->where('tipo_movimiento', 2) // salida
+                                ->where('tipo_pago', 1) // efectivo
+                                ->orderBy('tiempo', 'desc')
+                                ->sum('cantidad');
+        return $total;
+    }
+
     /* diferencia */
     public function diferencia($efectivo_inicial, $efectivo_ingresado, $inicio, $fin, $cajero){
         $total = $efectivo_inicial 
                 + $this->totalEfectivo($inicio, $fin, $cajero) 
-                + $this->propinaEfectivo($inicio, $fin, $cajero)
+               // + $this->propinaEfectivo($inicio, $fin, $cajero)
+                + $this->entradasEfectivo($inicio, $fin, $cajero)
+                + $this->abonosCobrados($inicio, $fin, $cajero)
+                - $this->salidasEfectivo($inicio, $fin, $cajero)
                 - $this->gastosEfectivo($inicio, $fin, $cajero)
                 - $this->remesas($inicio, $fin, $cajero);
+                - $this->abonos($inicio, $fin, $cajero);
         $diferencia = $efectivo_ingresado - $total;
         return $diferencia;
     }
 
 
+
+    public function getDatosCorte($iden){
+        $detalles = [];
+        $detalles = CorteDeCaja::where('id', $iden)->first();
+                
+        $usr = User::select('name')->where('id', $detalles->usuario_corte)
+                                   ->first();
+        $detalles->cajero = $usr->name;
+
+        return $detalles;
+    }
+
+
+
+    public function borrarComandasPantalla(){
+        TicketOrden::where('edo', 2)
+                    ->where('imprimir', 1)
+                    ->update(['imprimir' => 0, 'tiempo' => Helpers::timeId()]);
+
+        TicketProducto::where('cajero', session('config_usuario_id'))
+                    ->where('imprimir','!=', 3)
+                    ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+    }
 
 
 

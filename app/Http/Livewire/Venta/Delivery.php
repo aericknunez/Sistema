@@ -6,6 +6,7 @@ use App\Common\Helpers;
 use App\Models\Cliente;
 use App\Models\TicketDelivery;
 use App\Models\TicketOrden;
+use App\Models\User;
 use App\System\Ventas\Ventas;
 use Livewire\Component;
 
@@ -16,6 +17,8 @@ class Delivery extends Component
 
 
     public $ordenesAll;
+
+
     public $search, $busqueda;
 
     protected $rules = [
@@ -41,10 +44,15 @@ class Delivery extends Component
     public $ordenesCant;
     public $OrdenesEnt;
 
+
+    public $deliverySelected;
+
+    public $ordenDetalles;
+
     public function mount(){
         $this->obtenerOrdenes();
         $this->search = NULL;
-        $this->delDeliveryData();
+        $this->delDeliveryData(); // elimina la variable de sesion activas de la orden
         $this->cantidadOrdenes(); // cantidad de ordenes pendientes
     }
 
@@ -69,8 +77,12 @@ class Delivery extends Component
 
 
     public function obtenerOrdenes(){
-        $ordenes = TicketOrden::where('tipo_servicio', 3)
+        $ordenes = TicketOrden::addSelect(['usuario' => User::select('name')
+                                ->whereColumn('empleado', 'users.id')])
+                                ->where('tipo_servicio', 3)
                                 ->where('edo', 1)
+                                ->with('deliverys')
+                                ->with('deliverys.cliente')
                                 ->get();
         $this->ordenesAll = $ordenes;
     }
@@ -129,7 +141,7 @@ class Delivery extends Component
                     'comentarios' => $this->comentarios,
                     'clave' => Helpers::hashId(),
                     'tiempo' => Helpers::timeId(),
-                    'td' => config('sistema.td')
+                    'td' => session('sistema.td')
                 ]);
         
         session(['client_select' => $cliente->id]);
@@ -151,6 +163,39 @@ class Delivery extends Component
     }
 
 
+
+
+    //// botones de accion
+    public function btnChangeClient($delivery, $cliente){
+        TicketDelivery::find($delivery)->update(['cliente_id' => $cliente, 'tiempo' => Helpers::timeId()]);
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCambiarCliente']);
+        $this->emit('cambiado');
+        $this->obtenerOrdenes();
+        $this->cancelar();
+    }
+
+    public function deliverySelect($delivery){
+       $this->deliverySelected = $delivery;
+    }
+
+
+    public function detallesOrden($orden){
+        $this->ordenDetalles = TicketOrden::addSelect(['usuario' => User::select('name')
+                                            ->whereColumn('ticket_ordens.empleado', 'users.id')])
+                                            ->where('id', $orden)
+                                            ->with('deliverys')
+                                            ->with('productos')
+                                            ->with('deliverys.cliente')
+                                            ->first();
+     }
+
+     public function cerrarModal(){
+        $this->reset(['ordenDetalles']);
+     }
+
+     public function btnAddRepartidor(){
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Esta función aun no se encuenta disponible']);
+     }
 
 
 }

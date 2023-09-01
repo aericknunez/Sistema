@@ -55,6 +55,14 @@
                     }) 
             });
 
+        Livewire.on('imprimiendo', ()=>{
+            Swal.fire(
+                'IMPRIMIENDO GASTOS',
+                'Los gastos se enviaron a impresión correctamente',
+                'success'
+            )
+        });
+
     </script>    
     @endpush
 

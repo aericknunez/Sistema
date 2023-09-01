@@ -22,8 +22,7 @@ class Mesas extends Component
 
 
     public function mount(){
-        $this->getOrdenesActive();
-        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes
+        $this->carga();
         $this->clientes = 1;
     }
 
@@ -33,22 +32,31 @@ class Mesas extends Component
         return view('livewire.venta.mesas');
     }
 
+    public function carga(){
+        $this->getOrdenesActive();
+        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes       
+    }
+
 
 
     public function getOrdenesActive(){
-        $ordenes = $this->ordenesInicio();
-        $this->mesasAll = $ordenes;
+        $this->mesasAll = $this->ordenesInicio();
     }
 
 
     public function ordenSelect($orden){
-        $ordenx = TicketOrden::select('clientes')
-        ->where('id', $orden)
-        ->first();
-        session(['clientes' => $ordenx->clientes]);
+        $ordenx = TicketOrden::select('clientes','edo')
+                                ->where('id', $orden)
+                                ->first();
+        if ($ordenx->edo == 1) {
+            session(['clientes' => $ordenx->clientes]);
 
-        session(['orden' => $orden]);
-        return redirect()->route('venta.rapida');
+            session(['orden' => $orden]);
+            return redirect()->route('venta.rapida');
+        } else {
+            $this->emit('noorden');
+            $this->getOrdenesActive();
+        }
     }
 
 

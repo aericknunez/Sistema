@@ -3,8 +3,8 @@
         <x-slot name="contenido">
 
             <div class="clearfix mb-2">
-                <div class="h2-responsive float-left">Gastos</div> 
-                <div class="h2-responsive float-right">
+                <div class="h2 float-left">Gastos</div> 
+                <div class="h2 float-right">
                     <a data-toggle="modal" data-target="#ModalAddGasto" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Gasto</a>
                 </div>
             </div>
@@ -38,7 +38,9 @@
                 {{-- form  --}}
             </div>
         </div>
-
+        <div class="text-center click">
+            <a wire:click="imprimirGastosBySearch()" class="btn-floating btn-info btn-md mb-3 waves-effect waves-light" title="Imprimir Gastos"><i class="fas fa-print"></i></a>
+        </div>
         </x-slot>
 
     </x-cuerpo>

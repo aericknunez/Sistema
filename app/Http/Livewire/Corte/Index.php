@@ -4,15 +4,18 @@ namespace App\Http\Livewire\Corte;
 
 use App\Common\Helpers;
 use App\Models\CorteDeCaja;
+use App\Models\EntradasSalidas;
 use App\Models\User;
 use Livewire\Component;
 use App\System\Corte\Corte;
 use App\System\Corte\InicializaCorte;
+use App\System\Eventos\SendEventos;
+use App\System\Imprimir\ImprimirCortes;
 
 class Index extends Component
 {
 
-    use Corte, InicializaCorte;
+    use Corte, InicializaCorte, ImprimirCortes, SendEventos;
 
     public $cantidad;
     public $cajero;
@@ -20,6 +23,8 @@ class Index extends Component
     public $datos = [];
 
     public $random; // numero para eliminar corte
+
+    public $existenMovimientos; // Comprueba si tiene movimientos de efectivo entradas o salidas
 
 
     protected $rules = [
@@ -44,13 +49,16 @@ class Index extends Component
         $this->obtenerDatosCorte();
         $this->verCorte();
         $this->emit('creado'); // manda el mensaje de creado
-
+        $this->eventPantallaSend(); // envia el evento a la pantalla
+        $this->borrarComandasPantalla();
+        $this->reset(['existenMovimientos']);
     }
 
     public function verCorte(){ // verifica si se realizo corte
         
         if ($this->getAperturaCaja()) { // hay apertura sin cerrar
             $this->sicorte = TRUE;
+            $this->movimientosEfectivo();
         } else { //sin apertura por cerrrar
             $this->sicorte = FALSE;
             $this->obtenerDatosCorte();
@@ -71,7 +79,7 @@ class Index extends Component
     }
 
 
-    public function deteteCorte(){
+    public function deleteCorte(){
         
         $this->validate(['random' => 'required|min:4|max:4']);
 
@@ -91,7 +99,7 @@ class Index extends Component
                 'usuario' => session('config_usuario_id'), //usuario
                 'clave' => Helpers::hashId(),
                 'tiempo' => Helpers::timeId(),
-                'td' => config('sistema.td')
+                'td' => session('sistema.td')
             ]);
     
             $this->updateCaja($this->datos['numero_caja'], TRUE);
@@ -107,6 +115,23 @@ class Index extends Component
 
     }
 
+
+
+
+    public function imprimirCorte(){
+
+        $this->ImprimirCortePrimario($this->datos);
+        $this->emit('imprimiendo'); // manda el mensaje de error de eliminado
+
+    }
+
+    public function movimientosEfectivo(){
+        $this->existenMovimientos = EntradasSalidas::where('cajero', session('config_usuario_id'))
+                                    ->whereBetween('tiempo', [$this->inicioCorte(session('config_usuario_id')), Helpers::timeId()])
+                                    ->where('edo', 1)
+                                    ->where('tipo_pago', 1)
+                                    ->count();
+    }
 
 
 

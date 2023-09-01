@@ -25,28 +25,6 @@
         black-skin
     @endif">
     
-{{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin --}}
-
-{{-- PRELOADER  --}}
-
-{{-- <div id="mdb-preloader" class="flex-center">
-    <div class="preloader-wrapper big active crazy">
-        <div class="spinner-layer spinner-blue-only">
-            <div class="circle-clipper left">
-            <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-            <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-            <div class="circle"></div>
-            </div>
-        </div>
-        </div>
-</div>  --}}
-
-
-
         <!-- Page Content -->
         <main class="container-fluid">
             {{ $slot }}

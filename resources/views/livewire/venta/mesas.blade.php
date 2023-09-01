@@ -3,13 +3,15 @@
     
     <x-cuerpo >
         <x-slot name="contenido">
-            <x-venta.mesas-all :mesas="$mesasAll" />
+            <div wire:poll.{{ config('sistema.synctime') }}s.visible="carga">
+                @include('venta.includes.mesa.mesas-all')
+            </div>
         </x-slot>
     
         <x-slot name="lateral">
             <div class="card my-3 mx-3">
                 <small class="ml-3 mt-2">Total de Ordenes</small>
-                <div class="h2-responsive text-center mx-3 "><div class="float-left">Ordenes Pendienes:</div> <div class="float-right">{{ $ordenesCant }}</div></div>
+                <div class="h2-responsive text-center mx-3 "><div class="float-left">Ordenes Pendientes:</div> <div class="float-right">{{ $ordenesCant }}</div></div>
                 <div class="h2-responsive text-center mx-3 "><div class="float-left">Cantidad de Clientes:</div> <div class="float-right">{{ $clientesCant }}</div></div>
             </div>
            <div class="card text-center">
@@ -22,7 +24,7 @@
 
     </x-cuerpo>
 
-    <x-venta.modal-add-mesa :clientes="$clientes" />
+       @include('venta.includes.modales.add-mesa')
 
 
 </div>

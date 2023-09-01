@@ -70,17 +70,21 @@ function paisDocumento($nombre){
     if($nombre == 3) return 'NIT';
 }
 
+function paisNombre($nombre){
+    if($nombre == 1) return 'El Salvador';
+    if($nombre == 2) return 'Honduras';
+    if($nombre == 3) return 'Guatemala';
+}
+
+
 
 function llevarAqui($tipo){
-    if ($tipo == 1) {
-        return "Para LLevar";
-    }   
-    if ($tipo == 2) {
-        return "Comer Aqui";
-    }    
-    if ($tipo == 3) {
-        return "Delivery";
-    }    
+    switch ($tipo) {
+        case 1: return "Para LLevar";
+        case 2: return "Comer Aqui";
+        case 3: return "Delivery";
+        default: return "Comer Aqui";
+    }  
 }
 
 function edoOrden($tipo){
@@ -93,7 +97,24 @@ function edoOrden($tipo){
 function dinero($numero){  
     return session('config_moneda_simbolo') ." " . number_format($numero,2,'.',',');
 
+}
+
+function dinero4($numero){  
+    return session('config_moneda_simbolo') ." " . number_format($numero,4,'.',',');
+
+} 
+
+function STotal($numero, $impuestos){  
+    $imp = ($impuestos / 100)+1;
+    return $numero / $imp;
  } 
+
+
+function Impuesto($numero, $impuestos){  
+    $imp = $impuestos / 100;
+    return $numero * $imp;
+} 
+
 
 
 function nFormat($numero){ 
@@ -110,12 +131,24 @@ function Nentero($numero){
     return intval($numero);
  } 
 
+function numeracionFactura($numero){ 
+    $numero1=str_pad($numero, 8, "0", STR_PAD_LEFT);
+    $format="000-001-01-$numero1";
+    return $format;
+ } 
+
+
+
  function formatFecha($value){
     return Carbon::parse($value)->format('d-m-Y H:i:s');
 }
 
 function formatJustFecha($value){
     return Carbon::parse($value)->format('d-m-Y');
+}
+
+function formatJustHora($value){
+    return Carbon::parse($value)->format('H:i:s');
 }
 
   function nombreMesa($mesa){
@@ -142,6 +175,8 @@ function formatJustFecha($value){
     if($nombre == 3) return 'Administrador';
     if($nombre == 4) return 'Cajero';
     if($nombre == 5) return 'Mesero';
+    if($nombre == 6) return 'Invitado';
+    if($nombre == 7) return 'Pantalla';
 }
 
  function getTotalOrden($orden){
@@ -209,6 +244,7 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
         if ($cuenta == 2) { return 'Tarjeta'; }
         if ($cuenta == 3) { return 'Transferencia'; }
         if ($cuenta == 4) { return 'Cheque'; }
+        if ($cuenta == 5) { return 'Credito'; }
      }
 
      function edoCorte($cuenta){
@@ -216,6 +252,13 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
         if ($cuenta == 1) { return 'Activo'; }
         if ($cuenta == 2) { return 'Cerrado'; }
      }
+
+     function edoCredito($edo){
+        if ($edo == 0) { echo '<span class="text-danger font-weight-bold">Eliminado</span>'; }
+        if ($edo == 1) { echo '<span class="text-success font-weight-bold">Activo</span>'; }
+        if ($edo == 2) { echo '<span class="text-info font-weight-bold">Pagado</span>'; }
+     }
+
 
 
 
@@ -241,20 +284,22 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
 
 
      /// Permisos de administracion
-     function isAdmin(){
-        if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2  or session('config_tipo_usuario') == 3) {
-           return TRUE;
-        } else {
-           return FALSE;
-        }
-     }
-     
+
      function isGrandAdmin(){
         if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2) {
             return TRUE;
          } else {
             return FALSE;
          }
+     }
+
+
+     function isAdmin(){
+        if (session('config_tipo_usuario') == 1  or session('config_tipo_usuario') == 2  or session('config_tipo_usuario') == 3) {
+           return TRUE;
+        } else {
+           return FALSE;
+        }
      }
 
      function isLowAdmin(){
@@ -267,5 +312,26 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
             return FALSE;
          }
      }
+
+     function getLogo(){
+         if (file_exists(public_path("img/logo/" . session('config_logo')))) {
+            return asset("img/logo/" . session('config_logo'));
+         } else {
+            return asset("img/logo/hibrido_logo.png");
+         }
+     }
+
+     function getPhoto($photo){
+        if ($photo) {
+            if (file_exists(public_path('storage/' . $photo))) {
+                return asset('storage/' . $photo);
+             } else {
+                return asset('img/imagenes/avatar.png');
+             }
+         } else {
+            return asset('img/imagenes/avatar.png');
+         }
+    }
+
 
 

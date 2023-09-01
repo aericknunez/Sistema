@@ -1,6 +1,7 @@
 <div>
 
-    @if ($datos)
+  @if (count($datos))
+
         
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">
@@ -27,7 +28,7 @@
                         <td class="font-weight-bold text-uppercase">{{ $gasto->nombre }}</td>
                         <td class="text-uppercase">{{ $gasto->descripcion }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ dinero($gasto->cantidad) }}</td>
-                        <td class="text-uppercase"> {{ formatFecha($gasto->fecha) }}</td>
+                        <td class="text-uppercase"> {{ formatFecha($gasto->created_at) }}</td>
                         <td class="text-uppercase"> {{ tipoPago($gasto->tipo_pago) }}</td>
                         <td class="text-uppercase"> @if ($gasto->banco)
                             {{ $gasto->banco->banco }}
@@ -51,7 +52,11 @@
             </table>
           </div>
     
-        @endif
+          @else
+
+          <x-globales.no-registros />    
+    
+          @endif
     
     </div>
     

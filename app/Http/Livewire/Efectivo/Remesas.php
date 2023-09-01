@@ -29,6 +29,7 @@ class Remesas extends Component
 
 
     public function mount(){
+        $this->idbanco = 1;
         $this->getRemesas();
         $this->getCuentas();
         $this->remesasTotal();
@@ -59,14 +60,13 @@ class Remesas extends Component
             'descripcion' => $this->descripcion,
             'cantidad' => $this->cantidad,
             'fechaT' => Helpers::timeId(),
-            'fecha' => now(),
             'cajero' => session('config_usuario_id'),
             'edo' => 1,
             'no_comprobante' => $this->comprobante,
             'efectivo_cuenta_bancos_id' => $this->idbanco,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
-            'td' => config('sistema.td')
+            'td' => session('sistema.td')
         ]);
 
         // obtiene total para sumarlo a la cuenta y crear historial
@@ -77,6 +77,7 @@ class Remesas extends Component
 
         
         $this->reset();
+        $this->idbanco = 1;
         $this->emit('creado'); // manda el mensaje de creado
         $this->getRemesas();
         $this->getCuentas();

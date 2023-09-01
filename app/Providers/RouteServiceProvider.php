@@ -38,14 +38,44 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
+            $api = ['api'];
+            $web = ['web'];
+
+            if (config('multitenancy.enabled')) {
+                array_push($api, 'tenant.api');
+                array_push($web, 'tenant.web');
+            }
+
             Route::prefix('api')
-                ->middleware('api')
+                ->middleware($api)
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+            Route::middleware($web)
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
+            // App movil
+            Route::middleware($web)
+                ->namespace($this->namespace)
+                ->group(base_path('routes/rutas/mobil.php'));
+
+            
+            // Producto, cortes de caja y efectivo
+            Route::middleware($web)
+                ->namespace($this->namespace)
+                ->group(base_path('routes/rutas/product.php'));
+
+            // Historiales inventario y facturacion
+            Route::middleware($web)
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rutas/historials.php'));
+
+
+            // Configuraciones y errores
+            Route::middleware($web)
+            ->namespace($this->namespace)
+            ->group(base_path('routes/rutas/config.php'));
         });
     }
 

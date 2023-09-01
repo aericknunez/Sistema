@@ -18,11 +18,11 @@ class CreateTicketProductosTable extends Migration
             $table->string('cod', 25);
             $table->integer('cantidad');
             $table->string('producto', 100);
-            $table->double('pv', 8, 4);
-            $table->double('stotal', 8, 4);
-            $table->double('imp', 8, 4);
-            $table->double('total', 8, 4);
-            $table->double('descuento', 8, 4)->nullable(true);
+            $table->double('pv', 10, 4);
+            $table->double('stotal', 10, 4);
+            $table->double('imp', 10, 4);
+            $table->double('total', 10, 4);
+            $table->double('descuento', 10, 4)->nullable(true);
             $table->integer('num_fact')->nullable(true);
             $table->integer('orden');
             $table->integer('cliente');

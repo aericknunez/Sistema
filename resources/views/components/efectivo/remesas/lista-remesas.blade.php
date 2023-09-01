@@ -1,6 +1,7 @@
 <div>
 
-    @if ($datos)
+  @if (count($datos))
+
         
         <div class="table-responsive">
             <table class="table table-sm table-hover table-striped table-round">
@@ -27,7 +28,7 @@
                         <td class="font-weight-bold text-uppercase">{{ $remesa->nombre }}</td>
                         <td class="font-weight-bold text-uppercase">{{ $remesa->descripcion }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ dinero($remesa->cantidad) }}</td>
-                        <td class="font-weight-bold text-uppercase"> {{ $remesa->fecha }}</td>
+                        <td class="font-weight-bold text-uppercase"> {{ $remesa->created_at }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ $remesa->no_comprobante }}</td>
                         <td class="font-weight-bold text-uppercase"> {{ $remesa->banco->banco }}</td>
                         <td>
@@ -47,7 +48,11 @@
             </table>
           </div>
     
-        @endif
+          @else
+
+          <x-globales.no-registros />    
+    
+          @endif
     
     </div>
     
