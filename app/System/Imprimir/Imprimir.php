@@ -396,7 +396,7 @@ trait Imprimir{
 
 
     public function getProductosComanda($orden, $estado, $panel){
-        $datos =  TicketProductosSave::where('orden', $orden)
+        $datos =  TicketProducto::where('orden', $orden)
                                 ->where('imprimir', $estado)
                                 ->where('panel', $panel)
                                 ->with('subOpcion')->get();
@@ -418,7 +418,7 @@ trait Imprimir{
 
 
     public function contarProductos($imprimir){
-        return TicketProductosSave::where('orden', session('orden'))
+        return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
                             ->where('imprimir', $imprimir)
                             ->count();
@@ -426,7 +426,7 @@ trait Imprimir{
 
 
     public function contarProductosPanel($imprimir, $panel){
-        return TicketProductosSave::where('orden', session('orden'))
+        return TicketProducto::where('orden', session('orden'))
                             ->where('num_fact', NULL)
                             ->where('imprimir', $imprimir)
                             ->where('panel', $panel)
