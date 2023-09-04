@@ -410,7 +410,7 @@ trait Imprimir{
 
 
     public function productosActualizar($orden, $anterior, $nuevo, $panel){
-        TicketProductosSave::where('orden', $orden)
+        TicketProducto::where('orden', $orden)
                         ->where('imprimir', $anterior)
                         ->where('panel', $panel)
                         ->update(['imprimir' => $nuevo, 'panel' => $panel, 'tiempo' => Helpers::timeId()]);
