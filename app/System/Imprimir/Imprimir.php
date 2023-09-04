@@ -74,11 +74,11 @@ trait Imprimir{
     public function ImprimirPrecuenta($propina, $porcentaje, $cliente = NULL){ // si trae cliente o no 
         
         if ($cliente) {
-            $datos = $this->getTotalOrdenClienteSave(session('orden'), $cliente, $propina, $porcentaje);
-            $datos['productos'] = $this->getProductosOrdenClienteSave(session('orden'), $cliente);
+            $datos = $this->getTotalOrdenCliente(session('orden'), $cliente, $propina, $porcentaje);
+            $datos['productos'] = $this->getProductosOrdenCliente(session('orden'), $cliente);
         } else {
-            $datos = $this->getTotalOrdenSave(session('orden'), $propina, $porcentaje);
-            $datos['productos'] = $this->getProductosOrdenSave(session('orden'));
+            $datos = $this->getTotalOrden(session('orden'), $propina, $porcentaje);
+            $datos['productos'] = $this->getProductosOrden(session('orden'));
         }
 
         $datos['empresa'] = $this->getDatosEmpresa();

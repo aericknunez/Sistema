@@ -57,7 +57,6 @@ INSERT INTO `sync_tables` (`id`, `tabla`, `tipo`) VALUES
 	(33, 'ticket_ordens', 1),
 	(34, 'ticket_productos', 1),
 	(35, 'clientes', 1),
-	(37, 'config_privates', 1),
 	(38, 'cuentas_por_cobrars', 1),
 	(39, 'cuentas_por_cobrar_abonos', 1),
 	(40, 'entradas_salidas', 1),
@@ -65,11 +64,7 @@ INSERT INTO `sync_tables` (`id`, `tabla`, `tipo`) VALUES
 	(42, 'inv_dependientes', 1),
 	(43, 'inv_historials', 1),
 	(44, 'inv_unidades', 1),
-	(45, 'model_has_permissions', 1),
-	(46, 'model_has_roles', 1),
-	(47, 'password_resets', 1),
-	(48, 'permissions', 1),
-	(49, 'ticket_productos_saves', 1);
+	(45, 'ticket_productos_saves', 1);
 
 /*!40000 ALTER TABLE `sync_tables` ENABLE KEYS */;
 
