@@ -5,6 +5,7 @@ use App\System\Facturacion\Facturacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Common\Helpers;
+use App\Models\TicketNum;
 use App\Models\TicketProductosSave;
 
 /*
@@ -103,7 +104,7 @@ trait ImprimirCortes{
     }
 
     public function pagoMixto($inicio, $fin, $cajero){      
-        $pagoMixto = TicketProductosSave::where('cajero', $cajero)
+        $pagoMixto = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->where('tipo_pago', 7)
                                 ->whereBetween('tiempo', [$inicio, $fin])
@@ -113,7 +114,7 @@ trait ImprimirCortes{
     }
 
     public function efectivoPagoMixto($inicio, $fin, $cajero){      
-        $efectivoPagoMixto = TicketProductosSave::where('cajero', $cajero)
+        $efectivoPagoMixto = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->where('tipo_pago', 7)
                                 ->whereBetween('tiempo', [$inicio, $fin])
@@ -123,7 +124,7 @@ trait ImprimirCortes{
     }
 
     public function transferencias($inicio, $fin, $cajero){      
-        $transferencias = TicketProductosSave::where('cajero', $cajero)
+        $transferencias = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->where('tipo_pago', 6)
                                 ->whereBetween('tiempo', [$inicio, $fin])
@@ -133,7 +134,7 @@ trait ImprimirCortes{
     }
 
     public function creditos($inicio, $fin, $cajero){      
-        $creditos = TicketProductosSave::where('cajero', $cajero)
+        $creditos = TicketNum::where('cajero', $cajero)
                                 ->where('edo', 1)
                                 ->where('tipo_pago', 5)
                                 ->whereBetween('tiempo', [$inicio, $fin])
