@@ -191,7 +191,7 @@ public function getLlevarAqui(){
 
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
     TicketProducto::where('orden', session('orden'))
-                    ->where('cliente', session('cliente'))
+                   // ->where('cliente', session('cliente'))
                     ->update(['num_fact' => $num_fact, 
                             'cancela' => session('cliente'), 
                             'cajero' => session('config_usuario_id'),
