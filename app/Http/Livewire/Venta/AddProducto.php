@@ -564,7 +564,7 @@ public function pagar(){
         'efectivo' => Helpers::Dinero($this->cantidad),
         'cambio' => Helpers::Dinero(session('tipo_pago') == 7 ? $this->total - $this->cantidad : $this->cantidad - $this->total)
     ]);
-    $this->copiarDatosTablaProductos();
+    $this->copiarDatosTablaProductos(1);
     
     if (session('print')) { /// imprime a menos que el env diga que no
         $this->ImprimirFactura($num_fact); // imprime la factura

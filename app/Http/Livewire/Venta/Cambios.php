@@ -245,7 +245,7 @@ class Cambios extends Component
         'cambio' => Helpers::Dinero($this->cantidad - $this->total)
     ]);
     
-    $this->copiarDatosTablaProductos();
+    $this->copiarDatosTablaProductos(2);
     
         if (session('print')) { /// imprime a menos que el env diga que no
             $this->ImprimirFactura($num_fact); // imprime la factura

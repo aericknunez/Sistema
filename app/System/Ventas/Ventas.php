@@ -623,9 +623,15 @@ public function numeroLineasFactura($clientSelected = null) {
     // dd($this->numeroLineas = false);
 }
 
+    //$tipoCuenta = 1 ; pago cuenta completa
+    //$tipoCuenta = 2 ; pago cuenta dividida
 
-public function copiarDatosTablaProductos(){
+public function copiarDatosTablaProductos($tipoCuenta){
+    if($tipoCuenta == 1){
     $productos = TicketProducto::where('orden', session('orden'))->whereNotNull('num_fact')->get();
+    }else{
+    $productos = TicketProducto::where('orden', session('orden'))->where('cliente', session('cliente'))->whereNotNull('num_fact')->get(); 
+    }
     foreach ($productos as $producto) {
         TicketProductosSave::create([
             'cod'=> $producto->cod,
