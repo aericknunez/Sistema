@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\TicketNum;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -180,7 +180,7 @@ function formatJustHora($value){
 }
 
  function getTotalOrden($orden){
-    return TicketProducto::where('orden', $orden)->sum('total');
+    return TicketProductosSave::where('orden', $orden)->sum('total');
 }
 
 function getPropinaOrden($orden){

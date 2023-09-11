@@ -191,7 +191,8 @@ public function getLlevarAqui(){
 
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
     TicketProducto::where('orden', session('orden'))
-                   // ->where('cliente', session('cliente'))
+                 // ->where('cliente', session('cliente'))
+                    ->whereNull('num_fact')
                     ->update(['num_fact' => $num_fact, 
                             'cancela' => session('cliente'), 
                             'cajero' => session('config_usuario_id'),
@@ -626,9 +627,9 @@ public function numeroLineasFactura($clientSelected = null) {
     //$tipoCuenta = 1 ; pago cuenta completa
     //$tipoCuenta = 2 ; pago cuenta dividida
 
-public function copiarDatosTablaProductos($tipoCuenta){
+public function copiarDatosTablaProductos($tipoCuenta, $num_fact){
     if($tipoCuenta == 1){
-    $productos = TicketProducto::where('orden', session('orden'))->whereNotNull('num_fact')->get();
+    $productos = TicketProducto::where('num_fact', $num_fact )->whereNotNull('num_fact')->get();
     }else{
     $productos = TicketProducto::where('orden', session('orden'))->where('cliente', session('cliente'))->whereNotNull('num_fact')->get(); 
     }
