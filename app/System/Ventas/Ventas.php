@@ -11,6 +11,7 @@ use App\Models\OpcionesProducto;
 use App\Models\TicketDelivery;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
+use App\Models\TicketProductosSave;
 
 trait Ventas{
 
@@ -190,7 +191,8 @@ public function getLlevarAqui(){
 
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
     TicketProducto::where('orden', session('orden'))
-                    ->where('cliente', session('cliente'))
+                 // ->where('cliente', session('cliente'))
+                    ->whereNull('num_fact')
                     ->update(['num_fact' => $num_fact, 
                             'cancela' => session('cliente'), 
                             'cajero' => session('config_usuario_id'),
@@ -620,6 +622,48 @@ public function numeroLineasFactura($clientSelected = null) {
         return false;
     }
     // dd($this->numeroLineas = false);
+}
+
+    //$tipoCuenta = 1 ; pago cuenta completa
+    //$tipoCuenta = 2 ; pago cuenta dividida
+
+public function copiarDatosTablaProductos($tipoCuenta, $num_fact){
+    if($tipoCuenta == 1){
+    $productos = TicketProducto::where('num_fact', $num_fact )->whereNotNull('num_fact')->get();
+    }else{
+    $productos = TicketProducto::where('orden', session('orden'))->where('cliente', session('cliente'))->whereNotNull('num_fact')->get(); 
+    }
+    foreach ($productos as $producto) {
+        TicketProductosSave::create([
+            'cod'=> $producto->cod,
+            'cantidad'=> $producto->cantidad,
+            'producto'=> $producto->producto,
+            'pv'=> $producto->pv,
+            'stotal'=> $producto->stotal,
+            'imp'=> $producto->imp,
+            'total'=> $producto->total,
+            'descuento'=> $producto->descuento,
+            'num_fact'=> $producto->num_fact,
+            'orden'=> $producto->orden,
+            'cliente'=> $producto->cliente,
+            'cancela'=> $producto->cancela,
+            'tipo_pago'=> $producto->tipo_pago,
+            'usuario'=> $producto->usuario,
+            'cajero'=> $producto->cajero,
+            'tipo_venta'=> $producto->tipo_venta,
+            'gravado'=> $producto->gravado,
+            'edo'=> $producto->edo,
+            'panel'=> $producto->panel,
+            'imprimir'=> $producto->imprimir,
+            'usuario_borrado'=> $producto->usuario_borrado,
+            'motivo_borrado'=> $producto->motivo_borrado,
+            'clave'=> $producto->clave,
+            'tiempo'=> $producto->tiempo,
+            'td'=> $producto->td,
+            'created_at'=> $producto->created_at,
+            'updated_at'=>$producto->updated_at
+        ]);
+    }
 }
 
 

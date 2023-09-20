@@ -7,6 +7,7 @@ use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
 use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -211,11 +212,30 @@ trait Imprimir{
     }
 
 
+    public function getProductosOrdenSave($orden){
+        $datos =  TicketProductosSave::where('orden', $orden)
+        ->where('num_fact', NULL)
+        ->where('edo', 1)
+        ->with('subOpcion')->get();
+
+        return $this->formatData($datos);
+    }
     
 
     public function getProductosOrden($orden){
         $datos =  TicketProducto::where('orden', $orden)
         ->where('num_fact', NULL)
+        ->where('edo', 1)
+        ->with('subOpcion')->get();
+
+        return $this->formatData($datos);
+    }
+
+
+    
+    public function getProductosOrdenClienteSave($orden, $cliente){
+        $datos =  TicketProductosSave::where('orden', $orden)
+        ->where('cliente', $cliente)
         ->where('edo', 1)
         ->with('subOpcion')->get();
 
@@ -234,13 +254,36 @@ trait Imprimir{
 
 
     public function getProductosFactura($factura){
-        $datos =  TicketProducto::where('num_fact', $factura)
+        $datos =  TicketProductosSave::where('num_fact', $factura)
         ->where('tipo_venta', session('impresion_seleccionado'))
         ->where('edo', 1)
         ->with('subOpcion')->get();
 
         return $this->formatData($datos);
     }
+
+
+    public function getTotalOrdenSave($orden, $propina, $porcentaje){
+
+        $datos = array();
+        $datos['subtotal'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('edo', 1)
+                            ->sum('stotal');
+        $datos['impuestos'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('edo', 1)
+                            ->sum('imp');
+        $datos['total'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('edo', 1)
+                            ->sum('total');
+
+        $datos['propina_cant'] = $propina;
+        $datos['propina_porcent'] = $porcentaje;
+
+        return $datos;
+    }    
 
 
     public function getTotalOrden($orden, $propina, $porcentaje){
@@ -266,6 +309,31 @@ trait Imprimir{
     }    
 
 
+    public function getTotalOrdenClienteSave($orden, $cliente, $propina, $porcentaje){
+
+        $datos = array();
+        $datos['subtotal'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('cliente', $cliente)
+                            ->where('edo', 1)
+                            ->sum('stotal');
+        $datos['impuestos'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('cliente', $cliente)
+                            ->where('edo', 1)
+                            ->sum('imp');
+        $datos['total'] = TicketProductosSave::where('orden', $orden)
+                            ->where('num_fact', NULL)
+                            ->where('cliente', $cliente)
+                            ->where('edo', 1)
+                            ->sum('total');
+        
+        $datos['propina_cant'] = $propina;
+        $datos['propina_porcent'] = $porcentaje;
+
+        return $datos;  
+    }    
+
 
     public function getTotalOrdenCliente($orden, $cliente, $propina, $porcentaje){
 
@@ -290,20 +358,19 @@ trait Imprimir{
         $datos['propina_porcent'] = $porcentaje;
 
         return $datos;  
-    }    
-
+    }  
 
     public function getTotalFactura($factura){
         $datos = array();
-        $datos['subtotal'] = TicketProducto::where('num_fact', $factura)
+        $datos['subtotal'] = TicketProductosSave::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('edo', 1)
                             ->sum('stotal');
-        $datos['impuestos'] = TicketProducto::where('num_fact', $factura)
+        $datos['impuestos'] = TicketProductosSave::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('edo', 1)
                             ->sum('imp');
-        $datos['total'] = TicketProducto::where('num_fact', $factura)
+        $datos['total'] = TicketProductosSave::where('num_fact', $factura)
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('edo', 1)
                             ->sum('total');
@@ -403,7 +470,7 @@ trait Imprimir{
      }
 
      public function getProductosComandaConPantalla($orden, $imprimir, $panel, $limit){
-        $datos =  TicketProducto::where('orden', $orden)
+        $datos =  TicketProductosSave::where('orden', $orden)
                                 ->where('imprimir', $imprimir)
                                 ->where('panel', $panel)
                                 ->with('subOpcion')

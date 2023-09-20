@@ -558,13 +558,14 @@ public function pagar(){
                 ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
-                    'subtotal' => Helpers::Dinero($this->subtotal),
-                    'propina' => Helpers::Dinero($this->propinaCantidad),
-                    'total' => Helpers::Dinero($this->total),
-                    'efectivo' => Helpers::Dinero($this->cantidad),
-                    'cambio' => Helpers::Dinero(session('tipo_pago') == 7 ? $this->total - $this->cantidad : $this->cantidad - $this->total)
+        'subtotal' => Helpers::Dinero($this->subtotal),
+        'propina' => Helpers::Dinero($this->propinaCantidad),
+        'total' => Helpers::Dinero($this->total),
+        'efectivo' => Helpers::Dinero($this->cantidad),
+        'cambio' => Helpers::Dinero(session('tipo_pago') == 7 ? $this->total - $this->cantidad : $this->cantidad - $this->total)
     ]);
-
+    $this->copiarDatosTablaProductos(1, $num_fact);
+    
     if (session('print')) { /// imprime a menos que el env diga que no
         $this->ImprimirFactura($num_fact); // imprime la factura
     }
@@ -595,7 +596,6 @@ public function pagar(){
         ]);
     }
     //// fin del codigo
-    
     session()->forget('orden');
     session()->forget('cliente');
     if (session('client_id')) {
