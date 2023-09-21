@@ -6,8 +6,9 @@ use App\System\Config\Validaciones;
 use Closure;
 use Illuminate\Http\Request;
 
-class ComprobarSistema
+class IsExpired
 {
+
     use Validaciones;
     /**
      * Handle an incoming request.
@@ -18,8 +19,7 @@ class ComprobarSistema
      */
     public function handle(Request $request, Closure $next)
     {
-
-        if ($this->validarSistema()) {
+        if (!$this->isExpired()) {
             return $next($request);
         } else {
             abort(423);
