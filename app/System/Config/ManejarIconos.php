@@ -18,6 +18,12 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 
 
     public function CrearIconos(){
+        
+    $datos = OrderImg::all();
+    $retorno = '';
+
+    if (count($datos)) {
+
 
         if (session('principal_tipo_menu') == 1) {
             $retorno = '<div class="container mb-4"> 
@@ -31,7 +37,6 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
 
         // aqui se comienzan a crear los iconos
         
-        $datos = OrderImg::all();
         if (session('principal_ordenar_menu') == 1) {
             foreach ($datos as $dato) {
                 if ($dato->tipo_img == 1) {
@@ -92,15 +97,6 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
             }
         }
 
-
-        if ($counter == 0) {
-            $retorno .= '<div class="row justify-content-center click">
-            <img src="{{ asset("img/errors/oops.png") }}" alt="Sin Registros">    
-            {{ mensajex("NO HAY PRODUCTOS REGISTRADOS", "info") }}
-        </div>';
-        }
-
-
         if (session('principal_tipo_menu') == 1) {
             $retorno .= '
             </div> 
@@ -108,12 +104,8 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         } else {
             $retorno .= '
             </ul> 
-            </div>';
+        </div>';
         }
-
-
-
-
 
         $categorias = ProductoCategoria::where('principal', null)->get();
         foreach ($categorias as $cat) {
@@ -126,10 +118,15 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
             $retorno .= $this->creaModalOpciones($opcion);
         }
 
+    } else {
+        $retorno .= '<div class="row justify-content-center click">
+            <img src="{{ asset("img/errors/oops.png") }}" alt="Sin Registros">    
+        </div>
+        {{ mensajex("NO HAY PRODUCTOS REGISTRADOS", "success", "<a href=\"'.route('producto.create').'\" class=\"btn btn-success btn-sm\">Agregar productos</a>") }}
+        ';  
+    }
         
         $this->guardarArchivo($retorno);
-
-
         $this->GenerarIco(); // para comandero
     }
 
