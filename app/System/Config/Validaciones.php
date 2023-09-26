@@ -48,7 +48,7 @@ trait Validaciones {
 
     /// verifica si el sistema esta expirado
     public function isExpired(){
-        if (Encrypt::decrypt(session('root_expiracion'), config('sistema.td')) < Helpers::fechaFormat(Carbon::today()->toDateString())) {
+        if (Encrypt::decrypt(session('root_expiracion'), session('sistema.td')) < Helpers::fechaFormat(Carbon::today()->toDateString())) {
            return true;
         }
         return false;
