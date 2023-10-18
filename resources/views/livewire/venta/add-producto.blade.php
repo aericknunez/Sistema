@@ -53,7 +53,7 @@
         @endif
 
         @if ($comentario)
-        <div class="font-weight-bold red-text">Comentario: {{ $comentario }}</div>
+        <div class="font-weight-bold red-text"><a data-toggle="modal" data-target="#ModalComentario" >Comentario: {{ $comentario }}</a></div>
         @endif
         </x-slot>
        </x-cuerpo>
