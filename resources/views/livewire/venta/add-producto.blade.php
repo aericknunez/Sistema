@@ -51,6 +51,10 @@
         @if ($numeroLineas == true)
         {{ mensajex("HA EXEDIDO EL NUMERO MAXIMO DE ITEMS", "danger") }}
         @endif
+
+        @if ($comentario)
+        <div class="font-weight-bold red-text">Comentario: {{ $comentario }}</div>
+        @endif
         </x-slot>
        </x-cuerpo>
 
