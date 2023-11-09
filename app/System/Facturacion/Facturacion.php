@@ -2,7 +2,7 @@
 namespace App\System\Facturacion;
 
 use App\Models\TicketNum;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use Illuminate\Support\Facades\DB;
 
 trait Facturacion {
@@ -94,21 +94,21 @@ trait Facturacion {
 
 
     public function subtotal($fecha, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereDate('created_at', $fecha)
                                ->sum('stotal');
     }
 
     public function impuestos($fecha, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereDate('created_at', $fecha)
                                ->sum('imp');
     }
 
     public function total($fecha, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereDate('created_at', $fecha)
                                ->sum('total');
@@ -173,7 +173,7 @@ trait Facturacion {
 
 
     public function subtotalMes($anio, $mes, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereYear('created_at', $anio)
                                ->whereMonth('created_at', $mes)
@@ -181,7 +181,7 @@ trait Facturacion {
     }
 
     public function impuestosMes($anio, $mes, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereYear('created_at', $anio)
                                ->whereMonth('created_at', $mes)
@@ -189,7 +189,7 @@ trait Facturacion {
     }
 
     public function totalMes($anio, $mes, $tipo){
-        return TicketProducto::where('edo', 1)
+        return TicketProductosSave::where('edo', 1)
                                ->where('tipo_venta', $tipo)
                                ->whereYear('created_at', $anio)
                                ->whereMonth('created_at', $mes)

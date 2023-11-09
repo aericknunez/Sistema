@@ -48,6 +48,10 @@
     @endif
     {{ $numeroLineas }}
 
+    @if ($comentario)
+    <div class="font-weight-bold red-text"><a data-toggle="modal" data-target="#ModalComentario">Comentario: {{ $comentario }}</a></div>
+    @endif
+    
         @include('venta.includes.modales.otras-ventas')
         @include('venta.includes.modales.add-cliente')
 

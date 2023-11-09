@@ -4,7 +4,7 @@ namespace App\System\Inventario;
 use App\Models\InvAsignado;
 use App\Models\InvDependiente;
 use App\Models\Producto;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use Carbon\Carbon;
 
 /*
@@ -33,7 +33,7 @@ public function CantidadDeProducto($producto){
 
         // obterner cod de producto en factura y que esta asignado
         $codigo = Producto::select('cod')->where('id', $producto->producto)->first();
-        $cantidad = TicketProducto::where('edo', 1)
+        $cantidad = TicketProductosSave::where('edo', 1)
                                     ->where('cod', $codigo->cod)
                                     ->whereDate('created_at', Carbon::now())
                                     ->sum('cantidad');

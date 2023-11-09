@@ -12,6 +12,11 @@ class TicketOrden extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
 
+    public function productossave(){
+        return $this->hasMany(TicketProductosSave::class, 'orden');
+    }
+
+
     public function productos(){
         return $this->hasMany(TicketProducto::class, 'orden');
     }

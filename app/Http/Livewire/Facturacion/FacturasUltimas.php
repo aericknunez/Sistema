@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Facturacion;
 use App\Models\ConfigImpresion;
 use App\Models\TicketNum;
 use App\Models\TicketOrden;
-use App\Models\TicketProducto;
+use App\Models\TicketProductosSave;
 use Livewire\Component;
 
 class FacturasUltimas extends Component
@@ -57,16 +57,16 @@ class FacturasUltimas extends Component
         $factura = TicketNum::find($id);
 
         if ($factura->delete()) {
-            // consigo el numero de orden
-            $orden = TicketProducto::where('num_fact', $factura->factura)
+            // consigo el numero de orden.
+            $orden = TicketProductosSave::where('num_fact', $factura->factura)
                                     ->where('tipo_venta', $factura->tipo_venta)->first();
 
-            TicketProducto::where('num_fact', $factura->factura)
+            TicketProductosSave::where('num_fact', $factura->factura)
                             ->where('tipo_venta', $factura->tipo_venta)
                             ->delete();
             
             // compruebo si no hay registros en esa orden si no hay la borro
-            $cantidad = TicketProducto::where('orden', $factura->orden)
+            $cantidad = TicketProductosSave::where('orden', $factura->orden)
                                         ->count();
             if ($cantidad == 0) {
                 TicketOrden::find($factura->orden)->delete();
