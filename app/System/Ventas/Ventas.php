@@ -631,7 +631,7 @@ public function copiarDatosTablaProductos($tipoCuenta, $num_fact){
     if($tipoCuenta == 1){
     $productos = TicketProducto::where('num_fact', $num_fact )->whereNotNull('num_fact')->get();
     }else{
-    $productos = TicketProducto::where('orden', session('orden'))->where('cliente', session('cliente'))->whereNotNull('num_fact')->get(); 
+    $productos = TicketProducto::where('orden', session('orden'))->where('cliente', session('cliente'))->where('num_fact', $num_fact )->get(); 
     }
     foreach ($productos as $producto) {
         TicketProductosSave::create([

@@ -228,6 +228,7 @@ class Cambios extends Component
         
         TicketProducto::where('orden', session('orden'))
                         ->where('cliente', session('cliente'))
+                        ->whereNull('num_fact')
                         ->update(['num_fact' => $num_fact, 
                                 'cancela' => session('cliente'), 
                                 'cajero' => session('config_usuario_id'),
