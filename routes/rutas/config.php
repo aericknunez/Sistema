@@ -61,3 +61,8 @@ Route::middleware(['sipantalla', 'pantallaverified'])->get('/pantalla/login', fu
     return view('auth.login');
 })->name('pantalla.login');
 
+
+/// Pagos
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/pay', function () {
+    return view('pay.index');
+})->name('pay.index');

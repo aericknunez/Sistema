@@ -15,8 +15,8 @@
                         @endif
                     </a>
 
-                    <h4>Ingrese a su cuenta</h4>
-                    <p class="mb-10">Use sus credenciales para tener acceso</p>
+                    <h4>Registre su cuenta</h4>
+                    <p class="mb-10">Debe ser validado para tener acceso</p>
 
                     <x-jet-validation-errors class="mb-3 rounded-0" />
 

@@ -224,8 +224,8 @@ class Cambios extends Component
             'tiempo' => Helpers::timeId(),
             'td' => session('sistema.td')
         ]);
-
-       
+        
+        
         TicketProducto::where('orden', session('orden'))
                         ->where('cliente', session('cliente'))
                         ->update(['num_fact' => $num_fact, 
@@ -238,13 +238,15 @@ class Cambios extends Component
 
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
-                    'subtotal' => Helpers::Dinero($this->subtotal),
-                    'propina' => Helpers::Dinero($this->propinaCantidad),
-                    'total' => Helpers::Dinero($this->total),
-                    'efectivo' => Helpers::Dinero($this->cantidad),
-                    'cambio' => Helpers::Dinero($this->cantidad - $this->total)
+        'subtotal' => Helpers::Dinero($this->subtotal),
+        'propina' => Helpers::Dinero($this->propinaCantidad),
+        'total' => Helpers::Dinero($this->total),
+        'efectivo' => Helpers::Dinero($this->cantidad),
+        'cambio' => Helpers::Dinero($this->cantidad - $this->total)
     ]);
-
+    
+    $this->copiarDatosTablaProductos(2, $num_fact);
+    
         if (session('print')) { /// imprime a menos que el env diga que no
             $this->ImprimirFactura($num_fact); // imprime la factura
         }
