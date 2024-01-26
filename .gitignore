@@ -18,4 +18,4 @@ yarn-error.log
 /resources/views/iconos_x/*.php
 /public/img/logo/logo.png
 /public/img/logo/logo/*.png
-# /resources/views/iconos_x/*.php
+/resources/views/iconos_x/*.php
