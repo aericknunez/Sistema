@@ -1,5 +1,6 @@
 <?php
 
+use App\Common\Encrypt;
 use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketProductosSave;
@@ -353,3 +354,7 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
         return false;
     }
     
+    /// verifica si el sistema esta expirado
+    function getEdoSistema(){
+        return Encrypt::decrypt(session('root_edo_sistema'), session('sistema.td'));
+    }

@@ -23,8 +23,8 @@
 
     </head>
     <body class="hidden-sn 
-    @if (Session("config_skin"))
-       {{  Session("config_skin") }}
+    @if (session("config_skin"))
+       {{  session("config_skin") }}
     @else
         mdb-skin
     @endif">

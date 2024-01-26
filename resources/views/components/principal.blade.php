@@ -57,17 +57,23 @@
           <div class="md-progress primary-color-dark">
             <div class="indeterminate"></div>
           </div>
-
-        @if (session('just_data'))
-            <x-menu-online />
-        @else
-            <x-menu />
-        @endif
-
-
-        <!-- Page Content -->
-        <main class="container-fluid">
-            {{ $slot }}
+          @if (session('just_data'))
+          <x-menu-online />
+          @else
+          <x-menu />
+          @endif
+          
+          
+          <!-- Page Content -->
+          <main class="container-fluid">
+              {{ $slot }}
+              @if (getEdoSistema() == 2)
+              <div class="d-flex justify-content-center fixed-bottom bg-danger ">
+                <span class="text-white">
+                    <strong>Su fecha de pago ha vencido. Por favor, realice su pago para continuar disfrutando de nuestros servicios. Estamos siempre para servirle</strong>
+                </span>
+               </div>           
+              @endif
         </main>
 
 

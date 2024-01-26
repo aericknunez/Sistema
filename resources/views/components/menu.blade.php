@@ -327,12 +327,6 @@
     <div class="sidenav-bg mask-strong"></div>
     </div>
     <!--/. Sidebar navigation -->
-
-    
-
-
-
-
     <!-- Navbar -->
     <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
     <!-- SideNav slide-out button -->
@@ -347,9 +341,8 @@
             {{-- Menu de venta para elegir que tipo de opcion sera  --}}
             @if (session('apertura_caja'))
                 @livewire('common.menu-venta')   
-            @endif
-
-                
+            @endif     
+             
     </nav>
     <!-- /.Navbar -->
 
