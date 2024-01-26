@@ -21,6 +21,7 @@ class Index extends Component
     public $cajero;
     public $sicorte;
     public $datos = [];
+    public $primerCorte;
 
     public $random; // numero para eliminar corte
 
@@ -32,6 +33,7 @@ class Index extends Component
     ];
 
     public function mount(){
+        $this->verificarPrimerCorte();
         $this->cajero = session('config_usuario_id');
         $this->verCorte();
     }
@@ -66,16 +68,26 @@ class Index extends Component
     }
 
 
+    public function verificarPrimerCorte(){
+        if (CorteDeCaja::first()) {
+            $this->primerCorte = true;
+        } else {
+            $this->primerCorte = false;
+        }
+    }
+
+
     public function obtenerDatosCorte(){
-        $this->datos = CorteDeCaja::where('usuario_corte', $this->cajero)
-                                    ->where('edo', 2)
-                                    ->orderBy('id', 'desc')
-                                    ->first();
-                
-        $usr = User::select('name')->where('id', $this->datos->usuario_corte)
-                                   ->first();
-        $this->datos->cajero = $usr->name;
-        
+        if ($this->primerCorte == true) {
+            $this->datos = CorteDeCaja::where('usuario_corte', $this->cajero)
+                                        ->where('edo', 2)
+                                        ->orderBy('id', 'desc')
+                                        ->first();
+                    
+            $usr = User::select('name')->where('id', $this->datos->usuario_corte)
+                                       ->first();
+            $this->datos->cajero = $usr->name;
+        }
     }
 
 

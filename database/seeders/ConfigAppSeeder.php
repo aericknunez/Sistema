@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 
 use App\Common\Helpers;
 
-
 class ConfigAppSeeder extends Seeder
 {
     /**
@@ -20,20 +19,20 @@ class ConfigAppSeeder extends Seeder
         ConfigApp::create([
             'sistema' => 'Sistema de Control',
             'cliente' => 'Hibrido',
-            'slogan' => 'Soluciones Tecnologicas',
+            'slogan' => 'Soluciones Tecnológicas',
             'direccion' => 'San Salvador', 
-            'telefono' => '606623882',
+            'telefono' => '60627845',
             'email' => 'erick@hibridosv.com',
             'propietario' => 'Erick Nunez',
-            'giro' => 'Programacion',
-            'nit' => '0207-210386-102-9',
+            'giro' => 'Restaurante',
+            'nit' => '0207-210396-102-9',
             'imp' => 13,
-            'propina' => 0,
+            'propina' => 10,
             'envio' => 0,
             'multiple_pago' => 0,
             'pais' => 1,
             'skin' => 'mdb-skin',
-            'logo' => 'logo.png',
+            'logo' => 'hibrido_logo.png',
             'tipo_servicio' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),

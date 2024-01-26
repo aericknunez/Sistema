@@ -20,7 +20,7 @@
           </div>
 
           <div class="col">
-            <a data-toggle="modal" data-target="#ModalIconos" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Seleccionar Imagen</a>
+            <a data-toggle="modal" data-target="#ModalIconos" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Seleccionar Imagen</a>
           </div>
 
         </div>

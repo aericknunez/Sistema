@@ -7,22 +7,26 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Realizar corte</h2> 
                 <h2 class="float-right">
-                    {{-- <a wire:click="newForm()" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Categoria</a> --}}
+                    {{-- <a wire:click="newForm()" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Categoria</a> --}}
                 </h2>
             </div>
 
-@if ($existenMovimientos)
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="alert-heading">Advertencia!</h4>
-        <p>Se detecto registros de movimientos de efectivo de caja, si no se toman en cuenta pueden afectar la diferencia del corte </p>
-        <div class="text-right">
-        <a href="{{ route('efectivo.ingreso') }}" class="alert-link">Ver Movimientos</a>
-        </div>
-    </div>    
-@endif
+@if ($primerCorte)
+    
+
+
+    @if ($existenMovimientos)
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading">Advertencia!</h4>
+            <p>Se detecto registros de movimientos de efectivo de caja, si no se toman en cuenta pueden afectar la diferencia del corte </p>
+            <div class="text-right">
+            <a href="{{ route('efectivo.ingreso') }}" class="alert-link">Ver Movimientos</a>
+            </div>
+        </div>    
+    @endif
 
 
 
@@ -71,10 +75,15 @@
 
             @endif
 
+        @else
+
+        <x-globales.no-registros />    
+    
+        @endif
         </x-slot>
     
         <x-slot name="lateral">
-
+        @if ($primerCorte)
             @if(!$sicorte)
                 <h2 class="h2-responsive">Datos Generales</h2> 
 
@@ -106,7 +115,7 @@
 
 
             @endif
-
+        @endif
         </x-slot>
 
     </x-cuerpo>

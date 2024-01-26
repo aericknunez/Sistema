@@ -13,12 +13,12 @@ class UserSeeder extends Seeder
     {
 
         User::create([
-                'name' => 'Erick Nunez',
-                'email' => 'erick@hibridosv.com',
-                'email_verified_at' => now(),
-                'password' => bcrypt('007125-'),
-                'remember_token' => Str::random(10),
-                'tipo_usuario' => 1
+            'name' => 'Erick Nunez',
+            'email' => 'erick@hibridosv.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('007125-'),
+            'remember_token' => Str::random(10),
+            'tipo_usuario' => 1
         ])->assignRole('Root');
 
         User::create([

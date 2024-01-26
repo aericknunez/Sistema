@@ -8,11 +8,15 @@
             <div class="forny-form">
                 <div class="text-center">
                     <a class="d-flex justify-content-center mb-4" href="/login">
+                        @if (isLatam() == true)
+                        <img src="{{ asset('img/logo/latamPOS.png') }}" height="100" width="100" alt="LatamPOS">
+                        @else
                         <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">
+                        @endif
                     </a>
 
-                    <h4>Ingrese a su cuenta</h4>
-                    <p class="mb-10">Use sus credenciales para tener acceso</p>
+                    <h4>Registre su cuenta</h4>
+                    <p class="mb-10">Debe ser validado para tener acceso</p>
 
                     <x-jet-validation-errors class="mb-3 rounded-0" />
 

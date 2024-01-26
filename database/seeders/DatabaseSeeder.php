@@ -13,13 +13,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        $this->command->getOutput()->section("Iniciando los seeders para las bases de datos");
+
         // \App\Models\User::factory(10)->create();
+        
+        $this->call(ConfigRootSeeder::class);
         $this->call(ConfigAppSeeder::class);
         $this->call(ConfigMonedaSeeder::class);
         $this->call(ConfigPanelesSeeder::class);
         $this->call(ConfigImpresionSeeder::class);
         $this->call(ConfigPrincipalSeeder::class);
-        $this->call(ConfigRootSeeder::class);
         $this->call(EfectivoCuentaBancosSeeder::class);
         $this->call(EfectivoGastosCategoriasSeeder::class);
         $this->call(ImageCategorySeeder::class);
@@ -31,5 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(InvUnidadesSeeder::class);
         $this->call(ConfigPrivateSeeder::class);
+
+        // $this->command->getOutput()->writeln("<comment>TODOS LOS SEEDERS SALIERON BIEN</comment>");
+        $this->command->getOutput()->success("TODOS LOS SEEDERS SALIERON BIEN");
     }
 }

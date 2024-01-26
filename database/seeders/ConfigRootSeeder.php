@@ -7,6 +7,7 @@ use App\Common\Encrypt;
 use Illuminate\Database\Seeder;
 
 use App\Common\Helpers;
+use Carbon\Carbon;
 
 class ConfigRootSeeder extends Seeder
 {
@@ -18,15 +19,15 @@ class ConfigRootSeeder extends Seeder
     public function run()
     {
         ConfigRoot::create([
-            'expira' => Encrypt::encrypt('31-12-2021', config('sistema.td')),
-            'expiracion' => Encrypt::encrypt(strtotime('31-12-2021'), config('sistema.td')),
+            'expira' => Encrypt::encrypt(Carbon::today()->addMonths()->toDateString(), config('sistema.td')),
+            'expiracion' => Encrypt::encrypt(Helpers::fechaFormat(Carbon::today()->addMonths()->toDateString()), config('sistema.td')),
             'edo_sistema' => Encrypt::encrypt(1, config('sistema.td')),
             'tipo_sistema' => Encrypt::encrypt(3, config('sistema.td')),
             'plataforma' => Encrypt::encrypt(1, config('sistema.td')),
-            'url_to_upload' => Encrypt::encrypt("https://updata.hibridosv.com", config('sistema.td')),
-            'ftp_server' => Encrypt::encrypt("access862695802.webspace-data.io", config('sistema.td')),
-            'ftp_user' => Encrypt::encrypt("u103976998-dataup", config('sistema.td')),
-            'ftp_password' => Encrypt::encrypt("Hibrido*1-", config('sistema.td')),
+            'url_to_upload' => Encrypt::encrypt(env("FTP_URL"), config('sistema.td')),
+            'ftp_server' => Encrypt::encrypt(env("FTP_SERVER"), config('sistema.td')),
+            'ftp_user' => Encrypt::encrypt(env("FTP_USERNAME"), config('sistema.td')),
+            'ftp_password' => Encrypt::encrypt(env("FTP_PASSWORD"), config('sistema.td')),
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),
             'td' => config('sistema.td')

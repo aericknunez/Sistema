@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketProductosSave;
 use App\Models\User;
@@ -314,11 +315,19 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
      }
 
      function getLogo(){
-         if (file_exists(public_path("img/logo/" . session('config_logo')))) {
-            return asset("img/logo/" . session('config_logo'));
+         if (file_exists(public_path("storage/logos/" . session('config_logo')))) {
+            return asset("storage/logos/" . session('config_logo'));
          } else {
-            return asset("img/logo/hibrido_logo.png");
+            return asset("storage/logos/" . nameOfImageFromEnv());
          }
+     }
+
+     function nameOfImageFromEnv(){
+        if (isLatam() == true){
+            return 'latamPOS.png';
+        } else {
+            return 'hibrido_logo.png';
+        }
      }
 
      function getPhoto($photo){
@@ -334,4 +343,13 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
     }
 
 
-
+    function isLatam(){
+        if (session('config_skin') == "latam-skin") {
+            return true;
+        }
+        if (ConfigApp::find(1)->skin == "latam-skin") {
+            return true;
+        }
+        return false;
+    }
+    
