@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ConfigApp;
 use App\Models\TicketNum;
 use App\Models\TicketProductosSave;
 use App\Models\User;
@@ -322,7 +323,7 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
      }
 
      function nameOfImageFromEnv(){
-        if (config('sistema.latam') == true){
+        if (isLatam() == true){
             return 'latamPOS.png';
         } else {
             return 'hibrido_logo.png';
@@ -342,4 +343,13 @@ function mensajex($texto, $style, $boton = NULL, $boton2 = NULL){
     }
 
 
-
+    function isLatam(){
+        if (session('config_skin') == "latam-skin") {
+            return true;
+        }
+        if (ConfigApp::find(1)->skin == "latam-skin") {
+            return true;
+        }
+        return false;
+    }
+    

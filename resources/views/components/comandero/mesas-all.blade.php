@@ -25,7 +25,7 @@
                     </a>
                     <div class="d-flex justify-content-between">
                         <a href="{{ route('comandero.cambios') }}" class="btn 
-                        @if (config('sistema.latam') == true)
+                        @if (isLatam() == true)
                         btn-outline-success
                         @else
                         btn-outline-primary
@@ -33,7 +33,7 @@
                  btn-block mr-1 box_rounded w-50 btn-sm py-2">Dividir Cuenta</a>
 
                         <a wire:click="ordenSelect({{ $mesa->id }})" class="btn 
-                            @if (config('sistema.latam') == true)
+                            @if (isLatam() == true)
                         btn-success
                         @else
                         btn-primary

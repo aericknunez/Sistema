@@ -39,7 +39,7 @@
         <div class="modal-footer">
           <a data-toggle="modal" data-target="#ModalAddCliente" class="btn btn-sm btn-secondary btn-rounded">
             <i class="fas fa-user mr-1"></i> Agregar Cliente</a>
-          <button type="button" class="btn @if (config('sistema.latam') == true)
+          <button type="button" class="btn @if (isLatam() == true)
           btn-dark
           @else
           btn-primary

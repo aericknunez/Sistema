@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IniciarController;
 use App\Http\Controllers\RestablecerTdController;
+use App\Http\Controllers\SetLatamController;
 use App\Models\ConfigPrivate;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,13 @@ Route::get('/iniciar', [IniciarController::class, 'iniciar'])
 
 Route::get('/set-td/{td?}', RestablecerTdController::class)
 ->middleware(['guest'])
-->name('get-td');
+->name('set-td');
+
+
+Route::get('/set-latam', SetLatamController::class)
+->middleware(['guest'])
+->name('set-latam');
+
 
 // aperturar caja
 Route::post('/caja/aperturar', [IniciarController::class, 'aperturar'])

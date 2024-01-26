@@ -146,7 +146,7 @@ trait ManejarIconos { // nombre del Trait Igual al del archivo
         if ($cantidad > 2 AND $cantidad < 12) { $modal = 'modal-md'; }
         if ($cantidad <= 2) { $modal = 'modal-sm'; }
 
-        if (config('sistema.latam') == true) {
+        if (isLatam() == true) {
             $colorModalOptions = 'light-green';
         } else {
             $colorModalOptions = 'cyan';

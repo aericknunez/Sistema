@@ -18,7 +18,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn @if (config('sistema.latam') == true)
+          <button type="button" class="btn @if (isLatam() == true)
           btn-dark
           @else
           btn-primary

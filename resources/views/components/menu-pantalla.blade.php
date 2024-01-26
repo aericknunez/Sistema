@@ -7,7 +7,7 @@
                 <li>
                     <div class="logo-wrapper waves-light">
                         <img src="
-                        @if (config('sistema.latam') == true)
+                        @if (isLatam() == true)
                         {{ asset('img/logo/latam.png') }}
                         @else
                         {{ asset('img/logo/pizto.png') }}

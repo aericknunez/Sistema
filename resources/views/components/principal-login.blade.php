@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="{{ asset('archivos_login/css/common.css') }}">
         <link href="{{ asset('archivos_login/css/css?family=Open+Sans:400,600,700&amp;display=swap') }}" rel="stylesheet">
         <link href="
-        @if (config('sistema.latam') == true)
+        @if (isLatam() == true)
         {{ asset('archivos_login/css/theme-latam.css') }}
         @else
         {{ asset('archivos_login/css/theme.css') }}

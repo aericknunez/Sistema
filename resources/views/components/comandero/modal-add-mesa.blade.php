@@ -19,12 +19,12 @@
 
         <div class="d-flex justify-content-center mt-2">
             <div class="btn-group radio-group ml-2">
-            <a wire:click="decrementar()" class="btn btn-sm @if (config('sistema.latam') == true)
+            <a wire:click="decrementar()" class="btn btn-sm @if (isLatam() == true)
             btn-success
             @else
             btn-primary
             @endif btn-rounded waves-effect waves-light"><strong>—</strong></a>
-            <a wire:click="incrementar()" class="btn btn-sm @if (config('sistema.latam') == true)
+            <a wire:click="incrementar()" class="btn btn-sm @if (isLatam() == true)
             btn-success
             @else
             btn-primary
@@ -49,7 +49,7 @@
 
 
             <div class="text-right mt-4">
-                <button class="btn @if (config('sistema.latam') == true)
+                <button class="btn @if (isLatam() == true)
                 btn-green
                 @else
                 btn-danger
@@ -60,7 +60,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn @if (config('sistema.latam') == true)
+          <button type="button" class="btn @if (isLatam() == true)
           btn-dark
           @else
           btn-primary

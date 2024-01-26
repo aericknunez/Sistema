@@ -18,8 +18,8 @@ class ConfigAppSeeder extends Seeder
     {
         ConfigApp::create([
             'sistema' => 'Sistema de Control',
-            'cliente' => (config('sistema.latam') == true) ? 'LatamPOS' : 'Hibrido',
-            'slogan' => (config('sistema.latam') == true) ? 'Ventas sin complicaciones' : 'Soluciones Tecnológicas',
+            'cliente' => 'Hibrido',
+            'slogan' => 'Soluciones Tecnológicas',
             'direccion' => 'San Salvador', 
             'telefono' => '60627845',
             'email' => 'erick@hibridosv.com',
@@ -31,8 +31,8 @@ class ConfigAppSeeder extends Seeder
             'envio' => 0,
             'multiple_pago' => 0,
             'pais' => 1,
-            'skin' => (config('sistema.latam') == true) ? 'latam-skin' : 'mdb-skin',
-            'logo' => (config('sistema.latam') == true) ? 'latamPOS.png' : 'hibrido_logo.png',
+            'skin' => 'mdb-skin',
+            'logo' => 'hibrido_logo.png',
             'tipo_servicio' => 1,
             'clave' => Helpers::hashId(),
             'tiempo' => Helpers::timeId(),

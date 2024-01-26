@@ -1,6 +1,6 @@
 <div>
     
-    <section class="p-3 @if (config('sistema.latam') == true)
+    <section class="p-3 @if (isLatam() == true)
     bg-success
     @else
     bg-info
