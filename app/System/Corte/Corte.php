@@ -265,7 +265,7 @@ trait Corte{
 
         TicketProductosSave::where('cajero', session('config_usuario_id'))
                     ->where('imprimir','!=', 3)
-                    ->update(['imprimir' => 3, 'tiempo' => Helpers::timeId()]);
+                    ->update(['imprimir' => 3]);
     }
 
 
