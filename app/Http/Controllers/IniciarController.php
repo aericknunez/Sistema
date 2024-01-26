@@ -38,9 +38,9 @@ class IniciarController extends Controller
         }
 
         // verifica  que el sistema no este expirado
-        if ($this->isExpired()) {
-            abort(423);
-        }
+        // if ($this->isExpired()) {
+        //     abort(423);
+        // }
 
         // valida los roles y permisos
         app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
