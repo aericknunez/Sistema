@@ -6,7 +6,13 @@
                 <!-- Logo -->
                 <li>
                     <div class="logo-wrapper waves-light">
-                        <img src="{{ asset('img/logo/pizto.png') }}" class="img-fluid flex-center">
+                        <img src="
+                        @if (isLatam() == true)
+                        {{ asset('img/logo/latam.png') }}
+                        @else
+                        {{ asset('img/logo/pizto.png') }}
+                        @endif
+                        " class="img-fluid flex-center">
                     </div>
                 </li>
                 <!--/. Logo -->

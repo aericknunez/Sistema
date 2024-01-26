@@ -12,9 +12,9 @@
                     <a href="{{ route('caja.selected', $caja->numero) }}">
 
                         <figure class="figure">
-                            <img src="{{ asset('img/imagenes/caja.jpg') }}" class="figure-img img-fluid z-depth-2 rounded-circle"  alt="hoverable" >
+                            <img src="{{ asset('img/imagenes/caja.png') }}" class="figure-img img-fluid z-depth-2 rounded-circle"  alt="hoverable" >
     
-                                <figcaption class="font-weight-bold figure-caption text-center bg-info white-text">CAJA {{ $caja->numero }}</figcaption>
+                                <figcaption class="font-weight-bold figure-caption text-center bg-success white-text">CAJA {{ $caja->numero }}</figcaption>
                         </figure>
                     </a>
                 </div>

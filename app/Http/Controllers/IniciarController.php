@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 // use App\Common\Encrypt;
 // use App\Common\Helpers;
 use App\Models\ConfigMoneda;
-use App\Models\ConfigPrivate;
 use App\Models\CorteDeCaja;
 use App\Models\InvAsignado;
 use App\Models\NumeroCajas;
@@ -13,6 +12,7 @@ use App\System\Config\Config;
 use App\System\Config\CrearTipoPagoModal;
 use App\System\Config\ManejarIconos;
 use App\System\Config\ManejarIconosComandero;
+use App\System\Config\Validaciones;
 use App\System\Corte\InicializaCorte;
 use App\System\Ventas\Ventas;
 use Illuminate\Http\Request;
@@ -21,33 +21,25 @@ use Illuminate\Support\Facades\View;
 class IniciarController extends Controller
 {
     
-    use Config, InicializaCorte, Ventas, ManejarIconos, CrearTipoPagoModal, ManejarIconosComandero;
+    use Config, InicializaCorte, Ventas, ManejarIconos, CrearTipoPagoModal, ManejarIconosComandero, Validaciones;
 
     public function iniciar(){
 
         // return Helpers::FlashCode(Encrypt::encrypt(101, 101));
-
-        $priv = ConfigPrivate::first();
-        if (!$priv) {
-            ConfigPrivate::create([
-                'sys_login' => 1,
-                'just_data' => 0,
-                'data_special' => 0,
-                'sync_time' => 5,
-                'print' => 1,
-                'pusher' => 0,
-                'livewire_path' => 'http://sistema.test'
-            ]);
-        }
 
         $this->sessionApp();
         $this->sessionImpresion();
         $this->sessionPrincipal();
         $this->sessionRoot();
 
-
+        // valida que el usuario este correcto y validado
         if (!session('config_tipo_usuario') or session('config_tipo_usuario') == 99) {
             abort(401);
+        }
+
+        // verifica  que el sistema no este expirado
+        if ($this->isExpired()) {
+            abort(423);
         }
 
         // valida los roles y permisos

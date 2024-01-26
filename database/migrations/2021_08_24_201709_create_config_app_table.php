@@ -30,7 +30,7 @@ class CreateConfigAppTable extends Migration
             $table->integer('multiple_pago')->nullable(true)->default(0);     
             $table->integer('pais')->nullable(true)->default(1);     
             $table->string('skin', 25)->nullable(true);
-            $table->string('logo', 25)->nullable(true);
+            $table->string('logo', 250)->nullable(true);
             $table->integer('tipo_servicio')->comment('Si inicia en mesas, rapido o delivery 1 rapido 2mesa 3delivery')->nullable(true);
             $table->string('clave', 25)->nullable(true);
             $table->string('tiempo', 25)->nullable(true);

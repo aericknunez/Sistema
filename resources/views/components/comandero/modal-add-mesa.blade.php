@@ -19,8 +19,16 @@
 
         <div class="d-flex justify-content-center mt-2">
             <div class="btn-group radio-group ml-2">
-            <a wire:click="decrementar()" class="btn btn-sm btn-primary btn-rounded waves-effect waves-light"><strong>—</strong></a>
-            <a wire:click="incrementar()" class="btn btn-sm btn-primary btn-rounded waves-effect waves-light active"><strong>+</strong></a>
+            <a wire:click="decrementar()" class="btn btn-sm @if (isLatam() == true)
+            btn-success
+            @else
+            btn-primary
+            @endif btn-rounded waves-effect waves-light"><strong>—</strong></a>
+            <a wire:click="incrementar()" class="btn btn-sm @if (isLatam() == true)
+            btn-success
+            @else
+            btn-primary
+            @endif btn-rounded waves-effect waves-light active"><strong>+</strong></a>
 
             </div>
         </div>
@@ -41,14 +49,23 @@
 
 
             <div class="text-right mt-4">
-                <button class="btn btn-danger mr-1 box_rounded  px-4 w-50" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
+                <button class="btn @if (isLatam() == true)
+                btn-green
+                @else
+                btn-danger
+                @endif mr-1 box_rounded  px-4 w-50" type="submit"><i class="fas fa-save mr-1"></i> Guardar</button>
             </div>
         </form>
 
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-rounded"  data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn @if (isLatam() == true)
+          btn-dark
+          @else
+          btn-primary
+          @endif
+           btn-rounded"  data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

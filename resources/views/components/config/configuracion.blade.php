@@ -44,7 +44,7 @@
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Impuestos:
-                    <span>{{ dinero($datos->imp) }}</span>
+                    <span>{{ $datos->imp }} %</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Propina:

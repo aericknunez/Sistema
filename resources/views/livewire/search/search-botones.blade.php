@@ -12,7 +12,7 @@
                     <a class="btn-floating btn-lg btn-danger" wire:click="$emit('deleteFactura')"><i class="fas fa-trash"></i></a>
                     @endif 
                     <a class="btn-floating btn-lg btn-success" wire:click="imprimir()"><i class="fas fa-print"></i></a>
-                    <a class="btn-floating btn-lg btn-secondary" data-toggle="modal" data-target="#ModalTipoVenta"><i class="fas fa-sync"></i></a>
+                    <a class="btn-floating btn-lg btn-primary" data-toggle="modal" data-target="#ModalTipoVenta"><i class="fas fa-sync"></i></a>
                             
                 
                     {{ mensajex(session('idSearch') . ' Documento seleccionado: ' . tipoVenta(session('impresion_seleccionado')), 'info') }}

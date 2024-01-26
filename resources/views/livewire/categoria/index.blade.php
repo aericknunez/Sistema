@@ -5,7 +5,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Categorias</h2> 
                 <h2 class="float-right">
-                    <a wire:click="newForm()" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Categoria</a>
+                    <a wire:click="newForm()" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Categoria</a>
                 </h2>
             </div>
 

@@ -12,16 +12,33 @@
                         <div class="ml-3 d-flex w-100">
                         <div class="text-dark">
                             <p class="mb-1 fw-bold" style="font-size:large;"><strong>{{ $mesa->nombre_mesa }}</strong></p> 
-                            <p class="small text-muted mb-0">{{ formatFecha($mesa->created_at) }} <span class="ml-1"><i class="mdi mdi-circle-medium mr-1"></i>
+                            <p class="small text-muted mb-0">{{ formatFecha($mesa->created_at) }} <span class="ml-1">
+                                    @if (App\System\Ventas\MesasPropiedades::cantidadSinGuardar($mesa->id))
+                                        <i class="fas fa-exclamation-triangle fa-xs red-text"></i>
+                                    @else
+                                        <i class="fas fa-save fa-xs green-text"></i>
+                                    @endif
                                 {{ $mesa->usuario }}</span></p>
                         </div>
                         <div class="badge bg-success ml-auto mb-auto">{{ $mesa->clientes }}</div>
                         </div>
                     </a>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('comandero.cambios') }}" class="btn btn-outline-primary btn-block mr-1 box_rounded w-50 btn-sm py-2">Dividir Cuenta</a>
+                        <a href="{{ route('comandero.cambios') }}" class="btn 
+                        @if (isLatam() == true)
+                        btn-outline-success
+                        @else
+                        btn-outline-primary
+                        @endif
+                 btn-block mr-1 box_rounded w-50 btn-sm py-2">Dividir Cuenta</a>
 
-                        <a wire:click="ordenSelect({{ $mesa->id }})" class="btn btn-primary btn-block ml-1 box_rounded w-50 btn-sm py-2">Ir a detalles</a>
+                        <a wire:click="ordenSelect({{ $mesa->id }})" class="btn 
+                            @if (isLatam() == true)
+                        btn-success
+                        @else
+                        btn-primary
+                        @endif
+                         btn-block ml-1 box_rounded w-50 btn-sm py-2">Ir a detalles</a>
                         
                     </div>
                 </div>
