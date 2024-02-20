@@ -7,7 +7,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Productos Asignados</h2> 
                 <h2 class="float-right">
-                    {{-- <a data-toggle="modal" data-target="#AsignarProducto"  class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Asignar Producto</a> --}}
+                    {{-- <a data-toggle="modal" data-target="#AsignarProducto"  class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Asignar Producto</a> --}}
                 </h2>
             </div>
 

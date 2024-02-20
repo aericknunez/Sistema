@@ -380,7 +380,7 @@ trait Imprimir{
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', $factura)
                             ->first();
-        // dd($pago);         
+        
         $datos['efectivo'] = $pago->efectivo;
         $datos['propina_cant'] = $pago->propina_cant;
         $datos['propina_porcent'] = $pago->propina_porcent;

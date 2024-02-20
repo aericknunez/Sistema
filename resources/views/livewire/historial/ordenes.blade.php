@@ -6,7 +6,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Historial de Ordenes</h2> 
                 <h2 class="float-right"> 
-                    {{-- <a data-toggle="modal" data-target="#ModalTransferir" class="btn blue-gradient btn-sm"><i class="fas fa-sync"></i> Transferir</a> --}}
+                    {{-- <a data-toggle="modal" data-target="#ModalTransferir" class="btn btn-secondary btn-sm"><i class="fas fa-sync"></i> Transferir</a> --}}
                 </h2>
             </div>
 

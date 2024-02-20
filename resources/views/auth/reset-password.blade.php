@@ -2,7 +2,11 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <a class="d-flex justify-content-center mb-4" href="/login">
+                @if (isLatam() == true)
+                <img src="{{ asset('img/logo/latamPOS.png') }}" height="100" width="100" alt="LatamPOS">
+                @else
                 <img src="{{ asset('img/logo/hibrido_logo.png') }}" height="100" width="100" alt="Hibrido">
+                @endif
             </a>
         </x-slot>
 

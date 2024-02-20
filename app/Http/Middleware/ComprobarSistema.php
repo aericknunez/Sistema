@@ -22,7 +22,7 @@ class ComprobarSistema
         if ($this->validarSistema()) {
             return $next($request);
         } else {
-            abort(401, 'NO SE PUEDE ACTIVAR EL SISTEMA');
+            abort(423);
         }
     }
 }

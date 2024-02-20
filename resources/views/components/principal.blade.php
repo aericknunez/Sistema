@@ -5,13 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Sistema de ventas') }}</title>
 
         {{-- Hojas de estilo del sistema --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/font-awesome-582.css') }}">
         <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/galeria.css') }}">
+        <link rel="stylesheet" href="
+        @if (isLatam() == true)
+        {{ asset('css/galeria-latam.css') }}
+        @else
+        {{ asset('css/galeria.css') }}
+        @endif
+        ">
+
+
 
         @stack('style')
 
@@ -19,13 +27,14 @@
 
     </head>
     <body class="hidden-sn 
-    @if (Session("config_skin"))
-       {{  Session("config_skin") }}
+    @if (session("config_skin"))
+       {{  session("config_skin") }}
     @else
-        black-skin
+        mdb-skin
     @endif">
     
-{{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin --}}
+{{-- white-skin , mdb-skin , grey-skin , pink-skin ,  light-blue-skin , black-skin  cyan-skin, navy-blue-skin, indigo-skin, deep-purple-skin --}}
+{{-- latam-skin --}}
 
 {{-- PRELOADER  --}}
 
@@ -48,17 +57,23 @@
           <div class="md-progress primary-color-dark">
             <div class="indeterminate"></div>
           </div>
-
-        @if (session('just_data'))
-            <x-menu-online />
-        @else
-            <x-menu />
-        @endif
-
-
-        <!-- Page Content -->
-        <main class="container-fluid">
-            {{ $slot }}
+          @if (session('just_data'))
+          <x-menu-online />
+          @else
+          <x-menu />
+          @endif
+          
+          
+          <!-- Page Content -->
+          <main class="container-fluid">
+              {{ $slot }}
+              @if (getEdoSistema() == 2)
+              <div class="d-flex justify-content-center fixed-bottom bg-danger ">
+                <span class="text-white">
+                    <strong>Su fecha de pago ha vencido. Por favor, realice su pago para continuar disfrutando de nuestros servicios. Estamos siempre para servirle</strong>
+                </span>
+               </div>           
+              @endif
         </main>
 
 

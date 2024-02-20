@@ -66,8 +66,9 @@ class Venta extends Component
             $this->productosAdded();
             $this->obtenerTotal();
             $this->getAqui();
-            $this->nombre = TicketOrden::select('nombre_mesa')->where('id', session('orden'))->first()['nombre_mesa'];
-            // $this->comentario; cargarlo desde la db
+            $orderData = TicketOrden::select('nombre_mesa', 'comentario')->where('id', session('orden'))->first();
+            $this->nombre = $orderData->nombre_mesa;
+            $this->comentario = $orderData->comentario;
         }
         session(['cliente' => 1]);
         $this->btnCatSelect(1);

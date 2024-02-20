@@ -22,22 +22,22 @@ class Mesas extends Component
 
     public function mount(){
         $this->getOrdenesActive();
-        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes
         $this->clientes = 1;
     }
-
     
-
-
+    
+    
+    
     public function render()
     {
         return view('livewire.comandero.mesas');
     }
-
-
+    
+    
     
     public function getOrdenesActive(){
         $ordenes = $this->ordenesInicio();
+        $this->getCantidadOrdenes(); // cantidad de ordenes pendientes
         $this->mesasAll = $ordenes;
     }
 

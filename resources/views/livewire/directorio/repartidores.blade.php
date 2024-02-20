@@ -4,7 +4,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Repartidores</h2> 
                 <h2 class="float-right">
-                    <a data-toggle="modal" data-target="#ModalAddRepartidor" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Repartidor</a>
+                    <a data-toggle="modal" data-target="#ModalAddRepartidor" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Repartidor</a>
                 </h2>
             </div>
             <x-directorio.repartidores :datos="$repartidores" />

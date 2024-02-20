@@ -5,7 +5,7 @@
             <div class="clearfix mb-2">
                 <h2 class="h2 float-left">Listado de roles disponibles</h2> 
                 <h2 class="float-right">
-                    <a href="{{ route('roles.create') }}" class="btn blue-gradient btn-sm"><i class="fas fa-plus"></i> Agregar Rol</a>
+                    <a href="{{ route('roles.create') }}" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i> Agregar Rol</a>
                 </h2>
             </div>
 

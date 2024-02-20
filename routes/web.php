@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\IniciarController;
+use App\Http\Controllers\RestablecerTdController;
+use App\Http\Controllers\SetLatamController;
 use App\Models\ConfigPrivate;
 use Illuminate\Support\Facades\Route;
 
@@ -9,14 +11,10 @@ Route::middleware(['guest'])->get('/', function () {
 
     $priv = ConfigPrivate::first();
     if ($priv) {
-        if ($priv->sys_login) {
-            return view('login');
-        } else {
+        if ($priv->sys_login) return view('login');
             return view('auth.login');
-        }
-    } else {
-        return view('auth.login');
-    }
+    } 
+        return view('auth.login'); 
 });
 
 Route::middleware(['guest'])->get('/ingreso', function () {
@@ -28,6 +26,16 @@ Route::middleware(['guest'])->get('/ingreso', function () {
 Route::get('/iniciar', [IniciarController::class, 'iniciar'])
 ->middleware(['auth:sanctum', 'verified'])
 ->name('iniciar');
+
+
+Route::get('/set-td/{td?}', RestablecerTdController::class)
+->middleware(['guest'])
+->name('set-td');
+
+
+Route::get('/set-latam', SetLatamController::class)
+->middleware(['guest'])
+->name('set-latam');
 
 
 // aperturar caja

@@ -16,9 +16,9 @@ class CreateCorteDeCajasTable extends Migration
         Schema::create('corte_de_cajas', function (Blueprint $table) {
             $table->id();
             $table->string('aperturaT', 25)->nullable(true);
-            $table->timestamp('apertura', $precision = 0);
+            $table->timestamp('apertura')->nullable(true);
             $table->string('cierreT', 25)->nullable(true);
-            $table->timestamp('cierre', $precision = 0)->nullable(true);
+            $table->timestamp('cierre')->nullable(true);
             $table->integer('ordenes')->nullable(true);
             $table->integer('productos')->nullable(true);
             $table->integer('clientes')->nullable(true);

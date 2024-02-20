@@ -19,7 +19,7 @@ class ConfigPrivateSeeder extends Seeder
             'just_data' => 0,
             'data_special' => 0,
             'sync_time' => 5,
-            'print' => 1,
+            'print' => 0,
             'pusher' => 0,
             'livewire_path' => 'http://sistema.test'
         ]);

@@ -5,6 +5,7 @@
 /storage/*.key
 /vendor
 .env
+test.env
 .env.backup
 .phpunit.result.cache
 docker-compose.override.yml
@@ -17,3 +18,4 @@ yarn-error.log
 /resources/views/iconos_x/*.php
 /public/img/logo/logo.png
 /public/img/logo/logo/*.png
+/resources/views/iconos_x/*.php

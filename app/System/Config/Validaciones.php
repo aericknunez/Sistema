@@ -3,6 +3,7 @@ namespace App\System\Config;
 
 use App\Common\Encrypt;
 use App\Common\Helpers;
+use Carbon\Carbon;
 
 trait Validaciones {
 
@@ -45,8 +46,13 @@ trait Validaciones {
     }
 
 
-
-
+    /// verifica si el sistema esta expirado
+    public function isExpired(){
+        if (Encrypt::decrypt(session('root_expiracion'), session('sistema.td')) < Helpers::fechaFormat(Carbon::today()->toDateString())) {
+           return true;
+        }
+        return false;
+    }
 
 
 }
