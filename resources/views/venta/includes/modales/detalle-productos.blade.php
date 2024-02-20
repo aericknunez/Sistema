@@ -17,7 +17,7 @@
                     <th scope="col">Producto</th>
                     <th scope="col" style="width: 1%;">Precio</th>
                     <th scope="col" style="width: 1%;">Total</th>
-                    <th scope="col" style="width: 1%;">Borrar</th>
+                    {{-- <th scope="col" style="width: 1%;">Borrar</th> --}}
                   </tr>
                 </thead>
                 <tbody>
@@ -29,11 +29,11 @@
                         <td class="font-weight-bold">{{ $producto->producto }}</td>
                         <td class="font-weight-bold">{{ $producto->pv }}</td>
                         <td class="font-weight-bold">{{ $producto->total }}</td>
-                        <td  class="click">
+                       {{--  <td  class="click">
                             <a wire:click="delProductoDetalle({{ $producto->id }}, {{ $producto->cod }})" wire:loading.attr="disabled">
                                 <span><i class="far fa-minus-square red-text fa-lg" aria-hidden="true"></i></span>
                             </a>
-                        </td>
+                        </td> --}}
                       </tr>
                   
                   @if (count($producto->subOpcion) >= 1)
