@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IniciarController;
+use App\Http\Controllers\OptimizeController;
 use App\Http\Controllers\RestablecerTdController;
 use App\Http\Controllers\SetLatamController;
 use App\Models\ConfigPrivate;
@@ -36,6 +37,12 @@ Route::get('/set-td/{td?}', RestablecerTdController::class)
 Route::get('/set-latam', SetLatamController::class)
 ->middleware(['guest'])
 ->name('set-latam');
+
+
+Route::get('/optimize', OptimizeController::class)
+->middleware(['guest'])
+->name('optimize');
+
 
 
 // aperturar caja
