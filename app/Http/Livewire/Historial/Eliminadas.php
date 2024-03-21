@@ -22,11 +22,11 @@ class Eliminadas extends Component
         $this->tipo_fecha = 1;
         $this->aplicarFechas();
     }
-
-    public function updated(){
+    //se comentó esta funcion porque resetea las fechas enviadas.
+  /*   public function updated(){
         $this->aplicarFechas();
     }
-
+ */
 
 
     public function render()
