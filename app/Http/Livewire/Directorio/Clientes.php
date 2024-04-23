@@ -33,7 +33,8 @@ class Clientes extends Component
             $giro, 
             $departamento_doc, 
             $direccion_doc, 
-            $comentarios;
+            $comentarios,
+            $search;
 
     public $client_iden;
 
@@ -41,13 +42,21 @@ class Clientes extends Component
     public function mount(){
         $this->telefono = 0;
         $this->direccion = "Ninguno";
+        $this->search = NULL;
     }
 
 
 
     public function render()
     {
-        $clientes = $this->getClientes();
+        if ($this->search) {
+            $clientes = cliente::where('nombre', 'LIKE', '%'.$this->search.'%')
+                    ->orwhere('telefono', 'LIKE', '%'.$this->search.'%')
+                    ->orderBy('id', 'DESC')
+                    ->paginate(10);
+        } else {
+            $clientes = $this->getClientes();
+                }
         return view('livewire.directorio.clientes', compact('clientes'));
     }
 
@@ -123,6 +132,10 @@ class Clientes extends Component
         $this->reset();
         $this->emit('creado'); // manda el mensaje de creado
 
+    }
+
+    public function cancelar(){
+        $this->reset(['search']);
     }
 
 
