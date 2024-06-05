@@ -98,6 +98,7 @@
         @endif
         @if (session('principal_solicitar_clave'))
             @include('venta.includes.modales.codigo-borrado')
+            @include('venta.includes.modales.codigo-venta-especial')
         @endif
 
 </div>
