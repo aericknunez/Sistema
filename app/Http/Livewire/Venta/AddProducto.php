@@ -434,10 +434,28 @@ public function BtnVentaEspecial(){ // activa o desactiva la funcion de venta es
         session()->forget('venta_especial_active');
         $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Desactivo la opción de venta especial']);
     } else { // se activa si no existe
-        session(['venta_especial_active' => true]);
-        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Activo la opción de venta especial']);
+        if(!session('principal_solicitar_clave')){
+            session(['venta_especial_active' => true]);
+            $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Activo la opción de venta especial']);
+        }else{
+            $this->dispatchBrowserEvent('modal-codigo-venta-especial');
+        }
+        
     }
 } 
+
+public function validarCodigoVentaEspecial(){
+    if ($this->validarCodigoAcceso($this->codigo_borrado)) {
+        $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCodigoVentaEspecial']);
+        session(['venta_especial_active' => true]);
+        $this->dispatchBrowserEvent('realizado', ['clase' => 'success', 'titulo' => 'Realizado', 'texto' => 'Se Activo la opción de venta especial']);
+        $this->reset('codigo_borrado');
+    } else {
+        $this->dispatchBrowserEvent('modal-codigo-venta-especial');
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El codigo introducido no es valido']);
+        $this->reset('codigo_borrado');
+    }
+}
 
 public function BtnDescuento(){
         $this->getDescuento($this->descuentoCat, $this->descuentoTipo, $this->descuentoInput);
@@ -634,6 +652,7 @@ public function validarCodigoOrden(){
             $this->delOrden();
         }
     } else {
+        $this->reset('codigo_borrado');
         $this->dispatchBrowserEvent('modal-codigo-borrado');
         $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El codigo introducido no es valido']);
     }

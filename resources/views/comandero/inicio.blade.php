@@ -29,6 +29,9 @@
             window.addEventListener('modal-codigo-borrado', event => {
                 $('#ModalCodigoBorrado').modal('show');
             });
+            window.addEventListener('modal-codigo-venta-especial', event => {
+                $('#ModalCodigoVentaEspecial').modal('show');
+            });
             window.addEventListener('modal-motivo-borrado', event => {
                 $('#ModalMotivoBorrado').modal('show');
             });
