@@ -11,13 +11,13 @@ class SyncController extends Controller
 {
     public function processSync(Request $request)
     {
-        return $request->file;
         // Validar la entrada
         $request->validate([
             'file' => 'required|json'
         ]);
-
-        $fileContent = $request->input('file');
+        
+        return $request->file;
+        $fileContent = $request->file;
 
         if (!$fileContent && $this->isValidJson($fileContent)) {
             return response()->json(['message' => 'Error en Contenido de archivo'], 400);
