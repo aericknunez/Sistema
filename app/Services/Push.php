@@ -180,7 +180,7 @@ class Push {
                 return $response["message"];
             } else {
                 Log::error('Sync process failed.', ['response' => $response->body()]);
-                return $response["message"];
+                return $response->body();
             }
         } catch (\Exception $e) {
             Log::error('Sync process failed.', ['message' => $e->getMessage()]);
