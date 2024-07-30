@@ -16,7 +16,6 @@ class SyncController extends Controller
             'file' => 'required|json'
         ]);
         
-        return $request->file;
         $fileContent = $request->file;
 
         if (!$fileContent && $this->isValidJson($fileContent)) {
@@ -27,8 +26,7 @@ class SyncController extends Controller
             return response()->json(['message' => 'No es un Json Valido'], 400);
         }
 
-            $data = json_decode($fileContent, true);
-            Log::info('Decoded JSON data: ', $data);
+        $data = json_decode($fileContent, true);
 
         // Comenzar una transacción
         DB::beginTransaction();
