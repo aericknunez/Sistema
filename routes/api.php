@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RemotePrintController;
+use App\Http\Controllers\SyncController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,3 +32,5 @@ Route::post('/impresiones', [RemotePrintController::class, 'store'])
 Route::get('/impresiones/cantidad', [RemotePrintController::class, 'contador'])
 ->middleware(['guest'])
 ->name('impresiones.cantidad');
+
+Route::post('/process-sync', [SyncController::class, 'processSync']);
