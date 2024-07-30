@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+ini_set('memory_limit', 9999999999);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,11 +12,13 @@ class SyncController extends Controller
     {
         // Validar la entrada
         $request->validate([
-            'file' => 'required|file|mimes:json'
+            'file' => 'required|json'
         ]);
 
+        $file = $request->input('file');
+        
+        if ($file) {
         // Obtener el archivo
-        $file = $request->file('file');
         $content = file_get_contents($file->getRealPath());
         $data = json_decode($content, true);
 
@@ -56,5 +59,10 @@ class SyncController extends Controller
             DB::rollBack();
             return response()->json(['error' => 'No se proceso la transaccion remota.', 'message' => $e->getMessage()], 500);
         }
+        return response()->json(['error' => 'Error en el archivo'], 500);
+
+
+    }
+
     }
 }
