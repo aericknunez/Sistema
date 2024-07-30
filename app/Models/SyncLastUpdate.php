@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SyncLastUpdate extends Model
 {
+    public $timestamps = false;
     protected $guarded = ['id'];
 
     use HasFactory;
