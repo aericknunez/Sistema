@@ -17,17 +17,17 @@ class SyncController extends Controller
         ]);
         
         $fileContent = $request->file;
-
+        return  $fileContent;
+        
         if (!$fileContent && $this->isValidJson($fileContent)) {
             return response()->json(['message' => 'Error en Contenido de archivo'], 400);
         }
-
+        
         if (!$this->isValidJson($fileContent)) {
             return response()->json(['message' => 'No es un Json Valido'], 400);
         }
-
+        
         $data = json_decode($fileContent, true);
-        return  $data;
         // Comenzar una transacción
         DB::beginTransaction();
 
