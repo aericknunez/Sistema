@@ -173,7 +173,7 @@ class Push {
                             ])->post(env('URL_SYNC'), [
                                 'file' => json_encode($archivo)
                             ]);
-
+              return $response;              
             if ($response->successful()) {
                 Log::info('Sync process completed successfully.');
                 SyncUp::where('comprobacion', Session::get('hash_name'))->update(['edo' => 3]);
