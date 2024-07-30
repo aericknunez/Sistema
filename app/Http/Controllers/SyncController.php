@@ -27,7 +27,7 @@ class SyncController extends Controller
         }
 
         $data = json_decode($fileContent, true);
-
+        return  $data;
         // Comenzar una transacción
         DB::beginTransaction();
 
