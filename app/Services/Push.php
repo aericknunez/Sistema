@@ -170,7 +170,7 @@ class Push {
             $response = Http::withHeaders([
                                 'Accept' => 'application/json',
                                 'Content-Type' => 'application/json'
-                            ])->post('http://sistema.test/api/process-sync', [
+                            ])->post(env('URL_SYNC'), [
                                 'file' => json_encode($archivo)
                             ]);
 
