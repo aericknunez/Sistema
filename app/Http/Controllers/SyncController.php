@@ -22,9 +22,6 @@ class SyncController extends Controller
             return response()->json(['message' => 'Error en Contenido de archivo'], 400);
         }
         
-        if (!$this->isValidJson($fileContent)) {
-            return response()->json(['message' => 'No es un Json Valido'], 400);
-        }
         return  $fileContent;
         
         $data = json_decode($fileContent, true);
