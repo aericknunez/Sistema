@@ -22,8 +22,6 @@ class SyncController extends Controller
             return response()->json(['message' => 'Error en Contenido de archivo'], 400);
         }
         
-        return  $fileContent;
-        
         $data = json_decode($fileContent, true);
         // Comenzar una transacción
         DB::beginTransaction();
