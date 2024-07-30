@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 ini_set('memory_limit', 9999999999);
 
+use App\Models\SyncLastUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +48,7 @@ class SyncController extends Controller
                     DB::table($item['table'])->insert($item['values']);
                 }
             }
-
+            SyncLastUpdate::create(['last_update' => now()]);
             // Reactivar las comprobaciones de claves foráneas
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
