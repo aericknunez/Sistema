@@ -11,6 +11,7 @@ class SyncController extends Controller
 {
     public function processSync(Request $request)
     {
+        return $request->file;
         // Validar la entrada
         $request->validate([
             'file' => 'required|json'
