@@ -15,12 +15,17 @@ class SyncController extends Controller
         $request->validate([
             'file' => 'required|json'
         ]);
-        Log::info('Processing sync request.');
 
         $fileContent = $request->input('file');
-        Log::info('File content received: ' . $fileContent);
 
-        if ($fileContent && $this->isValidJson($fileContent)) {
+        if (!$fileContent && $this->isValidJson($fileContent)) {
+            return response()->json(['message' => 'Error en Contenido de archivo'], 400);
+        }
+
+        if (!$this->isValidJson($fileContent)) {
+            return response()->json(['message' => 'No es un Json Valido'], 400);
+        }
+
             $data = json_decode($fileContent, true);
             Log::info('Decoded JSON data: ', $data);
 
@@ -61,10 +66,6 @@ class SyncController extends Controller
             DB::rollBack();
             return response()->json(['error' => 'No se proceso la transaccion remota.', 'message' => $e->getMessage()], 500);
         }
-        return response()->json(['error' => 'Error en el archivo'], 500);
-
-
-    }
 
     }
 }
