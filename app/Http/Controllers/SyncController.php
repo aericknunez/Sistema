@@ -50,11 +50,11 @@ class SyncController extends Controller
             // Confirmar la transacción
             DB::commit();
 
-            return response()->json(['message' => 'Sync process completed successfully.'], 200);
+            return response()->json(['message' => 'Transaccion remota exitosa.'], 200);
         } catch (\Exception $e) {
             // Revertir la transacción en caso de error
             DB::rollBack();
-            return response()->json(['error' => 'Sync process failed.', 'message' => $e->getMessage()], 500);
+            return response()->json(['error' => 'No se proceso la transaccion remota.', 'message' => $e->getMessage()], 500);
         }
     }
 }
