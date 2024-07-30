@@ -5,6 +5,7 @@ ini_set('memory_limit', 9999999999);
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SyncController extends Controller
 {
@@ -14,13 +15,14 @@ class SyncController extends Controller
         $request->validate([
             'file' => 'required|json'
         ]);
+        Log::info('Processing sync request.');
 
-        $file = $request->input('file');
-        
-        if ($file) {
-        // Obtener el archivo
-        $content = file_get_contents($file->getRealPath());
-        $data = json_decode($content, true);
+        $fileContent = $request->input('file');
+        Log::info('File content received: ' . $fileContent);
+
+        if ($fileContent && $this->isValidJson($fileContent)) {
+            $data = json_decode($fileContent, true);
+            Log::info('Decoded JSON data: ', $data);
 
         // Comenzar una transacción
         DB::beginTransaction();
