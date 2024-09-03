@@ -10,7 +10,7 @@
           <form wire:submit.prevent="btnCambiarCantidad">
             <div class="form-group green-border-focus">
               <div class="h4 font-bold" for="cantidadproducto">Cantidad Actual: {{ $cantidadActual }}</div>
-              <input type="number" class="form-control" id="cantidadproducto" wire:model="cantidadproducto">
+              <input type="number" class="form-control" id="cantidadproducto" min="1" wire:model="cantidadproducto">
               <div class="h4 font-bold" >Resultado: 
                 @if ($cantidadproducto)
                   {{ $cantidadproducto + $cantidadActual }}
