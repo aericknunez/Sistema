@@ -22,7 +22,14 @@ trait DatosEspeciales{
             ->where('edo', 1)
             ->orderBy('num_fact')
             ->with('subOpcion')->get();
-        } else {
+
+        } elseif($orden->edo == 0){
+            $detalles['productos'] = TicketProducto::where('orden', $detalles['orden']['id'])
+            ->where('edo', 2)
+            ->orderBy('num_fact')
+            ->with('subOpcion')->get();
+
+        }else {
             $detalles['productos'] = TicketProducto::where('orden', $detalles['orden']['id'])
             ->where('edo', 1)
             ->orderBy('num_fact')

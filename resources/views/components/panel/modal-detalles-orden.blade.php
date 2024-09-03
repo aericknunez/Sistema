@@ -71,6 +71,9 @@
                       
                         </table>
                       </div>
+                      @if ($factura->edo == 2)
+                      {{ mensajex('ESTA FACTURA HA SIDO ELIMINADA', 'danger') }}
+                      @endif 
 
                     @endif
                 </div>
