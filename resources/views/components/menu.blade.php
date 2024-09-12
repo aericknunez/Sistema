@@ -110,6 +110,9 @@
     @can('historial.ventas')
     <li><a href="{{ route('historial.ventas') }}" class="waves-effect"><i class="fas fa-history"></i> Ventas</a></li>
     @endcan
+    @can('historial.ventas')
+    <li><a href="{{ route('historial.especial') }}" class="waves-effect"><i class="fas fa-history"></i> Ventas Especiales</a></li>
+    @endcan
     @can('historial.gastos')
     <li><a href="{{ route('historial.gastos') }}" class="waves-effect"><i class="fas fa-history"></i> Gastos</a></li>
     @endcan

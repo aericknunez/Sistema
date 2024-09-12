@@ -182,6 +182,29 @@ trait Historial {
                                 ->get();
     }
 
+    public function especialUnica($fecha){
+        return TicketProductosSave::select('cod','cantidad', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta')
+                                              ->addSelect(['usuario' => User::select('name')
+                                                ->whereColumn('id', 'usuario')])
+                                              ->where('edo', 1)
+                                              ->where('pv', 0)
+                                              ->whereDate('created_at', $fecha)
+                                              ->orderBy('id', 'desc')
+                                              ->get();
+    }
+
+
+    public function especialMultiple($fecha1, $fecha2){
+        return TicketProductosSave::select('cod', 'cantidad', 'producto','pv','total', 'num_fact', 'orden', 'tipo_venta')
+                                            ->addSelect(['usuario' => User::select('name')
+                                                ->whereColumn('id', 'usuario')])
+                                            ->where('edo', 1)
+                                            ->where('pv', 0)
+                                            ->whereBetween('created_at', [$fecha1, $fecha2])
+                                            ->orderBy('id', 'desc')
+                                            ->get();
+    }
+
 
     
 
