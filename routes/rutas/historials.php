@@ -14,6 +14,10 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/ventas', funct
     return view('historial.ventas');
 })->name('historial.ventas');
 
+Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/especial', function () {
+    return view('historial.especial');
+})->name('historial.especial');
+
 Route::middleware(['auth:sanctum', 'sessiones'])->get('/historial/gastos', function () {
     return view('historial.gastos');
 })->name('historial.gastos');
