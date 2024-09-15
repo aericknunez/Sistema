@@ -148,7 +148,6 @@ class Control extends Component
         $this->datos['propina_no_efectivo'] = $this->propinaNoEfectivo(date('Y-m-d'));
         $this->datos['gastos'] = $this->gastosEfectivo(date('Y-m-d'));
         $this->datos['remesas'] = $this->remesas(date('Y-m-d'));
-        $this->datos['cantidadPollos'] = $this->cantidadPollos(date('Y-m-d'));
         
     }
 

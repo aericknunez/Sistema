@@ -10,6 +10,7 @@ use App\System\Historial\HistorialTotales;
 use App\System\Inventario\ContarProductoVendido;
 use Livewire\Component;
 use Carbon\Carbon;
+use App\Models\TicketProductosSave;
 
 
 class Resumen extends Component
@@ -30,6 +31,7 @@ class Resumen extends Component
     public $noOrdenes;
     public $promedioPollo = 0;
     public $cantidadPollos = 0;
+    public $totalPollos = 0;
     public $cortesAbiertos;
     public $lastUpdate;
 
@@ -132,6 +134,44 @@ class Resumen extends Component
         } else {
             $this->promedioPollo = 0;
         }
+    }
+
+    public function cantidadPollos(){
+        $fecha = date('Y-m-d');
+        $piezas = TicketProductosSave::whereDate('created_at', $fecha)
+            ->whereIn('cod', [1002, 1003, 1004, 1009, 1010, 1056, 1012])
+            ->sum('cantidad');
+
+        $piezasCombo2 = (TicketProductosSave:: where('cod', 1011)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad')) * 2;
+        
+        $piezasCombo4 = (TicketProductosSave:: where('cod', 1013)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad')) * 3;
+
+        $piezasCombo5 = (TicketProductosSave:: where('cod', 1014)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad')) * 4;
+
+        $piezasCombo6 = (TicketProductosSave:: where('cod', 1015)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad')) * 8;
+
+        $totalPiezas = $piezas + $piezasCombo2 + $piezasCombo4 + $piezasCombo5 + $piezasCombo6;
+
+        $medioPollo = TicketProductosSave:: where('cod', 1001)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad');
+        
+        $polloEntero = TicketProductosSave:: where('cod', 1060)
+                    ->whereDate('created_at', $fecha)
+                    ->sum('cantidad'); 
+                    
+        $sumaPollos = ($totalPiezas / 8) + ($medioPollo / 2) + $polloEntero;
+
+        $this->totalPollos = $sumaPollos;
+
     }
 
 
