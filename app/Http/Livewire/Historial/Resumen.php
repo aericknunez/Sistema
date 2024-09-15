@@ -44,6 +44,7 @@ class Resumen extends Component
         $this->getAllData();
         $this->getTotalEfectivoCajas();
         $this->PromedioDePollo();
+        $this->cantidadPollos();
     }
 
 
