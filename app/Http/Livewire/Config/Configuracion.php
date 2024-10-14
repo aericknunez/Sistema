@@ -41,6 +41,7 @@ class Configuracion extends Component
             $propina,
             $envio,
             $pais, 
+            $tipo_servicio,
             $logo;
 
     /// config principal model
@@ -145,6 +146,7 @@ class Configuracion extends Component
         $this->propina = $this->datos['propina'];
         $this->envio = $this->datos['envio'];
         $this->pais = $this->datos['pais'];
+        $this->tipo_servicio = $this->datos['tipo_servicio'];
     }
 
 
@@ -183,6 +185,7 @@ class Configuracion extends Component
                 'propina' => $this->propina,
                 'envio' => $this->envio,
                 'pais' => $this->pais,
+                'tipo_servicio' => $this->tipo_servicio,
                 'clave' => Helpers::hashId(),
                 'tiempo' => Helpers::timeId(),
                 'td' => session('sistema.td')]);
