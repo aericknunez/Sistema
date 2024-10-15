@@ -363,6 +363,7 @@ public function getDeliveryData(){ // crea la variables del delivery
     public function cuotaEnvio(){
         $cantidad = TicketProducto::where('orden', session('orden'))
                                     ->where('cod', 9999)
+                                    ->where('imprimir', '!=', 4)
                                     ->count();
 
         if ($cantidad == 0) {
