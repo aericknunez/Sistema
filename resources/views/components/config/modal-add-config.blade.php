@@ -17,7 +17,7 @@
     
     
             <div class="md-form my-0">
-                <input type="text" id="cliente" class="form-control" wire:model.defer="cliente" placeholder="Cliente">
+                <input type="text" id="cliente" class="form-control" wire:model.defer="cliente" placeholder="Cliente" title="Cliente">
                 @error('cliente')
                         <span class="text-danger">{{$message}}</span>
                  @enderror
@@ -28,7 +28,7 @@
                 <div class="form-row  my-0">
                     <div class="col">
                         <div class="md-form">
-                            <input type="text" id="slogan" class="form-control" wire:model.defer="slogan" placeholder="Slogan">
+                            <input type="text" id="slogan" class="form-control" wire:model.defer="slogan" placeholder="Eslogan" title="Eslogan">
                         </div>
                         @error('slogan')
                             <span class="text-danger">{{$message}}</span>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col">
                         <div class="md-form">
-                            <input type="text" id="telefono" class="form-control" wire:model.defer="telefono" placeholder="Telefono">
+                            <input type="text" id="telefono" class="form-control" wire:model.defer="telefono" placeholder="Teléfono" title="Teléfono">
                         </div>
                         @error('telefono')
                             <span class="text-danger">{{$message}}</span>
@@ -45,7 +45,7 @@
                 </div>
     
                 <div class="md-form my-0">
-                    <input type="text" id="direccion" class="form-control" wire:model.defer="direccion" placeholder="Direccion">
+                    <input type="text" id="direccion" class="form-control" wire:model.defer="direccion" placeholder="Dirección" title="Dirección">
                     @error('direccion')
                             <span class="text-danger">{{$message}}</span>
                      @enderror
@@ -53,13 +53,13 @@
     
     
                 <div class="md-form my-0">
-                    <input type="email" id="email" class="form-control" wire:model.defer="email" placeholder="Email">
+                    <input type="email" id="email" class="form-control" wire:model.defer="email" placeholder="Email" title="Email">
                 </div>
 
 
     
                 <div class="md-form my-0">
-                    <input type="text" id="propietario" class="form-control" wire:model.defer="propietario" placeholder="Propietario">
+                    <input type="text" id="propietario" class="form-control" wire:model.defer="propietario" placeholder="Propietario" title="Propietario">
                 </div>
 
     
@@ -80,12 +80,12 @@
     <div class="form-row my-0">
         <div class="col">
             <div class="md-form my-0">
-                <input type="number" step="any" id="imp" class="form-control" wire:model.defer="imp" placeholder="Impuesto">
+                <input type="number" step="any" id="imp" class="form-control" wire:model.defer="imp" placeholder="Impuesto" title="Impuesto">
             </div>
         </div>
         <div class="col">
             <div class="md-form my-0">
-                <input type="text" id="nit" class="form-control" wire:model.defer="nit" placeholder="NIIT">
+                <input type="text" id="nit" class="form-control" wire:model.defer="nit" placeholder="NIT" title="NIT">
             </div>
         </div>
     </div>
@@ -94,12 +94,12 @@
     <div class="form-row my-0">
         <div class="col">
             <div class="md-form my-0">
-                <input type="text" id="propina" class="form-control" wire:model.defer="propina" placeholder="Propina">
+                <input type="text" id="propina" class="form-control" wire:model.defer="propina" placeholder="Propina" title="Propina">
             </div>
         </div>
         <div class="col">
             <div class="md-form my-0">
-                <input type="text" id="giro" class="form-control" wire:model.defer="giro" placeholder="Giro">
+                <input type="text" id="giro" class="form-control" wire:model.defer="giro" placeholder="Giro" title="Giro">
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
     <div class="form-row my-0">
         <div class="col">
             <div class="md-form my-0">
-                <input type="number" step="any" id="envio" class="form-control" wire:model.defer="envio" placeholder="Envio">
+                <input type="number" step="any" id="envio" class="form-control" wire:model.defer="envio" placeholder="Envio" title="Envio">
             </div>
         </div>
         <div class="col">
@@ -118,6 +118,18 @@
                     <option value="3">Guatemala</option>
                 </select>
 
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row my-0">
+        <div class="col">
+            <div class="md-form mt-0 mb-2">
+                <select class="browser-default custom-select pr-2" wire:model.defer="tipo_servicio" title="Tipo venta">
+                    <option selected value="1">Venta Rápida</option>
+                    <option value="2">Ventas en Mesa</option>
+                </select>
+    
             </div>
         </div>
     </div>

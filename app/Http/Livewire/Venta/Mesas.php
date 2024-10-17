@@ -52,6 +52,7 @@ class Mesas extends Component
             session(['clientes' => $ordenx->clientes]);
 
             session(['orden' => $orden]);
+            session(['config_tipo_servicio' => 2]);
             return redirect()->route('venta.rapida');
         } else {
             $this->emit('noorden');
@@ -76,7 +77,7 @@ class Mesas extends Component
         session(['clientes' => $this->clientes]);
         session()->forget('orden');
         session(['mesa_nombre_temp' => $this->mesaNombre]);
-
+        session(['config_tipo_servicio' => 2]);
         return redirect()->route('venta.rapida'); // redireccionno a la venta rapida
     }
 
