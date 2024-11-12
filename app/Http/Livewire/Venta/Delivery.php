@@ -99,7 +99,7 @@ class Delivery extends Component
         session(['client_select' => $client->cliente_id]);
         $this->getDeliveryData();
         session()->forget('client_select');
-
+        session(['config_tipo_servicio' => 3]);
         return redirect()->route('venta.rapida');
     }
 
@@ -117,6 +117,7 @@ class Delivery extends Component
         session()->forget('orden');
 
         $this->getDeliveryData();
+        session(['config_tipo_servicio' => 3]);
         return redirect()->route('venta.rapida'); // redireccionno a la venta rapida
     }
 

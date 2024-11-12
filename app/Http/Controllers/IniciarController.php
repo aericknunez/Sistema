@@ -126,8 +126,13 @@ class IniciarController extends Controller
                                 
             if ($caja) {
                 session(['caja_select' => $caja->numero_caja]);
-            }                  
-            return redirect()->route('venta.rapida');
+            }
+            if (session('config_tipo_servicio') == 1){
+                return redirect()->route('venta.rapida');
+            } else{
+                return redirect()->route('venta.mesas');
+            }               
+            
         } else {
             return redirect()->route('caja.select');
         }
