@@ -84,4 +84,14 @@ Route::middleware(['auth:sanctum', 'sessiones'])->get('/cambios', function () {
 })->name('venta.cambios');
 
 
+Route::get('/status', function () {
+    return response()->json([
+        'active' => true,
+        'env' => config('app.env'),
+        'debug' => config('app.debug'),
+        'url' => config('app.url'),
+        'ip' => request()->ip(),
+        'timestamp' => now()->toDateTimeString(),
+    ]);
+});
 
