@@ -63,6 +63,7 @@ class Delivery extends Component
             $this->busqueda = Cliente::where('nombre', '!=', NULL)
                     ->where('nombre', 'LIKE', '%'.$this->search.'%')
                     ->orWhere('telefono', 'LIKE', '%'.$this->search.'%')
+                    ->limit(10)
                     ->get();
         }
 
