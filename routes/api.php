@@ -34,3 +34,12 @@ Route::get('/impresiones/cantidad', [RemotePrintController::class, 'contador'])
 ->name('impresiones.cantidad');
 
 Route::post('/process-sync', [SyncController::class, 'processSync']);
+
+// TEMPORAL: endpoint sin proteccion para consultar la ultima venta. Eliminar despues de usar.
+Route::get('/ultima-venta', function () {
+    $venta = \App\Models\TicketNum::where('edo', 1)->latest('id')->first();
+
+    return response()->json([
+        'ultima_venta' => $venta ? $venta->created_at->toDateTimeString() : null,
+    ]);
+});
