@@ -71,7 +71,7 @@ class Index extends Component
 
     public function destroy($id)
     {
-        Producto::find($id)->delete();
+        Producto::destroy($id);
         OrderImg::where('tipo_img', 1)->where('imagen', $id)->delete();
 
         $this->CrearIconos(); // crea los iconos despues de guardar
@@ -135,7 +135,7 @@ class Index extends Component
     }
 
     public function delOpcion($iden){
-        OpcionesProducto::find($iden)->delete();
+        OpcionesProducto::destroy($iden);
         $this->updateOpcionesActive();
         $this->getOpcionesProducto();
         $this->mensajeModificado();

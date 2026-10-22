@@ -18,7 +18,7 @@ trait Ventas{
 
     public function agregarOrden(){
         $orden = TicketOrden::create([
-            'clientes' => session('clientes'), // Numero de clientes
+            'clientes' => session('clientes') ?: 1, // Numero de clientes
             'tipo_servicio' => session('config_tipo_servicio'),
             'empleado' => session('config_usuario_id'), //usuario
             'llevar_aqui' => session('llevar_aqui'),
@@ -50,6 +50,9 @@ trait Ventas{
     public function agregarProducto($cod){
 
     $producto = Producto::where('cod', $cod)->first();
+    if (!$producto) {
+        return FALSE;
+    }
 
     if (session('venta_especial_active')) {
         $stotal = 0;
@@ -177,16 +180,33 @@ public function getProductosModal($producto){ // obtiene los detalles de los pro
 }
 
 
-public function getUltimaFacturaNumber(){
+public function getUltimaFacturaNumber(){ // dentro de una transaccion bloquea hasta terminar para no repetir numero
     return TicketNum::select('factura')
                         ->where('tipo_venta', session('impresion_seleccionado'))
                         ->orderBy('factura', 'desc')
+                        ->lockForUpdate()
                         ->first();
+}
+
+public function hayProductosPorCobrar($cliente = NULL){ // productos activos de la orden aun sin factura
+    return TicketProducto::where('orden', session('orden'))
+                            ->whereNull('num_fact')
+                            ->where('edo', 1)
+                            ->when($cliente, fn($query) => $query->where('cliente', $cliente))
+                            ->exists();
 }
 
 
 public function getLlevarAqui(){
     return TicketOrden::select('llevar_aqui')->where('id', session('orden'))->first();
+}
+
+public function limpiarOrdenInactiva(){ // quita la orden de la sesion si ya fue cobrada, eliminada o no existe
+    if (session('orden') and !TicketOrden::where('id', session('orden'))->where('edo', 1)->exists()) {
+        session()->forget('orden');
+        return TRUE;
+    }
+    return FALSE;
 }
 
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender
@@ -311,6 +331,9 @@ public function addDeliveryData(){
 public function getDeliveryData(){ // crea la variables del delivery
 
     $cliente = Cliente::where('id', session('client_select'))->first();
+    if (!$cliente) { // cliente eliminado o sin cliente asignado
+        return;
+    }
 
             session(['delivery_nombre' => $cliente->nombre]);
             session(['delivery_direccion' => $cliente->direccion]);
@@ -348,6 +371,9 @@ public function getDeliveryData(){ // crea la variables del delivery
 
     public function clientSessionFactura($clientex){ // obtiene las variables para la factura
         $cliente = Cliente::where('id', $clientex)->first();
+        if (!$cliente) {
+            return;
+        }
 
         session(['client_id' => $clientex]);
         session(['factura_documento' => $cliente->documento]);
@@ -538,6 +564,9 @@ public function getDeliveryData(){ // crea la variables del delivery
                                     ->sum('total');
                                 
         $totalVenta = $totalFacturado + $totalNoFacturado;
+        if ($totalVenta == 0) { // sin ventas del dia (en PHP 8 dividir entre 0 lanza error)
+            return "0/0";
+        }
         @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
         @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
         return $pFacturado . "/" . $pNoFacturado;
@@ -582,6 +611,9 @@ public function getDeliveryData(){ // crea la variables del delivery
     }
 
     private function calculaDescuentoCantidad($cantidad, $descuento){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        if ($cantidad == 0) {
+            return 0;
+        }
         $num = $descuento * 100;
         return $num / $cantidad; // retorna porcentaje
     }

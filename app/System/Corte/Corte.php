@@ -27,6 +27,9 @@ trait Corte{
                             ->where('edo', 1)
                             ->orderBy('tiempo', 'desc')
                             ->first();
+        if (!$corte) { // no hay caja abierta (corte ya realizado, p. ej. doble clic)
+            return FALSE;
+        }
 
                     CorteDeCaja::where('clave', $corte->clave)
                                 ->where('usuario', session('config_usuario_id'))
@@ -73,7 +76,15 @@ trait Corte{
                             ->where('edo', 1)
                             ->orderBy('tiempo', 'desc')
                             ->first();
-        return $corte->aperturaT;
+        return $corte ? $corte->aperturaT : NULL; // NULL si no hay caja abierta, los rangos quedan vacios
+    }
+
+    public function sinCajaAbierta(){ // evita registrar movimientos que no quedarian en ningun corte
+        if ($this->inicioCorte(session('config_usuario_id')) === NULL) {
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Debe aperturar caja para registrar movimientos de efectivo']);
+            return TRUE;
+        }
+        return FALSE;
     }
 
 
@@ -248,10 +259,13 @@ trait Corte{
     public function getDatosCorte($iden){
         $detalles = [];
         $detalles = CorteDeCaja::where('id', $iden)->first();
-                
+        if (!$detalles) {
+            return [];
+        }
+
         $usr = User::select('name')->where('id', $detalles->usuario_corte)
                                    ->first();
-        $detalles->cajero = $usr->name;
+        $detalles->cajero = optional($usr)->name; // el usuario pudo ser eliminado
 
         return $detalles;
     }

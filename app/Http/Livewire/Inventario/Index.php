@@ -123,6 +123,11 @@ class Index extends Component
     public function btnSumas(){
 
         $pro = Inventario::where('id', $this->proSelected)->first();
+        if (!$pro) { // el producto pudo ser eliminado
+            $this->reset(['proSelected', 'cantSumas']);
+            return;
+        }
+        $this->validate(['cantSumas' => 'nullable|numeric']);
         
         if ($this->cantSumas) {
             
@@ -164,6 +169,11 @@ class Index extends Component
     public function btnRestas(){
         
         $pro = Inventario::where('id', $this->proSelected)->first();
+        if (!$pro) { // el producto pudo ser eliminado
+            $this->reset(['proSelected', 'cantRestas']);
+            return;
+        }
+        $this->validate(['cantRestas' => 'nullable|numeric']);
         
         if ($this->cantRestas) {
             if ($pro->update(['cantidad' => $pro->cantidad - $this->cantRestas, 'tiempo' => Helpers::timeId()])) {
@@ -220,7 +230,7 @@ class Index extends Component
             ['titulo' => 'Errorr!', 
             'texto' => 'No puede eliminar este elemento por que tiene productos dependientes']);
         } else {
-            Inventario::find($iden)->delete();
+            Inventario::destroy($iden);
             InvHistorial::where('producto', $iden)->delete();
             $this->dispatchBrowserEvent('mensaje', 
             ['titulo' => 'Realizado', 

@@ -29,7 +29,7 @@ class Index extends Component
 
 
     protected $rules = [
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
     public function mount(){
@@ -46,7 +46,11 @@ class Index extends Component
     public function btnCorte(){
 
         $this->validate();
-        $this->realizaCorte($this->cajero, $this->cantidad);
+        if ($this->realizaCorte($this->cajero, $this->cantidad) === FALSE) {
+            $this->emit('sincaja'); // manda el mensaje de error sin caja abierta
+            $this->verCorte();
+            return;
+        }
 
         $this->obtenerDatosCorte();
         $this->verCorte();
@@ -83,10 +87,15 @@ class Index extends Component
                                         ->where('edo', 2)
                                         ->orderBy('id', 'desc')
                                         ->first();
-                    
+            if (!$this->datos) { // este usuario aun no tiene cortes realizados
+                $this->datos = [];
+                $this->primerCorte = false;
+                return;
+            }
+
             $usr = User::select('name')->where('id', $this->datos->usuario_corte)
                                        ->first();
-            $this->datos->cajero = $usr->name;
+            $this->datos->cajero = optional($usr)->name;
         }
     }
 

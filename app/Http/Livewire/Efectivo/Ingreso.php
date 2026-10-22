@@ -27,7 +27,7 @@ class Ingreso extends Component
 
     protected $rules = [
         'descripcion' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
 
@@ -56,6 +56,7 @@ class Ingreso extends Component
 
     public function btnEntrada(){
 
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EntradasSalidas::create([

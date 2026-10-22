@@ -59,7 +59,7 @@ class PorCobrar extends Component
 
 
     public function destroy($id){
-        CuentasPorCobrar::find($id)->delete();
+        CuentasPorCobrar::destroy($id);
         $this->dispatchBrowserEvent('mensaje', 
                                     ['clase' => 'success', 
                                     'titulo' => 'Realizado', 
@@ -95,7 +95,7 @@ class PorCobrar extends Component
     
     public function btnAddAbono(){
 
-        $this->validate(['cAbono' => 'required']);
+        $this->validate(['cAbono' => 'required|numeric']);
         
         if ($this->validarAbono($this->selectCuenta['saldo'], $this->cAbono)) {
 

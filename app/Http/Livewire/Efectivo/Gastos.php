@@ -28,7 +28,7 @@ class Gastos extends Component
     protected $rules = [
         'nombre' => 'required',
         'descripcion' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
 
@@ -117,6 +117,7 @@ class Gastos extends Component
 
     public function btnGasto(){
         
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EfectivoGastos::create([

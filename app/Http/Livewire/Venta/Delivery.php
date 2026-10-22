@@ -97,9 +97,11 @@ class Delivery extends Component
         $client = TicketDelivery::select('cliente_id')
                         ->where('orden_id', session('orden'))->first();
         
-        session(['client_select' => $client->cliente_id]);
-        $this->getDeliveryData();
-        session()->forget('client_select');
+        if ($client) { // la orden puede no tener datos de delivery
+            session(['client_select' => $client->cliente_id]);
+            $this->getDeliveryData();
+            session()->forget('client_select');
+        }
         session(['config_tipo_servicio' => 3]);
         return redirect()->route('venta.rapida');
     }
@@ -169,7 +171,7 @@ class Delivery extends Component
 
     //// botones de accion
     public function btnChangeClient($delivery, $cliente){
-        TicketDelivery::find($delivery)->update(['cliente_id' => $cliente, 'tiempo' => Helpers::timeId()]);
+        TicketDelivery::where('id', $delivery)->update(['cliente_id' => $cliente, 'tiempo' => Helpers::timeId()]);
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalCambiarCliente']);
         $this->emit('cambiado');
         $this->obtenerOrdenes();

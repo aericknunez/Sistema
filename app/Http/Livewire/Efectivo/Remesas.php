@@ -24,7 +24,7 @@ class Remesas extends Component
     protected $rules = [
         'nombre' => 'required',
         'descripcion' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
 
@@ -53,6 +53,7 @@ class Remesas extends Component
 
     public function btnRemesa(){
         
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EfectivoRemesas::create([

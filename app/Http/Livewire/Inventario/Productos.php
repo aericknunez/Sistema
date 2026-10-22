@@ -67,7 +67,7 @@ class Productos extends Component
         $this->validate([
             'producto' => 'required',
             'idProd' => 'required',
-            'relacion' => 'required'
+            'relacion' => 'required|numeric|gt:0'
         ]);
 
         InvDependiente::updateOrCreate(
@@ -103,7 +103,7 @@ class Productos extends Component
 
     public function destroy($id)
     {
-        InvDependiente::find($id)->delete();
+        InvDependiente::destroy($id);
         InvAsignado::where('dependiente', $id)->delete();
         if (InvAsignado::count() > 0) {
             session(['invDesc' => true]);
