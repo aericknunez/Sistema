@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\IniciarController;
-use App\Http\Controllers\OptimizeController;
-use App\Http\Controllers\RestablecerTdController;
-use App\Http\Controllers\SetLatamController;
 use App\Models\ConfigPrivate;
 use Illuminate\Support\Facades\Route;
 
@@ -29,19 +26,20 @@ Route::get('/iniciar', [IniciarController::class, 'iniciar'])
 ->name('iniciar');
 
 
-Route::get('/set-td/{td?}', RestablecerTdController::class)
-->middleware(['guest'])
-->name('set-td');
+// Inhabilitadas: rutas publicas (guest) que no se usaran
+// Route::get('/set-td/{td?}', \App\Http\Controllers\RestablecerTdController::class)
+// ->middleware(['guest'])
+// ->name('set-td');
 
 
-Route::get('/set-latam', SetLatamController::class)
-->middleware(['guest'])
-->name('set-latam');
+// Route::get('/set-latam', \App\Http\Controllers\SetLatamController::class)
+// ->middleware(['guest'])
+// ->name('set-latam');
 
 
-Route::get('/optimize', OptimizeController::class)
-->middleware(['guest'])
-->name('optimize');
+// Route::get('/optimize', \App\Http\Controllers\OptimizeController::class)
+// ->middleware(['guest'])
+// ->name('optimize');
 
 
 
