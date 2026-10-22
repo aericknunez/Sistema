@@ -121,4 +121,6 @@
     </div>
 </div>
 
+<x-aviso-nueva-version />
+
 </x-principal-login>

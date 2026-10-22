@@ -22,6 +22,10 @@ Route::middleware(['guest'])->get('/ingreso', function () {
     return view('login');
 })->name('ingreso');
 
+Route::get('/nueva-version', function () {
+    return view('nueva-version');
+})->name('nueva-version');
+
 
 
 Route::get('/iniciar', [IniciarController::class, 'iniciar'])

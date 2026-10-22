@@ -52,6 +52,8 @@
 
 </main>
 
+<x-aviso-nueva-version />
+
 @livewireScripts
 {{-- Scripts necesarios para el sistema que se van para footer --}}
 <script src="{{ asset('js/app.js') }}"></script>
