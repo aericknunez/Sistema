@@ -19,27 +19,27 @@
 
 <style>
     .anv-aviso { position: fixed; right: 20px; bottom: 20px; z-index: 1060; width: 340px; max-width: calc(100vw - 32px);
-        background: #0f172a; color: #e2e8f0; border-radius: 14px; padding: 18px 18px 16px; text-align: left;
-        box-shadow: 0 18px 40px rgba(15, 23, 42, .35); border: 1px solid rgba(148, 163, 184, .18);
+        background: linear-gradient(160deg, #241030, #3a1747); color: #f3e6ee; border-radius: 14px; padding: 18px 18px 16px; text-align: left;
+        box-shadow: 0 24px 50px -16px rgba(22, 10, 28, .7); border: 1px solid rgba(255, 255, 255, .14);
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         animation: anv-entrar .5s ease-out both; }
-    .anv-cerrar { position: absolute; top: 8px; right: 10px; background: none; border: 0; color: #94a3b8;
+    .anv-cerrar { position: absolute; top: 8px; right: 10px; background: none; border: 0; color: #c9b5c3;
         font-size: 22px; line-height: 1; cursor: pointer; padding: 2px 6px; }
     .anv-cerrar:hover { color: #fff; }
     .anv-etiqueta { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700;
-        letter-spacing: .06em; text-transform: uppercase; color: #fbbf24; margin-bottom: 8px; }
-    .anv-punto { width: 7px; height: 7px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 0 0 rgba(251, 191, 36, .6);
+        letter-spacing: .06em; text-transform: uppercase; color: #ffb547; margin-bottom: 8px; }
+    .anv-punto { width: 7px; height: 7px; border-radius: 50%; background: #ffb547; box-shadow: 0 0 0 0 rgba(255, 181, 71, .6);
         animation: anv-pulso 1.8s infinite; }
     .anv-titulo { font-size: 16px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 6px; padding-right: 16px; }
-    .anv-texto { font-size: 13px; line-height: 1.5; color: #cbd5e1; margin: 0 0 14px; }
+    .anv-texto { font-size: 13px; line-height: 1.5; color: #e4d3de; margin: 0 0 14px; }
     .anv-texto strong { color: #fff; }
-    .anv-boton { display: block; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: #fff !important;
-        font-weight: 600; font-size: 14px; padding: 10px 14px; border-radius: 9px; text-decoration: none !important;
+    .anv-boton { display: block; text-align: center; background: linear-gradient(135deg, #ff8a5c, #f2542d 55%, #d93a16); color: #fff !important;
+        font-weight: 600; font-size: 14px; padding: 10px 14px; border-radius: 999px; text-decoration: none !important;
         transition: transform .15s, box-shadow .15s; }
-    .anv-boton:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(16, 185, 129, .35); }
-    .anv-contacto { font-size: 12px; color: #94a3b8; margin: 10px 0 0; text-align: center; line-height: 1.4; }
-    .anv-contacto a { color: #34d399 !important; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .anv-boton:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(242, 84, 45, .7); }
+    .anv-contacto { font-size: 12px; color: #c9b5c3; margin: 10px 0 0; text-align: center; line-height: 1.4; }
+    .anv-contacto a { color: #ffb547 !important; font-weight: 600; text-decoration: none; white-space: nowrap; }
     @keyframes anv-entrar { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-    @keyframes anv-pulso { 70% { box-shadow: 0 0 0 7px rgba(251, 191, 36, 0); } 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); } }
+    @keyframes anv-pulso { 70% { box-shadow: 0 0 0 7px rgba(255, 181, 71, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 181, 71, 0); } }
     @media (max-width: 576px) { .anv-aviso { right: 16px; left: 16px; bottom: 56px; width: auto; } }
 </style>
