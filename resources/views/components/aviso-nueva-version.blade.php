@@ -1,4 +1,3 @@
-@php try { $anvLatam = isLatam(); } catch (\Throwable $e) { $anvLatam = false; } @endphp
 <div id="anv-aviso" class="anv-aviso" role="dialog" aria-live="polite" aria-label="Nueva versión disponible">
     <button type="button" class="anv-cerrar" aria-label="Cerrar aviso"
         onclick="document.getElementById('anv-aviso').style.display='none'; try { sessionStorage.setItem('anv-oculto', '1'); } catch (e) {}">&times;</button>
@@ -20,13 +19,8 @@
 
 <style>
     .anv-aviso {
-        @if ($anvLatam)
-        --anv-noche-2: #0a2a14; --anv-noche-3: #0f4d1a; --anv-noche-rgb: 4, 20, 10; --anv-claro-0: #e8f6ea; --anv-claro-1: #cfe6d3; --anv-claro-2: #a9c8ae;
-        --anv-oro: #6dff5a; --anv-oro-rgb: 109, 255, 90; --anv-luz: #3fd957; --anv-boton: #12a826; --anv-boton-2: #0b7f1c; --anv-boton-rgb: 18, 168, 38;
-        @else
-        --anv-noche-2: #0a2240; --anv-noche-3: #0d3d70; --anv-noche-rgb: 4, 16, 31; --anv-claro-0: #e6f1fc; --anv-claro-1: #c9dcef; --anv-claro-2: #a3bdd6;
-        --anv-oro: #5ac8fa; --anv-oro-rgb: 90, 200, 250; --anv-luz: #4fb3ff; --anv-boton: #0a84ff; --anv-boton-2: #0066d6; --anv-boton-rgb: 10, 132, 255;
-        @endif
+        --anv-noche-2: #15181d; --anv-noche-3: #252a31; --anv-noche-rgb: 11, 13, 16; --anv-claro-0: #eef0f2; --anv-claro-1: #d0d5db; --anv-claro-2: #a9b0b8;
+        --anv-oro: #67e8f9; --anv-oro-rgb: 103, 232, 249; --anv-luz: #22b8d6; --anv-boton: #0e7490; --anv-boton-2: #0b5c73; --anv-boton-rgb: 14, 116, 144;
     }
     .anv-aviso { position: fixed; right: 20px; bottom: 20px; z-index: 1060; width: 340px; max-width: calc(100vw - 32px);
         background: linear-gradient(160deg, var(--anv-noche-2), var(--anv-noche-3)); color: var(--anv-claro-0); border-radius: 14px; padding: 18px 18px 16px; text-align: left;

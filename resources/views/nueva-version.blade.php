@@ -1,5 +1,4 @@
 @php
-    try { $latam = isLatam(); } catch (\Throwable $e) { $latam = false; }
     $mensajeWa = rawurlencode('Hola, quiero cambiarme a la nueva versión de mi sistema.');
     $whatsapp = 'https://wa.me/50374880240?text=' . $mensajeWa;
     $whatsappAlterno = 'https://wa.me/50366917170?text=' . $mensajeWa;
@@ -29,21 +28,12 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     <style>
         :root {
-            @if ($latam)
-            --noche: #04140a; --noche-2: #0a2a14; --ciruela: #0f4d1a; --noche-rgb: 10, 42, 20;
-            --ink: #0e1a10; --texto: #4b5a4e; --suave: #7b8a7e; --linea: #dcebdd; --fondo: #eef6ef; --crema: #f8fcf8; --papel: #ffffff;
-            --brasa: #12a826; --brasa-2: #0b7f1c; --brasa-3: #075c13; --coral: #3fd957; --brasa-rgb: 18, 168, 38;
-            --oro: #6dff5a; --oro-rgb: 109, 255, 90; --oro-claro: #c9ffc0; --menta: #1ad12f; --menta-rgb: 26, 209, 47;
-            --claro-0: #e8f6ea; --claro-1: #cfe6d3; --claro-2: #a9c8ae; --claro-3: #7f9f85;
-            --tinte-1: #e6f8e8; --tinte-2: #ccf0d1; --tinte-borde: #a8e2b0;
-            @else
-            --noche: #04101f; --noche-2: #0a2240; --ciruela: #0d3d70; --noche-rgb: 10, 34, 64;
-            --ink: #0d1b2a; --texto: #4a5b6d; --suave: #7a8a9b; --linea: #dce7f2; --fondo: #eef5fc; --crema: #f8fbff; --papel: #ffffff;
-            --brasa: #0a84ff; --brasa-2: #0066d6; --brasa-3: #004ea8; --coral: #4fb3ff; --brasa-rgb: 10, 132, 255;
-            --oro: #5ac8fa; --oro-rgb: 90, 200, 250; --oro-claro: #cdeeff; --menta: #2ec4a0; --menta-rgb: 46, 196, 160;
-            --claro-0: #e6f1fc; --claro-1: #c9dcef; --claro-2: #a3bdd6; --claro-3: #7d97b1;
-            --tinte-1: #e7f2ff; --tinte-2: #cfe5ff; --tinte-borde: #a9cff7;
-            @endif
+            --noche: #0b0d10; --noche-2: #15181d; --ciruela: #252a31; --noche-rgb: 21, 24, 29;
+            --ink: #111317; --texto: #565c64; --suave: #868d96; --linea: #e4e6e9; --fondo: #f4f5f6; --crema: #fbfbfc; --papel: #ffffff;
+            --brasa: #0e7490; --brasa-2: #0b5c73; --brasa-3: #083f50; --coral: #22b8d6; --brasa-rgb: 14, 116, 144;
+            --oro: #67e8f9; --oro-rgb: 103, 232, 249; --oro-claro: #cffafe; --menta: #22d3ee; --menta-rgb: 34, 211, 238;
+            --claro-0: #eef0f2; --claro-1: #d0d5db; --claro-2: #a9b0b8; --claro-3: #7d858f;
+            --tinte-1: #ecfafd; --tinte-2: #d3f3f9; --tinte-borde: #a5e1ec;
             --radio: 18px;
             --sombra: 0 24px 60px -24px rgba(var(--noche-rgb), .3);
             --salida: cubic-bezier(.16, 1, .3, 1);
