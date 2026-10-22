@@ -17,9 +17,9 @@
 |---|---|---|---|
 | 1. Seguridad crítica | 13 | 2 | 11 |
 | 2. Dinero / datos fiscales | 15 | 0 | 15 |
-| 3. Errores 500 | 3 | 0 | 3 |
+| 3. Errores 500 | 4 | 0 | 4 |
 | 4. Lógica media | 16 | 0 | 16 |
-| 5. Deuda técnica | 6 | 0 | 6 |
+| 5. Deuda técnica | 7 | 0 | 7 |
 
 ---
 
@@ -81,6 +81,7 @@
 | E1 | ⬜ | `app/System/Ventas/Ventas.php:541` `Porcentaje()` y otras divisiones | PHP 8: `@` no evita `DivisionByZeroError` (verificado). Pantalla de venta truena para td 10/11 sin ventas del día. También `propinaPorcentaje`, `Inventario/Productos.php:78` (`1 / relacion`), `PorcentajeDescuento`. Efectivo `"10,50"` → excepción. |
 | E2 | ⬜ | Varios | Accesos a null: `getAqui()`/`mount`/`detallesMesa()` con orden borrada; `agregarProducto`, `RestriccionInventario`, `ContarProductoVendido` con producto eliminado; `Corte/Index.php:89`; `Gastos`/`Remesas` → `inicioCorte()` sin caja; `Rango.php:41` con hueco; `Mesas`/`Delivery::ordenSelect`; `btnTipoPago`; `btnAddClient` sin orden; `IniciarController` sin moneda activa; `NombreUsuario`/`getDatosCorte` con usuario borrado; `IsPantallaSelect`; `find($id)->delete()` en Livewire. |
 | E3 | ⬜ | `app/Http/Middleware/Siapertura.php:20` | `redirect('venta.rapida')` usa nombre de ruta como URL → 404. |
+| E4 | ⬜ | `AddProducto.php:505` `asignarOrden()` → `Ventas.php:21` `agregarOrden()` | **Confirmado en log (2026-10-21 19:55, 4 veces):** `Column 'clientes' cannot be null` al agregar el primer producto. `agregarOrden()` lee `session('clientes')` *antes* de que `asignarOrden()` la inicialice; si la sesión no la trae (p. ej. `mount` con tipo de servicio 2), la orden no se crea y el producto no se agrega. |
 
 ---
 
@@ -117,6 +118,7 @@
 | T4 | ⬜ | `SyncController`, `Push.php` | `ini_set('memory_limit', 9999999999)` a nivel de archivo. |
 | T5 | ⬜ | Base de datos | Sin índices ni únicos en `ticket_nums(factura, tipo_venta)` ni en `tiempo`. |
 | T6 | ⬜ | `.env` / PHP 8.2 | FTP en texto plano, `APP_DEBUG=true`; propiedades dinámicas en Livewire (solo deprecations). |
+| T7 | ⬜ | `storage/logs/laravel.log` | Archivo único de 631 MB sin rotación (`LOG_CHANNEL=stack` → `single`). Usar canal `daily`. |
 
 ---
 
