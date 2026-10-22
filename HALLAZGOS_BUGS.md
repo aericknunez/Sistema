@@ -9,6 +9,7 @@
 | Estado | Significado |
 |---|---|
 | ✅ | Solucionado / inhabilitado |
+| 🟨 | Parcial (parte resuelta, ver detalle) |
 | ⬜ | Pendiente |
 
 ## Resumen de avance
@@ -17,8 +18,8 @@
 |---|---|---|---|
 | 1. Seguridad crítica | 13 | 2 | 11 |
 | 2. Dinero / datos fiscales | 15 | 0 | 15 |
-| 3. Errores 500 | 4 | 0 | 4 |
-| 4. Lógica media | 16 | 0 | 16 |
+| 3. Errores 500 | 4 | 1 (+1 🟨) | 2 |
+| 4. Lógica media | 16 | 1 | 15 |
 | 5. Deuda técnica | 7 | 0 | 7 |
 
 ---
@@ -50,6 +51,16 @@
 
 > Si producción usa `php artisan route:cache`, hay que regenerar el caché al desplegar.
 
+### Registro de soluciones — crashes y lógica
+
+| # | Rama | Commit | Qué se hizo |
+|---|---|---|---|
+| E4 | `fix/crashes` | `c299d24` | `agregarOrden()` usa `session('clientes') ?: 1`; la orden se crea aunque la sesión no traiga clientes. |
+| E2 (parcial) | `fix/crashes` | `c299d24` | Nuevo `limpiarOrdenInactiva()` (Ventas): quita de la sesión órdenes inexistentes o con `edo != 1`. `AddProducto::mount` regresa a mesas/delivery, `Comandero/Venta::mount` a mesas del comandero, `Cambios::mount` a mesas. `detallesMesa()` tolera orden inexistente. `inicioCorte()` devuelve `NULL` sin caja abierta y `sinCajaAbierta()` bloquea `btnGasto`/`btnRemesa`/`btnEntrada` con mensaje. |
+| L1 | `fix/crashes` | `c299d24` | `session(['llevar_aqui' => $x])` en `Cambios` y `Comandero/Venta`. |
+
+> Verificado con tinker contra BD local (solo lecturas). Pendiente probar en navegador: primer producto en venta rápida, abrir mesa ya cobrada por otra caja, entrar a Gastos sin caja.
+
 ---
 
 ## 🔴 2. Dinero y datos fiscales
@@ -79,9 +90,9 @@
 | # | Estado | Dónde | Problema |
 |---|---|---|---|
 | E1 | ⬜ | `app/System/Ventas/Ventas.php:541` `Porcentaje()` y otras divisiones | PHP 8: `@` no evita `DivisionByZeroError` (verificado). Pantalla de venta truena para td 10/11 sin ventas del día. También `propinaPorcentaje`, `Inventario/Productos.php:78` (`1 / relacion`), `PorcentajeDescuento`. Efectivo `"10,50"` → excepción. |
-| E2 | ⬜ | Varios | Accesos a null: `getAqui()`/`mount`/`detallesMesa()` con orden borrada; `agregarProducto`, `RestriccionInventario`, `ContarProductoVendido` con producto eliminado; `Corte/Index.php:89`; `Gastos`/`Remesas` → `inicioCorte()` sin caja; `Rango.php:41` con hueco; `Mesas`/`Delivery::ordenSelect`; `btnTipoPago`; `btnAddClient` sin orden; `IniciarController` sin moneda activa; `NombreUsuario`/`getDatosCorte` con usuario borrado; `IsPantallaSelect`; `find($id)->delete()` en Livewire. |
+| E2 | 🟨 | Varios | **Resuelto:** `getAqui()`/`mount`/`detallesMesa()` con orden borrada; `Gastos`/`Remesas`/`Ingreso` → `inicioCorte()` sin caja. **Pendiente:** el resto de esta lista. Accesos a null: ~~`getAqui()`/`mount`/`detallesMesa()` con orden borrada~~; `agregarProducto`, `RestriccionInventario`, `ContarProductoVendido` con producto eliminado; `Corte/Index.php:89`; ~~`Gastos`/`Remesas` → `inicioCorte()` sin caja~~; `Rango.php:41` con hueco; `Mesas`/`Delivery::ordenSelect`; `btnTipoPago`; `btnAddClient` sin orden; `IniciarController` sin moneda activa; `NombreUsuario`/`getDatosCorte` con usuario borrado; `IsPantallaSelect`; `find($id)->delete()` en Livewire. |
 | E3 | ⬜ | `app/Http/Middleware/Siapertura.php:20` | `redirect('venta.rapida')` usa nombre de ruta como URL → 404. |
-| E4 | ⬜ | `AddProducto.php:505` `asignarOrden()` → `Ventas.php:21` `agregarOrden()` | **Confirmado en log (2026-10-21 19:55, 4 veces):** `Column 'clientes' cannot be null` al agregar el primer producto. `agregarOrden()` lee `session('clientes')` *antes* de que `asignarOrden()` la inicialice; si la sesión no la trae (p. ej. `mount` con tipo de servicio 2), la orden no se crea y el producto no se agrega. |
+| E4 | ✅ | `AddProducto.php:505` `asignarOrden()` → `Ventas.php:21` `agregarOrden()` | **Confirmado en log (2026-10-21 19:55, 4 veces):** `Column 'clientes' cannot be null` al agregar el primer producto. `agregarOrden()` lee `session('clientes')` *antes* de que `asignarOrden()` la inicialice; si la sesión no la trae (p. ej. `mount` con tipo de servicio 2), la orden no se crea y el producto no se agrega. |
 
 ---
 
@@ -89,7 +100,7 @@
 
 | # | Estado | Dónde | Problema |
 |---|---|---|---|
-| L1 | ⬜ | `Cambios.php:179`, `Comandero/Venta.php:318` `getAqui()` | `session(['llevar_aqui', $x])` sintaxis incorrecta; nunca guarda. |
+| L1 | ✅ | `Cambios.php:179`, `Comandero/Venta.php:318` `getAqui()` | `session(['llevar_aqui', $x])` sintaxis incorrecta; nunca guarda. |
 | L2 | ⬜ | `AddProducto` / `Comandero/Venta` | `validado` y `motivo_borrado` nunca se reinician; `delProductoDetalle` y `btnCambiarCantidad` (reducir) saltan código y registro. |
 | L3 | ⬜ | `Ventas.php:207` `eliminarProducto` | Decide borrado físico según cualquier producto de la orden, no el seleccionado. |
 | L4 | ⬜ | `verificaCantidad` | Al eliminar con registro el último producto, `eliminarOrden()` borra la orden y se pierde la auditoría. |
@@ -126,6 +137,6 @@
 
 1. Seguridad explotable sin conocimiento interno: ~~S1~~, S2, S3, S4, ~~S7~~.
 2. Integridad del dinero: D1, D2, D3, D5, D6, D9, D10.
-3. Crashes PHP 8 y nulls en flujos de venta (E1, E2).
+3. Crashes PHP 8 y nulls en flujos de venta (E1, E2 🟨, ~~E4~~).
 4. Hacer que las pruebas corran (T1) antes de refactorizar.
 5. Lógica media y deuda técnica.
