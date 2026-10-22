@@ -9,6 +9,7 @@ use App\Models\CuentasPorCobrar;
 use App\Models\Producto;
 use App\Models\TicketNum;
 use App\Models\TicketOpcion;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 use App\Models\TicketProducto;
@@ -578,36 +579,94 @@ public function pagar(){
         return;
     }
 
-    $factura = $this->getUltimaFacturaNumber();
-   
-    ($factura) ? $num_fact = $factura->factura + 1 :  $num_fact = 1;
-    
-    if ($this->cantidad == NULL) {
-        $this->cantidad = $this->total;
+    $totalMostrado = $this->total;
+    $aviso = NULL;
+
+    try {
+        // todo lo que se guarda va junto: si algo falla no queda la venta a medias
+        $num_fact = DB::transaction(function () use ($totalMostrado, &$aviso) {
+            // bloquea la orden para que un doble clic u otra caja no la cobren dos veces
+            $orden = TicketOrden::where('id', session('orden'))->lockForUpdate()->first();
+            if (!$orden or $orden->edo != 1 or !$this->hayProductosPorCobrar()) {
+                $aviso = 'La orden ya fue cobrada o no tiene productos';
+                return NULL;
+            }
+
+            $this->obtenerTotal(); // recalcula con lo guardado en la base
+            if (abs($this->total - $totalMostrado) > 0.001) {
+                $aviso = 'La orden fue modificada desde otra terminal, revise el total antes de cobrar';
+                return NULL;
+            }
+
+            $factura = $this->getUltimaFacturaNumber(); // bloquea la numeracion hasta terminar
+            ($factura) ? $num_fact = $factura->factura + 1 :  $num_fact = 1;
+
+            if ($this->cantidad == NULL) {
+                $this->cantidad = $this->total;
+            }
+
+            $factOrder = TicketNum::create([
+                'factura' => $num_fact,
+                'orden' => session('orden'),
+                'tipo_pago' => session('tipo_pago'),
+                'efectivo' => $this->cantidad,
+                'subtotal' => $this->subtotal,
+                'total' => $this->total,
+                'propina_cant' => $this->propinaCantidad,
+                'propina_porcent' => $this->propinaPorcentaje,
+                'cajero' => session('config_usuario_id'),
+                'tipo_venta' => session('impresion_seleccionado'),
+                'cliente_id' => session('client_id'),
+                'edo' => 1,
+                'clave' => Helpers::hashId(),
+                'tiempo' => Helpers::timeId(),
+                'td' => session('sistema.td')
+            ]);
+
+            $this->actualizarDatosVenta($num_fact); // actualiza los campos de los productos
+
+            TicketOrden::where('id', session('orden'))
+                        ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
+
+            $this->copiarDatosTablaProductos(1, $num_fact);
+
+            if (session('principal_ticket_pantalla') == 1 or session('principal_ticket_pantalla') == 2) {
+                $this->guardarProductosImprimir();
+            }
+
+            // si es al credito agrega el credito a la base de datos
+            if (session('tipo_pago') == 5) {
+                CuentasPorCobrar::create([
+                    'factura_id' => $factOrder->id,
+                    'cantidad' => $this->total,
+                    'abonos' => 0,
+                    'saldo' => $this->total,
+                    'caduca' => null,
+                    'edo' => 1,
+                    'clave' => Helpers::hashId(),
+                    'tiempo' => Helpers::timeId(),
+                    'td' => session('sistema.td')
+                ]);
+            }
+
+            /// descontar productos del inventario si esta activado
+            if (session('invDesc')) {
+                $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
+            }
+
+            return $num_fact;
+        }, 3); // reintenta si hay bloqueo con otra caja
+    } catch (\Throwable $e) {
+        report($e);
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'No se pudo registrar la venta, intente de nuevo']);
+        return;
     }
 
-    $factOrder = TicketNum::create([
-        'factura' => $num_fact, 
-        'orden' => session('orden'),
-        'tipo_pago' => session('tipo_pago'),
-        'efectivo' => $this->cantidad,
-        'subtotal' => $this->subtotal,
-        'total' => $this->total,
-        'propina_cant' => $this->propinaCantidad,
-        'propina_porcent' => $this->propinaPorcentaje,
-        'cajero' => session('config_usuario_id'),
-        'tipo_venta' => session('impresion_seleccionado'),
-        'cliente_id' => session('client_id'),
-        'edo' => 1,
-        'clave' => Helpers::hashId(),
-        'tiempo' => Helpers::timeId(),
-        'td' => session('sistema.td')
-    ]);
-    
-    $this->actualizarDatosVenta($num_fact); // actualiza los campos de los productos
-
-    TicketOrden::where('id', session('orden'))
-                ->update(['edo' => 2, 'tiempo' => Helpers::timeId()]);
+    if (!$num_fact) {
+        $this->productosAdded();
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => $aviso]);
+        return;
+    }
 
     $this->dispatchBrowserEvent('modal-cambio-venta', [
         'subtotal' => Helpers::Dinero($this->subtotal),
@@ -616,51 +675,23 @@ public function pagar(){
         'efectivo' => Helpers::Dinero($this->cantidad),
         'cambio' => Helpers::Dinero(session('tipo_pago') == 7 ? $this->total - $this->cantidad : $this->cantidad - $this->total)
     ]);
-    $this->copiarDatosTablaProductos(1, $num_fact);
-    
+
+    // la venta ya esta guardada: una falla de impresora o pusher solo se avisa
     if (session('print')) { /// imprime a menos que el env diga que no
-        $this->ImprimirFactura($num_fact); // imprime la factura
+        $this->ejecutarSinInterrumpir(fn() => $this->ImprimirFactura($num_fact), 'La venta se registro pero no se pudo imprimir la factura');
+    }
+    $this->ejecutarSinInterrumpir(fn() => $this->eventPantallaSend(), 'La venta se registro pero no se pudo notificar a la pantalla');
+    if (session('principal_ticket_pantalla') == 2) {
+        $this->ejecutarSinInterrumpir(fn() => $this->ImprimirComanda(), 'La venta se registro pero no se pudo imprimir la comanda');
     }
 
-    
-    /// probar el codigo este
-    if (session('principal_ticket_pantalla') == 1) {
-        $this->guardarProductosImprimir();  
-    }
-    $this->eventPantallaSend(); // envia el evento a la pantalla
-    
-    if (session('principal_ticket_pantalla') == 2) {
-        $this->guardarProductosImprimir();  
-        $this->ImprimirComanda();
-    }
-    // si es al credito agrega el credito a la base de datos
-    if (session('tipo_pago') == 5) {
-        CuentasPorCobrar::create([
-            'factura_id' => $factOrder->id,
-            'cantidad' => $this->total,
-            'abonos' => 0,
-            'saldo' => $this->total,
-            'caduca' => null,
-            'edo' => 1,
-            'clave' => Helpers::hashId(),
-            'tiempo' => Helpers::timeId(),
-            'td' => session('sistema.td')
-        ]);
-    }
-    //// fin del codigo
     session()->forget('orden');
     session()->forget('cliente');
     if (session('client_id')) {
         $this->delSessionFactura();
     }
     $this->reset();
-
-    /// descontar productos del inventario si esta activado
-    if (session('invDesc')) {
-        $this->descontarProductosInventario($num_fact, session('impresion_seleccionado'));
-    }
-    
-} 
+}
 
 
 public function btnCerrarModal(){ /// Cierra el modal de fin de venta

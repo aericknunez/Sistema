@@ -26,6 +26,16 @@ trait Imprimir{
 
     use OrdenarProductosImprimir, SendEventos;
 
+    public function ejecutarSinInterrumpir(callable $accion, $aviso){ // impresion o pusher: si fallan se registra y se avisa sin romper la venta
+        try {
+            $accion();
+        } catch (\Throwable $e) {
+            report($e);
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Aviso', 'texto' => $aviso]);
+        }
+    }
+
+
     public function getRoutePrint(){
         if(Helpers::isLocalSystem()){
             return 'http://'.config('sistema.ip').'/impresiones/index.php';

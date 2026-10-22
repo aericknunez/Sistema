@@ -180,11 +180,20 @@ public function getProductosModal($producto){ // obtiene los detalles de los pro
 }
 
 
-public function getUltimaFacturaNumber(){
+public function getUltimaFacturaNumber(){ // dentro de una transaccion bloquea hasta terminar para no repetir numero
     return TicketNum::select('factura')
                         ->where('tipo_venta', session('impresion_seleccionado'))
                         ->orderBy('factura', 'desc')
+                        ->lockForUpdate()
                         ->first();
+}
+
+public function hayProductosPorCobrar($cliente = NULL){ // productos activos de la orden aun sin factura
+    return TicketProducto::where('orden', session('orden'))
+                            ->whereNull('num_fact')
+                            ->where('edo', 1)
+                            ->when($cliente, fn($query) => $query->where('cliente', $cliente))
+                            ->exists();
 }
 
 
