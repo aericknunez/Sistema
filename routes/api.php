@@ -33,4 +33,5 @@ Route::get('/impresiones/cantidad', [RemotePrintController::class, 'contador'])
 ->middleware(['guest'])
 ->name('impresiones.cantidad');
 
-Route::post('/process-sync', [SyncController::class, 'processSync']);
+// Inhabilitada: endpoint sin autenticacion que permite borrar/insertar en cualquier tabla
+// Route::post('/process-sync', [SyncController::class, 'processSync']);
