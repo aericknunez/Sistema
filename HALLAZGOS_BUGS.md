@@ -18,7 +18,7 @@
 |---|---|---|---|
 | 1. Seguridad crítica | 13 | 2 | 11 |
 | 2. Dinero / datos fiscales | 15 | 0 | 15 |
-| 3. Errores 500 | 4 | 1 (+1 🟨) | 2 |
+| 3. Errores 500 | 4 | 2 | 2 |
 | 4. Lógica media | 16 | 1 | 15 |
 | 5. Deuda técnica | 7 | 0 | 7 |
 
@@ -56,10 +56,11 @@
 | # | Rama | Commit | Qué se hizo |
 |---|---|---|---|
 | E4 | `fix/crashes` | `c299d24` | `agregarOrden()` usa `session('clientes') ?: 1`; la orden se crea aunque la sesión no traiga clientes. |
-| E2 (parcial) | `fix/crashes` | `c299d24` | Nuevo `limpiarOrdenInactiva()` (Ventas): quita de la sesión órdenes inexistentes o con `edo != 1`. `AddProducto::mount` regresa a mesas/delivery, `Comandero/Venta::mount` a mesas del comandero, `Cambios::mount` a mesas. `detallesMesa()` tolera orden inexistente. `inicioCorte()` devuelve `NULL` sin caja abierta y `sinCajaAbierta()` bloquea `btnGasto`/`btnRemesa`/`btnEntrada` con mensaje. |
+| E2 (1/2) | `fix/crashes` | `c299d24` | Nuevo `limpiarOrdenInactiva()` (Ventas): quita de la sesión órdenes inexistentes o con `edo != 1`. `AddProducto::mount` regresa a mesas/delivery, `Comandero/Venta::mount` a mesas del comandero, `Cambios::mount` a mesas. `detallesMesa()` tolera orden inexistente. `inicioCorte()` devuelve `NULL` sin caja abierta y `sinCajaAbierta()` bloquea `btnGasto`/`btnRemesa`/`btnEntrada` con mensaje. |
+| E2 (2/2) | `fix/crashes` | `d7d3e1d` | Venta/Comandero: producto eliminado con icono en caché (aviso "El producto ya no esta disponible"), producto ya borrado, tipo de pago inexistente (también en `Cambios`), agregar cliente sin orden. `Ventas`: `agregarProducto`, `getDeliveryData`, `clientSessionFactura` toleran producto/cliente eliminado. `Imprimir`: cliente o pago no encontrado se imprime con campos vacíos. Mesas/Comandero/Delivery: orden cobrada o sin datos de delivery. Corte: usuario sin cortes propios ("sin registros"), corte sin caja (alerta `sincaja`), cajero eliminado. Inventario: producto/insumo eliminado no bloquea ni rompe. Login: sin moneda de efectivo activa toma otra activa. `Rango` salta huecos; `IsPantallaSelect` → 401; `NombreUsuario` nulo; 8 `find()->delete()` → `destroy()` + `FacturasUltimas`. Listeners de aviso agregados en `corte/index` y `comandero/cambios`. |
 | L1 | `fix/crashes` | `c299d24` | `session(['llevar_aqui' => $x])` en `Cambios` y `Comandero/Venta`. |
 
-> Verificado con tinker contra BD local (solo lecturas). Pendiente probar en navegador: primer producto en venta rápida, abrir mesa ya cobrada por otra caja, entrar a Gastos sin caja.
+> Verificado con tinker contra BD local (solo lecturas): 12 casos de registros inexistentes sin error; vistas editadas compilan. Pendiente probar en navegador: primer producto en venta rápida, abrir mesa ya cobrada por otra caja, entrar a Gastos sin caja, tocar producto eliminado, corte con doble clic.
 
 ---
 
@@ -137,6 +138,6 @@
 
 1. Seguridad explotable sin conocimiento interno: ~~S1~~, S2, S3, S4, ~~S7~~.
 2. Integridad del dinero: D1, D2, D3, D5, D6, D9, D10.
-3. Crashes PHP 8 y nulls en flujos de venta (E1, E2 🟨, ~~E4~~).
+3. Crashes PHP 8 y nulls en flujos de venta (E1, ~~E2~~, E3, ~~E4~~).
 4. Hacer que las pruebas corran (T1) antes de refactorizar.
 5. Lógica media y deuda técnica.
