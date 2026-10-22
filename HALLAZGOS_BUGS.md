@@ -17,9 +17,9 @@
 | Sección | Total | ✅ | ⬜ |
 |---|---|---|---|
 | 1. Seguridad crítica | 13 | 2 | 11 |
-| 2. Dinero / datos fiscales | 15 | 0 | 15 |
+| 2. Dinero / datos fiscales | 15 | 2 | 13 |
 | 3. Errores 500 | 4 | 4 | 0 |
-| 4. Lógica media | 16 | 1 | 15 |
+| 4. Lógica media | 16 | 2 | 14 |
 | 5. Deuda técnica | 7 | 0 | 7 |
 
 ---
@@ -61,6 +61,7 @@
 | L1 | `fix/crashes` | `c299d24` | `session(['llevar_aqui' => $x])` en `Cambios` y `Comandero/Venta`. |
 | E1 | `fix/crashes` | `39c23f5` | `Porcentaje()` sin ventas devuelve `"0/0"`; `propinaPorcentaje`, `PorcentajeDescuento`, `calculaDescuentoCantidad` devuelven 0 con divisor 0; relación de inventario `numeric\|gt:0`. `pagar()` (venta/cambios), `btnPropina` (venta/comandero/cambios) y `btnCambiarCantidad` (entero) avisan con `mensaje` si el monto no es válido (vacío en `pagar` sigue cobrando el total). Regla `numeric` en gastos, remesas, movimientos, corte, cuentas por pagar, abonos, otras ventas e inventario sumar/restar (este último también tolera insumo eliminado). |
 | E3 | `fix/crashes` | `39c23f5` | `Siapertura`: `redirect()->route('venta.rapida')`. |
+| D5, D6, L9 | `fix/crashes` | `305be49` | `pagar()` (AddProducto y Cambios) en `DB::transaction` con 3 reintentos: factura, productos, orden, saves, crédito e inventario juntos. `lockForUpdate` en la orden y en `getUltimaFacturaNumber()`; revalida orden activa con productos (`hayProductosPorCobrar`) y recalcula total (aviso si otra terminal cambió la orden). Impresión/pusher fuera de la transacción con `ejecutarSinInterrumpir()` (registra y avisa). Cambios: cliente sin productos no genera factura. Probado contra MySQL local dentro de transacción revertida (5 escenarios). Falta probar concurrencia real con dos cajas. |
 
 > Verificado con tinker contra BD local (solo lecturas): 12 casos de registros inexistentes sin error; vistas editadas compilan. Pendiente probar en navegador: primer producto en venta rápida, abrir mesa ya cobrada por otra caja, entrar a Gastos sin caja, tocar producto eliminado, corte con doble clic.
 
@@ -74,8 +75,8 @@
 | D2 | ⬜ | `app/System/Corte/Corte.php:240-241` `diferencia()` | `;` sobrante: `- $this->abonos(...)` es una sentencia muerta, los abonos a proveedores no se restan. |
 | D3 | ⬜ | `app/System/Corte/Corte.php:115,150,159` | `where('tipo_pago', [1, 7])` usa solo el primer valor → tipo de pago 7 fuera del efectivo; su propina cuenta como no efectivo. |
 | D4 | ⬜ | `app/System/Corte/Corte.php:62` | El corte de un cajero borra `TicketProducto` pagados de todos los cajeros. |
-| D5 | ⬜ | `pagar()` en `AddProducto`, `Cambios`, `Comandero/Venta` | Número de factura `MAX+1` sin transacción, bloqueo ni índice único → duplicados con cajas concurrentes. |
-| D6 | ⬜ | `pagar()` + `app/System/Imprimir/Imprimir.php:64` | Sin transacción; si falla la impresora/Pusher (sin try/catch) la venta queda a medias y el siguiente cobro duplica factura. |
+| D5 | ✅ | `pagar()` en `AddProducto`, `Cambios`, `Comandero/Venta` | Número de factura `MAX+1` sin transacción, bloqueo ni índice único → duplicados con cajas concurrentes. **Pendiente opcional:** índice único `ticket_nums(factura, tipo_venta)` (revisar duplicados existentes antes). |
+| D6 | ✅ | `pagar()` + `app/System/Imprimir/Imprimir.php:64` | Sin transacción; si falla la impresora/Pusher (sin try/catch) la venta queda a medias y el siguiente cobro duplica factura. **Pendiente opcional:** timeout de `Http::post` a impresora sigue en 30 s. |
 | D7 | ⬜ | `app/Http/Livewire/Facturacion/FacturasUltimas.php:55` `destroy` | Borra físicamente el documento fiscal; no revierte inventario ni cuenta por cobrar; nunca genera `edo=2` que esperan los reportes. |
 | D8 | ⬜ | `app/System/Facturacion/Facturacion.php` | Conteo por `TicketNum.created_at` (pago) pero montos por `saves.created_at` (cuando se agregó el producto) → descuadre entre días. |
 | D9 | ⬜ | `app/Http/Livewire/Cuentas/PorCobrar.php:131,185` | Llama métodos de `EfectivoCuentas` sin usar el trait → error fatal al abonar con banco. Signo invertido (debería sumar). |
@@ -111,7 +112,7 @@
 | L6 | ⬜ | `Facturacion/Rango.php` | Deja `impresion_seleccionado` cambiado en sesión. |
 | L7 | ⬜ | `Ventas.php:592` `numeroLineasFactura` | Condición siempre verdadera; usa `lineas_ccf` en vez de `principal_lineas_ccf`. |
 | L8 | ⬜ | `Cambios::verificaCantidad` | Cuenta productos eliminados (`edo=2`); la mesa puede no cerrarse. |
-| L9 | ⬜ | `Cambios::pagar` | Cliente sin productos genera factura en $0 que consume número. |
+| L9 | ✅ | `Cambios::pagar` | Cliente sin productos genera factura en $0 que consume número. |
 | L10 | ⬜ | Búsqueda de clientes (`AddProducto`, `Cambios`, `Delivery`) | `orWhere` rompe filtro `nombre != NULL`; `AddProducto` sin `limit(10)`. |
 | L11 | ⬜ | `Ventas::aumentarCantidadCod` | No respeta restricción de inventario ni modal de opciones. |
 | L12 | ⬜ | Inventario | No se repone al borrar/anular factura; restricción solo cuenta mismo código, no insumo compartido. |
@@ -139,7 +140,7 @@
 ## Prioridad sugerida
 
 1. Seguridad explotable sin conocimiento interno: ~~S1~~, S2, S3, S4, ~~S7~~.
-2. Integridad del dinero: D1, D2, D3, D5, D6, D9, D10.
+2. Integridad del dinero: D1, D2, D3, ~~D5~~, ~~D6~~, D9, D10.
 3. Crashes PHP 8 y nulls en flujos de venta ~~(E1, E2, E3, E4)~~ ✅ sección completa.
 4. Hacer que las pruebas corran (T1) antes de refactorizar.
 5. Lógica media y deuda técnica.
