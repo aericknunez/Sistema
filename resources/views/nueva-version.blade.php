@@ -237,7 +237,7 @@
             <a class="boton boton-wa" href="{{ $whatsapp }}" target="_blank" rel="noopener">{!! $iconoWa !!} Quiero cambiarme ahora</a>
             <a class="boton boton-borde" href="#por-que">¿Por qué debo cambiarme?</a>
         </div>
-        <p class="contacto">Para actualizarte, comunícate con soporte técnico al WhatsApp <a href="{{ $whatsapp }}" target="_blank" rel="noopener">+503 7488-0240</a> o, si prefieres, al <a href="{{ $whatsappAlterno }}" target="_blank" rel="noopener">+503 6691-7170</a>.</p>
+        <p class="contacto">Para actualizarte, comunícate con <a href="{{ $whatsapp }}" target="_blank" rel="noopener">soporte técnico</a> o, si prefieres, al WhatsApp <a href="{{ $whatsappAlterno }}" target="_blank" rel="noopener">+503 6691-7170</a>.</p>
 
         <div class="pilares">
             <div class="pilar">
@@ -268,8 +268,8 @@
                 <p>Dejará de recibir soporte técnico, correcciones, mejoras y actualizaciones de seguridad. Seguir en ella
                     significa operar tu negocio sin respaldo ante cualquier falla. Cambiarte es <strong>gratis</strong> y es el paso
                     necesario para mantener tu restaurante protegido y al día:
-                    comunícate con soporte técnico al WhatsApp <a href="{{ $whatsapp }}" target="_blank" rel="noopener"><strong>+503 7488-0240</strong></a>
-                    o, si prefieres, al <a href="{{ $whatsappAlterno }}" target="_blank" rel="noopener"><strong>+503 6691-7170</strong></a>.</p>
+                    comunícate con <a href="{{ $whatsapp }}" target="_blank" rel="noopener"><strong>soporte técnico</strong></a>
+                    o, si prefieres, al WhatsApp <a href="{{ $whatsappAlterno }}" target="_blank" rel="noopener"><strong>+503 6691-7170</strong></a>.</p>
             </div>
         </div>
     </div>
@@ -479,7 +479,7 @@
             <h2>Cambiarte es fácil: tres pasos y listo</h2>
         </div>
         <div class="pasos">
-            <div class="paso"><div class="num">PASO 1</div><b>Comunícate con nosotros</b><span>Escribe a soporte técnico al WhatsApp +503 7488-0240 o, si prefieres, al +503 6691-7170.</span></div>
+            <div class="paso"><div class="num">PASO 1</div><b>Comunícate con nosotros</b><span>Escribe a <a href="{{ $whatsapp }}" target="_blank" rel="noopener">soporte técnico</a> o, si prefieres, al WhatsApp +503 6691-7170.</span></div>
             <div class="paso"><div class="num">PASO 2</div><b>Preparamos tu cuenta</b><span>Configuramos la nueva versión para tu restaurante.</span></div>
             <div class="paso"><div class="num">PASO 3</div><b>Te capacitamos</b><span>Te enseñamos a ti y a tu equipo, y empiezas a vender.</span></div>
         </div>
@@ -510,9 +510,9 @@
 <section class="cierre">
     <div class="contenedor">
         <h2>No te quedes en una versión sin soporte. Cámbiate hoy.</h2>
-        <p>Más rápido, más seguro, más fácil de usar y gratis. Comunícate con soporte técnico al WhatsApp +503 7488-0240 y te ayudamos a hacer el cambio.</p>
+        <p>Más rápido, más seguro, más fácil de usar y gratis. Comunícate con <a href="{{ $whatsapp }}" target="_blank" rel="noopener">soporte técnico</a> y te ayudamos a hacer el cambio.</p>
         <div class="acciones">
-            <a class="boton boton-wa" href="{{ $whatsapp }}" target="_blank" rel="noopener">{!! $iconoWa !!} Soporte técnico · +503 7488-0240</a>
+            <a class="boton boton-wa" href="{{ $whatsapp }}" target="_blank" rel="noopener">{!! $iconoWa !!} Escribir a soporte técnico</a>
         </div>
         <p class="contacto">También puedes escribirnos al <a href="{{ $whatsappAlterno }}" target="_blank" rel="noopener">+503 6691-7170</a>.</p>
     </div>

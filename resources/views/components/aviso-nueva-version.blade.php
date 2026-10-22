@@ -8,9 +8,9 @@
         incluye muchísimas opciones más, como una app nativa para Android y comandas impresas configurables. Cambiarte es gratis.
     </p>
     <a href="{{ route('nueva-version') }}" target="_blank" rel="noopener" class="anv-boton">Ver por qué debo cambiarme &rarr;</a>
-    <p class="anv-contacto">Comunícate con soporte técnico al WhatsApp
-        <a href="https://wa.me/50374880240?text={{ rawurlencode('Hola, quiero cambiarme a la nueva versión de mi sistema.') }}" target="_blank" rel="noopener">+503 7488-0240</a>
-        o al <a href="https://wa.me/50366917170?text={{ rawurlencode('Hola, quiero cambiarme a la nueva versión de mi sistema.') }}" target="_blank" rel="noopener">+503 6691-7170</a></p>
+    <p class="anv-contacto">Comunícate con
+        <a href="https://wa.me/50374880240?text={{ rawurlencode('Hola, quiero cambiarme a la nueva versión de mi sistema.') }}" target="_blank" rel="noopener">soporte técnico</a>
+        o al WhatsApp <a href="https://wa.me/50366917170?text={{ rawurlencode('Hola, quiero cambiarme a la nueva versión de mi sistema.') }}" target="_blank" rel="noopener">+503 6691-7170</a></p>
 </div>
 
 <script>
