@@ -27,7 +27,7 @@ class Ingreso extends Component
 
     protected $rules = [
         'descripcion' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
 

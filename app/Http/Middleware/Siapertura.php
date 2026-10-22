@@ -17,7 +17,7 @@ class Siapertura
     public function handle(Request $request, Closure $next)
     {
         if (session('apertura_caja')) {
-            return redirect('venta.rapida');
+            return redirect()->route('venta.rapida');
         }
 
         return $next($request);

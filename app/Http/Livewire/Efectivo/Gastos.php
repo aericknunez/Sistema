@@ -28,7 +28,7 @@ class Gastos extends Component
     protected $rules = [
         'nombre' => 'required',
         'descripcion' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
 

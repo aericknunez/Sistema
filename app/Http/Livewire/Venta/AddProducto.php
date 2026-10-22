@@ -390,6 +390,10 @@ public function btnNombre(){ /// agrega nombre a la comanda
 } 
 
 public function btnPropina(){ /// establece un procentaje de propina
+    if (!is_numeric($this->propinaInput)) {
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Ingrese una propina valida']);
+        return;
+    }
     if ($this->propinaTipo == "on") {
         $this->propinaPorcentaje = Helpers::propinaPorcentaje($this->subtotal, $this->propinaInput);
     } else {
@@ -414,6 +418,10 @@ public function btnEnvio(){ /// agrega el campo de envio a la orden
 
 
 public function btnCambiarCantidad(){ // cambia la cantidad de productos
+    if (filter_var($this->cantidadproducto, FILTER_VALIDATE_INT) === false) {
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Ingrese una cantidad entera valida']);
+        return;
+    }
     $cantidad = $this->cantidadActual + $this->cantidadproducto;
 
     if ($this->cantidadproducto > 0) {  // cantidad es lo que esta en la db y cantidadproducto lo del form
@@ -440,7 +448,7 @@ public function btnCambiarCantidad(){ // cambia la cantidad de productos
 
 
 public function btnOtrasVentas(){
-    $this->validate(['otras_producto' => 'required', 'otras_cantidad' => 'required']);
+    $this->validate(['otras_producto' => 'required', 'otras_cantidad' => 'required|numeric']);
 
     $this->asignarOrden();
     $this->addOtrasVentas($this->otras_producto, $this->otras_cantidad);
@@ -565,6 +573,10 @@ public function verificaCantidad($evitar = NULL){
 
 
 public function pagar(){
+    if ($this->cantidad != NULL and !is_numeric($this->cantidad)) { // vacio cobra el total
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'Ingrese una cantidad de efectivo valida']);
+        return;
+    }
 
     $factura = $this->getUltimaFacturaNumber();
    

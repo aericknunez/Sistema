@@ -29,7 +29,7 @@ class Index extends Component
 
 
     protected $rules = [
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
     public function mount(){

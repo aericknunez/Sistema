@@ -20,7 +20,7 @@ class Pendientes extends Component
     protected $rules = [
         'nombre' => 'required',
         'proveedor' => 'required',
-        'cantidad' => 'required'
+        'cantidad' => 'required|numeric'
     ];
 
     public $datos = [];
@@ -136,7 +136,7 @@ class Pendientes extends Component
 
     public function btnAddAbono(){
 
-        $this->validate(['cAbono' => 'required']);
+        $this->validate(['cAbono' => 'required|numeric']);
         
         if ($this->validarAbono($this->selectCuenta['saldo'], $this->cAbono)) {
 

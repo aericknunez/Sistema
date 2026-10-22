@@ -74,6 +74,9 @@ class Helpers{
     }
 
     static public function propinaPorcentaje($subTotal, $cantidad){ 
+        if ($subTotal == 0) {
+            return 0;
+        }
         return ($cantidad * 100)/$subTotal;
     }
 
@@ -95,6 +98,9 @@ class Helpers{
 
 
     static public function PorcentajeDescuento($total, $descuento){ /// obtiene que porcentaje de descuento se aplicara segun total y cantidad a descontar
+        if ($total == 0) {
+            return 0;
+        }
         $nume = ($descuento * 100)/$total;
         return $nume;
     }

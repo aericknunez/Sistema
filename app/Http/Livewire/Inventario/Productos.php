@@ -67,7 +67,7 @@ class Productos extends Component
         $this->validate([
             'producto' => 'required',
             'idProd' => 'required',
-            'relacion' => 'required'
+            'relacion' => 'required|numeric|gt:0'
         ]);
 
         InvDependiente::updateOrCreate(

@@ -555,6 +555,9 @@ public function getDeliveryData(){ // crea la variables del delivery
                                     ->sum('total');
                                 
         $totalVenta = $totalFacturado + $totalNoFacturado;
+        if ($totalVenta == 0) { // sin ventas del dia (en PHP 8 dividir entre 0 lanza error)
+            return "0/0";
+        }
         @$pFacturado = number_format(($totalFacturado * 100) / $totalVenta,0,'.',',');
         @$pNoFacturado = number_format(($totalNoFacturado * 100) / $totalVenta,0,'.',',');
         return $pFacturado . "/" . $pNoFacturado;
@@ -599,6 +602,9 @@ public function getDeliveryData(){ // crea la variables del delivery
     }
 
     private function calculaDescuentoCantidad($cantidad, $descuento){ // cantidad a sacarle porcentaje, porcentaje aplicado
+        if ($cantidad == 0) {
+            return 0;
+        }
         $num = $descuento * 100;
         return $num / $cantidad; // retorna porcentaje
     }

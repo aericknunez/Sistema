@@ -95,7 +95,7 @@ class PorCobrar extends Component
     
     public function btnAddAbono(){
 
-        $this->validate(['cAbono' => 'required']);
+        $this->validate(['cAbono' => 'required|numeric']);
         
         if ($this->validarAbono($this->selectCuenta['saldo'], $this->cAbono)) {
 
