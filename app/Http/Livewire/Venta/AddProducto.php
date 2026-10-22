@@ -71,6 +71,14 @@ class AddProducto extends Component
 
     public function mount(){
         $this->delSessionFactura(); // temporal de prueba
+        if ($this->limpiarOrdenInactiva()) { // la orden ya no esta activa, se regresa a la lista
+            if (session('config_tipo_servicio') == 2) {
+                return redirect()->route('venta.mesas');
+            }
+            if (session('config_tipo_servicio') == 3) {
+                return redirect()->route('venta.delivery');
+            }
+        }
         if (session('orden')) {
             $this->determinaPropina();
             $this->productosAdded();

@@ -56,6 +56,7 @@ class Ingreso extends Component
 
     public function btnEntrada(){
 
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EntradasSalidas::create([

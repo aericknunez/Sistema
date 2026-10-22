@@ -117,6 +117,7 @@ class Gastos extends Component
 
     public function btnGasto(){
         
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EfectivoGastos::create([

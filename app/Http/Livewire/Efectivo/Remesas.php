@@ -53,6 +53,7 @@ class Remesas extends Component
 
     public function btnRemesa(){
         
+        if ($this->sinCajaAbierta()) return;
         $this->validate();
 
         EfectivoRemesas::create([

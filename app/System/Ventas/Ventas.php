@@ -18,7 +18,7 @@ trait Ventas{
 
     public function agregarOrden(){
         $orden = TicketOrden::create([
-            'clientes' => session('clientes'), // Numero de clientes
+            'clientes' => session('clientes') ?: 1, // Numero de clientes
             'tipo_servicio' => session('config_tipo_servicio'),
             'empleado' => session('config_usuario_id'), //usuario
             'llevar_aqui' => session('llevar_aqui'),
@@ -187,6 +187,14 @@ public function getUltimaFacturaNumber(){
 
 public function getLlevarAqui(){
     return TicketOrden::select('llevar_aqui')->where('id', session('orden'))->first();
+}
+
+public function limpiarOrdenInactiva(){ // quita la orden de la sesion si ya fue cobrada, eliminada o no existe
+    if (session('orden') and !TicketOrden::where('id', session('orden'))->where('edo', 1)->exists()) {
+        session()->forget('orden');
+        return TRUE;
+    }
+    return FALSE;
 }
 
 public function actualizarDatosVenta($num_fact){ // actualiza los campos de los productos al vender

@@ -439,8 +439,8 @@ trait Imprimir{
     public function detallesMesa($orden){
         $datos = array();
         $data = TicketOrden::select('nombre_mesa', 'comentario')->where('id', $orden)->first();
-        $datos['nombre_mesa'] = $data->nombre_mesa;
-        $datos['comentario'] = $data->comentario;
+        $datos['nombre_mesa'] = $data ? $data->nombre_mesa : NULL;
+        $datos['comentario'] = $data ? $data->comentario : NULL;
 
         return $datos;  
     }    

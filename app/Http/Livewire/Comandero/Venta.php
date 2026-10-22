@@ -60,6 +60,9 @@ class Venta extends Component
 
 
     public function mount(){
+        if ($this->limpiarOrdenInactiva()) { // la orden ya no esta activa, se regresa a las mesas
+            return redirect()->route('comandero.mesas');
+        }
         if (session('orden')) {
             $this->delSessionFactura(); // temporal de prueba
             $this->determinaPropina();
@@ -315,7 +318,7 @@ public function BtnAquiLlevar(){ // 1 llevar, 2 comer aqui
 public function getAqui(){
     $data = $this->getLlevarAqui();
     $this->llevarComerAqui = $data->llevar_aqui;
-    session(['llevar_aqui', $data->llevar_aqui]);
+    session(['llevar_aqui' => $data->llevar_aqui]);
 }
 
 

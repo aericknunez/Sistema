@@ -39,6 +39,10 @@ class Cambios extends Component
 
 
     public function mount(){
+        $this->limpiarOrdenInactiva();
+        if (!session('orden')) { // sin orden activa no hay cuenta que dividir
+            return redirect()->route('venta.mesas');
+        }
         $this->clientes = session('clientes');
         $this->clientSelected = session('cliente');
         $this->determinaPropina();
@@ -176,7 +180,7 @@ class Cambios extends Component
     public function getAqui(){
         $data = $this->getLlevarAqui();
         $this->llevarComerAqui = $data->llevar_aqui;
-        session(['llevar_aqui', $data->llevar_aqui]);
+        session(['llevar_aqui' => $data->llevar_aqui]);
     }
     
     
