@@ -50,6 +50,9 @@ trait Ventas{
     public function agregarProducto($cod){
 
     $producto = Producto::where('cod', $cod)->first();
+    if (!$producto) {
+        return FALSE;
+    }
 
     if (session('venta_especial_active')) {
         $stotal = 0;
@@ -319,6 +322,9 @@ public function addDeliveryData(){
 public function getDeliveryData(){ // crea la variables del delivery
 
     $cliente = Cliente::where('id', session('client_select'))->first();
+    if (!$cliente) { // cliente eliminado o sin cliente asignado
+        return;
+    }
 
             session(['delivery_nombre' => $cliente->nombre]);
             session(['delivery_direccion' => $cliente->direccion]);
@@ -356,6 +362,9 @@ public function getDeliveryData(){ // crea la variables del delivery
 
     public function clientSessionFactura($clientex){ // obtiene las variables para la factura
         $cliente = Cliente::where('id', $clientex)->first();
+        if (!$cliente) {
+            return;
+        }
 
         session(['client_id' => $clientex]);
         session(['factura_documento' => $cliente->documento]);

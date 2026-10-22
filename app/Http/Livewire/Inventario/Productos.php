@@ -103,7 +103,7 @@ class Productos extends Component
 
     public function destroy($id)
     {
-        InvDependiente::find($id)->delete();
+        InvDependiente::destroy($id);
         InvAsignado::where('dependiente', $id)->delete();
         if (InvAsignado::count() > 0) {
             session(['invDesc' => true]);

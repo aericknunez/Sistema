@@ -20,7 +20,7 @@ class IsPantallaSelect
         //1 pantalla, 2 ticket
         $pantalla = ConfigPrincipal::select('ticket_pantalla')->where('id', 1)->first();
 
-        if ($pantalla->ticket_pantalla == 1) {
+        if ($pantalla and $pantalla->ticket_pantalla == 1) {
             return $next($request);
         } else {
             abort(401);

@@ -48,7 +48,7 @@ class Mesas extends Component
         $ordenx = TicketOrden::select('clientes','edo')
                                 ->where('id', $orden)
                                 ->first();
-        if ($ordenx->edo == 1) {
+        if ($ordenx and $ordenx->edo == 1) { // la orden pudo ser cobrada o eliminada desde otra caja
             session(['clientes' => $ordenx->clientes]);
 
             session(['orden' => $orden]);

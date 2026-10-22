@@ -220,7 +220,7 @@ class Index extends Component
             ['titulo' => 'Errorr!', 
             'texto' => 'No puede eliminar este elemento por que tiene productos dependientes']);
         } else {
-            Inventario::find($iden)->delete();
+            Inventario::destroy($iden);
             InvHistorial::where('producto', $iden)->delete();
             $this->dispatchBrowserEvent('mensaje', 
             ['titulo' => 'Realizado', 

@@ -56,7 +56,7 @@ class FacturasUltimas extends Component
 
         $factura = TicketNum::find($id);
 
-        if ($factura->delete()) {
+        if ($factura and $factura->delete()) { // puede haber sido eliminada desde otra pantalla
             // consigo el numero de orden.
             $orden = TicketProductosSave::where('num_fact', $factura->factura)
                                     ->where('tipo_venta', $factura->tipo_venta)->first();
@@ -69,7 +69,7 @@ class FacturasUltimas extends Component
             $cantidad = TicketProductosSave::where('orden', $factura->orden)
                                         ->count();
             if ($cantidad == 0) {
-                TicketOrden::find($factura->orden)->delete();
+                TicketOrden::destroy($factura->orden);
             }
 
 

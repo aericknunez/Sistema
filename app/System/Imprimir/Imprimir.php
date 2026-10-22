@@ -200,14 +200,14 @@ trait Imprimir{
 
     
     public function getDatosCliente($cliente){
-        $client = Cliente::find($cliente);
-        $datos['cliente'] = $client->nombre;
-        $datos['direccion'] = $client->direccion;
-        $datos['giro'] = $client->giro;
-        $datos['departamento_doc'] = $client->departamento_doc;
-        $datos['direccion_doc'] = $client->direccion_doc;
-        $datos['documento'] = $client->documento;
-        $datos['registro'] = $client->registro;
+        $client = Cliente::find($cliente); // puede no existir si el cliente fue eliminado
+        $datos['cliente'] = optional($client)->nombre;
+        $datos['direccion'] = optional($client)->direccion;
+        $datos['giro'] = optional($client)->giro;
+        $datos['departamento_doc'] = optional($client)->departamento_doc;
+        $datos['direccion_doc'] = optional($client)->direccion_doc;
+        $datos['documento'] = optional($client)->documento;
+        $datos['registro'] = optional($client)->registro;
         return $datos;
     }
 
@@ -380,7 +380,10 @@ trait Imprimir{
                             ->where('tipo_venta', session('impresion_seleccionado'))
                             ->where('factura', $factura)
                             ->first();
-        
+        if (!$pago) { // no se encontro el pago (p. ej. cambio el tipo de pago en sesion), se imprime sin datos de pago
+            $pago = new TicketNum(['efectivo' => 0, 'total' => 0]);
+        }
+
         $datos['efectivo'] = $pago->efectivo;
         $datos['propina_cant'] = $pago->propina_cant;
         $datos['propina_porcent'] = $pago->propina_porcent;

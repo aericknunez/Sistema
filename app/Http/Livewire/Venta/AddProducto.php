@@ -114,6 +114,11 @@ class AddProducto extends Component
 
 
     public function addProducto($cod){ // agregar producto a la venta
+        $producto = Producto::where('cod', $cod)->first();
+        if (!$producto) { // el icono puede estar desactualizado y el producto ya no existir
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El producto ya no esta disponible']);
+            return;
+        }
         if($this->comprobarInventario($cod)){
             $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'No tiene existencias en el inventario']);
             return;
@@ -125,7 +130,6 @@ class AddProducto extends Component
         $this->obtenerTotal();
         $this->numeroLineas = $this->numeroLineasFactura();
 
-        $producto = Producto::where('cod', $cod)->first();
         if ($producto->producto_categoria_id != 1) {
             $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'categoria-' . $producto->producto_categoria_id]);
             if (session('principal_levantar_modal')) { // si tengo activada la opcion de levantar modal
@@ -185,6 +189,11 @@ class AddProducto extends Component
 
     public function delProducto($id){ // eliminar un producto de la venta
         $imp = $this->verificaProducto($id);
+        if (!$imp) { // ya fue eliminado (doble clic u otra caja)
+            $this->productosAdded();
+            $this->obtenerTotal();
+            return;
+        }
         if (($this->siCodigo() or $this->siRegristro()) and $imp->imprimir != 1) {
             $this->tipo_borrado = 1;
             $this->idenProducto = $id;
@@ -357,6 +366,10 @@ public function btnTipoVenta($tipo){ /// Cambia el tipo de venta (documento a em
 
 public function btnTipoPago($tipo){ /// Cambia el tipo pago (Efectivo, tarjeta, etc)
     $tipoPago = ConfigMoneda::where('id', $tipo)->first();
+    if (!$tipoPago) {
+        $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El tipo de pago no esta disponible']);
+        return;
+    }
 
     session(['tipo_pagoM' => $tipoPago->moneda]);
     session(['tipo_pago' => $tipo]);
@@ -480,7 +493,7 @@ public function selectCliente($cliente){ // selecciona el cliente marcado
 public function btnAddClient(){
     $clientes = session('clientes') + 1;
     session()->forget('clientes');
-    TicketOrden::where('id', session('orden'))->first()->update(['clientes' => $clientes]);
+    TicketOrden::where('id', session('orden'))->update(['clientes' => $clientes]); // sin orden aun solo queda en sesion
     session(['clientes' => $clientes]);
 }
 

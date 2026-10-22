@@ -51,6 +51,9 @@ trait Administrar {
 
     private function descontarCantidadProducto($producto, $cantidad){
         $inv = Inventario::find($producto);
+        if (!$inv) { // insumo eliminado
+            return;
+        }
         $inv->update(['cantidad' => $inv->cantidad - $cantidad]);
     }
 

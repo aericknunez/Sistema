@@ -168,7 +168,7 @@ function formatJustHora($value){
     $nombre = User::select('name')
                     ->where('id', $user)
                     ->first();
-    return $nombre->name;
+    return optional($nombre)->name; // el usuario pudo ser eliminado
  } 
 
  function tipoUsuario($nombre){

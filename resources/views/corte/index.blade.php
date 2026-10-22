@@ -36,6 +36,15 @@
         });
 
 
+        Livewire.on('sincaja', ()=>{
+            Swal.fire(
+                'NO SE REALIZO EL CORTE',
+                'No hay caja abierta para realizar el corte',
+                'error'
+            )
+        });
+
+
         Livewire.on('imprimiendo', ()=>{
             Swal.fire(
                 'IMPRIMIENDO CORTE',

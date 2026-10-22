@@ -193,7 +193,11 @@ class Cambios extends Component
     
     public function btnTipoPago($tipo){ /// Cambia el tipo pago (Efectivo, tarjeta, etc)
         $tipoPago = ConfigMoneda::where('id', $tipo)->first();
-    
+        if (!$tipoPago) {
+            $this->dispatchBrowserEvent('mensaje', ['clase' => 'success', 'titulo' => 'Error', 'texto' => 'El tipo de pago no esta disponible']);
+            return;
+        }
+
         session(['tipo_pagoM' => $tipoPago->moneda]);
         session(['tipo_pago' => $tipo]);
         $this->dispatchBrowserEvent('modal-opcion-hide', ['modal' => 'ModalTipoPago']);

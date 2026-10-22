@@ -92,7 +92,7 @@ class Index extends Component
     {
         Producto::where('producto_categoria_id', $id)
                     ->update(['producto_categoria_id' => 1, 'tiempo' => Helpers::timeId()]);
-        ProductoCategoria::find($id)->delete();
+        ProductoCategoria::destroy($id);
         OrderImg::where('tipo_img', 2)->where('imagen', $id)->delete();
         
 

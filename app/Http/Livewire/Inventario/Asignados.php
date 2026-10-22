@@ -94,7 +94,7 @@ class Asignados extends Component
 
 
     public function delAsignado($iden){
-        InvAsignado::find($iden)->delete();
+        InvAsignado::destroy($iden);
         $this->dispatchBrowserEvent('mensaje', 
         ['titulo' => 'Realizado', 
         'texto' => 'Producto Eliminado correctamente']);

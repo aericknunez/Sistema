@@ -22,13 +22,19 @@ trait RestriccionInventario{
 
     private function comprobarProductos($cod){
         $codigo = Producto::select('id')->where('cod', $cod)->first();
+        if (!$codigo) {
+            return false;
+        }
         $productos = InvAsignado::where('producto', $codigo->id)->get();
         $count = 0;
         // contar cuantos hay a la espera de facturar
         $cantidad = TicketProducto::where('cod', $cod)->where('num_fact', null)->where('edo', 1)->count();
         foreach ($productos as $producto) {
             $dependiente = InvDependiente::where('id', $producto->dependiente)->first();
-            $prod = Inventario::where('id', $dependiente->producto)->first();
+            $prod = $dependiente ? Inventario::where('id', $dependiente->producto)->first() : NULL;
+            if (!$prod) { // insumo eliminado, no restringe
+                continue;
+            }
             $enEspera = $dependiente->relacion * ($cantidad + 1);
             if ($enEspera > $prod->cantidad) {
                $count ++;

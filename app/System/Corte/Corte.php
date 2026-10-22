@@ -27,6 +27,9 @@ trait Corte{
                             ->where('edo', 1)
                             ->orderBy('tiempo', 'desc')
                             ->first();
+        if (!$corte) { // no hay caja abierta (corte ya realizado, p. ej. doble clic)
+            return FALSE;
+        }
 
                     CorteDeCaja::where('clave', $corte->clave)
                                 ->where('usuario', session('config_usuario_id'))
@@ -256,10 +259,13 @@ trait Corte{
     public function getDatosCorte($iden){
         $detalles = [];
         $detalles = CorteDeCaja::where('id', $iden)->first();
-                
+        if (!$detalles) {
+            return [];
+        }
+
         $usr = User::select('name')->where('id', $detalles->usuario_corte)
                                    ->first();
-        $detalles->cajero = $usr->name;
+        $detalles->cajero = optional($usr)->name; // el usuario pudo ser eliminado
 
         return $detalles;
     }

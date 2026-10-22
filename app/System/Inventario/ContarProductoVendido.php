@@ -33,6 +33,9 @@ public function CantidadDeProducto($producto){
 
         // obterner cod de producto en factura y que esta asignado
         $codigo = Producto::select('cod')->where('id', $producto->producto)->first();
+        if (!$codigo) {
+            continue;
+        }
         $cantidad = TicketProductosSave::where('edo', 1)
                                     ->where('cod', $codigo->cod)
                                     ->whereDate('created_at', Carbon::now())

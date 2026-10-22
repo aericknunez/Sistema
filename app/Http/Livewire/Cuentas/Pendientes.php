@@ -86,7 +86,7 @@ class Pendientes extends Component
 
 
     public function destroy($id){
-        CuentasPagar::find($id)->delete();
+        CuentasPagar::destroy($id);
         $this->dispatchBrowserEvent('mensaje', 
                                     ['clase' => 'success', 
                                     'titulo' => 'Realizado', 

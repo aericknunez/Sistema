@@ -92,9 +92,12 @@ class IniciarController extends Controller
         
         $tipoPago = ConfigMoneda::where('activo', 1)
                                 ->where('edo', 1)->first();
+        if (!$tipoPago) { // sin tipo de pago de efectivo activo se toma cualquier activo para no bloquear el ingreso
+            $tipoPago = ConfigMoneda::where('edo', 1)->first();
+        }
 
-        session(['tipo_pago' => $tipoPago->id]);
-        session(['tipo_pagoM' => $tipoPago->moneda]);
+        session(['tipo_pago' => $tipoPago ? $tipoPago->id : 1]);
+        session(['tipo_pagoM' => $tipoPago ? $tipoPago->moneda : 'Efectivo']);
 
 
         // $ventas = $this->compruebaVentaRapida();
