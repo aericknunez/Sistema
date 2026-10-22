@@ -5,7 +5,7 @@
     <div class="anv-titulo">Existe una nueva versión de tu sistema y es importante que te cambies</div>
     <p class="anv-texto">
         Esta versión quedará <strong>sin soporte</strong>. La nueva es <strong>más rápida, más segura y más fácil de usar</strong>,
-        incluye muchísimas opciones más, como una app nativa para Android y comandas impresas configurables. Cambiarte es gratis.
+        incluye muchísimas opciones más, como una app nativa para Android y está potenciada con inteligencia artificial.
     </p>
     <a href="{{ route('nueva-version') }}" target="_blank" rel="noopener" class="anv-boton">Ver por qué debo cambiarme &rarr;</a>
     <p class="anv-contacto">Comunícate con
