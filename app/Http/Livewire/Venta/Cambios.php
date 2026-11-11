@@ -37,6 +37,7 @@ class Cambios extends Component
     public $search, $busqueda;
 
     public $numeroLineas;
+    public $llevarComerAqui; // establece el valor de la variable de session LLevar_aqi,mesa,delivery
 
 
     public function mount(){
