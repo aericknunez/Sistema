@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/menu', [LegacyImportController::class, 'menu']);
 Route::get('/clients', [LegacyImportController::class, 'clients']);
+Route::get('/users', [LegacyImportController::class, 'users']);
 Route::get('/panels', [LegacyImportController::class, 'panels']);
 Route::get('/tables', [LegacyImportController::class, 'tables']);
 Route::get('/credits', [LegacyImportController::class, 'credits']);

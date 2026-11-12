@@ -12,12 +12,14 @@ use App\Models\OpcionesSub;
 use App\Models\OrderImg;
 use App\Models\Producto;
 use App\Models\ProductoCategoria;
+use App\Models\User;
 
 /**
  * TEMPORAL (migracion a connect): devuelve los datos que importa el command legacy:import de connect.
  * Solo lee. Los filtros de negocio (opciones con menos de 2 variantes, categorias sin platillos, paneles
  * que coinciden) los aplica connect; aqui solo se filtran los registros activos.
  * Se borra al terminar la migracion (ver connect/docs/pending/plan-migracion-sistema.md).
+ * php8.3 artisan legacy:import 9 --origen=posrestaurant.hibridosv.com --dry-run
  */
 class LegacyImportController extends Controller
 {
@@ -48,6 +50,19 @@ class LegacyImportController extends Controller
                 'id', 'nombre', 'identidad', 'direccion', 'telefono', 'email', 'nacimiento', 'documento',
                 'registro', 'cliente', 'giro', 'departamento_doc', 'direccion_doc', 'edo', 'comentarios',
             ]),
+        ]);
+    }
+
+    public function users()
+    {
+        // solo los gerentes (tipo 2), sin las cuentas de Hibrido (ids 1 y 2): connect importa solo al gerente.
+        // password es el hash bcrypt: connect lo copia tal cual para que entre con la misma contrasena
+        return response()->json([
+            'users' => User::whereNotIn('id', [1, 2])
+                ->where('tipo_usuario', 2)
+                ->orderBy('id')
+                ->get(['id', 'name', 'email', 'tipo_usuario', 'password'])
+                ->map(fn ($user) => $user->makeVisible('password')),
         ]);
     }
 
