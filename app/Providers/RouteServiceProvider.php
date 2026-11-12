@@ -51,6 +51,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
+            // TEMPORAL: lectura del menu, clientes, paneles y mesas para la importacion a connect
+            Route::prefix('api/legacy-import')
+                ->middleware(array_merge($api, [\App\Http\Middleware\LegacyImportToken::class]))
+                ->namespace($this->namespace)
+                ->group(base_path('routes/legacy-import.php'));
+
             Route::middleware($web)
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
